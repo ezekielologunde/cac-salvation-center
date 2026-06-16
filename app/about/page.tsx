@@ -2,6 +2,7 @@ import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
+import Image from "next/image";
 
 const values = [
   { icon: "✝️", title: "Sound doctrine", desc: "Preaching the whole counsel of God, faithfully and without compromise." },
@@ -116,8 +117,8 @@ export default function AboutPage() {
           </Reveal>
           <div className="r3" style={{ gap: 22 }}>
             <Reveal style={{ background: "var(--ink)", color: "var(--cream)", borderRadius: 26, overflow: "hidden" }}>
-              <div style={{ height: 340, background: "linear-gradient(150deg,#2a1810,#1a0f08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ color: "rgba(255,247,239,.2)", fontSize: 13 }}>Senior Pastor photo</span>
+              <div style={{ height: 340, position: "relative" }}>
+                <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
               </div>
               <div style={{ padding: 26 }}>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26 }}>Pastor Dr. H.O. Ilufoye</div>
@@ -126,8 +127,8 @@ export default function AboutPage() {
               </div>
             </Reveal>
             <Reveal delay={100} style={{ background: "var(--paper)", borderRadius: 26, overflow: "hidden", boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
-              <div style={{ height: 280, background: "linear-gradient(150deg,#e8d5c0,#d4b896)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ color: "rgba(27,19,14,.3)", fontSize: 13 }}>Photo</span>
+              <div style={{ height: 280, position: "relative" }}>
+                <Image src="/images/worship.jpg" alt="Easter Sunday worship service" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
               </div>
               <div style={{ padding: 24 }}>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21 }}>Pastor (Mrs.) Ilufoye</div>
@@ -135,12 +136,12 @@ export default function AboutPage() {
               </div>
             </Reveal>
             <Reveal delay={200} style={{ background: "var(--paper)", borderRadius: 26, overflow: "hidden", boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
-              <div style={{ height: 280, background: "linear-gradient(150deg,#e8d5c0,#d4b896)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ color: "rgba(27,19,14,.3)", fontSize: 13 }}>Photo</span>
+              <div style={{ height: 280, position: "relative" }}>
+                <Image src="/images/choir.jpg" alt="CAC Salvation Center choir" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
               </div>
               <div style={{ padding: 24 }}>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21 }}>Ministry Lead</div>
-                <div style={{ color: "var(--red)", fontWeight: 700, fontSize: 13, marginTop: 4 }}>Associate</div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21 }}>The Choir</div>
+                <div style={{ color: "var(--red)", fontWeight: 700, fontSize: 13, marginTop: 4 }}>Worship Team</div>
               </div>
             </Reveal>
           </div>

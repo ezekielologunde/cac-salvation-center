@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function Storytelling() {
@@ -7,13 +8,8 @@ export function Storytelling() {
       <div className="r2c" style={{ maxWidth: 1200, margin: "0 auto", gap: "clamp(40px,5vw,80px)" }}>
         {/* Image placeholder */}
         <Reveal style={{ position: "relative" }}>
-          <div style={{
-            width: "100%", height: "clamp(320px,40vw,500px)", borderRadius: 24,
-            background: "linear-gradient(150deg,#d9c4b0,#c4a882)",
-            boxShadow: "0 24px 50px rgba(27,19,14,.16)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
-            <span style={{ color: "rgba(27,19,14,.4)", fontSize: 14, fontWeight: 600 }}>Pastor photo</span>
+          <div style={{ width: "100%", height: "clamp(320px,40vw,500px)", borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 50px rgba(27,19,14,.16)", position: "relative" }}>
+            <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye preaching" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
           </div>
           {/* Quote float */}
           <div style={{

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
 export function PlanVisit() {
@@ -36,13 +37,8 @@ export function PlanVisit() {
         </Reveal>
 
         <Reveal delay={120}>
-          <div style={{
-            width: '100%', height: 440, borderRadius: 26,
-            background: 'linear-gradient(150deg,#2a1810,#1a0f08)',
-            boxShadow: '0 26px 54px rgba(0,0,0,.4)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span style={{ color: 'rgba(255,247,239,.2)', fontSize: 14, fontWeight: 600 }}>Church building photo</span>
+          <div style={{ width: '100%', height: 440, borderRadius: 26, overflow: 'hidden', boxShadow: '0 26px 54px rgba(0,0,0,.4)', position: 'relative' }}>
+            <Image src="/images/stage.jpg" alt="CAC Salvation Center church interior" fill style={{ objectFit: 'cover', objectPosition: 'center' }} />
           </div>
         </Reveal>
       </div>

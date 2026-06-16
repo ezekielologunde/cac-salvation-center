@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -62,11 +63,7 @@ export function Nav({ dark = false }: NavProps) {
       >
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', color: ink, flexShrink: 0 }}>
-          <span style={{ width: 46, height: 46, borderRadius: 14, background: 'linear-gradient(150deg,#F15F22,#D62828 55%,#9E1B1B)', display: 'grid', placeItems: 'center', boxShadow: '0 8px 20px rgba(214,40,40,.4)', flexShrink: 0 }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M9.5 2.2h5v5.3h5.3v5h-5.3v9.3h-5v-9.3H4.2v-5h5.3z" fill="#fff" />
-            </svg>
-          </span>
+          <Image src="/images/logo.png" alt="CAC Salvation Center" width={46} height={46} style={{ borderRadius: 14, objectFit: 'cover', flexShrink: 0 }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: accent, fontWeight: 700 }}>Christ Apostolic Church</span>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 21, letterSpacing: '-.3px', marginTop: 3 }}>Salvation Center</span>

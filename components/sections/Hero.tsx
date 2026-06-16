@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { useCountdown } from "@/lib/useCountdown";
 
@@ -135,14 +136,9 @@ export function Hero() {
             <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, color: "var(--gold)", lineHeight: 1 }}>✦</span>
           </div>
 
-          {/* Image placeholder */}
-          <div style={{
-            width: "100%", height: "clamp(360px,42vw,540px)", borderRadius: 28,
-            background: "linear-gradient(150deg,var(--cream-2) 0%,#e8c9a8 100%)",
-            boxShadow: "0 30px 60px rgba(27,19,14,.18)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
-            <span style={{ color: "var(--ink-soft)", fontSize: 14, fontWeight: 600 }}>Worship photo</span>
+          {/* Worship photo */}
+          <div style={{ width: "100%", height: "clamp(360px,42vw,540px)", borderRadius: 28, overflow: "hidden", boxShadow: "0 30px 60px rgba(27,19,14,.18)", position: "relative" }}>
+            <Image src="/images/congregation.jpg" alt="Congregation worshipping at CAC Salvation Center" fill style={{ objectFit: "cover", objectPosition: "center top" }} priority />
           </div>
 
           {/* Morning Prayer chip */}
