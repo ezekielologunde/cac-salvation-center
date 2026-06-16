@@ -1,138 +1,51 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Flame, Zap, Globe, Music } from "lucide-react";
-import { FadeUp } from "@/components/ui/RevealText";
-
-const highlights = [
-  { icon: Flame, label: "Friday Nights", desc: "Wakati Itusile — high-energy Yoruba worship every Friday at 7 PM." },
-  { icon: Zap, label: "Young Adults", desc: "Relevant teaching for 18–35s navigating life, faith, and calling." },
-  { icon: Globe, label: "Online First", desc: "All mid-week services streamed live — join from anywhere on earth." },
-  { icon: Music, label: "Worship Culture", desc: "Spirit-led, contemporary worship rooted in deep biblical truth." },
-];
-
-const words = ["Young.", "Bold.", "Rooted."];
+import { Reveal } from '@/components/ui/Reveal';
 
 export function Youth() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y1 = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
   return (
-    <section
-      ref={ref}
-      className="relative bg-[#030303] section-pad overflow-hidden"
-      aria-labelledby="youth-heading"
-    >
-      {/* Bold background gradient */}
-      <motion.div
-        style={{ opacity }}
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0014] via-[#030303] to-[#030303]" />
-        <motion.div style={{ y: y1 }} className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-purple-600/[0.06] blur-[100px]" />
-        <motion.div style={{ y: y2 }} className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-gold/[0.05] blur-[80px]" />
-      </motion.div>
+    <section style={{ background: 'var(--cream-2)', padding: 'clamp(70px,9vw,120px) clamp(20px,5vw,64px)' }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+        <Reveal style={{ textAlign: 'center', marginBottom: 50 }}>
+          <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--red)' }}>Grow daily</span>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(36px,5vw,68px)', letterSpacing: '-1.5px', margin: '12px 0 0', lineHeight: 1 }}>
+            Inspiring resources for a better you
+          </h2>
+        </Reveal>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Large word stack */}
-        <div className="mb-20">
-          <FadeUp>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-8">
-              Youth &amp; Young Adults
-            </p>
-          </FadeUp>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr 1fr', gap: 22 }}>
+          <Reveal>
+            <a
+              href="https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none', color: '#fff', background: 'var(--ink)', borderRadius: 24, padding: 34, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 280, position: 'relative', overflow: 'hidden' }}
+            >
+              <div style={{ position: 'absolute', top: -50, right: -50, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle,#1DB954,transparent 68%)', opacity: .4 }} />
+              <div style={{ position: 'relative' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(29,185,84,.2)', color: '#5be584', fontWeight: 800, fontSize: 12, padding: '7px 13px', borderRadius: 999 }}>PODCAST · Spotify</span>
+              </div>
+              <div style={{ position: 'relative' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 38, lineHeight: 1, letterSpacing: '-1px' }}>Hope for<br />Today</div>
+                <div style={{ marginTop: 14, fontSize: 14.5, opacity: .8, display: 'flex', alignItems: 'center', gap: 8 }}>Listen to inspired messages <span style={{ fontSize: 18 }}>→</span></div>
+              </div>
+            </a>
+          </Reveal>
 
-          <div aria-label="Young. Bold. Rooted." className="space-y-1">
-            {words.map((word, i) => (
-              <motion.div
-                key={word}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-5%" }}
-                transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden"
-              >
-                <span
-                  className="block text-[clamp(3rem,10vw,8rem)] font-black leading-[0.92] tracking-tighter"
-                  style={{ fontFamily: "var(--font-playfair)" }}
-                >
-                  {i === 1 ? (
-                    <span className="text-gradient-gold">{word}</span>
-                  ) : (
-                    <span className="text-white/90">{word}</span>
-                  )}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+          <Reveal delay={100} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
+            <span style={{ width: 52, height: 52, borderRadius: 14, background: 'var(--cream-2)', display: 'grid', placeItems: 'center', fontSize: 26 }}>📖</span>
+            <div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>2026 Bible Reading Calendar</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>A chapter a day, through the Word as one church.</div>
+            </div>
+          </Reveal>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-8 text-white/40 max-w-md text-base leading-relaxed"
-          >
-            Faith that doesn&apos;t ask you to leave your generation at the door.
-            We meet you where you are — and walk with you toward who you&apos;re called to be.
-          </motion.p>
+          <Reveal delay={200} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
+            <span style={{ width: 52, height: 52, borderRadius: 14, background: 'var(--cream-2)', display: 'grid', placeItems: 'center', fontSize: 26 }}>🎯</span>
+            <div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>Daily Goal Setting</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>Practical tools to grow your faith and your week.</div>
+            </div>
+          </Reveal>
         </div>
-
-        {/* Highlights grid */}
-        <div
-          className="grid sm:grid-cols-2 md:grid-cols-4 gap-3"
-          role="list"
-          aria-label="Youth ministry highlights"
-        >
-          {highlights.map((h, i) => {
-            const Icon = h.icon;
-            return (
-              <motion.div
-                key={h.label}
-                role="listitem"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -6, transition: { type: "spring" as const, stiffness: 300, damping: 25 } }}
-                className="group glass rounded-2xl p-5 hover:border-white/15 cursor-default"
-              >
-                <div className="w-9 h-9 rounded-lg bg-white/[0.06] flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-colors duration-300">
-                  <Icon size={16} className="text-white/50 group-hover:text-gold transition-colors duration-300" aria-hidden />
-                </div>
-                <h3 className="text-sm font-bold text-white mb-1.5">{h.label}</h3>
-                <p className="text-xs text-white/40 leading-relaxed">{h.desc}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Social-style banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-10 glass-gold rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-        >
-          <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-1">Prayer Line · Every Day</p>
-            <p className="text-white/70 text-sm">
-              5:00 AM · Dial <strong className="text-white">(857) 216-6700</strong> · Code <strong className="text-white">531312</strong>
-            </p>
-          </div>
-          <a
-            href="tel:+18572166700"
-            className="flex-shrink-0 px-5 py-2.5 rounded-xl bg-gold text-black text-sm font-bold hover:bg-gold-light transition-colors"
-          >
-            Dial In
-          </a>
-        </motion.div>
       </div>
     </section>
   );

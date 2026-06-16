@@ -1,100 +1,84 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { FadeUp } from "@/components/ui/RevealText";
-
-const lines = [
-  { label: "Our mandate", text: "Preach the whole Gospel — in a clear and undiluted manner.", accent: false },
-  { label: "Our purpose", text: "Build God's ambassadors here on earth.", accent: true },
-  { label: "Our promise", text: "Everyone who walks through our doors finds a home.", accent: false },
-];
-
-function StoryLine({ line, index }: { line: typeof lines[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "start 0.3"] });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ opacity, y }}
-      className="py-16 md:py-24 border-b border-white/[0.05] last:border-0"
-    >
-      <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-[200px_1fr] gap-8 items-start">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-mono text-white/25 tabular-nums">0{index + 1}</span>
-          <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">{line.label}</span>
-        </div>
-        <p
-          className="text-[clamp(1.6rem,4vw,3rem)] font-bold leading-[1.2] tracking-tight"
-          style={{ fontFamily: "var(--font-playfair)" }}
-        >
-          {line.accent ? (
-            <span className="text-gradient-gold">{line.text}</span>
-          ) : (
-            <span className="text-white">{line.text}</span>
-          )}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function Storytelling() {
   return (
-    <section
-      id="about"
-      className="bg-[#030303] relative"
-      aria-labelledby="story-heading"
-    >
-      {/* Top divider glow */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden />
-
-      <div className="max-w-5xl mx-auto px-6 pt-24 pb-4 text-center">
-        <FadeUp>
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">Who We Are</p>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <h2
-            id="story-heading"
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black leading-[1.1] text-white"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            A church that feels like{" "}
-            <em className="not-italic text-gradient-gold">home.</em>
-          </h2>
-        </FadeUp>
-      </div>
-
-      {lines.map((line, i) => (
-        <StoryLine key={i} line={line} index={i} />
-      ))}
-
-      {/* Values grid */}
-      <div className="max-w-5xl mx-auto px-6 py-20">
-        <FadeUp>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3" role="list" aria-label="Our values">
-            {[
-              "Biblical Teaching",
-              "Genuine Community",
-              "Prayer & Worship",
-              "Multilingual Services",
-              "Youth Ministry",
-              "Online Accessibility",
-            ].map((v) => (
-              <div
-                key={v}
-                role="listitem"
-                className="glass rounded-xl px-5 py-4 text-sm font-medium text-white/60 hover:text-white/90 hover:border-white/15 transition-all duration-300 cursor-default group"
-              >
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold mr-2 group-hover:scale-125 transition-transform" aria-hidden />
-                {v}
-              </div>
-            ))}
+    <section style={{ background: "var(--cream-2)", padding: "100px clamp(20px,5vw,64px)" }}>
+      <div style={{
+        maxWidth: 1200, margin: "0 auto",
+        display: "grid", gridTemplateColumns: "1fr 1fr",
+        gap: "clamp(40px,5vw,80px)", alignItems: "center",
+      }}>
+        {/* Image placeholder */}
+        <Reveal style={{ position: "relative" }}>
+          <div style={{
+            width: "100%", height: "clamp(320px,40vw,500px)", borderRadius: 24,
+            background: "linear-gradient(150deg,#d9c4b0,#c4a882)",
+            boxShadow: "0 24px 50px rgba(27,19,14,.16)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <span style={{ color: "rgba(27,19,14,.4)", fontSize: 14, fontWeight: 600 }}>Pastor photo</span>
           </div>
-        </FadeUp>
+          {/* Quote float */}
+          <div style={{
+            position: "absolute", bottom: -24, right: -24,
+            background: "var(--red)", color: "#fff",
+            padding: "20px 24px", borderRadius: 18,
+            fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 15,
+            maxWidth: 200, lineHeight: 1.4,
+            boxShadow: "0 18px 36px rgba(214,40,40,.36)",
+          }}>
+            &ldquo;Preach the whole Gospel.&rdquo;
+          </div>
+        </Reveal>
+
+        {/* Copy */}
+        <div>
+          <Reveal>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>
+              Who We Are
+            </span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 style={{
+              fontFamily: "var(--font-display)", fontWeight: 800,
+              fontSize: "clamp(34px,4.5vw,60px)", letterSpacing: "-1.5px",
+              color: "var(--ink)", margin: "16px 0 0", lineHeight: .96,
+            }}>
+              A church that feels like home.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p style={{ fontSize: 17, color: "var(--ink-soft)", lineHeight: 1.7, margin: "24px 0 0", maxWidth: 460 }}>
+              Christ Apostolic Church Salvation Center is more than a church — it&apos;s a family. We exist to preach the undiluted Gospel, build God&apos;s ambassadors, and make sure everyone who walks through our doors finds a true home.
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 28 }}>
+              {[
+                { num: "01", text: "Preach the whole Gospel — in a clear and undiluted manner." },
+                { num: "02", text: "Build God's ambassadors here on earth." },
+                { num: "03", text: "Everyone who walks through our doors finds a home." },
+              ].map(item => (
+                <div key={item.num} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--red)", lineHeight: 1, flexShrink: 0, minWidth: 36 }}>{item.num}</span>
+                  <p style={{ fontSize: 15, color: "var(--ink)", lineHeight: 1.55, margin: 0 }}>{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={260}>
+            <Link href="/about" style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              marginTop: 36, fontWeight: 700, fontSize: 15,
+              color: "var(--ink)", textDecoration: "none",
+              padding: "14px 24px", borderRadius: 999,
+              border: "1.5px solid var(--ink)",
+            }}>
+              Learn Our Story →
+            </Link>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

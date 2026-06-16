@@ -1,129 +1,76 @@
-"use client";
+import { Reveal } from "@/components/ui/Reveal";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Music, Users, Zap, Heart } from "lucide-react";
-import { FadeUp } from "@/components/ui/RevealText";
-
-const cards = [
+const services = [
   {
-    icon: Music,
-    title: "Worship Experience",
-    short: "Spirit-led worship that moves you.",
-    detail: "Our Sunday worship blends contemporary sounds with deep reverence — creating a space where you can freely encounter God, whether you're a lifelong believer or just curious.",
-    color: "from-gold/10 to-gold/5",
-    border: "border-gold/20",
+    day: "Sunday",
+    name: "Main Service",
+    time: "10:30 AM ET",
+    desc: "Spirit-led worship, biblical teaching, and community. Our flagship gathering — onsite and online.",
+    dark: true,
   },
   {
-    icon: Users,
-    title: "Community Groups",
-    short: "Real friendships. Real life.",
-    detail: "Life is better together. Our midweek groups meet online and in person — covering Bible study, prayer circles, and Yoruba-language fellowship for our diaspora family.",
-    color: "from-blue-500/10 to-blue-500/5",
-    border: "border-blue-500/20",
+    day: "Wednesday",
+    name: "Bible Study",
+    time: "7:00 PM ET",
+    desc: "Deep-dive scriptural teaching with Pastor Ilufoye. Join online from anywhere.",
+    dark: false,
   },
   {
-    icon: Zap,
-    title: "Youth Ministry",
-    short: "Faith that connects with your generation.",
-    detail: "Designed for teens and young adults, our youth ministry meets faith where culture is — with relevant teaching, mentorship, and a community that doesn't ask you to check your personality at the door.",
-    color: "from-purple-500/10 to-purple-500/5",
-    border: "border-purple-500/20",
-  },
-  {
-    icon: Heart,
-    title: "Kids Ministry",
-    short: "A safe, joyful space for little ones.",
-    detail: "From toddlers to preteens, our Kids Ministry creates age-appropriate environments where children discover the love of God through stories, creativity, and play.",
-    color: "from-rose-500/10 to-rose-500/5",
-    border: "border-rose-500/20",
+    day: "Friday",
+    name: "Wakati Itusile",
+    time: "7:00 PM ET",
+    desc: "High-energy Yoruba worship service celebrating our diaspora family. All are welcome.",
+    dark: false,
   },
 ];
 
-function ExpectCard({ card, index }: { card: typeof cards[0]; index: number }) {
-  const [hovered, setHovered] = useState(false);
-  const Icon = card.icon;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-5%" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`relative rounded-2xl border bg-gradient-to-br ${card.color} ${card.border} p-6 cursor-default overflow-hidden transition-all duration-300`}
-      style={{ backdropFilter: "blur(12px)" }}
-    >
-      {/* Hover glow */}
-      <motion.div
-        animate={{ opacity: hovered ? 1 : 0 }}
-        className="absolute inset-0 bg-white/[0.03] rounded-2xl pointer-events-none"
-      />
-
-      <div className="relative z-10">
-        <motion.div
-          animate={{ scale: hovered ? 1.1 : 1, rotate: hovered ? 5 : 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="w-11 h-11 rounded-xl bg-white/[0.08] flex items-center justify-center mb-5"
-        >
-          <Icon size={20} className="text-white/70" aria-hidden />
-        </motion.div>
-
-        <h3 className="text-lg font-bold text-white mb-2">{card.title}</h3>
-        <p className="text-sm text-white/50 leading-relaxed mb-4">{card.short}</p>
-
-        <AnimatePresence>
-          {hovered && (
-            <motion.p
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="text-sm text-white/65 leading-relaxed overflow-hidden"
-            >
-              {card.detail}
-            </motion.p>
-          )}
-        </AnimatePresence>
-
-        <motion.div
-          animate={{ opacity: hovered ? 1 : 0.4, x: hovered ? 4 : 0 }}
-          className="mt-4 text-xs font-semibold text-white/50 flex items-center gap-1"
-        >
-          Learn more
-          <span aria-hidden>→</span>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
 export function WhatToExpect() {
   return (
-    <section
-      id="services"
-      className="bg-[#030303] section-pad"
-      aria-labelledby="expect-heading"
-    >
-      <div className="max-w-5xl mx-auto px-6">
-        <FadeUp className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">What to Expect</p>
-          <h2
-            id="expect-heading"
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black text-white leading-[1.1]"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            There&apos;s a place for you here.
+    <section style={{ background: "var(--cream)", padding: "100px clamp(20px,5vw,64px)" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Reveal style={{ textAlign: "center", marginBottom: 16 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>
+            How We Gather
+          </span>
+        </Reveal>
+        <Reveal delay={80} style={{ textAlign: "center", marginBottom: 60 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,5vw,68px)", letterSpacing: "-1.5px", color: "var(--ink)", margin: 0, lineHeight: .95 }}>
+            Weekly Services
           </h2>
-          <p className="mt-4 text-white/45 max-w-lg mx-auto text-base leading-relaxed">
-            Hover each card to learn more about what life at CAC Salvation Center looks like.
-          </p>
-        </FadeUp>
+        </Reveal>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          {cards.map((card, i) => (
-            <ExpectCard key={card.title} card={card} index={i} />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          {services.map((s, i) => (
+            <Reveal key={s.name} delay={i * 100}>
+              <div style={{
+                borderRadius: 24, padding: "36px 32px",
+                background: s.dark ? "var(--ink)" : "var(--paper)",
+                boxShadow: s.dark ? "0 24px 50px rgba(27,19,14,.28)" : "0 10px 26px rgba(27,19,14,.06)",
+                border: s.dark ? "none" : "1px solid var(--line)",
+                height: "100%",
+              }}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24,
+                  background: s.dark ? "rgba(255,247,239,.1)" : "var(--cream-2)",
+                  padding: "6px 14px", borderRadius: 999,
+                }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: s.dark ? "var(--gold)" : "var(--red)", letterSpacing: "1px", textTransform: "uppercase" }}>{s.day}</span>
+                </div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, color: s.dark ? "var(--cream)" : "var(--ink)", letterSpacing: "-.4px", margin: "0 0 6px" }}>
+                  {s.name}
+                </h3>
+                <div style={{ fontWeight: 700, fontSize: 15, color: s.dark ? "var(--gold)" : "var(--red)", marginBottom: 18 }}>{s.time}</div>
+                <p style={{ fontSize: 15, color: s.dark ? "rgba(255,247,239,.65)" : "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>
+                  {s.desc}
+                </p>
+                <div style={{ marginTop: 28, display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.dark ? "var(--gold)" : "var(--red)", display: "inline-block" }} />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: s.dark ? "rgba(255,247,239,.5)" : "var(--ink-soft)" }}>
+                    Onsite &amp; Online
+                  </span>
+                </div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>

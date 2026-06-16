@@ -1,89 +1,52 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { FadeUp } from "@/components/ui/RevealText";
-
-const metrics = [
-  { value: 500, suffix: "+", label: "Lives Impacted", description: "People who found hope and community" },
-  { value: 12, suffix: "+", label: "Years Serving", description: "Faithfully rooted in Maryland" },
-  { value: 4, suffix: "×", label: "Weekly Services", description: "Online and in-person each week" },
-  { value: 100, suffix: "%", label: "Gospel Undiluted", description: "Our commitment, every sermon" },
-];
-
-function Counter({ value, suffix, duration = 2000 }: { value: number; suffix: string; duration?: number }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-
-  useEffect(() => {
-    if (!inView) return;
-    const start = performance.now();
-    const update = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }, [inView, value, duration]);
-
-  return (
-    <span ref={ref} aria-label={`${value}${suffix}`}>
-      {count}{suffix}
-    </span>
-  );
-}
+import { Reveal } from "@/components/ui/Reveal";
 
 export function Impact() {
   return (
-    <section
-      className="relative bg-[#030303] section-pad overflow-hidden"
-      aria-labelledby="impact-heading"
-    >
-      {/* Background element */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gold/[0.03] blur-[120px]" />
-      </div>
+    <section style={{
+      position: "relative", overflow: "hidden",
+      background: "linear-gradient(135deg,#D62828 0%,#9E1B1B 50%,#6B1010 100%)",
+      padding: "80px clamp(20px,5vw,64px)",
+    }}>
+      {/* Decorative texture */}
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 70% 50%,rgba(241,95,34,.3),transparent 60%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: -40, right: -40, width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,.04)", pointerEvents: "none" }} />
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <FadeUp className="text-center mb-20">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">The Numbers</p>
-          <h2
-            id="impact-heading"
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black text-white leading-[1.1]"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Impact you can feel.
+      <div style={{ position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+        <Reveal>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,.65)" }}>
+            Prayer Line
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(34px,4.5vw,58px)", letterSpacing: "-1.5px", color: "#fff", margin: "14px 0 20px", lineHeight: .96 }}>
+            Start Every Day in Prayer
           </h2>
-          <p className="mt-4 text-white/40 max-w-md mx-auto text-base">
-            Every number here represents a story — a life changed, a prayer answered, a family found.
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,.75)", lineHeight: 1.7, maxWidth: 420 }}>
+            Join our daily morning prayer line. Five minutes or fifty — come as you are, wherever you are.
           </p>
-        </FadeUp>
+        </Reveal>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.05] rounded-2xl overflow-hidden">
-          {metrics.map((m, i) => (
-            <motion.div
-              key={m.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#030303] px-8 py-10 text-center group hover:bg-[#0a0a0a] transition-colors duration-300"
-            >
-              <div
-                className="text-[clamp(2.5rem,6vw,4rem)] font-black leading-none text-gradient-gold glow-text-gold mb-3"
-                style={{ fontFamily: "var(--font-playfair)" }}
-                aria-hidden
-              >
-                <Counter value={m.value} suffix={m.suffix} />
-              </div>
-              <p className="text-sm font-bold text-white/80 mb-1">{m.label}</p>
-              <p className="text-xs text-white/35 leading-relaxed">{m.description}</p>
-            </motion.div>
-          ))}
-        </div>
+        <Reveal delay={120}>
+          <div style={{ background: "rgba(255,255,255,.1)", borderRadius: 24, padding: "36px 32px", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,.15)" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.6)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 10 }}>Dial in daily at</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,46px)", color: "#fff", letterSpacing: "-.5px", marginBottom: 6 }}>
+              5:00 AM ET
+            </div>
+            <a href="tel:+18572166700" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", color: "#FFD9A8", textDecoration: "none", marginBottom: 18 }}>
+              (857) 216-6700
+            </a>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,.65)", marginBottom: 24 }}>
+              Access Code: <strong style={{ color: "#fff" }}>531312</strong>
+            </div>
+            <a href="tel:+18572166700" style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              background: "#fff", color: "var(--red)",
+              fontWeight: 800, fontSize: 15,
+              padding: "14px 28px", borderRadius: 999,
+              textDecoration: "none",
+            }}>
+              📞 Dial In Now
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

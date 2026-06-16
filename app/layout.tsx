@@ -1,37 +1,35 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import { Playfair_Display } from "next/font/google";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { CustomCursor } from "@/components/ui/CustomCursor";
-import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
+  weight: ["400", "700", "800"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "CAC Salvation Center — Randallstown, MD",
   description:
-    "Find hope. Build faith. Change lives. A modern church community in Randallstown, Maryland — welcoming everyone.",
+    "Real worship, real community — preaching the whole Gospel in a clear and undiluted manner. Welcome home.",
   openGraph: {
     title: "CAC Salvation Center",
-    description: "Find hope. Build faith. Change lives.",
+    description: "Real worship, real community. Welcome home.",
     type: "website",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${playfair.variable}`}>
-      <body className="noise-overlay bg-[#030303] text-white antialiased overflow-x-hidden">
-        <CustomCursor />
-        <ScrollProgress />
-        <SmoothScroll>{children}</SmoothScroll>
+    <html lang="en" className={`${bricolage.variable} ${jakarta.variable}`}>
+      <body>
+        {children}
       </body>
     </html>
   );
