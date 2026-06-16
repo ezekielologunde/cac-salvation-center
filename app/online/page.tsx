@@ -61,9 +61,9 @@ export default function OnlinePage() {
                 <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", animation: "pulse-red 1.8s infinite", display: "inline-block" }} />
                 LIVE EVERY SUNDAY
               </div>
-              <button style={{ width: 88, height: 88, borderRadius: "50%", background: "rgba(255,255,255,.15)", border: "2px solid rgba(255,255,255,.3)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", backdropFilter: "blur(8px)", position: "relative", zIndex: 2 }} aria-label="Watch latest service">
+              <a href="https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" target="_blank" rel="noopener noreferrer" style={{ width: 88, height: 88, borderRadius: "50%", background: "rgba(255,255,255,.15)", border: "2px solid rgba(255,255,255,.3)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", backdropFilter: "blur(8px)", position: "relative", zIndex: 2 }} aria-label="Watch latest service on YouTube">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff" aria-hidden><path d="M8 5v14l11-7z" /></svg>
-              </button>
+              </a>
               <div style={{ position: "absolute", bottom: 20, left: 20, color: "rgba(255,255,255,.45)", fontSize: 14, fontWeight: 600, zIndex: 2 }}>
                 Latest Service · Pastor Dr. H.O. Ilufoye
               </div>

@@ -19,19 +19,14 @@ export function Sermons() {
 
         <Reveal delay={100}>
           <div style={{ position: 'relative', borderRadius: 28, overflow: 'hidden', background: 'var(--ink)', boxShadow: '0 40px 80px rgba(27,19,14,.26)' }}>
-            <div style={{ width: '100%', height: 'clamp(280px,46vw,520px)', background: 'linear-gradient(150deg,#1a0f08,#2d1510)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 40% 50%,rgba(241,95,34,.18),transparent 70%)' }} />
-              <div style={{
-                position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
-                width: 88, height: 88, borderRadius: '50%',
-                background: 'var(--red)', display: 'grid', placeItems: 'center',
-                boxShadow: '0 14px 40px rgba(214,40,40,.55)',
-              }}>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
-              </div>
-              <div style={{ position: 'absolute', bottom: 22, left: 24, color: 'rgba(255,247,239,.5)', fontSize: 13, fontWeight: 600 }}>
-                Latest Message · Pastor Dr. H.O. Ilufoye
-              </div>
+            <div style={{ width: '100%', height: 'clamp(280px,46vw,520px)', position: 'relative' }}>
+              <iframe
+                src="https://www.youtube.com/embed/gBGifbZSDBo"
+                title="Christ Apostolic Church — Vision and Mission"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+              />
             </div>
 
             <div style={{ padding: '20px 28px', display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', borderTop: '1px solid rgba(255,247,239,.06)', background: 'var(--ink)' }}>
