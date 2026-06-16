@@ -5,7 +5,8 @@ import Link from "next/link";
 const platforms = [
   { name: "YouTube", icon: "▶", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
   { name: "Facebook", icon: "f", desc: "Stream + community discussion", href: "https://www.facebook.com/CacSalvationCenterBaltimore" },
-  { name: "Spotify", icon: "♪", desc: "Sermon podcast — weekly", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
+  { name: "Zoom", icon: "📹", desc: "Join Sunday service live via Zoom", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
+  { name: "Spotify", icon: "♪", desc: "Hope for Today — weekly podcast", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
   { name: "Apple Podcasts", icon: "🎧", desc: "Subscribe for auto-downloads", href: "https://podcasts.apple.com/search?term=CAC+Salvation+Center" },
 ];
 
@@ -13,7 +14,7 @@ const schedule = [
   { day: "Sunday", name: "Main Service", time: "10:30 AM ET", type: "Onsite & Online" },
   { day: "Wednesday", name: "Bible Study", time: "7:00 PM ET", type: "Online Only" },
   { day: "Friday", name: "Wakati Itusile", time: "7:00 PM ET", type: "Online Only" },
-  { day: "Daily", name: "Morning Prayer", time: "5:00 AM ET", type: "Dial-in" },
+  { day: "Daily", name: "Morning Prayer Line", time: "5:00 AM ET", type: "(857) 216-6700 · Code: 531312" },
 ];
 
 export const metadata = {
@@ -85,7 +86,7 @@ export default function OnlinePage() {
           <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "#fff", margin: 0 }}>All the platforms.</h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+          <div className="r2" style={{ gap: 16 }}>
             {platforms.map((p, i) => (
               <Reveal key={p.name} delay={i * 60}>
                 <a href={p.href} style={{ display: "block", background: "rgba(255,255,255,.05)", borderRadius: 18, padding: "24px 22px", border: "1px solid rgba(255,255,255,.08)", textDecoration: "none" }}>

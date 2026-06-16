@@ -50,7 +50,7 @@ export default function AboutPage() {
 
       {/* Mission split */}
       <section style={{ background: "var(--cream-2)", padding: "100px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "start" }}>
+        <div className="r2" style={{ maxWidth: 1100, margin: "0 auto", gap: 60, alignItems: "start" }}>
           <Reveal>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,4vw,54px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: "0 0 24px", lineHeight: .96 }}>
               Our Mandate
@@ -73,10 +73,10 @@ export default function AboutPage() {
               Our Story
             </h2>
             <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.75, marginBottom: 20 }}>
-              CAC Salvation Center is part of the Christ Apostolic Church, one of the largest Pentecostal denominations in Africa, with roots dating back to the 1918 Pentecostal revival in Nigeria.
+              Founded in Baltimore in 2002, CAC Salvation Center grew from the vision of its parent assembly — C.A.C Salvation Centre, Ilorin, Nigeria — established on July 6, 1997, under Pastor Dr. H.O. Ilufoye.
             </p>
             <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.75 }}>
-              Our Randallstown, Maryland assembly was planted to serve the growing African diaspora community in the Baltimore–Washington corridor — bringing the same fire of authentic Apostolic worship to our neighbors and beyond.
+              Part of the Christ Apostolic Church — one of Africa&apos;s largest Pentecostal denominations — our mission is raising generations of believers liberated through the light of God&apos;s Word and prayer, in Maryland and beyond.
             </p>
           </Reveal>
         </div>
@@ -91,7 +91,7 @@ export default function AboutPage() {
               Core Values
             </h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}>
+          <div className="r3" style={{ gap: 18 }}>
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 80}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
@@ -114,7 +114,7 @@ export default function AboutPage() {
               Meet Our Pastor
             </h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 22 }}>
+          <div className="r3" style={{ gap: 22 }}>
             <Reveal style={{ background: "var(--ink)", color: "var(--cream)", borderRadius: 26, overflow: "hidden" }}>
               <div style={{ height: 340, background: "linear-gradient(150deg,#2a1810,#1a0f08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ color: "rgba(255,247,239,.2)", fontSize: 13 }}>Senior Pastor photo</span>

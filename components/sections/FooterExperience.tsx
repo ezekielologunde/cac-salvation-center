@@ -44,7 +44,7 @@ export function FooterExperience() {
         )}
       </Reveal>
 
-      <div style={{ maxWidth: 1240, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 40, paddingBottom: 40, borderBottom: '1px solid var(--line)' }}>
+      <div className="r-ft" style={{ maxWidth: 1240, margin: '0 auto', gap: 40, paddingBottom: 40, borderBottom: '1px solid var(--line)' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
             <span style={{ width: 46, height: 46, borderRadius: 14, background: 'linear-gradient(150deg,#F15F22,#D62828 55%,#9E1B1B)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>

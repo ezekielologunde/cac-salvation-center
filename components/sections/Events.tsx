@@ -24,7 +24,7 @@ export function Events() {
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(36px,5vw,68px)', letterSpacing: '-1.5px', margin: '12px 0 0', lineHeight: 1 }}>Upcoming events</h2>
         </Reveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
+        <div className="r2" style={{ gap: 22 }}>
           {events.map((ev, i) => (
             <Reveal key={ev.title} delay={i * 120} style={{ display: 'flex', gap: 24, alignItems: 'center', background: 'var(--paper)', borderRadius: 24, padding: 28, boxShadow: '0 10px 26px rgba(27,19,14,.06)' }}>
               <div style={{

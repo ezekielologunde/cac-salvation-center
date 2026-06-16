@@ -11,7 +11,7 @@ export function Impact() {
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 70% 50%,rgba(241,95,34,.3),transparent 60%)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", top: -40, right: -40, width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,.04)", pointerEvents: "none" }} />
 
-      <div style={{ position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+      <div className="r2c" style={{ position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto", gap: 60 }}>
         <Reveal>
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,.65)" }}>
             Prayer Line

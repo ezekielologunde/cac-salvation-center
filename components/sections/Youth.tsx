@@ -11,7 +11,7 @@ export function Youth() {
           </h2>
         </Reveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr 1fr', gap: 22 }}>
+        <div className="r3" style={{ gap: 22 }}>
           <Reveal>
             <a
               href="https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw"

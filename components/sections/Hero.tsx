@@ -35,10 +35,9 @@ export function Hero() {
         animation: "floaty 9s ease-in-out infinite", pointerEvents: "none",
       }} />
 
-      <div style={{
+      <div className="r-hero" style={{
         position: "relative", zIndex: 2,
-        display: "grid", gridTemplateColumns: "1.05fr .95fr",
-        gap: "clamp(32px,4vw,56px)", alignItems: "center",
+        gap: "clamp(32px,4vw,56px)",
         maxWidth: 1320, margin: "0 auto", width: "100%",
       }}>
         {/* Left copy */}
@@ -125,7 +124,7 @@ export function Hero() {
         {/* Right image */}
         <Reveal delay={200} style={{ position: "relative" }}>
           {/* Spinning stamp */}
-          <div style={{ position: "absolute", top: -18, right: -18, width: 120, height: 120, zIndex: 3, animation: "spin-slow 18s linear infinite" }}>
+          <div className="hide-sm" style={{ position: "absolute", top: -18, right: -18, width: 120, height: 120, zIndex: 3, animation: "spin-slow 18s linear infinite" }}>
             <svg viewBox="0 0 100 100" width="120" height="120">
               <defs><path id="stamp-circ" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" /></defs>
               <circle cx="50" cy="50" r="40" fill="var(--ink)" />

@@ -92,6 +92,34 @@
   50% { opacity: 0.9; }
 }
 
+/* ── Responsive layout utilities ── */
+.r2   { display: grid; grid-template-columns: 1fr 1fr; }
+.r2c  { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+.r3   { display: grid; grid-template-columns: repeat(3,1fr); }
+.r4   { display: grid; grid-template-columns: repeat(4,1fr); }
+.r-hero { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; }
+.r-ft { display: grid; grid-template-columns: 1.4fr 1fr 1fr; }
+
+@media (max-width: 900px) {
+  .r3   { grid-template-columns: 1fr 1fr; }
+  .r4   { grid-template-columns: 1fr 1fr; }
+  .r-ft { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .r2, .r2c, .r3, .r4, .r-hero, .r-ft { grid-template-columns: 1fr; }
+  .r2c  { align-items: start; }
+  .r-hero { align-items: start; }
+  .hide-sm { display: none !important; }
+}
+
+/* ── Nav responsive ── */
+.nav-desktop { display: flex; }
+.nav-hbg     { display: none; flex-direction: column; }
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-hbg     { display: flex; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

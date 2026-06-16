@@ -49,7 +49,7 @@ export default function VisitPage() {
 
       {/* Info cards */}
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}>
+        <div className="r3" style={{ maxWidth: 1100, margin: "0 auto", gap: 18 }}>
           {[
             { icon: "📍", title: "Address", value: "10710 Marriottsville Rd\nRandallstown, MD 21133", link: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
             { icon: "⏰", title: "Sunday Service", value: "Sunday School 9:25 AM\nService 10:30 AM ET", link: null },
@@ -72,7 +72,7 @@ export default function VisitPage() {
 
       {/* Map placeholder + First Sunday steps */}
       <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60 }}>
+        <div className="r2" style={{ maxWidth: 1100, margin: "0 auto", gap: 60 }}>
           <Reveal>
             {/* Map placeholder */}
             <div style={{ height: 320, borderRadius: 20, background: "linear-gradient(135deg,var(--cream-2),#e8c9a8)", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--line)", marginBottom: 20 }}>
@@ -142,7 +142,7 @@ export default function VisitPage() {
                 <p style={{ fontSize: 15, color: "rgba(255,247,239,.6)", margin: 0 }}>See you Sunday. 🙏</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <form onSubmit={handleSubmit} className="r2" style={{ gap: 16 }}>
                 {[
                   { id: "first", label: "First Name", placeholder: "Jane", type: "text", span: 1 },
                   { id: "last", label: "Last Name", placeholder: "Smith", type: "text", span: 1 },

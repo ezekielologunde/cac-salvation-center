@@ -4,11 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 export function Storytelling() {
   return (
     <section style={{ background: "var(--cream-2)", padding: "100px clamp(20px,5vw,64px)" }}>
-      <div style={{
-        maxWidth: 1200, margin: "0 auto",
-        display: "grid", gridTemplateColumns: "1fr 1fr",
-        gap: "clamp(40px,5vw,80px)", alignItems: "center",
-      }}>
+      <div className="r2c" style={{ maxWidth: 1200, margin: "0 auto", gap: "clamp(40px,5vw,80px)" }}>
         {/* Image placeholder */}
         <Reveal style={{ position: "relative" }}>
           <div style={{

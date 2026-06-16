@@ -77,7 +77,7 @@ export function GlobalChurches() {
           <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'var(--red)', display: 'inline-block' }} />
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(22px,2.6vw,30px)', letterSpacing: '-.6px', margin: 0 }}>District Churches · United States</h3>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18, marginBottom: 40 }}>
+        <div className="r3" style={{ gap: 18, marginBottom: 40 }}>
           {usChurches.map((c, i) => (
             <Reveal key={c.name} delay={i * 100} style={{ background: 'var(--paper)', borderRadius: 22, padding: 28, boxShadow: '0 10px 26px rgba(27,19,14,.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--red)', fontSize: 13, fontWeight: 800, marginBottom: 12 }}>
@@ -94,7 +94,7 @@ export function GlobalChurches() {
           <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(22px,2.6vw,30px)', letterSpacing: '-.6px', margin: 0 }}>Extension Churches · Nigeria</h3>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 18 }}>
+        <div className="r4" style={{ gap: 18 }}>
           {ngChurches.map((c, i) => (
             <Reveal key={c.name} delay={i * 80} style={{ background: 'var(--paper)', borderRadius: 22, padding: 26, boxShadow: '0 10px 26px rgba(27,19,14,.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#B7791F', fontSize: 12.5, fontWeight: 800, marginBottom: 11 }}>

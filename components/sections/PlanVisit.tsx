@@ -4,7 +4,7 @@ import { Reveal } from '@/components/ui/Reveal';
 export function PlanVisit() {
   return (
     <section style={{ background: 'var(--ink)', color: 'var(--cream)', padding: 'clamp(70px,9vw,120px) clamp(20px,5vw,64px)' }}>
-      <div style={{ maxWidth: 1240, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+      <div className="r2c" style={{ maxWidth: 1240, margin: '0 auto', gap: 56 }}>
         <Reveal>
           <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)' }}>Come visit</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(36px,5vw,64px)', letterSpacing: '-1.5px', margin: '12px 0 22px', lineHeight: 1 }}>

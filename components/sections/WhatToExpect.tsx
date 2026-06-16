@@ -39,7 +39,7 @@ export function WhatToExpect() {
           </h2>
         </Reveal>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+        <div className="r3" style={{ gap: 20 }}>
           {services.map((s, i) => (
             <Reveal key={s.name} delay={i * 100}>
               <div style={{

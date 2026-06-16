@@ -99,16 +99,21 @@ export default function GivingPage() {
               </div>
 
               {/* CTA */}
-              <button style={{
-                width: "100%", padding: "18px", borderRadius: 999,
-                background: "var(--red)", color: "#fff",
-                fontWeight: 800, fontSize: 17, border: "none", cursor: "pointer",
-                boxShadow: "0 14px 30px rgba(214,40,40,.34)",
-              }}>
-                {displayAmount ? `Give $${displayAmount} securely →` : "Give Securely →"}
-              </button>
+              <a
+                href="https://give.tithe.ly/?formId=e825a9a7-4c8a-4ca3-9ca0-35fa0928767f"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block", width: "100%", padding: "18px", borderRadius: 999,
+                  background: "var(--red)", color: "#fff",
+                  fontWeight: 800, fontSize: 17, textDecoration: "none", textAlign: "center",
+                  boxShadow: "0 14px 30px rgba(214,40,40,.34)",
+                }}
+              >
+                {displayAmount ? `Give $${displayAmount} via Tithe.ly →` : "Give Securely →"}
+              </a>
               <p style={{ fontSize: 13, color: "var(--ink-soft)", textAlign: "center", marginTop: 16 }}>
-                Secure payment · Tax-deductible · No account required
+                Secure · Tax-deductible · No account required · Zelle: (443) 675-8889
               </p>
             </div>
           </Reveal>
@@ -121,11 +126,11 @@ export default function GivingPage() {
           <Reveal style={{ textAlign: "center", marginBottom: 52 }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4vw,54px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: 0 }}>Other Ways to Give</h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}>
+          <div className="r3" style={{ gap: 18 }}>
             {[
-              { icon: "🙏", title: "In person", desc: "During any Sunday service at the Salvation Center, Randallstown." },
-              { icon: "🌍", title: "Missions & outreach", desc: "Carrying the Great Commission to our community and the nations." },
-              { icon: "📞", title: "By phone", desc: "Call the church office at +1 443-272-6794 to give or set up recurring." },
+              { icon: "💳", title: "Zelle", desc: "Send directly to (443) 675-8889. Add your name and fund (e.g. Tithes) in the memo." },
+              { icon: "🙏", title: "In person", desc: "Cash or check (payable to CAC Salvation Center) during any Sunday service." },
+              { icon: "📞", title: "By phone", desc: "Call the church office at +1 443-272-6794 to set up a one-time or recurring gift." },
             ].map((w, i) => (
               <Reveal key={w.title} delay={i * 80}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
