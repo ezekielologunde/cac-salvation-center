@@ -16,7 +16,7 @@ export function Hero() {
       {/* YouTube background video — muted autoplay */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
         <iframe
-          src="https://www.youtube.com/embed/gBGifbZSDBo?autoplay=1&mute=1&loop=1&playlist=gBGifbZSDBo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+          src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
           title=""
           allow="autoplay; encrypted-media"
           aria-hidden="true"
