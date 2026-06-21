@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { CreditCard, Banknote, Phone } from "lucide-react";
 
 const amounts = [25, 50, 100, 250, 500];
 const funds = ["Tithes & Offerings", "Missions", "Building Fund"];
@@ -128,13 +130,13 @@ export default function GivingPage() {
           </Reveal>
           <div className="r3" style={{ gap: 18 }}>
             {[
-              { icon: "💳", title: "Zelle", desc: "Send directly to (443) 675-8889. Add your name and fund (e.g. Tithes) in the memo." },
-              { icon: "🙏", title: "In person", desc: "Cash or check (payable to CAC Salvation Center) during any Sunday service." },
-              { icon: "📞", title: "By phone", desc: "Call the church office at +1 443-272-6794 to set up a one-time or recurring gift." },
+              { icon: CreditCard, title: "Zelle", desc: "Send directly to (443) 675-8889. Add your name and fund (e.g. Tithes) in the memo." },
+              { icon: Banknote, title: "In person", desc: "Cash or check (payable to CAC Salvation Center) during any Sunday service." },
+              { icon: Phone, title: "By phone", desc: "Call the church office at +1 443-272-6794 to set up a one-time or recurring gift." },
             ].map((w, i) => (
               <Reveal key={w.title} delay={i * 80}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
-                  <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>{w.icon}</span>
+                  <IconBadge icon={w.icon} style={{ marginBottom: 16 }} />
                   <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 10px" }}>{w.title}</h3>
                   <p style={{ fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>{w.desc}</p>
                 </div>

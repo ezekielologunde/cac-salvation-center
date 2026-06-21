@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { MapPin, Clock, Phone, PartyPopper } from "lucide-react";
 
 const faqs = [
   { q: "What should I wear?", a: "Come as you are. Some members dress formally, others casually — all are equally welcome." },
@@ -51,13 +53,13 @@ export default function VisitPage() {
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px)" }}>
         <div className="r3" style={{ maxWidth: 1100, margin: "0 auto", gap: 18 }}>
           {[
-            { icon: "📍", title: "Address", value: "10710 Marriottsville Rd\nRandallstown, MD 21133", link: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
-            { icon: "⏰", title: "Sunday Service", value: "Sunday School 9:25 AM\nService 10:30 AM ET", link: null },
-            { icon: "📞", title: "Phone", value: "+1 443-272-6794\n+1 410-701-8315", link: "tel:+14432726794" },
+            { icon: MapPin, title: "Address", value: "10710 Marriottsville Rd\nRandallstown, MD 21133", link: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
+            { icon: Clock, title: "Sunday Service", value: "Sunday School 9:25 AM\nService 10:30 AM ET", link: null },
+            { icon: Phone, title: "Phone", value: "+1 443-272-6794\n+1 410-701-8315", link: "tel:+14432726794" },
           ].map((card, i) => (
             <Reveal key={card.title} delay={i * 80}>
               <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
-                <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>{card.icon}</span>
+                <IconBadge icon={card.icon} style={{ marginBottom: 16 }} />
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 8 }}>{card.title}</div>
                 {card.link ? (
                   <a href={card.link} style={{ fontSize: 16, fontWeight: 700, color: "var(--ink)", textDecoration: "none", lineHeight: 1.6, display: "block", whiteSpace: "pre-line" }}>{card.value}</a>
@@ -75,8 +77,9 @@ export default function VisitPage() {
         <div className="r2" style={{ maxWidth: 1100, margin: "0 auto", gap: 60 }}>
           <Reveal>
             {/* Map placeholder */}
-            <div style={{ height: 320, borderRadius: 20, background: "linear-gradient(135deg,var(--cream-2),#e8c9a8)", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--line)", marginBottom: 20 }}>
-              <span style={{ color: "var(--ink-soft)", fontSize: 14 }}>📍 10710 Marriottsville Rd, Randallstown MD</span>
+            <div style={{ height: 320, borderRadius: 20, background: "linear-gradient(135deg,var(--cream-2),#e8c9a8)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, border: "1px solid var(--line)", marginBottom: 20 }}>
+              <MapPin size={18} strokeWidth={1.75} color="var(--red)" aria-hidden />
+              <span style={{ color: "var(--ink-soft)", fontSize: 14 }}>10710 Marriottsville Rd, Randallstown MD</span>
             </div>
             <a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>Get Directions →</a>
           </Reveal>
@@ -137,9 +140,9 @@ export default function VisitPage() {
           <Reveal delay={80}>
             {submitted ? (
               <div style={{ textAlign: "center", padding: "48px", background: "rgba(255,247,239,.06)", borderRadius: 20, border: "1px solid rgba(255,247,239,.12)" }}>
-                <div style={{ fontSize: 40, marginBottom: 16 }}>🎉</div>
+                <PartyPopper size={44} strokeWidth={1.75} color="var(--gold)" aria-hidden style={{ margin: "0 auto 16px" }} />
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "#fff", margin: "0 0 8px" }}>You&apos;re on the list!</p>
-                <p style={{ fontSize: 15, color: "rgba(255,247,239,.6)", margin: 0 }}>See you Sunday. 🙏</p>
+                <p style={{ fontSize: 15, color: "rgba(255,247,239,.6)", margin: 0 }}>See you Sunday.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="r2" style={{ gap: 16 }}>

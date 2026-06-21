@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Check } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 
 const socials = [
@@ -33,7 +34,7 @@ export function FooterExperience() {
           <p style={{ fontSize: 15, color: 'var(--ink-soft)', margin: '10px 0 0' }}>Monthly encouragement, straight to your inbox.</p>
         </div>
         {submitted ? (
-          <div style={{ fontWeight: 700, color: '#16A34A', fontSize: 15 }}>Subscribed ✓</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, color: '#16A34A', fontSize: 15 }}><Check size={18} strokeWidth={2.5} aria-hidden /> Subscribed</div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <input type="email" required placeholder="your email"

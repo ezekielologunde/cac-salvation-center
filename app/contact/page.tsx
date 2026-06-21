@@ -2,6 +2,8 @@
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useEffect } from "react";
 
 export default function ContactPage() {
@@ -56,14 +58,14 @@ export default function ContactPage() {
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
             {[
-              { icon: "📍", title: "Address", lines: ["10710 Marriottsville Rd", "Randallstown, MD 21133"], href: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
-              { icon: "📞", title: "Phone", lines: ["+1 443-272-6794", "+1 410-701-8315"], href: "tel:+14432726794" },
-              { icon: "✉️", title: "Email", lines: ["info@cacsalvationcenter.org"], href: "mailto:info@cacsalvationcenter.org" },
-              { icon: "⏰", title: "Sunday Service", lines: ["Sunday School 9:25 AM", "Main Service 10:30 AM ET"], href: null },
+              { icon: MapPin, title: "Address", lines: ["10710 Marriottsville Rd", "Randallstown, MD 21133"], href: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
+              { icon: Phone, title: "Phone", lines: ["+1 443-272-6794", "+1 410-701-8315"], href: "tel:+14432726794" },
+              { icon: Mail, title: "Email", lines: ["info@cacsalvationcenter.org"], href: "mailto:info@cacsalvationcenter.org" },
+              { icon: Clock, title: "Sunday Service", lines: ["Sunday School 9:25 AM", "Main Service 10:30 AM ET"], href: null },
             ].map((card) => (
               <Reveal key={card.title}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
-                  <span style={{ fontSize: 30, display: "block", marginBottom: 14 }}>{card.icon}</span>
+                  <IconBadge icon={card.icon} style={{ marginBottom: 14 }} />
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 8 }}>{card.title}</div>
                   {card.href ? (
                     <a href={card.href} style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", textDecoration: "none", lineHeight: 1.65 }}>

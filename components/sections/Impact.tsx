@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Phone } from "lucide-react";
 
 export function Impact() {
   return (
@@ -45,7 +46,8 @@ export function Impact() {
                 padding: "14px 28px", borderRadius: 999,
                 textDecoration: "none",
               }}>
-                📞 Dial In Now
+                <Phone size={17} strokeWidth={2} aria-hidden />
+                Dial In Now
               </a>
             </Magnetic>
           </div>

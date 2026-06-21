@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
 export function PlanVisit() {
   return (
@@ -16,12 +17,14 @@ export function PlanVisit() {
           </p>
           <div style={{ marginTop: 30, display: 'flex', flexDirection: 'column', gap: 14, fontSize: 15.5 }}>
             {[
-              { icon: '📍', text: '10710 Marriottsville Rd, Randallstown, MD 21133' },
-              { icon: '📞', text: '+1 443-272-6794 · +1 410-701-8315' },
-              { icon: '✉️', text: 'info@cacsalvationcenter.org' },
+              { icon: MapPin, text: '10710 Marriottsville Rd, Randallstown, MD 21133' },
+              { icon: Phone, text: '+1 443-272-6794 · +1 410-701-8315' },
+              { icon: Mail, text: 'info@cacsalvationcenter.org' },
             ].map(item => (
-              <div key={item.icon} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <span style={{ width: 40, height: 40, borderRadius: 11, background: 'rgba(255,255,255,.1)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>{item.icon}</span>
+              <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <span style={{ width: 40, height: 40, borderRadius: 11, background: 'rgba(255,255,255,.1)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  <item.icon size={18} strokeWidth={1.75} color="var(--gold)" aria-hidden />
+                </span>
                 {item.text}
               </div>
             ))}

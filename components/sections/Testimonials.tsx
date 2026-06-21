@@ -1,3 +1,5 @@
+import { Star } from "lucide-react";
+
 const phrases = [
   "Welcome Home",
   "Come As You Are",
@@ -26,7 +28,7 @@ export function Testimonials() {
         {doubled.map((phrase, i) => (
           <span key={i}>
             <span style={{ margin: "0 24px" }}>{phrase}</span>
-            <span style={{ color: "var(--gold)", marginRight: 24 }}>✦</span>
+            <Star size={16} fill="var(--gold)" color="var(--gold)" style={{ verticalAlign: "middle", marginRight: 24 }} aria-hidden />
           </span>
         ))}
       </div>
