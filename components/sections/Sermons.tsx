@@ -1,13 +1,9 @@
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
+import { getSermons, formatSermonDate } from '@/lib/sermons';
 
-const pastStreams = [
-  { id: 'xIZBd9UYIDw', title: 'Sunday Worship Service', date: 'Salvation Center' },
-  { id: 'RX1NjOYtDxo', title: 'Praise & Worship', date: 'Salvation Center' },
-  { id: 'gBGifbZSDBo', title: 'CAC Vision & Mission', date: 'Salvation Center' },
-];
-
-export function Sermons() {
+export async function Sermons() {
+  const pastStreams = await getSermons(3);
   return (
     <section style={{ background: 'var(--cream)', padding: 'clamp(70px,9vw,120px) clamp(20px,5vw,64px)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
@@ -90,7 +86,7 @@ export function Sermons() {
                 </div>
                 <div style={{ padding: '14px 16px 16px' }}>
                   <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--cream)', lineHeight: 1.4 }}>{v.title}</div>
-                  <div style={{ fontSize: 12, color: 'rgba(255,247,239,.5)', marginTop: 4 }}>{v.date}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(255,247,239,.5)', marginTop: 4 }}>{formatSermonDate(v.published)}</div>
                 </div>
               </a>
             ))}

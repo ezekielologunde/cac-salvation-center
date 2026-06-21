@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import Image from "next/image";
 import Link from "next/link";
+import { getSermons, formatSermonDate } from "@/lib/sermons";
 
 const platforms = [
   { name: "YouTube", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
@@ -19,18 +20,13 @@ const schedule = [
   { day: "Daily", name: "Morning Prayer Line", time: "5:00 AM ET", type: "(857) 216-6700 · Code: 531312" },
 ];
 
-const pastSermons = [
-  { id: "xIZBd9UYIDw", title: "Sunday Worship Service", date: "CAC Salvation Center" },
-  { id: "RX1NjOYtDxo", title: "Praise & Worship Service", date: "CAC Salvation Center" },
-  { id: "gBGifbZSDBo", title: "CAC Vision & Mission", date: "CAC Salvation Center" },
-];
-
 export const metadata = {
   title: "Watch Online — CAC Salvation Center",
   description: "Join CAC Salvation Center live or on demand — every Sunday 10:30 AM ET. Stream on YouTube, Facebook, and podcast.",
 };
 
-export default function OnlinePage() {
+export default async function OnlinePage() {
+  const pastSermons = await getSermons(9);
   return (
     <main style={{ background: "#0C0E13", minHeight: "100vh" }}>
       <Nav dark />
@@ -123,7 +119,7 @@ export default function OnlinePage() {
                   </div>
                   <div style={{ padding: "16px 18px 18px" }}>
                     <div style={{ fontSize: 14.5, fontWeight: 700, color: "#fff", lineHeight: 1.4 }}>{v.title}</div>
-                    <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 6 }}>{v.date}</div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 6 }}>{formatSermonDate(v.published)}</div>
                   </div>
                 </a>
               </Reveal>
