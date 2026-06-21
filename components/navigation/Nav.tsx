@@ -15,8 +15,7 @@ const navItems: NavItem[] = [
     label: 'Who We Are',
     href: '/about',
     dropdown: [
-      { href: '/about', label: 'About Us', desc: 'Our story, values & mission' },
-      { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors' },
+      { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors & team' },
     ],
   },
   {
@@ -33,12 +32,15 @@ const navItems: NavItem[] = [
 
 interface NavProps {
   dark?: boolean;
+  /** Hero behind the nav is dark at the top of the page (so the bar needs light text until scrolled). */
+  heroDark?: boolean;
 }
 
-export function Nav({ dark = false }: NavProps) {
+export function Nav({ dark = false, heroDark = false }: NavProps) {
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
 
@@ -46,16 +48,17 @@ export function Nav({ dark = false }: NavProps) {
     const nav = navRef.current;
     if (!nav) return;
     const update = () => {
-      const scrolled = window.scrollY > 36;
+      const isScrolled = window.scrollY > 36;
+      setScrolled(isScrolled);
       nav.style.background = open
         ? dark ? 'rgba(12,14,19,.97)' : 'rgba(255,247,239,.97)'
-        : scrolled
+        : isScrolled
         ? dark ? 'rgba(12,14,19,.85)' : 'rgba(255,247,239,.92)'
         : 'transparent';
-      nav.style.boxShadow = scrolled && !open
+      nav.style.boxShadow = isScrolled && !open
         ? dark ? '0 6px 24px rgba(0,0,0,.4)' : '0 6px 24px rgba(27,19,14,.08)'
         : 'none';
-      nav.style.backdropFilter = scrolled || open ? 'blur(12px)' : 'none';
+      nav.style.backdropFilter = isScrolled || open ? 'blur(12px)' : 'none';
     };
     update();
     window.addEventListener('scroll', update, { passive: true });
@@ -71,6 +74,11 @@ export function Nav({ dark = false }: NavProps) {
 
   const ink = dark ? 'var(--cream)' : 'var(--ink)';
   const accent = dark ? 'var(--gold)' : 'var(--red)';
+  // Top-bar link colors are scroll-aware so they stay legible over a dark hero
+  // at the top, then flip to ink once the cream nav background fades in.
+  const lightBar = dark || (heroDark && !scrolled && !open);
+  const barInk = lightBar ? 'var(--cream)' : 'var(--ink)';
+  const barAccent = lightBar ? 'var(--gold)' : 'var(--red)';
 
   return (
     <>
@@ -84,10 +92,10 @@ export function Nav({ dark = false }: NavProps) {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', color: ink, flexShrink: 0 }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', color: barInk, flexShrink: 0, transition: 'color .4s' }}>
           <Image src="/images/logo.png" alt="CAC Salvation Center" width={46} height={46} style={{ borderRadius: 14, objectFit: 'cover', flexShrink: 0 }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: accent, fontWeight: 700 }}>Christ Apostolic Church</span>
+            <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: barAccent, fontWeight: 700, transition: 'color .4s' }}>Christ Apostolic Church</span>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 21, letterSpacing: '-.3px', marginTop: 3 }}>Salvation Center</span>
           </span>
         </Link>
@@ -102,22 +110,22 @@ export function Nav({ dark = false }: NavProps) {
               return (
                 <div
                   key={item.label}
-                  style={{ position: 'relative' }}
+                  style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
                   onMouseEnter={() => setOpenDropdown(item.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button style={{
+                  <Link href={item.href!} style={{
                     display: 'flex', alignItems: 'center', gap: 5,
-                    background: 'none', border: 'none', cursor: 'pointer',
                     fontSize: 14.5, fontWeight: active ? 700 : 600,
-                    color: active ? accent : ink,
+                    color: active ? barAccent : barInk,
+                    textDecoration: 'none', transition: 'color .4s',
                     padding: '8px 14px', borderRadius: 8,
                   }}>
                     {item.label}
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
-                  </button>
+                  </Link>
                   {isOpen && (
                     <div style={{
                       position: 'absolute', top: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
@@ -145,8 +153,9 @@ export function Nav({ dark = false }: NavProps) {
             return (
               <Link key={item.label} href={item.href!} style={{
                 fontSize: 14.5, fontWeight: active ? 700 : 600,
-                color: active ? accent : ink,
+                color: active ? barAccent : barInk,
                 textDecoration: 'none', padding: '8px 14px', borderRadius: 8,
+                transition: 'color .4s',
               }}>
                 {item.label}
               </Link>
@@ -165,7 +174,7 @@ export function Nav({ dark = false }: NavProps) {
           onClick={() => setOpen(o => !o)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: ink, gap: 5, alignItems: 'center' }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, gap: 5, alignItems: 'center', transition: 'color .4s' }}
         >
           <span style={{ display: 'block', width: 24, height: 2, background: 'currentColor', borderRadius: 2, transition: 'transform .25s', transform: open ? 'translateY(7px) rotate(45deg)' : 'none' }} />
           <span style={{ display: 'block', width: 24, height: 2, background: 'currentColor', borderRadius: 2, transition: 'opacity .25s', opacity: open ? 0 : 1 }} />

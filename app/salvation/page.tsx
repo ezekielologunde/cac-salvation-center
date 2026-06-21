@@ -40,7 +40,7 @@ const scriptures = [
 export default function SalvationPage() {
   return (
     <main>
-      <Nav />
+      <Nav heroDark />
 
       {/* Hero */}
       <section style={{ background: "var(--ink)", padding: "140px clamp(20px,5vw,64px) 80px", position: "relative", overflow: "hidden" }}>

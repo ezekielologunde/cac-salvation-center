@@ -1,13 +1,15 @@
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { Church, HeartHandshake, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 const values = [
-  { icon: "✝️", title: "Sound doctrine", desc: "Preaching the whole counsel of God, faithfully and without compromise." },
-  { icon: "🤝", title: "Real community", desc: "A family that worships, prays and grows together — onsite and online." },
-  { icon: "🌍", title: "Ambassadors", desc: "Equipping every believer to carry the Kingdom into everyday life." },
+  { icon: Church, title: "Sound doctrine", desc: "Preaching the whole counsel of God, faithfully and without compromise." },
+  { icon: HeartHandshake, title: "Real community", desc: "A family that worships, prays and grows together — onsite and online." },
+  { icon: Globe, title: "Ambassadors", desc: "Equipping every believer to carry the Kingdom into everyday life." },
 ];
 
 export const metadata = {
@@ -96,7 +98,7 @@ export default function AboutPage() {
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 80}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
-                  <span style={{ fontSize: 32, marginBottom: 16, display: "block" }}>{v.icon}</span>
+                  <IconBadge icon={v.icon} style={{ marginBottom: 16 }} />
                   <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 10px" }}>{v.title}</h3>
                   <p style={{ fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>{v.desc}</p>
                 </div>

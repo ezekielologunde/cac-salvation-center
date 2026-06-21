@@ -1,4 +1,6 @@
 import { Reveal } from '@/components/ui/Reveal';
+import { IconBadge } from '@/components/ui/IconBadge';
+import { BookOpen, Target } from 'lucide-react';
 
 export function Youth() {
   return (
@@ -31,7 +33,7 @@ export function Youth() {
           </Reveal>
 
           <Reveal delay={100} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
-            <span style={{ width: 52, height: 52, borderRadius: 14, background: 'var(--cream-2)', display: 'grid', placeItems: 'center', fontSize: 26 }}>📖</span>
+            <IconBadge icon={BookOpen} />
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>2026 Bible Reading Calendar</div>
               <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>A chapter a day, through the Word as one church.</div>
@@ -39,7 +41,7 @@ export function Youth() {
           </Reveal>
 
           <Reveal delay={200} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
-            <span style={{ width: 52, height: 52, borderRadius: 14, background: 'var(--cream-2)', display: 'grid', placeItems: 'center', fontSize: 26 }}>🎯</span>
+            <IconBadge icon={Target} />
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>Daily Goal Setting</div>
               <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>Practical tools to grow your faith and your week.</div>

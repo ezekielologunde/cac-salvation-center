@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { MapPin, Clock, Phone, PartyPopper } from "lucide-react";
+import { submitLead, isValidEmail } from "@/lib/forms";
 
 const faqs = [
   { q: "What should I wear?", a: "Come as you are. Some members dress formally, others casually — all are equally welcome." },
@@ -16,10 +19,34 @@ export default function VisitPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ first: "", last: "", email: "", phone: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (form.first && form.email) setSubmitted(true);
+    const next: Record<string, string> = {};
+    if (!form.first.trim()) next.first = "Please enter your first name.";
+    if (!form.email.trim()) next.email = "Please enter your email.";
+    else if (!isValidEmail(form.email)) next.email = "Please enter a valid email address.";
+
+    setErrors(next);
+    if (Object.keys(next).length) {
+      const firstInvalid = ["first", "last", "email", "phone"].find(k => next[k]);
+      if (firstInvalid) document.getElementById(firstInvalid)?.focus();
+      return;
+    }
+
+    setSubmitError("");
+    setLoading(true);
+    try {
+      await submitLead(form, "Visit reservation");
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Something went wrong. Please try again, or call us at (443) 272-6794.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -51,13 +78,13 @@ export default function VisitPage() {
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px)" }}>
         <div className="r3" style={{ maxWidth: 1100, margin: "0 auto", gap: 18 }}>
           {[
-            { icon: "📍", title: "Address", value: "10710 Marriottsville Rd\nRandallstown, MD 21133", link: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
-            { icon: "⏰", title: "Sunday Service", value: "Sunday School 9:25 AM\nService 10:30 AM ET", link: null },
-            { icon: "📞", title: "Phone", value: "+1 443-272-6794\n+1 410-701-8315", link: "tel:+14432726794" },
+            { icon: MapPin, title: "Address", value: "10710 Marriottsville Rd\nRandallstown, MD 21133", link: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
+            { icon: Clock, title: "Sunday Service", value: "Sunday School 9:25 AM\nService 10:30 AM ET", link: null },
+            { icon: Phone, title: "Phone", value: "+1 443-272-6794\n+1 410-701-8315", link: "tel:+14432726794" },
           ].map((card, i) => (
             <Reveal key={card.title} delay={i * 80}>
               <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>
-                <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>{card.icon}</span>
+                <IconBadge icon={card.icon} style={{ marginBottom: 16 }} />
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 8 }}>{card.title}</div>
                 {card.link ? (
                   <a href={card.link} style={{ fontSize: 16, fontWeight: 700, color: "var(--ink)", textDecoration: "none", lineHeight: 1.6, display: "block", whiteSpace: "pre-line" }}>{card.value}</a>
@@ -74,11 +101,19 @@ export default function VisitPage() {
       <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)" }}>
         <div className="r2" style={{ maxWidth: 1100, margin: "0 auto", gap: 60 }}>
           <Reveal>
-            {/* Map placeholder */}
-            <div style={{ height: 320, borderRadius: 20, background: "linear-gradient(135deg,var(--cream-2),#e8c9a8)", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--line)", marginBottom: 20 }}>
-              <span style={{ color: "var(--ink-soft)", fontSize: 14 }}>📍 10710 Marriottsville Rd, Randallstown MD</span>
+            {/* Live, interactive map (no API key required) */}
+            <div style={{ height: 320, borderRadius: 20, overflow: "hidden", border: "1px solid var(--line)", marginBottom: 20, boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
+              <iframe
+                title="Map to CAC Salvation Center, 10710 Marriottsville Rd, Randallstown MD"
+                src="https://maps.google.com/maps?q=10710%20Marriottsville%20Rd%20Randallstown%20MD%2021133&z=15&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ width: "100%", height: "100%", border: 0, display: "block" }}
+              />
             </div>
-            <a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>Get Directions →</a>
+            <a href="https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+              <MapPin size={16} strokeWidth={2} aria-hidden /> Get Directions →
+            </a>
           </Reveal>
           <Reveal delay={140}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 32, color: "var(--ink)", margin: "0 0 28px" }}>Your First Sunday</h2>
@@ -137,32 +172,46 @@ export default function VisitPage() {
           <Reveal delay={80}>
             {submitted ? (
               <div style={{ textAlign: "center", padding: "48px", background: "rgba(255,247,239,.06)", borderRadius: 20, border: "1px solid rgba(255,247,239,.12)" }}>
-                <div style={{ fontSize: 40, marginBottom: 16 }}>🎉</div>
+                <PartyPopper size={44} strokeWidth={1.75} color="var(--gold)" aria-hidden style={{ margin: "0 auto 16px" }} />
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "#fff", margin: "0 0 8px" }}>You&apos;re on the list!</p>
-                <p style={{ fontSize: 15, color: "rgba(255,247,239,.6)", margin: 0 }}>See you Sunday. 🙏</p>
+                <p style={{ fontSize: 15, color: "rgba(255,247,239,.6)", margin: 0 }}>See you Sunday.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="r2" style={{ gap: 16 }}>
-                {[
-                  { id: "first", label: "First Name", placeholder: "Jane", type: "text", span: 1 },
-                  { id: "last", label: "Last Name", placeholder: "Smith", type: "text", span: 1 },
-                  { id: "email", label: "Email", placeholder: "jane@example.com", type: "email", span: 2 },
-                  { id: "phone", label: "Phone (optional)", placeholder: "(443) 000-0000", type: "tel", span: 2 },
-                ].map(field => (
-                  <div key={field.id} style={{ gridColumn: `span ${field.span}` }}>
-                    <label htmlFor={field.id} style={{ display: "block", fontSize: 12, fontWeight: 700, color: "rgba(255,247,239,.45)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 8 }}>{field.label}</label>
-                    <input
-                      id={field.id} type={field.type} placeholder={field.placeholder}
-                      value={(form as Record<string, string>)[field.id]}
-                      onChange={e => setForm(p => ({ ...p, [field.id]: e.target.value }))}
-                      style={{ width: "100%", background: "rgba(255,247,239,.07)", border: "1px solid rgba(255,247,239,.14)", borderRadius: 14, padding: "14px 18px", fontSize: 15, color: "var(--cream)", fontFamily: "inherit", outline: "none", boxSizing: "border-box" }}
-                    />
-                  </div>
-                ))}
+              <form onSubmit={handleSubmit} noValidate className="r2" style={{ gap: 16 }}>
+                {([
+                  { id: "first", label: "First Name", placeholder: "Jane", type: "text", span: 1, required: true, autoComplete: "given-name", inputMode: "text" as const },
+                  { id: "last", label: "Last Name", placeholder: "Smith", type: "text", span: 1, required: false, autoComplete: "family-name", inputMode: "text" as const },
+                  { id: "email", label: "Email", placeholder: "jane@example.com", type: "email", span: 2, required: true, autoComplete: "email", inputMode: "email" as const },
+                  { id: "phone", label: "Phone (optional)", placeholder: "(443) 000-0000", type: "tel", span: 2, required: false, autoComplete: "tel", inputMode: "tel" as const },
+                ]).map(field => {
+                  const err = errors[field.id];
+                  return (
+                    <div key={field.id} style={{ gridColumn: `span ${field.span}` }}>
+                      <label htmlFor={field.id} style={{ display: "block", fontSize: 12, fontWeight: 700, color: "rgba(255,247,239,.45)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 8 }}>
+                        {field.label}{field.required && <span aria-hidden style={{ color: "var(--red)", marginLeft: 4 }}>*</span>}
+                      </label>
+                      <input
+                        id={field.id} type={field.type} placeholder={field.placeholder}
+                        inputMode={field.inputMode} autoComplete={field.autoComplete}
+                        aria-required={field.required} aria-invalid={!!err}
+                        aria-describedby={err ? `${field.id}-error` : undefined}
+                        value={(form as Record<string, string>)[field.id]}
+                        onChange={e => {
+                          setForm(p => ({ ...p, [field.id]: e.target.value }));
+                          if (err) setErrors(p => { const n = { ...p }; delete n[field.id]; return n; });
+                        }}
+                        style={{ width: "100%", background: "rgba(255,247,239,.07)", border: `1px solid ${err ? "#ff6b6b" : "rgba(255,247,239,.14)"}`, borderRadius: 14, padding: "14px 18px", fontSize: 15, color: "var(--cream)", fontFamily: "inherit", outline: "none", boxSizing: "border-box" }}
+                      />
+                      {err && <span id={`${field.id}-error`} role="alert" style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#ff8a8a", marginTop: 6 }}>{err}</span>}
+                    </div>
+                  );
+                })}
                 <div style={{ gridColumn: "span 2" }}>
-                  <button type="submit" style={{ width: "100%", padding: "18px", borderRadius: 999, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 16, border: "none", cursor: "pointer", boxShadow: "0 14px 30px rgba(214,40,40,.4)" }}>
-                    Reserve My Spot →
+                  {submitError && <p role="alert" style={{ fontSize: 14, fontWeight: 600, color: "#ff8a8a", margin: "0 0 12px" }}>{submitError}</p>}
+                  <button type="submit" disabled={loading} style={{ width: "100%", padding: "18px", borderRadius: 999, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 16, border: "none", cursor: loading ? "wait" : "pointer", opacity: loading ? 0.6 : 1, boxShadow: "0 14px 30px rgba(214,40,40,.4)" }}>
+                    {loading ? "Reserving…" : "Reserve My Spot →"}
                   </button>
+                  <p style={{ fontSize: 12.5, color: "rgba(255,247,239,.4)", textAlign: "center", margin: "14px 0 0" }}>We&apos;ll only use your details to welcome you. No spam, ever.</p>
                 </div>
               </form>
             )}

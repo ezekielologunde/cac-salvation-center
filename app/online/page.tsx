@@ -1,13 +1,15 @@
 import { Nav } from "@/components/navigation/Nav";
+import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import Image from "next/image";
 import Link from "next/link";
 
 const platforms = [
-  { name: "YouTube", icon: "▶", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
-  { name: "Facebook", icon: "f", desc: "Stream + community discussion", href: "https://www.facebook.com/CacSalvationCenterBaltimore" },
-  { name: "Zoom", icon: "📹", desc: "Join Sunday service live via Zoom", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
-  { name: "Spotify", icon: "♪", desc: "Hope for Today — weekly podcast", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
-  { name: "Apple Podcasts", icon: "🎧", desc: "Subscribe for auto-downloads", href: "https://podcasts.apple.com/search?term=CAC+Salvation+Center" },
+  { name: "YouTube", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
+  { name: "Facebook", desc: "Stream + community discussion", href: "https://www.facebook.com/CacSalvationCenterBaltimore" },
+  { name: "Zoom", desc: "Join Sunday service live via Zoom", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
+  { name: "Spotify", desc: "Hope for Today — weekly podcast", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
+  { name: "Apple Podcasts", desc: "Subscribe for auto-downloads", href: "https://podcasts.apple.com/search?term=CAC+Salvation+Center" },
 ];
 
 const schedule = [
@@ -15,6 +17,12 @@ const schedule = [
   { day: "Wednesday", name: "Bible Study", time: "7:00 PM ET", type: "Online Only" },
   { day: "Friday", name: "Wakati Itusile", time: "7:00 PM ET", type: "Online Only" },
   { day: "Daily", name: "Morning Prayer Line", time: "5:00 AM ET", type: "(857) 216-6700 · Code: 531312" },
+];
+
+const pastSermons = [
+  { id: "xIZBd9UYIDw", title: "Sunday Worship Service", date: "CAC Salvation Center" },
+  { id: "RX1NjOYtDxo", title: "Praise & Worship Service", date: "CAC Salvation Center" },
+  { id: "gBGifbZSDBo", title: "CAC Vision & Mission", date: "CAC Salvation Center" },
 ];
 
 export const metadata = {
@@ -51,47 +59,91 @@ export default function OnlinePage() {
         </div>
       </section>
 
-      {/* Player */}
+      {/* Featured player */}
       <section style={{ padding: "0 clamp(20px,5vw,64px) 80px" }}>
         <Reveal>
           <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: 28, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,.5)" }}>
-            <div style={{ height: "clamp(260px,40vw,480px)", background: "linear-gradient(150deg,#1a0f08,#2d1510,#0C0E13)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 50%,rgba(214,40,40,.18),transparent 60%)" }} />
-              <div style={{ position: "absolute", top: 20, left: 20, display: "flex", alignItems: "center", gap: 8, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 12, padding: "6px 14px", borderRadius: 999, zIndex: 2 }}>
-                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", animation: "pulse-red 1.8s infinite", display: "inline-block" }} />
-                LIVE EVERY SUNDAY
-              </div>
-              <a href="https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" target="_blank" rel="noopener noreferrer" style={{ width: 88, height: 88, borderRadius: "50%", background: "rgba(255,255,255,.15)", border: "2px solid rgba(255,255,255,.3)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", backdropFilter: "blur(8px)", position: "relative", zIndex: 2 }} aria-label="Watch latest service on YouTube">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff" aria-hidden><path d="M8 5v14l11-7z" /></svg>
-              </a>
-              <div style={{ position: "absolute", bottom: 20, left: 20, color: "rgba(255,255,255,.45)", fontSize: 14, fontWeight: 600, zIndex: 2 }}>
-                Latest Service · Pastor Dr. H.O. Ilufoye
-              </div>
+            <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
+              <iframe
+                src="https://www.youtube.com/embed/xIZBd9UYIDw"
+                title="CAC Salvation Center — Sunday Service"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+              />
             </div>
             <div style={{ background: "#161B22", padding: "20px 28px", display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 600 }}>Watch on:</span>
-              {platforms.map(p => (
-                <a key={p.name} href={p.href} style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.7)", textDecoration: "none", padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(255,255,255,.12)" }}>
+              <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 600, marginRight: 4 }}>Watch on:</span>
+              {platforms.slice(0, 3).map(p => (
+                <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.7)", textDecoration: "none", padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(255,255,255,.12)" }}>
                   {p.name}
                 </a>
               ))}
+              <a href="https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" target="_blank" rel="noopener noreferrer" style={{ marginLeft: "auto", fontSize: 13, fontWeight: 700, color: "var(--gold)", textDecoration: "none" }}>
+                View channel →
+              </a>
             </div>
           </div>
         </Reveal>
       </section>
 
-      {/* Platforms */}
-      <section style={{ padding: "60px clamp(20px,5vw,64px)" }}>
+      {/* Past sermons grid */}
+      <section style={{ padding: "20px clamp(20px,5vw,64px) 80px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "#fff", margin: 0 }}>All the platforms.</h2>
+          <Reveal style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", letterSpacing: "-.8px", color: "#fff", margin: 0 }}>
+              Past Sermons
+            </h2>
+            <a href="https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 700, color: "var(--gold)", textDecoration: "none", whiteSpace: "nowrap" }}>
+              All videos →
+            </a>
           </Reveal>
-          <div className="r2" style={{ gap: 16 }}>
+          <div className="r3" style={{ gap: 20 }}>
+            {pastSermons.map((v, i) => (
+              <Reveal key={v.id} delay={i * 80}>
+                <a
+                  href={`https://www.youtube.com/watch?v=${v.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover-lift-border"
+                  style={{ display: "block", textDecoration: "none", borderRadius: 18, overflow: "hidden", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
+                >
+                  <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
+                    <Image
+                      src={`https://img.youtube.com/vi/${v.id}/hqdefault.jpg`}
+                      alt={v.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                    <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,.9)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(0,0,0,.4)" }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--red)" aria-hidden><path d="M8 5v14l11-7z" /></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 18px 18px" }}>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: "#fff", lineHeight: 1.4 }}>{v.title}</div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 6 }}>{v.date}</div>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Platforms */}
+      <section style={{ padding: "20px clamp(20px,5vw,64px) 60px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-1px", color: "#fff", margin: 0 }}>All the platforms.</h2>
+          </Reveal>
+          <div className="r2" style={{ gap: 14 }}>
             {platforms.map((p, i) => (
               <Reveal key={p.name} delay={i * 60}>
-                <a href={p.href} style={{ display: "block", background: "rgba(255,255,255,.05)", borderRadius: 18, padding: "24px 22px", border: "1px solid rgba(255,255,255,.08)", textDecoration: "none" }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "#fff", marginBottom: 6 }}>{p.name}</div>
-                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)" }}>{p.desc}</div>
+                <a href={p.href} target="_blank" rel="noopener noreferrer" style={{ display: "block", background: "rgba(255,255,255,.05)", borderRadius: 18, padding: "22px 20px", border: "1px solid rgba(255,255,255,.08)", textDecoration: "none" }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, color: "#fff", marginBottom: 5 }}>{p.name}</div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,.4)" }}>{p.desc}</div>
                 </a>
               </Reveal>
             ))}
@@ -100,10 +152,10 @@ export default function OnlinePage() {
       </section>
 
       {/* Schedule */}
-      <section style={{ padding: "60px clamp(20px,5vw,64px)" }}>
+      <section style={{ padding: "20px clamp(20px,5vw,64px) 80px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "#fff", margin: 0 }}>Service schedule.</h2>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-1px", color: "#fff", margin: 0 }}>Service schedule.</h2>
           </Reveal>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {schedule.map((s, i) => (
@@ -133,25 +185,13 @@ export default function OnlinePage() {
           <p style={{ fontSize: 17, color: "rgba(255,255,255,.75)", margin: "0 0 36px" }}>
             We&apos;d love to walk that journey with you. Reach out — no pressure, just genuine welcome.
           </p>
-          <Link href="/visit" style={{ display: "inline-block", background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 16, padding: "17px 36px", borderRadius: 999, textDecoration: "none" }}>
-            Connect With Us →
+          <Link href="/salvation" style={{ display: "inline-block", background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 16, padding: "17px 36px", borderRadius: 999, textDecoration: "none" }}>
+            Learn About Salvation →
           </Link>
         </Reveal>
       </section>
 
-      {/* Dark footer */}
-      <footer style={{ background: "#0C0E13", borderTop: "1px solid rgba(255,255,255,.07)", padding: "40px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20 }}>
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)" }}>
-            © 2026 Christ Apostolic Church Salvation Center · Baltimore DCC
-          </div>
-          <div style={{ display: "flex", gap: 18, fontSize: 13 }}>
-            {[["YouTube", "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA"], ["Facebook", "https://www.facebook.com/CacSalvationCenterBaltimore"], ["Instagram", "https://www.instagram.com/salvationcenterbaltimoreusa/"]].map(([label, href]) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,.4)", textDecoration: "none", fontWeight: 600 }}>{label}</a>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <FooterExperience />
     </main>
   );
 }
