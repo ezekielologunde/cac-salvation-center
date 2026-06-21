@@ -14,7 +14,7 @@ const HERO_T = {
 } as const;
 
 export function Hero() {
-  const countdown = useCountdown();
+  const { label: nextLabel, countdown } = useCountdown();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
@@ -243,7 +243,7 @@ export function Hero() {
             backdropFilter: "blur(12px)",
           }}>
             <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#ff5252", animation: "pulse-red 1.8s infinite", display: "inline-block", flexShrink: 0 }} />
-            <span style={{ fontSize: 13, fontWeight: 600, opacity: .75 }}>Next service begins in</span>
+            <span style={{ fontSize: 13, fontWeight: 600, opacity: .75 }}>Next: {nextLabel} in</span>
             <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, letterSpacing: "-.4px", color: "#FFD9A8" }}>{countdown}</span>
           </div>
         </Reveal>

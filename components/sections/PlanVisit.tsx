@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
@@ -41,7 +40,13 @@ export function PlanVisit() {
 
         <Reveal delay={120}>
           <div style={{ width: '100%', height: 440, borderRadius: 26, overflow: 'hidden', boxShadow: '0 26px 54px rgba(0,0,0,.4)', position: 'relative' }}>
-            <Image src="/images/stage.jpg" alt="CAC Salvation Center church interior" fill style={{ objectFit: 'cover', objectPosition: 'center' }} />
+            <iframe
+              title="Map to CAC Salvation Center, 10710 Marriottsville Rd, Randallstown MD"
+              src="https://maps.google.com/maps?q=10710%20Marriottsville%20Rd%20Randallstown%20MD%2021133&z=15&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+            />
           </div>
         </Reveal>
       </div>

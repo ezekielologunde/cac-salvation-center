@@ -28,7 +28,7 @@ export function Testimonials() {
         {doubled.map((phrase, i) => (
           <span key={i}>
             <span style={{ margin: "0 24px" }}>{phrase}</span>
-            <Star size={16} fill="var(--gold)" color="var(--gold)" style={{ verticalAlign: "middle", marginRight: 24 }} aria-hidden />
+            <Star size={16} fill="var(--gold)" color="var(--gold)" style={{ display: "inline-block", verticalAlign: "middle", marginRight: 24 }} aria-hidden />
           </span>
         ))}
       </div>
