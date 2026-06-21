@@ -1,6 +1,7 @@
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import { TestimonyForm } from "@/components/sections/TestimonyForm";
 import Link from "next/link";
 
 export const metadata = {
@@ -110,6 +111,18 @@ export default function SalvationPage() {
           <Link href="/contact" style={{ display: "inline-block", marginTop: 28, background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 16, padding: "17px 36px", borderRadius: 999, textDecoration: "none" }}>
             Let Us Know →
           </Link>
+        </Reveal>
+      </section>
+
+      {/* Share your testimony */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <Reveal style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 36px" }}>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Testimonies</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 14px", lineHeight: 0.98 }}>Has God touched your life?</h2>
+          <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>If you&apos;ve given your life to Christ or seen His goodness, we&apos;d love to hear it — and celebrate with you.</p>
+        </Reveal>
+        <Reveal>
+          <TestimonyForm />
         </Reveal>
       </section>
 

@@ -4,6 +4,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import Image from "next/image";
 import Link from "next/link";
 import { getSermons, formatSermonDate } from "@/lib/sermons";
+import { Video } from "lucide-react";
+
+const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
 
 const platforms = [
   { name: "YouTube", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
@@ -55,20 +58,42 @@ export default async function OnlinePage() {
         </div>
       </section>
 
-      {/* Featured player */}
+      {/* Join on Zoom — the primary live action */}
+      <section style={{ padding: "0 clamp(20px,5vw,64px) 56px" }}>
+        <Reveal>
+          <a href={ZOOM_URL} target="_blank" rel="noopener noreferrer" className="btn-sheen card-lift" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "clamp(20px,3vw,40px)", maxWidth: 900, margin: "0 auto", background: "linear-gradient(120deg,#2D8CFF,#0B5CD6)", borderRadius: 28, padding: "clamp(28px,4vw,44px)", textDecoration: "none", boxShadow: "0 30px 70px rgba(45,140,255,.35)" }}>
+            <span style={{ flexShrink: 0, width: 72, height: 72, borderRadius: 20, background: "rgba(255,255,255,.18)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,.3)" }}>
+              <Video size={36} color="#fff" strokeWidth={1.8} aria-hidden />
+            </span>
+            <div style={{ flex: "1 1 260px" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,.9)", marginBottom: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff", animation: "pulse-red 1.8s infinite", display: "inline-block" }} /> Join the service live
+              </div>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3.4vw,40px)", letterSpacing: "-1px", color: "#fff", margin: "0 0 6px" }}>Join us on Zoom</h2>
+              <p style={{ fontSize: 15, color: "rgba(255,255,255,.88)", margin: 0 }}>Sundays 10:30 AM ET · Meeting ID 846 3538 8414</p>
+            </div>
+            <span style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#0B5CD6", fontWeight: 800, fontSize: 16, padding: "15px 28px", borderRadius: 999 }}>
+              Open Zoom →
+            </span>
+          </a>
+        </Reveal>
+      </section>
+
+      {/* Featured player — latest streamed service */}
       <section style={{ padding: "0 clamp(20px,5vw,64px) 80px" }}>
         <Reveal>
           <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: 28, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,.5)" }}>
             <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
               <iframe
-                src="https://www.youtube.com/embed/xIZBd9UYIDw"
-                title="CAC Salvation Center — Sunday Service"
+                src={`https://www.youtube.com/embed/${pastSermons[0]?.id ?? "xIZBd9UYIDw"}`}
+                title={pastSermons[0]?.title ?? "CAC Salvation Center — Latest Service"}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
               />
             </div>
             <div style={{ background: "#161B22", padding: "20px 28px", display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginRight: 8 }}>● Latest service</span>
               <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 600, marginRight: 4 }}>Watch on:</span>
               {platforms.slice(0, 3).map(p => (
                 <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.7)", textDecoration: "none", padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(255,255,255,.12)" }}>
