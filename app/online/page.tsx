@@ -105,9 +105,8 @@ export default function OnlinePage() {
                   href={`https://www.youtube.com/watch?v=${v.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: "block", textDecoration: "none", borderRadius: 18, overflow: "hidden", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)", transition: "transform .2s, border-color .2s" }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.18)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.08)"; }}
+                  className="hover-lift-border"
+                  style={{ display: "block", textDecoration: "none", borderRadius: 18, overflow: "hidden", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
                 >
                   <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
                     <Image

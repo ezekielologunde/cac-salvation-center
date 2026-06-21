@@ -120,6 +120,20 @@
   .nav-hbg     { display: flex; }
 }
 
+/* ── Hover lift utilities (used by server components that can't use JS handlers) ── */
+.hover-lift {
+  transition: transform .2s;
+}
+.hover-lift:hover { transform: translateY(-4px); }
+
+.hover-lift-border {
+  transition: transform .2s, border-color .2s;
+}
+.hover-lift-border:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,.18) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -71,9 +71,8 @@ export function Sermons() {
                 href={`https://www.youtube.com/watch?v=${v.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ display: 'block', textDecoration: 'none', borderRadius: 16, overflow: 'hidden', background: 'var(--ink)', boxShadow: '0 10px 28px rgba(27,19,14,.14)', transition: 'transform .2s' }}
-                onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
-                onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
+                className="hover-lift"
+                style={{ display: 'block', textDecoration: 'none', borderRadius: 16, overflow: 'hidden', background: 'var(--ink)', boxShadow: '0 10px 28px rgba(27,19,14,.14)' }}
               >
                 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
                   <Image
