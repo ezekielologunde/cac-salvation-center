@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
@@ -11,6 +11,21 @@ export function Hero() {
   const countdown = useCountdown();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+
+  // Defer the YouTube player until the browser is idle so it never blocks
+  // initial load — the poster image shows instantly, then the video fades in.
+  // Reduced-motion users keep the still poster (no autoplaying video).
+  const [showVideo, setShowVideo] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    const start = () => setShowVideo(true);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(start, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(start, 800);
+    return () => clearTimeout(t);
+  }, [reduce]);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -47,20 +62,23 @@ export function Hero() {
           willChange: "transform",
         }}
       >
-        <iframe
-          src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
-          title=""
-          allow="autoplay; encrypted-media"
-          aria-hidden="true"
-          tabIndex={-1}
-          style={{
-            position: "absolute", top: "50%", left: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "177.78vh", height: "56.25vw",
-            minWidth: "100%", minHeight: "100%",
-            border: "none", pointerEvents: "none",
-          }}
-        />
+        {showVideo && (
+          <iframe
+            src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+            title=""
+            allow="autoplay; encrypted-media"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="hero-video-fade"
+            style={{
+              position: "absolute", top: "50%", left: "50%",
+              transform: "translate(-50%,-50%)",
+              width: "177.78vh", height: "56.25vw",
+              minWidth: "100%", minHeight: "100%",
+              border: "none", pointerEvents: "none",
+            }}
+          />
+        )}
       </motion.div>
 
       {/* Dark shadow overlay + grain vignette */}

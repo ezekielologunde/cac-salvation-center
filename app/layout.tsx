@@ -4,6 +4,8 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SITE, SITE_URL, churchJsonLd } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -69,6 +71,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <ScrollProgress />
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
