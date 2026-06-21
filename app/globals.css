@@ -176,6 +176,41 @@ html.lenis body { height: auto; }
   border-color: rgba(255,255,255,.18) !important;
 }
 
+/* ── Tactile press feedback (pairs with haptics) ── */
+.press {
+  touch-action: manipulation; /* removes 300ms tap delay */
+  transition: transform .14s var(--ease-out-quart), box-shadow .14s var(--ease-out-quart), filter .14s var(--ease-out-quart);
+}
+.press:active { transform: scale(.965); }
+.press-sm:active { transform: scale(.98); }
+.press-lg { touch-action: manipulation; transition: transform .16s var(--ease-out-quint); }
+.press-lg:active { transform: scale(.94); }
+
+/* Soft elevation lift used across premium cards */
+.card-lift { transition: transform .35s var(--ease-out-quint), box-shadow .35s var(--ease-out-quint); will-change: transform; }
+.card-lift:hover { transform: translateY(-6px); }
+
+/* Premium form fields with focus glow */
+.field-input {
+  transition: border-color .18s var(--ease-out-quart), box-shadow .18s var(--ease-out-quart), background .18s;
+  -webkit-appearance: none; appearance: none;
+}
+.field-input::placeholder { color: var(--ink-soft); opacity: .55; }
+.field-input:focus {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 4px rgba(214,40,40,.12);
+  background: var(--paper) !important;
+}
+.field-input.on-dark:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 4px rgba(232,163,61,.18);
+  background: rgba(255,247,239,.10) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press:active, .press-sm:active, .press-lg:active, .card-lift:hover { transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -3,6 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { haptic } from '@/lib/haptics';
+
+const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
 
 interface NavItem {
   label: string;
@@ -24,6 +27,7 @@ const navItems: NavItem[] = [
     dropdown: [
       { href: '/giving', label: 'Giving', desc: 'Support the ministry' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
+      { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
     ],
   },
   { label: 'Visit', href: '/visit' },
@@ -41,6 +45,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isLive, setIsLive] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
 
@@ -66,6 +71,19 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   }, [dark, open]);
 
   useEffect(() => { setOpen(false); setOpenMobileSection(null); }, [pathname]);
+
+  // Light up "Watch Live" during the Sunday service window (≈9 AM–1 PM ET).
+  useEffect(() => {
+    const check = () => {
+      try {
+        const et = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+        setIsLive(et.getDay() === 0 && et.getHours() >= 9 && et.getHours() < 13);
+      } catch { /* timezone unsupported — leave as not-live */ }
+    };
+    check();
+    const id = setInterval(check, 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -162,16 +180,22 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             );
           })}
 
-          <Link href="/online" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'var(--red)' : 'var(--ink)', color: 'var(--cream)', fontWeight: 700, fontSize: 14, padding: '11px 20px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', marginLeft: 8 }}>
+          <Link
+            href={isLive ? LIVE_URL : '/online'}
+            {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            onClick={() => haptic('medium')}
+            className="press"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: isLive ? 'var(--red)' : (dark ? 'var(--red)' : 'var(--ink)'), color: 'var(--cream)', fontWeight: 700, fontSize: 14, padding: '11px 20px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', marginLeft: 8, boxShadow: isLive ? '0 8px 24px rgba(214,40,40,.5)' : 'none' }}
+          >
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff5252', animation: 'pulse-red 1.8s infinite', display: 'inline-block' }} />
-            Watch Live
+            {isLive ? 'LIVE NOW' : 'Watch Live'}
           </Link>
         </div>
 
         {/* Hamburger */}
         <button
           className="nav-hbg"
-          onClick={() => setOpen(o => !o)}
+          onClick={() => { haptic('light'); setOpen(o => !o); }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, gap: 5, alignItems: 'center', transition: 'color .4s' }}
@@ -245,9 +269,14 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 32 }}>
-            <Link href="/online" onClick={() => setOpen(false)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'var(--red)', color: '#fff', fontWeight: 700, fontSize: 17, padding: '18px 24px', borderRadius: 999, textDecoration: 'none', boxShadow: '0 14px 30px rgba(214,40,40,.4)' }}>
+            <Link
+              href={isLive ? LIVE_URL : '/online'}
+              {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              onClick={() => { haptic('medium'); setOpen(false); }}
+              className="press"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'var(--red)', color: '#fff', fontWeight: 700, fontSize: 17, padding: '18px 24px', borderRadius: 999, textDecoration: 'none', boxShadow: '0 14px 30px rgba(214,40,40,.4)' }}>
               <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#fff', animation: 'pulse-red 1.8s infinite', display: 'inline-block' }} />
-              Watch Live
+              {isLive ? 'LIVE NOW' : 'Watch Live'}
             </Link>
             <Link href="/visit" onClick={() => setOpen(false)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 17, padding: '18px 24px', borderRadius: 999, textDecoration: 'none', border: `1.5px solid ${dark ? 'rgba(255,247,239,.3)' : 'var(--ink)'}`, color: ink }}>
               Plan a Visit
