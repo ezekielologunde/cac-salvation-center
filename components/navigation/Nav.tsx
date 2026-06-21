@@ -30,6 +30,7 @@ const navItems: NavItem[] = [
       { href: '/giving', label: 'Giving', desc: 'Support the ministry' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
+      { href: '/devotional', label: 'Devotional', desc: 'Daily word & podcast' },
     ],
   },
   { label: 'Visit', href: '/visit' },
