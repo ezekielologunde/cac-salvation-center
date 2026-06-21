@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
     href: '/about',
     dropdown: [
       { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors & team' },
+      { href: '/ministries', label: 'Ministries', desc: 'Find your place to serve' },
     ],
   },
   {

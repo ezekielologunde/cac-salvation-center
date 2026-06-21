@@ -94,7 +94,7 @@ export function FooterExperience() {
         <div>
           <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Explore</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
-            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/online', 'Online'], ['/giving', 'Giving'], ['/prayer', 'Prayer'], ['/salvation', 'Salvation'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
+            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/ministries', 'Ministries'], ['/online', 'Online'], ['/giving', 'Giving'], ['/prayer', 'Prayer'], ['/salvation', 'Salvation'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
               <Link key={href} href={href} style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>{label}</Link>
             ))}
           </div>
