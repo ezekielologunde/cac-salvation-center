@@ -11,7 +11,11 @@ export function Hero() {
       position: "relative", minHeight: "100vh",
       display: "flex", alignItems: "center",
       padding: "140px clamp(20px,5vw,64px) 80px",
-      overflow: "hidden", background: "#0d0a08",
+      overflow: "hidden",
+      background: "#0d0a08",
+      backgroundImage: "url(https://img.youtube.com/vi/xIZBd9UYIDw/maxresdefault.jpg)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     }}>
       {/* YouTube background video — muted autoplay */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>

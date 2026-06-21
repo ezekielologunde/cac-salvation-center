@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Reveal } from '@/components/ui/Reveal';
 
@@ -47,9 +48,7 @@ export function FooterExperience() {
       <div className="r-ft" style={{ maxWidth: 1240, margin: '0 auto', gap: 40, paddingBottom: 40, borderBottom: '1px solid var(--line)' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-            <span style={{ width: 46, height: 46, borderRadius: 14, background: 'linear-gradient(150deg,#F15F22,#D62828 55%,#9E1B1B)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9.5 2.2h5v5.3h5.3v5h-5.3v9.3h-5v-9.3H4.2v-5h5.3z" fill="#fff" /></svg>
-            </span>
+            <Image src="/images/logo.png" alt="CAC Salvation Center" width={46} height={46} style={{ borderRadius: 14, objectFit: 'cover', flexShrink: 0 }} />
             <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
               <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--red)', fontWeight: 700 }}>Christ Apostolic Church</span>
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 21, marginTop: 3 }}>Salvation Center</span>
@@ -69,7 +68,7 @@ export function FooterExperience() {
         <div>
           <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Explore</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
-            {([['/', 'Home'], ['/about', 'Who We Are'], ['/online', 'Online'], ['/giving', 'Giving'], ['/visit', 'Visit']] as const).map(([href, label]) => (
+            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/online', 'Online'], ['/giving', 'Giving'], ['/salvation', 'Salvation'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
               <Link key={href} href={href} style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>{label}</Link>
             ))}
           </div>

@@ -15,8 +15,7 @@ const navItems: NavItem[] = [
     label: 'Who We Are',
     href: '/about',
     dropdown: [
-      { href: '/about', label: 'About Us', desc: 'Our story, values & mission' },
-      { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors' },
+      { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors & team' },
     ],
   },
   {
@@ -102,22 +101,22 @@ export function Nav({ dark = false }: NavProps) {
               return (
                 <div
                   key={item.label}
-                  style={{ position: 'relative' }}
+                  style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
                   onMouseEnter={() => setOpenDropdown(item.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button style={{
+                  <Link href={item.href!} style={{
                     display: 'flex', alignItems: 'center', gap: 5,
-                    background: 'none', border: 'none', cursor: 'pointer',
                     fontSize: 14.5, fontWeight: active ? 700 : 600,
                     color: active ? accent : ink,
+                    textDecoration: 'none',
                     padding: '8px 14px', borderRadius: 8,
                   }}>
                     {item.label}
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
-                  </button>
+                  </Link>
                   {isOpen && (
                     <div style={{
                       position: 'absolute', top: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
