@@ -101,12 +101,19 @@ export default function VisitPage() {
       <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)" }}>
         <div className="r2" style={{ maxWidth: 1100, margin: "0 auto", gap: 60 }}>
           <Reveal>
-            {/* Map placeholder */}
-            <div style={{ height: 320, borderRadius: 20, background: "linear-gradient(135deg,var(--cream-2),#e8c9a8)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, border: "1px solid var(--line)", marginBottom: 20 }}>
-              <MapPin size={18} strokeWidth={1.75} color="var(--red)" aria-hidden />
-              <span style={{ color: "var(--ink-soft)", fontSize: 14 }}>10710 Marriottsville Rd, Randallstown MD</span>
+            {/* Live, interactive map (no API key required) */}
+            <div style={{ height: 320, borderRadius: 20, overflow: "hidden", border: "1px solid var(--line)", marginBottom: 20, boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
+              <iframe
+                title="Map to CAC Salvation Center, 10710 Marriottsville Rd, Randallstown MD"
+                src="https://maps.google.com/maps?q=10710%20Marriottsville%20Rd%20Randallstown%20MD%2021133&z=15&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ width: "100%", height: "100%", border: 0, display: "block" }}
+              />
             </div>
-            <a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>Get Directions →</a>
+            <a href="https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+              <MapPin size={16} strokeWidth={2} aria-hidden /> Get Directions →
+            </a>
           </Reveal>
           <Reveal delay={140}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 32, color: "var(--ink)", margin: "0 0 28px" }}>Your First Sunday</h2>
