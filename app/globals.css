@@ -190,6 +190,12 @@ html.lenis body { height: auto; }
 .card-lift { transition: transform .35s var(--ease-out-quint), box-shadow .35s var(--ease-out-quint); will-change: transform; }
 .card-lift:hover { transform: translateY(-6px); }
 
+/* Gallery tile hover (parent-hover can't be done inline) */
+.gallery-img { transition: transform .5s var(--ease-out-quint); }
+.gallery-tile:hover .gallery-img { transform: scale(1.06); }
+.gallery-tile:hover .gallery-scrim { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .gallery-tile:hover .gallery-img { transform: none; } }
+
 /* Premium form fields with focus glow */
 .field-input {
   transition: border-color .18s var(--ease-out-quart), box-shadow .18s var(--ease-out-quart), background .18s;

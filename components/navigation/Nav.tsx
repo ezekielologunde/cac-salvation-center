@@ -20,6 +20,7 @@ const navItems: NavItem[] = [
     dropdown: [
       { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors & team' },
       { href: '/ministries', label: 'Ministries', desc: 'Find your place to serve' },
+      { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
     ],
   },
   {
@@ -32,6 +33,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: 'Visit', href: '/visit' },
+  { label: 'Events', href: '/events' },
   { label: 'Contact Us', href: '/contact' },
 ];
 
