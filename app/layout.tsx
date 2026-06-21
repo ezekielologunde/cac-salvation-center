@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -29,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${bricolage.variable} ${jakarta.variable}`}>
       <body>
-        {children}
+        <ScrollProgress />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

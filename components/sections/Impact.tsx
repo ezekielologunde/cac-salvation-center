@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export function Impact() {
   return (
@@ -7,8 +8,8 @@ export function Impact() {
       background: "linear-gradient(135deg,#D62828 0%,#9E1B1B 50%,#6B1010 100%)",
       padding: "80px clamp(20px,5vw,64px)",
     }}>
-      {/* Decorative texture */}
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 70% 50%,rgba(241,95,34,.3),transparent 60%)", pointerEvents: "none" }} />
+      {/* Decorative drifting glow */}
+      <div style={{ position: "absolute", inset: "-15%", background: "radial-gradient(circle at 70% 50%,rgba(241,95,34,.35),transparent 60%)", pointerEvents: "none", animation: "gradient-drift 14s ease-in-out infinite", willChange: "transform" }} />
       <div style={{ position: "absolute", top: -40, right: -40, width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,.04)", pointerEvents: "none" }} />
 
       <div className="r2c" style={{ position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto", gap: 60 }}>
@@ -36,15 +37,17 @@ export function Impact() {
             <div style={{ fontSize: 14, color: "rgba(255,255,255,.65)", marginBottom: 24 }}>
               Access Code: <strong style={{ color: "#fff" }}>531312</strong>
             </div>
-            <a href="tel:+18572166700" style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              background: "#fff", color: "var(--red)",
-              fontWeight: 800, fontSize: 15,
-              padding: "14px 28px", borderRadius: 999,
-              textDecoration: "none",
-            }}>
-              📞 Dial In Now
-            </a>
+            <Magnetic strength={0.45}>
+              <a href="tel:+18572166700" className="btn-sheen" style={{
+                display: "inline-flex", alignItems: "center", gap: 10,
+                background: "#fff", color: "var(--red)",
+                fontWeight: 800, fontSize: 15,
+                padding: "14px 28px", borderRadius: 999,
+                textDecoration: "none",
+              }}>
+                📞 Dial In Now
+              </a>
+            </Magnetic>
           </div>
         </Reveal>
       </div>

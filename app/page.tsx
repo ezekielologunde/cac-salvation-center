@@ -14,7 +14,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 export default function Home() {
   return (
     <main>
-      <Nav />
+      <Nav heroDark />
       <Hero />
       <Testimonials />
       <Sermons />

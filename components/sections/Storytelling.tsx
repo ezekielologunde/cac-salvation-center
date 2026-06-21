@@ -1,15 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
+import { Parallax } from "@/components/ui/Parallax";
 
 export function Storytelling() {
   return (
     <section style={{ background: "var(--cream-2)", padding: "100px clamp(20px,5vw,64px)" }}>
       <div className="r2c" style={{ maxWidth: 1200, margin: "0 auto", gap: "clamp(40px,5vw,80px)" }}>
-        {/* Image placeholder */}
-        <Reveal style={{ position: "relative" }}>
+        {/* Pastor portrait with scroll-linked parallax */}
+        <Reveal from="left" style={{ position: "relative" }}>
           <div style={{ width: "100%", height: "clamp(320px,40vw,500px)", borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 50px rgba(27,19,14,.16)", position: "relative" }}>
-            <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye preaching" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
+            <Parallax distance={38} style={{ position: "absolute", left: 0, right: 0, top: "-9%", height: "118%" }}>
+              <div style={{ position: "relative", width: "100%", height: "100%" }}>
+                <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye preaching" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
+              </div>
+            </Parallax>
           </div>
           {/* Quote float */}
           <div style={{

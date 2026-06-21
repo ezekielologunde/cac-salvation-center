@@ -1,94 +1,59 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { type CSSProperties } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 interface RevealTextProps {
   children: string;
   className?: string;
+  style?: CSSProperties;
   delay?: number;
-  as?: "h1" | "h2" | "h3" | "p" | "span";
-  once?: boolean;
+  /** Animate immediately on mount (for above-the-fold hero) instead of on scroll. */
+  immediate?: boolean;
 }
 
-export function RevealText({
-  children,
-  className,
-  delay = 0,
-  as: Tag = "p",
-  once = true,
-}: RevealTextProps) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once, margin: "-10% 0px" });
-
+/**
+ * Word-by-word masked reveal for headlines. Each word rises from behind a clip
+ * mask with a spring. Collapses to a simple fade when reduced motion is set.
+ */
+export function RevealText({ children, className, style, delay = 0, immediate = false }: RevealTextProps) {
+  const reduce = useReducedMotion();
   const words = children.split(" ");
 
-  const container = {
+  const container: Variants = {
     hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: delay,
-      },
-    },
+    show: { transition: { staggerChildren: reduce ? 0 : 0.07, delayChildren: delay } },
   };
 
-  const word = {
-    hidden: { y: "110%", opacity: 0 },
-    show: {
-      y: "0%",
-      opacity: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 200,
-        damping: 28,
-        mass: 0.6,
-      },
-    },
-  };
+  const word: Variants = reduce
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.3 } } }
+    : {
+        hidden: { y: "115%" },
+        show: { y: "0%", transition: { type: "spring", stiffness: 190, damping: 26, mass: 0.7 } },
+      };
+
+  const reveal = immediate ? "show" : undefined;
 
   return (
-    <motion.div
-      ref={ref as React.RefObject<HTMLDivElement>}
+    <motion.span
+      className={className}
+      style={{ display: "inline-block", ...style }}
       variants={container}
       initial="hidden"
-      animate={inView ? "show" : "hidden"}
-      className={cn("overflow-hidden", className)}
+      {...(immediate ? { animate: reveal } : { whileInView: "show", viewport: { once: true, margin: "-10% 0px" } })}
       aria-label={children}
     >
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.28em" }}>
-          <motion.span variants={word} className="inline-block" aria-hidden>
+        <span
+          key={i}
+          aria-hidden
+          style={{ display: "inline-flex", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.08em", marginRight: "0.26em" }}
+        >
+          <motion.span variants={word} style={{ display: "inline-block" }}>
             {w}
           </motion.span>
         </span>
       ))}
-    </motion.div>
-  );
-}
-
-export function FadeUp({
-  children,
-  delay = 0,
-  className,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-5% 0px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    </motion.span>
   );
 }

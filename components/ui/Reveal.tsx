@@ -1,49 +1,49 @@
-'use client';
-import { useEffect, useRef, type ReactNode, type CSSProperties } from 'react';
+"use client";
+
+import { type ReactNode, type CSSProperties } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
+type Direction = "up" | "down" | "left" | "right" | "scale";
 
 interface RevealProps {
   children: ReactNode;
+  /** Delay in milliseconds (kept for backward compatibility across the site). */
   delay?: number;
+  from?: Direction;
   className?: string;
   style?: CSSProperties;
 }
 
-export function Reveal({ children, delay = 0, className, style }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+const offset: Record<Direction, { x?: number; y?: number; scale?: number }> = {
+  up: { y: 36 },
+  down: { y: -36 },
+  left: { x: 40 },
+  right: { x: -40 },
+  scale: { scale: 0.94 },
+};
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+export function Reveal({ children, delay = 0, from = "up", className, style }: RevealProps) {
+  const reduce = useReducedMotion();
+  const o = offset[from];
 
-    const show = (instant = false) => {
-      el.style.transition = instant
-        ? 'none'
-        : `opacity .9s cubic-bezier(.2,.7,.2,1) ${delay}ms, transform .9s cubic-bezier(.2,.7,.2,1) ${delay}ms`;
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { show(); io.unobserve(el); }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-    io.observe(el);
-    const timer = setTimeout(() => show(true), 1400);
-
-    return () => { io.disconnect(); clearTimeout(timer); };
-  }, [delay]);
+  const hidden = reduce
+    ? { opacity: 0 }
+    : { opacity: 0, x: o.x ?? 0, y: o.y ?? 0, scale: o.scale ?? 1 };
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       className={className}
-      style={{ ...style, opacity: 0, transform: 'translateY(34px)' }}
+      style={style}
+      initial={hidden}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+      transition={{
+        duration: reduce ? 0.3 : 0.85,
+        delay: delay / 1000,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
