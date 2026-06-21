@@ -5,13 +5,15 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Check } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
+import { FacebookIcon, InstagramIcon, YoutubeIcon, TikTokIcon } from '@/components/ui/SocialIcons';
 import { submitLead, isValidEmail } from '@/lib/forms';
+import { haptic } from '@/lib/haptics';
 
 const socials = [
-  { label: 'f', title: 'Facebook', href: 'https://www.facebook.com/CacSalvationCenterBaltimore' },
-  { label: 'ig', title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimoreusa/' },
-  { label: 'yt', title: 'YouTube', href: 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA' },
-  { label: 'tt', title: 'TikTok', href: 'https://www.tiktok.com/@salvationcenterus' },
+  { icon: <FacebookIcon />, title: 'Facebook', href: 'https://www.facebook.com/CacSalvationCenterBaltimore' },
+  { icon: <InstagramIcon />, title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimoreusa/' },
+  { icon: <YoutubeIcon />, title: 'YouTube', href: 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA' },
+  { icon: <TikTokIcon />, title: 'TikTok', href: 'https://www.tiktok.com/@salvationcenterus' },
 ];
 
 export function FooterExperience() {
@@ -83,9 +85,10 @@ export function FooterExperience() {
           <p style={{ fontSize: 14.5, color: 'var(--ink-soft)', margin: '18px 0 0', maxWidth: 320, lineHeight: 1.6 }}>Real food for the soul, from a real local family of believers. Welcome home.</p>
           <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
             {socials.map(s => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.title}
-                style={{ width: 42, height: 42, borderRadius: 12, background: 'var(--paper)', border: '1px solid var(--line)', display: 'grid', placeItems: 'center', textDecoration: 'none', fontSize: 13, fontWeight: 800, color: 'var(--ink)' }}>
-                {s.label}
+              <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.title}
+                onClick={() => haptic('selection')} className="press"
+                style={{ width: 42, height: 42, borderRadius: 12, background: 'var(--paper)', border: '1px solid var(--line)', display: 'grid', placeItems: 'center', textDecoration: 'none', color: 'var(--ink)' }}>
+                {s.icon}
               </a>
             ))}
           </div>
@@ -94,7 +97,7 @@ export function FooterExperience() {
         <div>
           <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Explore</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
-            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/online', 'Online'], ['/giving', 'Giving'], ['/salvation', 'Salvation'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
+            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/ministries', 'Ministries'], ['/online', 'Online'], ['/giving', 'Giving'], ['/prayer', 'Prayer'], ['/devotional', 'Devotional'], ['/salvation', 'Salvation'], ['/events', 'Events'], ['/gallery', 'Gallery'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
               <Link key={href} href={href} style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>{label}</Link>
             ))}
           </div>

@@ -1,16 +1,52 @@
 "use client";
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { useCountdown } from "@/lib/useCountdown";
+import { haptic } from "@/lib/haptics";
+
+const HERO_T = {
+  en: { badge: "SUNDAYS", line1: "Welcome", line2: "Home." },
+  yo: { badge: "ỌJỌ́ ÀÌKÚ", line1: "Káàbọ̀", line2: "sí Ilé." },
+} as const;
 
 export function Hero() {
-  const countdown = useCountdown();
+  const { label: nextLabel, countdown } = useCountdown();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+
+  // Defer the YouTube player until the browser is idle so it never blocks
+  // initial load — the poster image shows instantly, then the video fades in.
+  // Reduced-motion users keep the still poster (no autoplaying video).
+  const [showVideo, setShowVideo] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    const start = () => setShowVideo(true);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(start, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(start, 800);
+    return () => clearTimeout(t);
+  }, [reduce]);
+
+  // Bilingual hero greeting (English / Yorùbá) — a warm welcome for our
+  // Yoruba-speaking diaspora family. Scoped to the greeting; persists per visit.
+  const [lang, setLang] = useState<"en" | "yo">("en");
+  useEffect(() => {
+    const saved = localStorage.getItem("cac-hero-lang");
+    if (saved === "yo" || saved === "en") setLang(saved);
+  }, []);
+  function switchLang(next: "en" | "yo") {
+    if (next === lang) return;
+    haptic("selection");
+    setLang(next);
+    try { localStorage.setItem("cac-hero-lang", next); } catch {}
+  }
+  const t = HERO_T[lang];
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -47,20 +83,23 @@ export function Hero() {
           willChange: "transform",
         }}
       >
-        <iframe
-          src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
-          title=""
-          allow="autoplay; encrypted-media"
-          aria-hidden="true"
-          tabIndex={-1}
-          style={{
-            position: "absolute", top: "50%", left: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "177.78vh", height: "56.25vw",
-            minWidth: "100%", minHeight: "100%",
-            border: "none", pointerEvents: "none",
-          }}
-        />
+        {showVideo && (
+          <iframe
+            src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+            title=""
+            allow="autoplay; encrypted-media"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="hero-video-fade"
+            style={{
+              position: "absolute", top: "50%", left: "50%",
+              transform: "translate(-50%,-50%)",
+              width: "177.78vh", height: "56.25vw",
+              minWidth: "100%", minHeight: "100%",
+              border: "none", pointerEvents: "none",
+            }}
+          />
+        )}
       </motion.div>
 
       {/* Dark shadow overlay + grain vignette */}
@@ -95,7 +134,7 @@ export function Hero() {
             fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.85)",
             backdropFilter: "blur(8px)",
           }}>
-            <span style={{ background: "var(--red)", color: "#fff", fontSize: 11, fontWeight: 800, padding: "3px 9px", borderRadius: 999, letterSpacing: ".5px" }}>SUNDAYS</span>
+            <span style={{ background: "var(--red)", color: "#fff", fontSize: 11, fontWeight: 800, padding: "3px 9px", borderRadius: 999, letterSpacing: ".5px" }}>{t.badge}</span>
             Onsite &amp; Online · 10:30 AM ET
           </span>
         </Reveal>
@@ -107,9 +146,10 @@ export function Hero() {
           margin: "22px 0 0", color: "#fff",
           textWrap: "balance",
         }}>
-          <RevealText immediate>Welcome</RevealText>
+          <RevealText key={`l1-${lang}`} immediate>{t.line1}</RevealText>
           <br />
           <RevealText
+            key={`l2-${lang}`}
             immediate
             delay={0.18}
             style={{
@@ -120,19 +160,44 @@ export function Hero() {
               animation: "shimmer-text 5s linear infinite",
             }}
           >
-            Home.
+            {t.line2}
           </RevealText>
         </h1>
+
+        <Reveal delay={300} style={{ marginTop: 18 }}>
+          <div role="group" aria-label="Greeting language" style={{ display: "inline-flex", gap: 4, padding: 4, borderRadius: 999, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.18)", backdropFilter: "blur(8px)" }}>
+            {(["en", "yo"] as const).map((l) => (
+              <button
+                key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
+                className="press"
+                style={{ padding: "7px 16px", borderRadius: 999, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "var(--font-body)", background: lang === l ? "#fff" : "transparent", color: lang === l ? "var(--ink)" : "rgba(255,255,255,.8)", transition: "background .2s, color .2s" }}
+              >
+                {l === "en" ? "English" : "Yorùbá"}
+              </button>
+            ))}
+          </div>
+        </Reveal>
 
         <Reveal delay={420}>
           <p style={{
             fontSize: "clamp(16px,1.5vw,19px)", lineHeight: 1.65,
-            color: "rgba(255,255,255,.74)", maxWidth: 480, margin: "26px auto 0",
-            textWrap: "pretty",
+            color: "rgba(255,255,255,.74)", maxWidth: 480, margin: "20px auto 0",
+            textWrap: "pretty", minHeight: 84,
           }}>
-            Real worship, real community — preaching the whole Gospel in a clear
-            and undiluted manner. It&apos;s more than a greeting.{" "}
-            <strong style={{ color: "#fff" }}>It&apos;s our lifestyle.</strong>
+            <AnimatePresence mode="wait">
+              {lang === "en" ? (
+                <motion.span key="sub-en" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  Real worship, real community — preaching the whole Gospel in a clear
+                  and undiluted manner. It&apos;s more than a greeting.{" "}
+                  <strong style={{ color: "#fff" }}>It&apos;s our lifestyle.</strong>
+                </motion.span>
+              ) : (
+                <motion.span key="sub-yo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  Ìjọsìn tòótọ́, ẹbí tòótọ́. Ó ju ìkíni lọ —{" "}
+                  <strong style={{ color: "#fff" }}>ìgbé ayé wa ni.</strong>
+                </motion.span>
+              )}
+            </AnimatePresence>
           </p>
         </Reveal>
 
@@ -178,7 +243,7 @@ export function Hero() {
             backdropFilter: "blur(12px)",
           }}>
             <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#ff5252", animation: "pulse-red 1.8s infinite", display: "inline-block", flexShrink: 0 }} />
-            <span style={{ fontSize: 13, fontWeight: 600, opacity: .75 }}>Next service begins in</span>
+            <span style={{ fontSize: 13, fontWeight: 600, opacity: .75 }}>Next: {nextLabel} in</span>
             <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, letterSpacing: "-.4px", color: "#FFD9A8" }}>{countdown}</span>
           </div>
         </Reveal>
