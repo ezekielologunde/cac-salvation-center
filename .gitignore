@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local scripts with hardcoded credentials — never commit
+scripts/fetch-gallery.mjs
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
