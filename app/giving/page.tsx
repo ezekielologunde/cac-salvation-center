@@ -4,7 +4,8 @@ import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconBadge } from "@/components/ui/IconBadge";
-import { Banknote, Phone } from "lucide-react";
+import Link from "next/link";
+import { Banknote, Phone, HeartHandshake, Building2, ArrowRight } from "lucide-react";
 
 const amounts = [25, 50, 100, 250, 500];
 const funds = ["Tithes & Offerings", "Missions", "Building Fund"];
@@ -29,14 +30,22 @@ export default function GivingPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(46px,6.5vw,90px)", letterSpacing: "-0.03em", color: "var(--ink)", margin: "16px 0", lineHeight: 0.92 }}>
-              Honor God<br />
-              <span style={{ background: "linear-gradient(100deg,#F15F22,#D62828)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>with your first.</span>
+              Your giving makes<br />
+              <span style={{ background: "linear-gradient(100deg,#F15F22,#D62828)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>a difference.</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 540, margin: "0 auto" }}>
-              Your generosity fuels ministry, sustains our community, and extends the Gospel to those who need it most.
+            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 580, margin: "0 auto" }}>
+              Every gift fuels worship, missions, and the multi-million-dollar building project God has placed before us. You are partnering with the kingdom every time you give.
             </p>
+          </Reveal>
+          <Reveal delay={220}>
+            <figure style={{ maxWidth: 620, margin: "44px auto 0", padding: "26px 28px", borderRadius: 22, background: "var(--paper)", border: "1px solid var(--line)", boxShadow: "0 14px 36px rgba(27,19,14,.08)", textAlign: "left" }}>
+              <p style={{ fontSize: "clamp(16px,1.7vw,19px)", color: "var(--ink)", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
+                &ldquo;As it is written: <strong style={{ fontStyle: "normal" }}>&lsquo;They have freely scattered their gifts to the poor; their righteousness endures forever.&rsquo;</strong>&rdquo;
+              </p>
+              <figcaption style={{ marginTop: 12, fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)" }}>2 Corinthians 9:9</figcaption>
+            </figure>
           </Reveal>
         </div>
       </section>
@@ -94,7 +103,54 @@ export default function GivingPage() {
               <p style={{ fontSize: 12.5, color: "var(--ink-soft)", textAlign: "center", marginTop: 14 }}>Secure · Tax-deductible · No account required</p>
             </div>
           </Reveal>
+
+          <Reveal delay={140}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "26px 0 22px", color: "var(--ink-soft)", fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase" }}>
+              <span style={{ flex: 1, height: 1, background: "var(--line)" }} aria-hidden />
+              Or use Givelify
+              <span style={{ flex: 1, height: 1, background: "var(--line)" }} aria-hidden />
+            </div>
+            <div style={{ background: "linear-gradient(135deg,#1B130E,#3a2a1f)", borderRadius: 22, padding: "28px 28px", display: "flex", alignItems: "center", gap: 22, flexWrap: "wrap", boxShadow: "0 18px 44px rgba(27,19,14,.18)" }}>
+              <div style={{ display: "grid", placeItems: "center", width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg,var(--flame),var(--red))", flexShrink: 0, boxShadow: "0 10px 22px rgba(214,40,40,.32)" }}>
+                <HeartHandshake size={26} strokeWidth={2} color="#fff" aria-hidden />
+              </div>
+              <div style={{ flex: "1 1 220px" }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "#fff", margin: "0 0 4px" }}>Give on Givelify</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,247,239,.7)", margin: 0, lineHeight: 1.55 }}>Search <strong style={{ color: "#fff", fontWeight: 700 }}>&ldquo;CAC Salvation Center · Randallstown&rdquo;</strong> in the Givelify app or web.</p>
+              </div>
+              <a href="https://www.givelify.com/" target="_blank" rel="noopener noreferrer" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "var(--ink)", fontWeight: 800, fontSize: 14.5, padding: "13px 22px", borderRadius: 999, textDecoration: "none" }}>
+                Open Givelify <ArrowRight size={16} strokeWidth={2.5} aria-hidden />
+              </a>
+            </div>
+          </Reveal>
         </div>
+      </section>
+
+      {/* Building Project teaser */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px)" }}>
+        <Reveal>
+          <div style={{ position: "relative", overflow: "hidden", maxWidth: 1040, margin: "0 auto", background: "var(--ink)", borderRadius: 28, padding: "clamp(36px,5vw,56px)", boxShadow: "0 30px 70px rgba(27,19,14,.25)" }}>
+            <div aria-hidden style={{ position: "absolute", top: -120, right: -120, width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle,rgba(232,163,61,.28),transparent 65%)", pointerEvents: "none" }} />
+            <div aria-hidden style={{ position: "absolute", bottom: -100, left: -100, width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle,rgba(214,40,40,.22),transparent 65%)", pointerEvents: "none" }} />
+            <div style={{ position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 36, alignItems: "center" }} className="r-build">
+              <div>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>
+                  <Building2 size={14} strokeWidth={2.5} aria-hidden />
+                  Building Project
+                </div>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: "#fff", margin: "0 0 14px", lineHeight: 1.02 }}>
+                  A multi-million dollar house for the next generation.
+                </h2>
+                <p style={{ fontSize: 16, color: "rgba(255,247,239,.78)", lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
+                  God has placed before us a multi-million dollar building project — a permanent home for worship, discipleship, youth ministry, and missions in Randallstown. Every gift to the Building Fund moves us closer.
+                </p>
+              </div>
+              <Link href="/building" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 15, padding: "16px 26px", borderRadius: 999, textDecoration: "none", boxShadow: "0 14px 32px rgba(214,40,40,.42)", whiteSpace: "nowrap" }}>
+                Learn more <ArrowRight size={16} strokeWidth={2.5} aria-hidden />
+              </Link>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* More ways */}

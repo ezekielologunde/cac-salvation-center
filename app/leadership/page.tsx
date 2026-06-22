@@ -6,24 +6,49 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Leadership — CAC Salvation Center",
-  description: "Meet the pastoral team leading CAC Salvation Center in Randallstown, MD.",
+  description: "Meet the pastoral team of CAC Salvation Center — Pastor Dr. Hezekiah O. Ilufoye, Pastor Felix Osunkiyesi, Pastor Alfred Aremo, Pastor Oludapo Eludoyin, and Pastor Enoch Ilufoye.",
 };
 
-const pastors = [
+const featured = {
+  name: "Pastor Dr. Hezekiah O. Ilufoye, PhD",
+  title: "Superintendent · Senior Pastor",
+  bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. A theologian, teacher, and shepherd, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
+  image: "/images/pastor.jpg",
+};
+
+const team = [
   {
-    name: "Pastor Dr. H.O. Ilufoye",
-    title: "Senior Pastor",
-    bio: "Pastor Dr. H.O. Ilufoye founded CAC Salvation Center in Baltimore in 2002, carrying the vision of C.A.C Salvation Centre, Ilorin, Nigeria — established July 6, 1997. Under his leadership, the church has grown into a vibrant, Spirit-filled community committed to preaching the whole Gospel and raising God's ambassadors in Maryland and beyond.",
-    image: "/images/pastor.jpg",
-    featured: true,
+    name: "Pastor Felix Osunkiyesi",
+    title: "Curate",
+    bio: "Serving alongside the Senior Pastor in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
   },
   {
-    name: "Pastor (Mrs.) Ilufoye",
-    title: "Pastor",
-    bio: "A pillar of the Salvation Center family, Pastor Mrs. Ilufoye ministers with warmth and grace, supporting the pastoral work and nurturing the spiritual growth of the congregation.",
-    image: "/images/worship.jpg",
-    featured: false,
+    name: "Pastor Alfred Aremo",
+    title: "Associate Pastor",
+    bio: "An associate minister carrying the work of teaching, prayer, and shepherding — committed to seeing every member grow up in Christ and walk in their God-given purpose.",
   },
+  {
+    name: "Pastor Oludapo Eludoyin",
+    title: "Associate Pastor",
+    bio: "An associate minister with a heart for evangelism and pastoral care, serving the congregation in worship, prayer ministry, and the equipping of saints for the work of the kingdom.",
+  },
+  {
+    name: "Pastor Enoch Ilufoye",
+    title: "Assembly Pastor · CAC Kingdom Embassy",
+    bio: "Leading the CAC Kingdom Embassy assembly within the Baltimore DCC family — a next-generation voice carrying the Gospel with clarity, conviction, and cultural intelligence.",
+  },
+];
+
+function initials(name: string) {
+  const parts = name.replace(/^Pastor\s+(Dr\.?\s+)?(\(Mrs\.?\)\s+)?/i, "").trim().split(/\s+/);
+  return ((parts[0]?.[0] || "") + (parts[parts.length - 1]?.[0] || "")).toUpperCase();
+}
+
+const gradients = [
+  "linear-gradient(135deg,#9E1B1B,#D62828)",
+  "linear-gradient(135deg,#D62828,#F15F22)",
+  "linear-gradient(135deg,#F15F22,#E8A33D)",
+  "linear-gradient(135deg,#1B130E,#9E1B1B)",
 ];
 
 export default function LeadershipPage() {
@@ -32,9 +57,9 @@ export default function LeadershipPage() {
       <Nav />
 
       {/* Hero */}
-      <section style={{ background: "var(--cream)", padding: "140px clamp(20px,5vw,64px) 80px", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: "var(--cream)", padding: "140px clamp(20px,5vw,64px) 72px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: -60, right: -60, width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle,#F15F22,#D62828 70%)", opacity: .1, filter: "blur(6px)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
+        <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
           <Reveal>
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Leadership</span>
           </Reveal>
@@ -45,51 +70,84 @@ export default function LeadershipPage() {
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 540, margin: "0 auto" }}>
-              Servant leaders committed to preaching the whole Gospel and shepherding every soul home.
+            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 580, margin: "0 auto" }}>
+              Servant leaders of the Baltimore-Maryland District Coordinating Council, committed to preaching the whole Gospel and shepherding every soul home.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Pastor cards */}
-      <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto", display: "flex", flexDirection: "column", gap: 48 }}>
-          {pastors.map((p, i) => (
-            <Reveal key={p.name} delay={i * 100}>
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: p.featured ? "340px 1fr" : "260px 1fr",
-                gap: 48,
-                alignItems: "start",
-                background: p.featured ? "var(--ink)" : "var(--paper)",
-                borderRadius: 28, overflow: "hidden",
-                boxShadow: p.featured ? "0 30px 60px rgba(27,19,14,.22)" : "0 10px 30px rgba(27,19,14,.08)",
-              }}>
-                <div style={{ position: "relative", height: p.featured ? 460 : 320 }}>
-                  <Image src={p.image} alt={p.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} />
-                </div>
-                <div style={{ padding: "40px 40px 40px 0", color: p.featured ? "var(--cream)" : "var(--ink)" }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: p.featured ? "var(--gold)" : "var(--red)", marginBottom: 12 }}>{p.title}</div>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,40px)", letterSpacing: "-1px", margin: "0 0 20px", lineHeight: 1.05 }}>{p.name}</h2>
-                  <p style={{ fontSize: 16, lineHeight: 1.75, opacity: p.featured ? .82 : 1, margin: 0, color: p.featured ? "var(--cream)" : "var(--ink-soft)" }}>{p.bio}</p>
-                </div>
+      {/* Featured pastor */}
+      <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px) 56px" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal>
+            <div className="r-leader" style={{
+              display: "grid", gridTemplateColumns: "360px 1fr", gap: 48, alignItems: "stretch",
+              background: "var(--ink)", borderRadius: 28, overflow: "hidden",
+              boxShadow: "0 30px 60px rgba(27,19,14,.22)",
+            }}>
+              <div style={{ position: "relative", minHeight: 460 }}>
+                <Image src={featured.image} alt={featured.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="(max-width: 760px) 100vw, 360px" />
               </div>
-            </Reveal>
-          ))}
+              <div style={{ padding: "44px 44px 44px 0", color: "var(--cream)" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>{featured.title}</div>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 22px", lineHeight: 1.04 }}>{featured.name}</h2>
+                <p style={{ fontSize: 16.5, lineHeight: 1.75, opacity: .82, margin: 0 }}>{featured.bio}</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Associate team */}
+      <section style={{ background: "var(--cream-2)", padding: "0 clamp(20px,5vw,64px) 90px" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 36 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Pastoral Team</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.5vw,44px)", letterSpacing: "-1px", color: "var(--ink)", margin: "10px 0 0", lineHeight: 1 }}>
+              Serving alongside.
+            </h2>
+          </Reveal>
+          <div className="r-leader-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 22 }}>
+            {team.map((p, i) => (
+              <Reveal key={p.name} delay={i * 70}>
+                <div style={{
+                  background: "var(--paper)", borderRadius: 22, padding: "28px 28px 30px",
+                  border: "1px solid var(--line)", boxShadow: "0 10px 28px rgba(27,19,14,.07)",
+                  height: "100%", display: "flex", flexDirection: "column", gap: 18,
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                    <div aria-hidden style={{
+                      width: 64, height: 64, borderRadius: 18,
+                      background: gradients[i % gradients.length],
+                      display: "grid", placeItems: "center",
+                      color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22,
+                      letterSpacing: "-0.5px", boxShadow: "0 10px 22px rgba(214,40,40,.28)",
+                      flexShrink: 0,
+                    }}>{initials(p.name)}</div>
+                    <div>
+                      <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 4 }}>{p.title}</div>
+                      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, letterSpacing: "-0.4px", color: "var(--ink)", margin: 0, lineHeight: 1.15 }}>{p.name}</h3>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: 0 }}>{p.bio}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Choir / Worship Team */}
       <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 44 }}>
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Worship Team</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "14px 0 0", lineHeight: .95 }}>The Choir</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0", lineHeight: .95 }}>The Choir</h2>
           </Reveal>
           <Reveal delay={80}>
             <div style={{ borderRadius: 24, overflow: "hidden", position: "relative", height: "clamp(280px,36vw,440px)", boxShadow: "0 24px 50px rgba(27,19,14,.16)" }}>
-              <Image src="/images/choir.jpg" alt="CAC Salvation Center choir" fill style={{ objectFit: "cover", objectPosition: "center 30%" }} />
+              <Image src="/images/choir.jpg" alt="CAC Salvation Center choir" fill style={{ objectFit: "cover", objectPosition: "center 30%" }} sizes="100vw" />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(0,0,0,.6),transparent 60%)" }} />
               <div style={{ position: "absolute", bottom: 32, left: 36, color: "#fff" }}>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28 }}>Salvation Center Choir</div>

@@ -112,6 +112,16 @@ export function FooterExperience() {
             <span>Prayer Line · 5:00 AM daily</span>
           </div>
         </div>
+
+        <div>
+          <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Sister Churches</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
+            <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Kingdom Embassy</a>
+            <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Palace of Peace</a>
+            <Link href="/ilorin" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Salvation Centre, Ilorin</Link>
+            <Link href="/salvationcity" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>Salvation City</Link>
+          </div>
+        </div>
       </div>
 
       <div style={{ maxWidth: 1240, margin: '24px auto 0', fontSize: 13, color: 'var(--ink-soft)' }}>

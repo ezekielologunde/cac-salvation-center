@@ -15,9 +15,18 @@ export interface ChurchEvent {
   startLocal: string;
   endLocal: string;
   recurDay?: "SU" | "WE" | "FR";
+  /** Monthly recurrence — "3SA" for 3rd Saturday, "3FR" for 3rd Friday, "-1" for last day of month. */
+  recurMonthly?: string;
 }
 
 export const specialEvents: ChurchEvent[] = [
+  {
+    id: "cacna-convention-2026",
+    title: "CACNA 2026 Annual Convention",
+    desc: "Christ Apostolic Church North America Annual Convention — six days of worship, teaching, and family at CAC Village, Blue Ridge Summit, PA.",
+    dateLabel: "July 13–18, 2026", timeLabel: "All week", month: "JUL", day: "13",
+    startLocal: "20260713T180000", endLocal: "20260718T220000",
+  },
   {
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
@@ -33,6 +42,8 @@ export const specialEvents: ChurchEvent[] = [
     startLocal: "20261001T103000", endLocal: "20261001T123000",
   },
 ];
+
+export const CACNA_LOCATION = "CAC Village, Blue Ridge Summit, PA";
 
 export const weeklyServices: ChurchEvent[] = [
   {
@@ -58,6 +69,56 @@ export const weeklyServices: ChurchEvent[] = [
   },
 ];
 
+export const monthlyServices: ChurchEvent[] = [
+  {
+    id: "bdcc-youth-fellowship",
+    title: "BDCC Youth Fellowship",
+    desc: "A monthly gathering of the next generation — worship, the Word, and real conversation. On Zoom from anywhere.",
+    dateLabel: "Every 3rd Saturday", timeLabel: "7:00 PM ET",
+    startLocal: "20260620T190000", endLocal: "20260620T203000",
+    recurMonthly: "3SA",
+  },
+  {
+    id: "bdcc-monthly-prayer",
+    title: "BDCC Monthly Prayer Meeting",
+    desc: "The whole house in agreement — intercession, worship, and waiting on the Lord together. Onsite and online.",
+    dateLabel: "Every 3rd Friday", timeLabel: "7:00 PM ET",
+    startLocal: "20260619T190000", endLocal: "20260619T210000",
+    recurMonthly: "3FR",
+  },
+  {
+    id: "crossover-service",
+    title: "Cross Over Service",
+    desc: "Crossing into the new month with the family — a late-night service of thanksgiving, prayer, and prophecy.",
+    dateLabel: "Last day of every month", timeLabel: "10:00 PM ET",
+    startLocal: "20260630T220000", endLocal: "20260701T000000",
+    recurMonthly: "-1",
+  },
+];
+
+export interface AnnualMoment {
+  id: string;
+  title: string;
+  when: string;
+  desc: string;
+}
+
+export const annualMoments: AnnualMoment[] = [
+  { id: "church-anniversary", title: "Church Anniversary", when: "July — 24 years strong in 2026", desc: "Celebrating God’s faithfulness to the Baltimore-Maryland DCC since 2002. Exact date announced from the pulpit each year." },
+  { id: "graduation-sunday", title: "Graduation Ceremony", when: "August — annually", desc: "Honoring the graduates of our family — high school, college, and beyond. Date set fresh each year." },
+  { id: "mothers-day", title: "Mother’s Day Sunday", when: "2nd Sunday of May", desc: "A Sunday set apart to celebrate and pray over every mother in the house." },
+  { id: "fathers-day", title: "Father’s Day Sunday", when: "3rd Sunday of June", desc: "A Sunday set apart to honor the fathers of the Salvation Center family." },
+  { id: "womens-day", title: "Women’s Day", when: "Annually — date to be announced", desc: "A special service celebrating the women of the Salvation Center." },
+  { id: "pastor-appreciation", title: "Pastor Appreciation", when: "Annually — date to be announced", desc: "A moment as a family to thank God for the shepherds He has given us." },
+];
+
+function recurRule(ev: ChurchEvent): string | null {
+  if (ev.recurDay) return `RRULE:FREQ=WEEKLY;BYDAY=${ev.recurDay}`;
+  if (ev.recurMonthly === "-1") return "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1";
+  if (ev.recurMonthly) return `RRULE:FREQ=MONTHLY;BYDAY=${ev.recurMonthly}`;
+  return null;
+}
+
 /** One-click Google Calendar template URL (timezone-correct via ctz). */
 export function googleCalUrl(ev: ChurchEvent): string {
   const params = new URLSearchParams({
@@ -69,12 +130,14 @@ export function googleCalUrl(ev: ChurchEvent): string {
     ctz: TZ,
   });
   let url = `https://calendar.google.com/calendar/render?${params.toString()}`;
-  if (ev.recurDay) url += `&recur=${encodeURIComponent(`RRULE:FREQ=WEEKLY;BYDAY=${ev.recurDay}`)}`;
+  const rule = recurRule(ev);
+  if (rule) url += `&recur=${encodeURIComponent(rule)}`;
   return url;
 }
 
 /** Downloadable .ics (Apple Calendar / Outlook) as a data URI — no backend needed. */
 export function icsDataUri(ev: ChurchEvent): string {
+  const rule = recurRule(ev);
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
@@ -85,7 +148,7 @@ export function icsDataUri(ev: ChurchEvent): string {
     "DTSTAMP:20260101T000000Z",
     `DTSTART;TZID=${TZ}:${ev.startLocal}`,
     `DTEND;TZID=${TZ}:${ev.endLocal}`,
-    ...(ev.recurDay ? [`RRULE:FREQ=WEEKLY;BYDAY=${ev.recurDay}`] : []),
+    ...(rule ? [rule] : []),
     `SUMMARY:${ev.title}`,
     `DESCRIPTION:${ev.desc}`,
     `LOCATION:${LOCATION}`,
