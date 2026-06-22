@@ -1,23 +1,44 @@
 import Script from "next/script";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-8M8BEVEEWM";
-const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID; // Google Ads id, e.g. AW-XXXXXXX
+// Set these in Vercel → Project → Settings → Environment Variables:
+//   NEXT_PUBLIC_GA_ID          Google Analytics 4 measurement ID  (e.g. G-XXXXXXXXXX)
+//   NEXT_PUBLIC_GOOGLE_ADS_ID  Google Ads conversion ID           (e.g. AW-XXXXXXXXX)
+//   NEXT_PUBLIC_ADSENSE_ID     Google AdSense publisher ID        (e.g. ca-pub-XXXXXXXXXXXXXXXX)
+
+const GA_ID      = process.env.NEXT_PUBLIC_GA_ID ?? "G-8M8BEVEEWM";
+const ADS_ID     = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID;
 
 export function GoogleTags() {
-  const ids = [GA_ID, ADS_ID].filter(Boolean) as string[];
-  if (ids.length === 0) return null;
+  const gtagIds = [GA_ID, ADS_ID].filter(Boolean) as string[];
 
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${ids[0]}`}
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${ids
-          .map((id) => `gtag('config','${id}');`)
-          .join("")}`}
-      </Script>
+      {/* Google Analytics + Google Ads */}
+      {gtagIds.length > 0 && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${gtagIds[0]}`}
+            strategy="afterInteractive"
+          />
+          <Script id="gtag-init" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${gtagIds
+              .map((id) => `gtag('config','${id}');`)
+              .join("")}`}
+          </Script>
+        </>
+      )}
+
+      {/* Google AdSense auto-ads — only loads when publisher ID is set */}
+      {ADSENSE_ID && (
+        <Script
+          id="adsense-init"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      )}
     </>
   );
 }
