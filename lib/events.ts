@@ -48,7 +48,7 @@ export const CACNA_LOCATION = "CAC Village, Blue Ridge Summit, PA";
 export const weeklyServices: ChurchEvent[] = [
   {
     id: "sunday-service",
-    title: "Sunday Worship Service",
+    title: "Sunday Worship",
     desc: "Our main gathering — Spirit-led worship and biblical teaching, onsite and online.",
     dateLabel: "Every Sunday", timeLabel: "10:30 AM ET",
     startLocal: "20260628T103000", endLocal: "20260628T123000", recurDay: "SU",
@@ -56,14 +56,14 @@ export const weeklyServices: ChurchEvent[] = [
   {
     id: "bible-study",
     title: "Wednesday Bible Study",
-    desc: "Mid-week scriptural teaching with Pastor Ilufoye. Join online from anywhere.",
+    desc: "Mid-week scriptural teaching to ground the week in the Word. Join online from anywhere.",
     dateLabel: "Every Wednesday", timeLabel: "7:00 PM ET",
     startLocal: "20260624T190000", endLocal: "20260624T203000", recurDay: "WE",
   },
   {
     id: "wakati-itusile",
     title: "Wakati Itusile",
-    desc: "High-energy Yoruba worship celebrating our diaspora family. Online.",
+    desc: "High-energy Yoruba worship in our mother tongue. Online.",
     dateLabel: "Every Friday", timeLabel: "7:00 PM ET",
     startLocal: "20260626T190000", endLocal: "20260626T203000", recurDay: "FR",
   },

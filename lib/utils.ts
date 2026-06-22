@@ -20,7 +20,7 @@ export const CHURCH_DATA = {
   email: "info@cacsalvationcenter.org",
   services: [
     { day: "Sunday", name: "Sunday School", time: "9:25 – 10:25 AM ET", mode: ["In-person", "Online"] },
-    { day: "Sunday", name: "Main Worship Service", time: "10:30 AM – 12:30 PM ET", mode: ["In-person", "Online"] },
+    { day: "Sunday", name: "Sunday Worship", time: "10:30 AM – 12:30 PM ET", mode: ["In-person", "Online"] },
     { day: "Wednesday", name: "Bible Study", time: "7:00 – 8:30 PM ET", mode: ["Online"] },
     { day: "Friday", name: "Wakati Itusile", time: "7:00 – 9:00 PM ET", mode: ["Online", "Yoruba"] },
   ],

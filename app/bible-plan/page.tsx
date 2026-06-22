@@ -137,9 +137,12 @@ export default function BiblePlanPage() {
           <Reveal delay={bibleReadingPlan.length * 70 + 60} style={{ marginTop: 44 }}>
             <div style={{ textAlign: "center", padding: "30px 24px", border: "1.5px dashed var(--line)", borderRadius: 22, background: "var(--paper)" }}>
               <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Still to come</span>
-              <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "10px auto 0", maxWidth: 520 }}>
-                The rest of the year's readings are released as we walk through them as a family. New weeks land here as they come from the pulpit.
+              <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "10px auto 18px", maxWidth: 520 }}>
+                The rest of the year's readings are released as we walk through them as a family. The full Hope for Today reading lives on the blog.
               </p>
+              <a href="https://blog.cacsalvationcenter.org" target="_blank" rel="noopener noreferrer" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--ink)", color: "#fff", fontWeight: 700, fontSize: 14.5, padding: "12px 22px", borderRadius: 999, textDecoration: "none" }}>
+                Read Hope for Today on the blog →
+              </a>
             </div>
           </Reveal>
         </div>

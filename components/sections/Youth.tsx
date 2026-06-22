@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
 import { IconBadge } from '@/components/ui/IconBadge';
 import { BookOpen, Target } from 'lucide-react';
@@ -32,20 +33,36 @@ export function Youth() {
             </a>
           </Reveal>
 
-          <Reveal delay={100} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
-            <IconBadge icon={BookOpen} />
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>2026 Bible Reading Calendar</div>
-              <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>A chapter a day, through the Word as one church.</div>
-            </div>
+          <Reveal delay={100}>
+            <a
+              href="https://blog.cacsalvationcenter.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-lift"
+              style={{ textDecoration: 'none', color: 'inherit', background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260, height: '100%' }}
+            >
+              <IconBadge icon={BookOpen} />
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>2026 Bible Reading Calendar</div>
+                <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>The Hope for Today weekly reading, a chapter a day as one church.</div>
+                <div style={{ marginTop: 14, fontSize: 14, fontWeight: 700, color: 'var(--red)', display: 'flex', alignItems: 'center', gap: 7 }}>Read on the blog <span style={{ fontSize: 17 }}>→</span></div>
+              </div>
+            </a>
           </Reveal>
 
-          <Reveal delay={200} style={{ background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
-            <IconBadge icon={Target} />
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>Daily Goal Setting</div>
-              <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>Practical tools to grow your faith and your week.</div>
-            </div>
+          <Reveal delay={200}>
+            <Link
+              href="/bible-plan"
+              className="card-lift"
+              style={{ textDecoration: 'none', color: 'inherit', background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260, height: '100%' }}
+            >
+              <IconBadge icon={Target} />
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>Daily Goal Setting</div>
+                <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>Anchored to the weekly reading plan — a steady rhythm for your faith and your week.</div>
+                <div style={{ marginTop: 14, fontSize: 14, fontWeight: 700, color: 'var(--red)', display: 'flex', alignItems: 'center', gap: 7 }}>Open the weekly plan <span style={{ fontSize: 17 }}>→</span></div>
+              </div>
+            </Link>
           </Reveal>
         </div>
       </div>

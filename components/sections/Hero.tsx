@@ -33,8 +33,8 @@ export function Hero() {
     return () => clearTimeout(t);
   }, [reduce]);
 
-  // Bilingual hero greeting (English / Yorùbá) — a warm welcome for our
-  // Yoruba-speaking diaspora family. Scoped to the greeting; persists per visit.
+  // Bilingual hero greeting (English / Yorùbá). Scoped to the greeting;
+  // persists per visit.
   const [lang, setLang] = useState<"en" | "yo">("en");
   useEffect(() => {
     const saved = localStorage.getItem("cac-hero-lang");

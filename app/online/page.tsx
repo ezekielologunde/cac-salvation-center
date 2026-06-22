@@ -17,7 +17,7 @@ const platforms = [
 ];
 
 const schedule = [
-  { day: "Sunday", name: "Main Service", time: "10:30 AM ET", type: "Onsite & Online" },
+  { day: "Sunday", name: "Sunday Worship", time: "10:30 AM ET", type: "Onsite & Online" },
   { day: "Wednesday", name: "Bible Study", time: "7:00 PM ET", type: "Online Only" },
   { day: "Friday", name: "Wakati Itusile", time: "7:00 PM ET", type: "Online Only" },
   { day: "Daily", name: "Morning Prayer Line", time: "5:00 AM ET", type: "(857) 216-6700 · Code: 531312" },

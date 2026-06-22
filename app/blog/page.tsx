@@ -81,6 +81,23 @@ export default function BlogPage() {
         </Reveal>
       </section>
 
+      {/* CACNA 2026 registration */}
+      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(40px,5vw,72px)" }}>
+        <Reveal>
+          <div style={{ maxWidth: 880, margin: "0 auto", background: "linear-gradient(135deg,#9E1B1B,#D62828)", borderRadius: 28, padding: "clamp(30px,4vw,46px)", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24, boxShadow: "0 24px 60px rgba(214,40,40,.28)", position: "relative", overflow: "hidden" }}>
+            <div aria-hidden style={{ position: "absolute", top: -80, right: -60, width: 320, height: 280, background: "radial-gradient(circle,rgba(232,163,61,.3),transparent 65%)", pointerEvents: "none" }} />
+            <div style={{ flex: "1 1 320px", position: "relative", zIndex: 2 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,247,239,.85)", marginBottom: 10 }}>By popular demand</div>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3.2vw,38px)", letterSpacing: "-.6px", color: "#fff", margin: "0 0 8px", lineHeight: 1.05 }}>Register for CACNA 2026</h2>
+              <p style={{ fontSize: 15.5, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>The 2026 CAC North America National Convention — July 13–18 at CAC Village, Blue Ridge Summit, PA. Secure your spot online.</p>
+            </div>
+            <a href="https://cacnaconvention.org/2025-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red-deep)", fontWeight: 800, fontSize: 16, padding: "16px 30px", borderRadius: 999, textDecoration: "none" }}>
+              Register Now →
+            </a>
+          </div>
+        </Reveal>
+      </section>
+
       {/* Sneak peek */}
       <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(70px,9vw,110px)" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>

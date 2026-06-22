@@ -10,7 +10,7 @@ interface Service {
 
 // Weekly gatherings (local time). Soonest upcoming one wins.
 const SERVICES: Service[] = [
-  { day: 0, hour: 10, min: 30, label: "Sunday Service" },
+  { day: 0, hour: 10, min: 30, label: "Sunday Worship" },
   { day: 3, hour: 19, min: 0, label: "Bible Study" },
   { day: 5, hour: 19, min: 0, label: "Wakati Itusile" },
 ];
@@ -35,7 +35,7 @@ export interface Countdown {
 }
 
 export function useCountdown(): Countdown {
-  const [state, setState] = useState<Countdown>({ label: "Sunday Service", countdown: "—" });
+  const [state, setState] = useState<Countdown>({ label: "Sunday Worship", countdown: "—" });
 
   useEffect(() => {
     const update = () => {

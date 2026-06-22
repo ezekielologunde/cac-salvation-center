@@ -86,7 +86,7 @@ export function churchJsonLd() {
     ],
     event: {
       "@type": "Event",
-      name: "Sunday Worship Service",
+      name: "Sunday Worship",
       eventSchedule: {
         "@type": "Schedule",
         byDay: "Sunday",

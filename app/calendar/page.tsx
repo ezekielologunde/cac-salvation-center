@@ -14,8 +14,8 @@ export const metadata = {
 const dayPrograms = [
   { icon: Sun, day: "Daily", title: "Prayer Line", time: "5:00 AM", desc: "Begin the day in agreement with the family — dial in from anywhere." },
   { icon: Sparkles, day: "Sunday", title: "Worship Service", time: "10:30 AM ET", desc: "Our main gathering — Spirit-led worship, biblical teaching, communion." },
-  { icon: Moon, day: "Wednesday", title: "Bible Study", time: "7:00 PM ET", desc: "Mid-week scriptural teaching with Pastor Ilufoye. Online and onsite." },
-  { icon: Flame, day: "Friday", title: "Wakati Itusile", time: "7:00 PM ET", desc: "High-energy Yoruba worship celebrating our diaspora family. Online." },
+  { icon: Moon, day: "Wednesday", title: "Bible Study", time: "7:00 PM ET", desc: "Mid-week scriptural teaching to ground the week in the Word. Online." },
+  { icon: Flame, day: "Friday", title: "Wakati Itusile", time: "7:00 PM ET", desc: "High-energy Yoruba worship in our mother tongue. Online." },
 ];
 
 function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }) {
