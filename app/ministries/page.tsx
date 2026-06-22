@@ -31,7 +31,7 @@ const ministries: Ministry[] = [
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
   { name: "Prayer & Intercession", desc: "Standing in the gap for our church and our city — join the daily 5 AM prayer line.", icon: HandHeart, gradient: "linear-gradient(140deg,var(--red),var(--red-deep))", href: "/prayer", cta: "Join the prayer line" },
   { name: "Media & Online", desc: "Carrying the service beyond our walls — streaming Spirit-filled worship to the world.", icon: Video, gradient: "linear-gradient(140deg,var(--gold),var(--flame))", href: "/contact", cta: "Serve on media" },
-  { name: "Macedonia Outreach", desc: "An annual mission to forgotten rural ministers in hard-to-reach and unreachable places — carrying the gospel where most cannot go.", icon: Globe, gradient: "linear-gradient(140deg,#1B4332,#2D6A4F)", image: "/images/macedonia-logo.png", alt: "Macedonia Outreach logo", href: "https://www.instagram.com/macedonia.outreach/", cta: "Follow on Instagram" },
+  { name: "Macedonia Outreach", desc: "An annual mission to forgotten rural ministers in hard-to-reach and unreachable places — carrying the gospel where most cannot go.", icon: Globe, gradient: "linear-gradient(140deg,#1B4332,#2D6A4F)", image: "/images/macedonia-logo.png", alt: "Macedonia Outreach logo", href: "/events/macedonia-outreach", cta: "Learn about the mission" },
 ];
 
 const groupCategories: { label: string; icon: LucideIcon; groups: string[] }[] = [

@@ -27,7 +27,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   // Events & Calendar
   { title: "Calendar", desc: "Weekly, monthly, and annual church calendar", href: "/calendar", tag: "Page", keywords: "calendar schedule services rhythm annual monthly weekly" },
   { title: "Events", desc: "Upcoming special events, gatherings, and anniversaries", href: "/events", tag: "Event", keywords: "events special gatherings anniversary upcoming" },
-  { title: "Macedonia Outreach", desc: "Annual mission to forgotten rural ministers in hard-to-reach places", href: "/ministries", tag: "Page", keywords: "macedonia outreach mission rural unreachable forgotten ministers evangelism remote" },
+  { title: "Macedonia Outreach", desc: "Annual mission to forgotten rural ministers in hard-to-reach places — carrying the gospel where most cannot go", href: "/events/macedonia-outreach", tag: "Event", keywords: "macedonia outreach mission rural unreachable forgotten ministers evangelism remote nigeria" },
   { title: "Holy Land Pilgrimage 2026", desc: "Nov 2–12 — CACNA Latunde Region Pilgrimage to Israel & Egypt — $500 deposit", href: "/events/pilgrimage-2026", tag: "Event", keywords: "holy land pilgrimage 2026 israel egypt jfk cacna november travel ilufoye mustapha" },
   { title: "CACNA 2026", desc: "National convention July 13–18, Blue Ridge Summit PA", href: "/events/cacna-2026", tag: "Event", keywords: "cacna 2026 national convention july blue ridge summit pennsylvania north america" },
   { title: "Good Women Anniversary", desc: "Annual celebration of womanhood in faith — June 28", href: "/events/good-women-anniversary", tag: "Event", keywords: "good women anniversary womanhood faith celebration june 28" },
