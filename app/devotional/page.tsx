@@ -29,6 +29,15 @@ const devotionals = [
   },
 ];
 
+const confession: { kind: "verse" | "say"; ref?: string; text: string }[] = [
+  { kind: "verse", ref: "Psalm 23:1–3", text: "The LORD is my shepherd; I shall not want. He makes me lie down in green pastures. He leads me beside still waters. He restores my soul. He leads me in paths of righteousness for His name’s sake." },
+  { kind: "say", text: "As I go through the day, I’m covered by the blood of Jesus Christ, and I stand on the promise of the Word of God in —" },
+  { kind: "verse", ref: "Isaiah 41:10", text: "Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness." },
+  { kind: "verse", ref: "Isaiah 41:11", text: "Behold, all they that were incensed against thee shall be ashamed and confounded: they shall be as nothing; and they that strive with thee shall perish." },
+  { kind: "verse", ref: "Isaiah 41:12", text: "Thou shalt seek them, and shalt not find them, even them that contended with thee: they that war against thee shall be as nothing, and as a thing of nought." },
+  { kind: "say", text: "Surely goodness and mercy shall follow me all the days of my life, and I shall dwell in the house of the LORD forever." },
+];
+
 export default function DevotionalPage() {
   return (
     <main>
@@ -56,6 +65,33 @@ export default function DevotionalPage() {
         </div>
       </section>
 
+      {/* 2026 Watchword */}
+      <section style={{ background: "linear-gradient(135deg,#9E1B1B,#D62828)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden style={{ position: "absolute", top: -120, right: -80, width: 520, height: 420, background: "radial-gradient(circle,rgba(232,163,61,.28),transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
+          <Reveal>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Our 2026 Watchword</span>
+          </Reveal>
+          <Reveal delay={90}>
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4.2vw,52px)", letterSpacing: "-0.02em", color: "#fff", margin: "18px 0 0", lineHeight: 1.12, textWrap: "balance" }}>
+              “Open my eyes, that I may see wondrous things from Your law.”
+            </p>
+          </Reveal>
+          <Reveal delay={170}>
+            <p lang="yo" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2.4vw,28px)", color: "rgba(255,247,239,.92)", margin: "20px 0 0", lineHeight: 1.3, textWrap: "balance" }}>
+              “Là mí li ojú, kí èmi kí ó lè máa wò ohun ìyanu wọ̀nnì láti inú òfin rẹ.”
+            </p>
+          </Reveal>
+          <Reveal delay={240}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginTop: 26, fontSize: 12.5, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--gold)" }}>
+              <span style={{ width: 28, height: 1, background: "rgba(232,163,61,.55)" }} aria-hidden />
+              Psalm 119:18 · NKJV &amp; Yorùbá
+              <span style={{ width: 28, height: 1, background: "rgba(232,163,61,.55)" }} aria-hidden />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Verse of the day */}
       <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
         <VerseOfDay />
@@ -78,6 +114,35 @@ export default function DevotionalPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 2026 Daily Confession */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 820, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Confess it daily · 2026</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0" }}>Our Daily Confession</h2>
+            <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "12px auto 0", maxWidth: 540 }}>
+              The declaration the Salvation Center family speaks over each day this year. Say it aloud, and walk in it.
+            </p>
+          </Reveal>
+          <Reveal delay={120}>
+            <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 24, padding: "clamp(28px,4vw,46px)", boxShadow: "0 16px 40px rgba(27,19,14,.08)" }}>
+              {confession.map((seg, i) =>
+                seg.kind === "verse" ? (
+                  <div key={i} style={{ marginBottom: i === confession.length - 1 ? 0 : 26 }}>
+                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 8 }}>{seg.ref}</div>
+                    <p style={{ fontSize: "clamp(16px,1.9vw,19px)", color: "var(--ink)", lineHeight: 1.75, margin: 0 }}>{seg.text}</p>
+                  </div>
+                ) : (
+                  <p key={i} style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2.2vw,24px)", color: "var(--red-deep)", lineHeight: 1.5, letterSpacing: "-.3px", margin: i === confession.length - 1 ? 0 : "0 0 26px" }}>
+                    {seg.text}
+                  </p>
+                )
+              )}
+            </div>
+          </Reveal>
         </div>
       </section>
 

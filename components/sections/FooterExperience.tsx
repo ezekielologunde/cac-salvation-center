@@ -11,7 +11,7 @@ import { haptic } from '@/lib/haptics';
 
 const socials = [
   { icon: <FacebookIcon />, title: 'Facebook', href: 'https://www.facebook.com/CacSalvationCenterBaltimore' },
-  { icon: <InstagramIcon />, title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimoreusa/' },
+  { icon: <InstagramIcon />, title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimore/' },
   { icon: <YoutubeIcon />, title: 'YouTube', href: 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA' },
   { icon: <TikTokIcon />, title: 'TikTok', href: 'https://www.tiktok.com/@salvationcenterus' },
 ];
@@ -110,6 +110,16 @@ export function FooterExperience() {
             <span>Wednesday · 7:00 PM ET</span>
             <span>Friday · 7:00 PM ET (Yoruba)</span>
             <span>Prayer Line · 5:00 AM daily</span>
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Sister Churches</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
+            <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Kingdom Embassy</a>
+            <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Palace of Peace</a>
+            <Link href="/ilorin" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>CAC Salvation Centre, Ilorin</Link>
+            <Link href="/salvationcity" style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>Salvation City</Link>
           </div>
         </div>
       </div>

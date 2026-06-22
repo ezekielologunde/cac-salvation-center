@@ -2,6 +2,7 @@ import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
+import Link from "next/link";
 import { CalendarPlus, Download } from "lucide-react";
 import { specialEvents, weeklyServices, googleCalUrl, icsDataUri, type ChurchEvent } from "@/lib/events";
 
@@ -80,6 +81,11 @@ export default function EventsPage() {
                     <div style={{ fontSize: 14, fontWeight: 700, color: "var(--red)", marginBottom: 10 }}>{ev.dateLabel} · {ev.timeLabel}</div>
                     <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.65, margin: "0 0 18px" }}>{ev.desc}</p>
                     <AddToCalendar ev={ev} />
+                    {ev.href && (
+                      <Link href={ev.href} className="press" style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 16, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+                        See full details &amp; ministers <span aria-hidden style={{ fontSize: 16 }}>→</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </Reveal>

@@ -61,7 +61,7 @@ export default function ContactPage() {
               { icon: MapPin, title: "Address", lines: ["10710 Marriottsville Rd", "Randallstown, MD 21133"], href: "https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" },
               { icon: Phone, title: "Phone", lines: ["+1 443-272-6794", "+1 410-701-8315"], href: "tel:+14432726794" },
               { icon: Mail, title: "Email", lines: ["info@cacsalvationcenter.org"], href: "mailto:info@cacsalvationcenter.org" },
-              { icon: Clock, title: "Sunday Service", lines: ["Sunday School 9:25 AM", "Main Service 10:30 AM ET"], href: null },
+              { icon: Clock, title: "Sunday Service", lines: ["Sunday School 9:25 AM", "Sunday Worship 10:30 AM ET"], href: null },
             ].map((card) => (
               <Reveal key={card.title}>
                 <div style={{ background: "var(--paper)", borderRadius: 20, padding: "28px 24px", border: "1px solid var(--line)", boxShadow: "0 8px 22px rgba(27,19,14,.05)" }}>

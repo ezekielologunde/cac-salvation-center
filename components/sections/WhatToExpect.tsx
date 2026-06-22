@@ -3,23 +3,26 @@ import { Reveal } from "@/components/ui/Reveal";
 const services = [
   {
     day: "Sunday",
-    name: "Main Service",
+    name: "Sunday Worship",
     time: "10:30 AM ET",
     desc: "Spirit-led worship, biblical teaching, and community. Our flagship gathering — onsite and online.",
+    mode: "Onsite & Online",
     dark: true,
   },
   {
     day: "Wednesday",
     name: "Bible Study",
     time: "7:00 PM ET",
-    desc: "Deep-dive scriptural teaching with Pastor Ilufoye. Join online from anywhere.",
+    desc: "Deep-dive scriptural teaching to ground your week in the Word. Join online from anywhere.",
+    mode: "Online",
     dark: false,
   },
   {
     day: "Friday",
     name: "Wakati Itusile",
     time: "7:00 PM ET",
-    desc: "High-energy Yoruba worship service celebrating our diaspora family. All are welcome.",
+    desc: "High-energy Yoruba worship service — a Spirit-filled hour in our mother tongue.",
+    mode: "Online",
     dark: false,
   },
 ];
@@ -66,7 +69,7 @@ export function WhatToExpect() {
                 <div style={{ marginTop: 28, display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.dark ? "var(--gold)" : "var(--red)", display: "inline-block" }} />
                   <span style={{ fontSize: 13, fontWeight: 600, color: s.dark ? "rgba(255,247,239,.5)" : "var(--ink-soft)" }}>
-                    Onsite &amp; Online
+                    {s.mode}
                   </span>
                 </div>
               </div>

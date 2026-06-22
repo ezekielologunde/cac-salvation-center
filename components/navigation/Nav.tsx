@@ -18,8 +18,10 @@ const navItems: NavItem[] = [
     label: 'Who We Are',
     href: '/about',
     dropdown: [
-      { href: '/leadership', label: 'Leadership', desc: 'Meet our pastors & team' },
+      { href: '/leadership', label: 'Leadership', desc: 'Meet our five pastors' },
+      { href: '/ilorin', label: 'Ilorin', desc: 'Our parent assembly in Nigeria' },
       { href: '/ministries', label: 'Ministries', desc: 'Find your place to serve' },
+      { href: '/testimonies', label: 'Testimonies', desc: 'Stories of what God has done' },
       { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
     ],
   },
@@ -27,15 +29,33 @@ const navItems: NavItem[] = [
     label: 'Online',
     href: '/online',
     dropdown: [
-      { href: '/giving', label: 'Giving', desc: 'Support the ministry' },
-      { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
+      { href: '/salvationcity', label: 'Salvation City', desc: 'Online assembly on Zoom' },
+      { href: '/giving', label: 'Giving', desc: 'Tithe & offering' },
+      { href: '/building', label: 'Building Project', desc: 'A house for His Name' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
-      { href: '/devotional', label: 'Devotional', desc: 'Daily word & podcast' },
+      { href: '/devotional', label: 'Devotional', desc: 'Daily Word & podcast' },
+      { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
+      { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
     ],
   },
   { label: 'Visit', href: '/visit' },
-  { label: 'Events', href: '/events' },
-  { label: 'Contact Us', href: '/contact' },
+  {
+    label: 'Calendar',
+    href: '/calendar',
+    dropdown: [
+      { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
+      { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
+    ],
+  },
+  {
+    label: 'Resources',
+    href: '/blog',
+    dropdown: [
+      { href: '/blog', label: 'Blog & News', desc: 'Stories from the family' },
+      { href: '/store', label: 'Store', desc: 'Sermons, study guides & merch' },
+    ],
+  },
+  { label: 'Contact', href: '/contact' },
 ];
 
 interface NavProps {

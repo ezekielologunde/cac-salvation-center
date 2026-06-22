@@ -12,7 +12,7 @@ const faqs = [
   { q: "How long is the service?", a: "Sunday services typically run about 2 hours (10:30 AM – 12:30 PM ET)." },
   { q: "Do you have childcare?", a: "Yes — we have a dedicated Kids Ministry for children during Sunday service." },
   { q: "Can I join online?", a: "Absolutely. All Sunday services are streamed live. Wednesday and Friday services are online-only." },
-  { q: "Is Wakati Itusile for non-Yoruba speakers?", a: "It's primarily in Yoruba, celebrating our diaspora community — but all are warmly welcome." },
+  { q: "Is Wakati Itusile for non-Yoruba speakers?", a: "It's primarily in Yoruba, our mother tongue. Even without the language, the worship and the presence of God carry across." },
 ];
 
 export default function VisitPage() {

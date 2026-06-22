@@ -9,7 +9,7 @@ export interface Sermon {
 
 /** Curated fallback so the page never breaks if the feed is unreachable at build. */
 const FALLBACK: Sermon[] = [
-  { id: "xIZBd9UYIDw", title: "Sunday Worship Service", published: "" },
+  { id: "xIZBd9UYIDw", title: "Sunday Worship", published: "" },
   { id: "RX1NjOYtDxo", title: "Praise & Worship Service", published: "" },
   { id: "gBGifbZSDBo", title: "CAC — Vision & Mission", published: "" },
 ];
