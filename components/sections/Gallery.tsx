@@ -11,7 +11,7 @@ import { haptic } from "@/lib/haptics";
 // photos to Cloudinary. Add filenames (without extension) to CLOUDINARY_PHOTOS.
 //
 // URL shape: https://res.cloudinary.com/<cloud>/image/upload/f_auto,q_auto,w_1200/<filename>
-const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "dkmn2rtbc";
 const CLOUDINARY_PHOTOS: { file: string; alt: string }[] = [
   // Add entries here once photos are uploaded to Cloudinary, e.g.:
   // { file: "cac/congregation-2024", alt: "Congregation worshipping together" },
