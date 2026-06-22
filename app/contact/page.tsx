@@ -51,6 +51,7 @@ export default function ContactPage() {
     if (!fields.name.trim()) { setErrMsg("Please enter your name."); return; }
     if (!fields.email.trim()) { setErrMsg("Please enter your email address."); return; }
     if (!isValidEmail(fields.email)) { setErrMsg("Please enter a valid email address."); return; }
+    if (isMembershipSubject && !fields.phone.trim()) { setErrMsg("Please enter your phone number so we can reach you."); return; }
     if (!fields.message.trim()) { setErrMsg("Please write a message."); return; }
     setStatus("loading");
     try {
@@ -129,7 +130,12 @@ export default function ContactPage() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16, marginBottom: 16 }}>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Phone <span style={{ fontWeight: 400, opacity: .6 }}>(optional)</span></label>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>
+                      Phone{" "}
+                      {isMembershipSubject
+                        ? <span style={{ color: "var(--red)" }}>*</span>
+                        : <span style={{ fontWeight: 400, opacity: .6 }}>(optional)</span>}
+                    </label>
                     <input style={inputStyle} type="tel" placeholder="+1 (443) 000-0000" value={fields.phone} onChange={update("phone")} autoComplete="tel" />
                   </div>
                   <div>

@@ -26,16 +26,16 @@ const homes: Home[] = [
 const homeCardStyle: CSSProperties = {
   height: "100%", display: "flex", flexDirection: "column",
   background: "rgba(255,247,239,.05)", border: "1px solid rgba(255,247,239,.12)",
-  borderRadius: 22, padding: "26px 24px", textDecoration: "none",
+  borderRadius: 16, padding: "16px 18px", textDecoration: "none",
 };
 
 function HomeCard({ h }: { h: Home }) {
   const content = (
     <>
-      <span style={{ alignSelf: "flex-start", fontSize: 11, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--gold)", background: "rgba(232,163,61,.12)", border: "1px solid rgba(232,163,61,.28)", padding: "5px 12px", borderRadius: 999, marginBottom: 18 }}>{h.tag}</span>
-      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21, letterSpacing: "-.4px", color: "var(--cream)", margin: "0 0 6px", lineHeight: 1.15 }}>{h.name}</h3>
-      <p style={{ fontSize: 14, color: "rgba(255,247,239,.6)", lineHeight: 1.55, margin: "0 0 18px", flex: 1 }}>{h.place}</p>
-      <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "var(--gold)" }}>{h.cta} <span aria-hidden style={{ fontSize: 16 }}>→</span></span>
+      <span style={{ alignSelf: "flex-start", fontSize: 10, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--gold)", background: "rgba(232,163,61,.12)", border: "1px solid rgba(232,163,61,.28)", padding: "3px 10px", borderRadius: 999, marginBottom: 10 }}>{h.tag}</span>
+      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, letterSpacing: "-.3px", color: "var(--cream)", margin: "0 0 4px", lineHeight: 1.2 }}>{h.name}</h3>
+      <p style={{ fontSize: 13, color: "rgba(255,247,239,.55)", lineHeight: 1.5, margin: "0 0 12px", flex: 1 }}>{h.place}</p>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: "var(--gold)" }}>{h.cta} <span aria-hidden>→</span></span>
     </>
   );
   return h.external
@@ -208,23 +208,16 @@ export default function AboutPage() {
       </section>
 
       {/* One family, many homes */}
-      <section style={{ background: "var(--ink)", padding: "100px clamp(20px,5vw,64px)", position: "relative", overflow: "hidden" }}>
-        <div aria-hidden style={{ position: "absolute", top: -100, left: "50%", transform: "translateX(-50%)", width: 760, height: 460, background: "radial-gradient(circle,rgba(232,163,61,.18),transparent 65%)", pointerEvents: "none" }} />
+      <section style={{ background: "var(--ink)", padding: "60px clamp(20px,5vw,64px)", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden style={{ position: "absolute", top: -80, left: "50%", transform: "translateX(-50%)", width: 600, height: 320, background: "radial-gradient(circle,rgba(232,163,61,.14),transparent 65%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 2 }}>
-          <Reveal style={{ textAlign: "center", marginBottom: 16 }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 28 }}>
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Our Homes</span>
-          </Reveal>
-          <Reveal delay={80} style={{ textAlign: "center", marginBottom: 18 }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,5vw,64px)", letterSpacing: "-1.5px", color: "var(--cream)", margin: 0, lineHeight: .95 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-1.2px", color: "var(--cream)", margin: "10px 0 0", lineHeight: .97 }}>
               One family, many homes.
             </h2>
           </Reveal>
-          <Reveal delay={140} style={{ textAlign: "center", marginBottom: 52 }}>
-            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "rgba(255,247,239,.7)", lineHeight: 1.7, maxWidth: 640, margin: "0 auto" }}>
-              One Salvation Center family, gathered in many places — across Maryland, Nigeria, and online. Every assembly preaches the same undiluted Gospel; every door opens with the same welcome.
-            </p>
-          </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 12 }}>
             {homes.map((h, i) => (
               <Reveal key={h.name} delay={(i % 3) * 70}>
                 <HomeCard h={h} />
