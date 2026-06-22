@@ -250,7 +250,7 @@ export default function BlogPage() {
               fontFamily: "var(--font-display)", fontWeight: 800,
               fontSize: "clamp(56px,9vw,130px)", letterSpacing: "-3px",
               color: "#fff", margin: "0 0 8px", lineHeight: 0.92, textAlign: "center",
-            }}>The Voice</h1>
+            }}>Salvation Herald</h1>
           </Reveal>
           <Reveal delay={140}>
             <p style={{ textAlign: "center", fontSize: 13, fontWeight: 700, letterSpacing: "5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 0 }}>
