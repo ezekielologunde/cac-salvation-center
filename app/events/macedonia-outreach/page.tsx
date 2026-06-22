@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heart, BookOpen, Package, Instagram, MapPin, Users } from "lucide-react";
+import { Heart, BookOpen, Package, ExternalLink, MapPin, Users } from "lucide-react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
@@ -124,7 +124,7 @@ export default function MacedoniaPage() {
                   aria-label="Follow Macedonia Outreach on Instagram (opens in new tab)"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.12)", color: "#fff", fontWeight: 700, fontSize: 15, padding: "14px 28px", borderRadius: 999, textDecoration: "none", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,.2)" }}
                 >
-                  <Instagram size={17} aria-hidden /> Follow the journey
+                  <ExternalLink size={17} aria-hidden /> Follow the journey
                 </a>
               </div>
             </Reveal>
@@ -245,7 +245,7 @@ export default function MacedoniaPage() {
         <div style={{ maxWidth: 660, margin: "0 auto", position: "relative", zIndex: 2 }}>
           <Reveal>
             <div aria-hidden style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,255,255,.12)", display: "grid", placeItems: "center", margin: "0 auto 24px", border: "1px solid rgba(255,255,255,.18)" }}>
-              <Instagram size={28} color="#fff" />
+              <ExternalLink size={28} color="#fff" />
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,4vw,50px)", letterSpacing: "-1px", color: "#fff", margin: "0 0 18px", lineHeight: 0.97, textWrap: "balance" }}>
               Follow the journey live
@@ -262,7 +262,7 @@ export default function MacedoniaPage() {
               aria-label="Follow @macedonia.outreach on Instagram (opens in new tab)"
               style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#fff", color: G, fontWeight: 800, fontSize: 16, padding: "16px 32px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 40px rgba(0,0,0,.22)" }}
             >
-              <Instagram size={20} aria-hidden /> @macedonia.outreach
+              <ExternalLink size={20} aria-hidden /> @macedonia.outreach
             </a>
           </Reveal>
         </div>

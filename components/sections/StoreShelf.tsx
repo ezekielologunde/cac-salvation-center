@@ -77,11 +77,23 @@ function ProductCard({ p }: { p: StoreProduct }) {
         }}
       >
         {/* Color band */}
-        <div style={{ height: 140, background: p.accent, position: "relative", flexShrink: 0 }}>
+        <div style={{ height: 140, background: p.accent, position: "relative", flexShrink: 0, overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 75% 25%,rgba(255,255,255,.15),transparent 55%)" }} />
-          <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
-            <Icon size={48} color="rgba(255,255,255,.22)" strokeWidth={1.5} aria-hidden />
-          </div>
+          {p.image ? (
+            <>
+              <img
+                src={p.image}
+                alt={p.imageAlt ?? p.name}
+                loading="lazy"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(0,0,0,.52) 0%,transparent 52%)" }} />
+            </>
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+              <Icon size={48} color="rgba(255,255,255,.22)" strokeWidth={1.5} aria-hidden />
+            </div>
+          )}
           {p.badge && (
             <div style={{
               position: "absolute", top: 14, left: 14,
@@ -98,6 +110,7 @@ function ProductCard({ p }: { p: StoreProduct }) {
             position: "absolute", bottom: 14, right: 14,
             fontFamily: "var(--font-display)", fontWeight: 800,
             fontSize: 22, color: "#fff", letterSpacing: "-.3px",
+            textShadow: p.image ? "0 1px 6px rgba(0,0,0,.6)" : "none",
           }}>
             {p.priceDisplay}
           </div>
