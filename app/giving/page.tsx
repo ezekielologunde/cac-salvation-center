@@ -53,10 +53,10 @@ export default function GivingPage() {
       {/* PRIMARY — Zelle (most used, no fees) */}
       <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px)" }}>
         <Reveal>
-          <div style={{ position: "relative", overflow: "hidden", maxWidth: 720, margin: "0 auto", background: "linear-gradient(135deg,var(--red-deep),var(--red))", borderRadius: 28, padding: "clamp(36px,5vw,56px)", boxShadow: "0 30px 70px rgba(214,40,40,.3)", textAlign: "center" }}>
-            <div style={{ position: "absolute", inset: "-15%", background: "radial-gradient(circle at 70% 30%,rgba(241,95,34,.35),transparent 60%)", pointerEvents: "none", animation: "gradient-drift 14s ease-in-out infinite" }} />
+          <div style={{ position: "relative", overflow: "hidden", maxWidth: 720, margin: "0 auto", background: "linear-gradient(135deg,#4A0E96,#6D1ED4)", borderRadius: 28, padding: "clamp(36px,5vw,56px)", boxShadow: "0 30px 70px rgba(109,30,212,.3)", textAlign: "center" }}>
+            <div style={{ position: "absolute", inset: "-15%", background: "radial-gradient(circle at 70% 30%,rgba(139,47,201,.35),transparent 60%)", pointerEvents: "none", animation: "gradient-drift 14s ease-in-out infinite" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <span style={{ display: "inline-block", fontSize: 11, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--red-deep)", background: "#fff", padding: "5px 14px", borderRadius: 999, marginBottom: 18 }}>Most used · No fees</span>
+              <span style={{ display: "inline-block", fontSize: 11, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "#4A0E96", background: "#fff", padding: "5px 14px", borderRadius: 999, marginBottom: 18 }}>Most used · No fees</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-1px", color: "#fff", margin: "0 0 8px" }}>Give with Zelle</h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,.82)", margin: "0 0 26px" }}>The simplest way to give — 100% reaches the ministry.</p>
               <div style={{ background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.2)", borderRadius: 20, padding: "26px 24px", backdropFilter: "blur(8px)" }}>
@@ -132,7 +132,7 @@ export default function GivingPage() {
           <div style={{ position: "relative", overflow: "hidden", maxWidth: 1040, margin: "0 auto", background: "var(--ink)", borderRadius: 28, padding: "clamp(36px,5vw,56px)", boxShadow: "0 30px 70px rgba(27,19,14,.25)" }}>
             <div aria-hidden style={{ position: "absolute", top: -120, right: -120, width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle,rgba(232,163,61,.28),transparent 65%)", pointerEvents: "none" }} />
             <div aria-hidden style={{ position: "absolute", bottom: -100, left: -100, width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle,rgba(214,40,40,.22),transparent 65%)", pointerEvents: "none" }} />
-            <div style={{ position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 36, alignItems: "center" }} className="r-build">
+            <div style={{ position: "relative", zIndex: 1 }} className="r-build">
               <div>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>
                   <Building2 size={14} strokeWidth={2.5} aria-hidden />
