@@ -32,7 +32,7 @@ const ngChurches: Church[] = [
   { city: 'Ilorin, Kwara', name: 'C.A.C Holyghost Chapel', address: 'Behind Emmanuel Baptist College, Ilorin, 240102', href: mapsUrl('C.A.C Holyghost Chapel, Behind Emmanuel Baptist College, Ilorin, Nigeria'), external: true, cta: 'Directions', lat: 8.4802, lng: 4.5524 },
   { city: 'Osogbo', name: 'C.A.C Salvation City Osogbo', address: 'Arogun mosa Omobasorun St, Oke-Baale, 230284', href: mapsUrl('C.A.C Salvation City, Arogun mosa Omobasorun St, Oke-Baale, Osogbo, Nigeria'), external: true, cta: 'Directions', lat: 7.7719, lng: 4.5624 },
   { city: 'Ilorin, Kwara', name: 'C.A.C Kingdom Embassy Ilorin', address: 'Reke, Ilorin, Kwara, Nigeria', href: mapsUrl('C.A.C Kingdom Embassy, Reke, Ilorin, Kwara, Nigeria'), external: true, cta: 'Directions', lat: 8.5024, lng: 4.5300 },
-  { city: 'Osogbo, Osun', name: 'C.A.C Salvation Centre Kingdom Embassy Osogbo', address: 'Osogbo, Osun State, Nigeria', href: mapsUrl('CAC Salvation Centre Kingdom Embassy, Osogbo, Osun, Nigeria'), external: true, cta: 'Directions', lat: 7.7650, lng: 4.5750 },
+  { city: 'Osogbo, Osun', name: 'C.A.C Kingdom Embassy Osogbo', address: 'Osogbo, Osun State, Nigeria', href: mapsUrl('CAC Kingdom Embassy, Osogbo, Osun, Nigeria'), external: true, cta: 'Directions', lat: 7.7650, lng: 4.5750 },
 ];
 
 function WorldMap() {
