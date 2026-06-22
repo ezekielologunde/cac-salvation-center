@@ -3,7 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { Search } from 'lucide-react';
 import { haptic } from '@/lib/haptics';
+import { SearchModal } from '@/components/ui/SearchModal';
 
 const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
 
@@ -81,6 +83,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   const [isLive, setIsLive] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -122,6 +125,17 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(o => !o);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   const ink = dark ? 'var(--cream)' : 'var(--ink)';
   const accent = dark ? 'var(--gold)' : 'var(--red)';
@@ -213,6 +227,16 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             );
           })}
 
+          {/* Desktop search icon */}
+          <button
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search"
+            title="Search (Ctrl+K)"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px 10px', color: barInk, display: 'flex', alignItems: 'center', borderRadius: 8, transition: 'color .4s', marginRight: 2 }}
+          >
+            <Search size={18} strokeWidth={2} />
+          </button>
+
           <Link
             href={isLive ? LIVE_URL : '/online'}
             {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -224,6 +248,16 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             {isLive ? 'LIVE NOW' : 'Watch Live'}
           </Link>
         </div>
+
+        {/* Mobile search icon */}
+        <button
+          className="nav-hbg"
+          onClick={() => { haptic('light'); setSearchOpen(true); }}
+          aria-label="Search"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, flexDirection: 'row', gap: 0, alignItems: 'center', justifyContent: 'center', transition: 'color .4s' }}
+        >
+          <Search size={20} strokeWidth={2} />
+        </button>
 
         {/* Hamburger */}
         <button
@@ -320,6 +354,8 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
           </div>
         </div>
       )}
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
