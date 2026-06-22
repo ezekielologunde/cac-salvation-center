@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { TestimonyForm } from "@/components/sections/TestimonyForm";
 import Link from "next/link";
+import { MapPin, Phone, Monitor } from "lucide-react";
 
 export const metadata = {
   title: "Salvation — CAC Salvation Center",
@@ -139,6 +140,34 @@ export default function SalvationPage() {
                   <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", flexShrink: 0, minWidth: 90, paddingTop: 3 }}>{s.ref}</div>
                   <p style={{ fontSize: 17, color: "var(--ink)", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>&ldquo;{s.text}&rdquo;</p>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Next steps for new believers */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Your next step</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0", lineHeight: .96 }}>You are not alone.</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {[
+              { href: "/visit", Icon: MapPin, title: "Come to church", desc: "Join us Sunday at 10:30 AM · Randallstown, MD. The family is ready to receive you.", cta: "Plan your visit" },
+              { href: "/prayer", Icon: Phone, title: "Join the prayer line", desc: "Our daily 5 AM prayer call is open to everyone. Bring your requests; bring your burdens.", cta: "See prayer details" },
+              { href: "/online", Icon: Monitor, title: "Watch online", desc: "Every Sunday service streams live — YouTube, Facebook, and Zoom. Never miss a message.", cta: "Watch live" },
+            ].map(({ href, Icon, title, desc, cta }) => (
+              <Reveal key={href}>
+                <Link href={href} style={{ display: "flex", flexDirection: "column", height: "100%", textDecoration: "none", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "28px 26px", boxShadow: "0 10px 28px rgba(27,19,14,.07)" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: "var(--red)", display: "grid", placeItems: "center", marginBottom: 18, flexShrink: 0 }}>
+                    <Icon size={20} color="#fff" strokeWidth={2} aria-hidden />
+                  </div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 10px" }}>{title}</h3>
+                  <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.65, margin: "0 0 18px", flex: 1 }}>{desc}</p>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "var(--red)" }}>{cta} →</span>
+                </Link>
               </Reveal>
             ))}
           </div>
