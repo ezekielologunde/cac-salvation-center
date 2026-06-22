@@ -1,8 +1,10 @@
 "use client";
 
 import { useCart } from "@/contexts/CartContext";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, ShoppingBag, Trash2, CreditCard, Shield } from "lucide-react";
+import { playRemove, playCheckout, playOpen, haptic } from "@/lib/feedback";
 
 function fmt(cents: number) {
   return `$${(cents / 100).toFixed(2)}`;
@@ -12,10 +14,34 @@ export function CartSidebar() {
   const { items, open, closeCart, setQty, removeItem, totalCents, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const prevOpen = useRef(false);
+
+  // Play sound + haptic when cart opens
+  useEffect(() => {
+    if (open && !prevOpen.current) {
+      playOpen();
+      haptic(18);
+    }
+    prevOpen.current = open;
+  }, [open]);
+
+  function handleRemove(id: string, variant?: string) {
+    playRemove();
+    haptic(30);
+    removeItem(id, variant);
+  }
+
+  function handleClear() {
+    haptic([50, 25, 50]);
+    playRemove();
+    clearCart();
+  }
 
   async function handleCheckout() {
     setLoading(true);
     setError(null);
+    playCheckout();
+    haptic([60, 30, 100]);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -34,6 +60,8 @@ export function CartSidebar() {
       setLoading(false);
     }
   }
+
+  const itemCount = items.reduce((s, i) => s + i.quantity, 0);
 
   return (
     <>
@@ -74,11 +102,20 @@ export function CartSidebar() {
             <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)" }}>
               Your cart
             </span>
-            {items.length > 0 && (
-              <span style={{
-                background: "var(--red)", color: "#fff", borderRadius: 999,
-                fontSize: 11, fontWeight: 800, padding: "2px 8px",
-              }}>{items.reduce((s, i) => s + i.quantity, 0)}</span>
+            {itemCount > 0 && (
+              <motion.span
+                key={itemCount}
+                initial={{ scale: 1.5 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 14 }}
+                style={{
+                  background: "var(--red)", color: "#fff", borderRadius: 999,
+                  fontSize: 11, fontWeight: 800, padding: "2px 8px",
+                  display: "inline-block",
+                }}
+              >
+                {itemCount}
+              </motion.span>
             )}
           </div>
           <button
@@ -105,60 +142,68 @@ export function CartSidebar() {
             </div>
           ) : (
             <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-              {items.map((item) => {
-                const key = item.variant ? `${item.id}::${item.variant}` : item.id;
-                return (
-                  <li key={key} style={{
-                    background: "var(--paper)", border: "1px solid var(--line)",
-                    borderRadius: 16, padding: "14px 16px",
-                    display: "flex", gap: 14, alignItems: "flex-start",
-                  }}>
-                    {/* Color swatch */}
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: item.accent, flexShrink: 0 }} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", lineHeight: 1.3 }}>{item.name}</div>
-                      {item.variant && (
-                        <div style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 2 }}>{item.variant}</div>
-                      )}
-                      {item.isDigital && (
-                        <div style={{ fontSize: 11, color: "var(--gold)", fontWeight: 700, marginTop: 2 }}>Digital download</div>
-                      )}
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10 }}>
-                        {/* Quantity */}
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, background: "var(--cream-2)", borderRadius: 999, padding: "4px 10px" }}>
-                          <button
-                            onClick={() => setQty(item.id, item.variant, item.quantity - 1)}
-                            aria-label="Decrease quantity"
-                            style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "var(--ink)", display: "flex" }}
-                          >
-                            <Minus size={13} strokeWidth={2.5} />
-                          </button>
-                          <span style={{ fontSize: 14, fontWeight: 700, minWidth: 16, textAlign: "center" }}>{item.quantity}</span>
-                          <button
-                            onClick={() => setQty(item.id, item.variant, item.quantity + 1)}
-                            aria-label="Increase quantity"
-                            style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "var(--ink)", display: "flex" }}
-                          >
-                            <Plus size={13} strokeWidth={2.5} />
-                          </button>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                          <span style={{ fontWeight: 800, fontSize: 14, color: "var(--ink)" }}>
-                            {fmt(item.priceCents * item.quantity)}
-                          </span>
-                          <button
-                            onClick={() => removeItem(item.id, item.variant)}
-                            aria-label={`Remove ${item.name}`}
-                            style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "var(--ink-soft)" }}
-                          >
-                            <Trash2 size={14} strokeWidth={2} />
-                          </button>
+              <AnimatePresence>
+                {items.map((item) => {
+                  const key = item.variant ? `${item.id}::${item.variant}` : item.id;
+                  return (
+                    <motion.li
+                      key={key}
+                      layout
+                      initial={{ opacity: 0, x: 22 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 60, transition: { duration: 0.22 } }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      style={{
+                        background: "var(--paper)", border: "1px solid var(--line)",
+                        borderRadius: 16, padding: "14px 16px",
+                        display: "flex", gap: 14, alignItems: "flex-start",
+                      }}
+                    >
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: item.accent, flexShrink: 0 }} />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", lineHeight: 1.3 }}>{item.name}</div>
+                        {item.variant && (
+                          <div style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 2 }}>{item.variant}</div>
+                        )}
+                        {item.isDigital && (
+                          <div style={{ fontSize: 11, color: "var(--gold)", fontWeight: 700, marginTop: 2 }}>Digital download</div>
+                        )}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 10, background: "var(--cream-2)", borderRadius: 999, padding: "4px 10px" }}>
+                            <button
+                              onClick={() => setQty(item.id, item.variant, item.quantity - 1)}
+                              aria-label="Decrease quantity"
+                              style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "var(--ink)", display: "flex" }}
+                            >
+                              <Minus size={13} strokeWidth={2.5} />
+                            </button>
+                            <span style={{ fontSize: 14, fontWeight: 700, minWidth: 16, textAlign: "center" }}>{item.quantity}</span>
+                            <button
+                              onClick={() => setQty(item.id, item.variant, item.quantity + 1)}
+                              aria-label="Increase quantity"
+                              style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "var(--ink)", display: "flex" }}
+                            >
+                              <Plus size={13} strokeWidth={2.5} />
+                            </button>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            <span style={{ fontWeight: 800, fontSize: 14, color: "var(--ink)" }}>
+                              {fmt(item.priceCents * item.quantity)}
+                            </span>
+                            <button
+                              onClick={() => handleRemove(item.id, item.variant)}
+                              aria-label={`Remove ${item.name}`}
+                              style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "var(--ink-soft)" }}
+                            >
+                              <Trash2 size={14} strokeWidth={2} />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                );
-              })}
+                    </motion.li>
+                  );
+                })}
+              </AnimatePresence>
             </ul>
           )}
         </div>
@@ -169,13 +214,11 @@ export function CartSidebar() {
             borderTop: "1px solid var(--line)", padding: "20px 24px 28px",
             flexShrink: 0, background: "var(--cream)",
           }}>
-            {/* Order note for digital items */}
             {items.some((i) => i.isDigital) && (
               <div style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 14, lineHeight: 1.6 }}>
-                Digital downloads will be delivered via email within 24 hours of payment.
+                Digital downloads delivered via email within 24 hours of payment.
               </div>
             )}
-            {/* Subtotal */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <span style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)" }}>Subtotal</span>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--ink)" }}>
@@ -208,7 +251,7 @@ export function CartSidebar() {
               Secure payment powered by Stripe
             </div>
             <button
-              onClick={clearCart}
+              onClick={handleClear}
               style={{ display: "block", width: "100%", background: "none", border: "none", cursor: "pointer", marginTop: 10, fontSize: 12.5, color: "var(--ink-soft)", textAlign: "center" }}
             >
               Clear cart
@@ -216,6 +259,46 @@ export function CartSidebar() {
           </div>
         )}
       </aside>
+
+      {/* Full-screen checkout loading overlay */}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            style={{
+              position: "fixed", inset: 0, zIndex: 9999,
+              background: "rgba(27,19,14,.82)",
+              backdropFilter: "blur(7px)",
+              display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center", gap: 24,
+            }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 0.85, repeat: Infinity, ease: "linear" }}
+              style={{
+                width: 52, height: 52,
+                borderTop:    "3px solid #fff",
+                borderRight:  "3px solid rgba(255,255,255,.13)",
+                borderBottom: "3px solid rgba(255,255,255,.13)",
+                borderLeft:   "3px solid rgba(255,255,255,.13)",
+                borderRadius: "50%",
+              }}
+            />
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: 20, margin: "0 0 8px", letterSpacing: "-.3px" }}>
+                Taking you to checkout…
+              </p>
+              <p style={{ color: "rgba(255,255,255,.42)", fontSize: 14, margin: 0 }}>
+                Secure payment powered by Stripe
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
