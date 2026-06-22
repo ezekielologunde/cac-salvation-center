@@ -1,46 +1,40 @@
 import { NextResponse } from "next/server";
 
-// Instagram Graph API — fetches latest posts for the connected business/creator account.
+// Instagram feed via Behold.so (free, no Meta Developer app required).
 //
-// Required env vars (set in Vercel dashboard → Settings → Environment Variables):
-//   INSTAGRAM_ACCESS_TOKEN  — long-lived token (valid 60 days; see token-refresh below)
-//   INSTAGRAM_ACCOUNT_ID    — numeric IG account ID (returned by /me endpoint)
-//
-// To get a long-lived token:
-//   curl "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_id=APP_ID&client_secret=APP_SECRET&access_token=SHORT_LIVED_TOKEN"
-//
-// To refresh a long-lived token (do this before it expires):
-//   curl "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=LONG_LIVED_TOKEN"
+// Setup:
+//   1. Create a free account at https://behold.so
+//   2. Connect your Instagram account and create a Feed
+//   3. Copy the Feed ID (e.g. "AbCdEfGh1234")
+//   4. Add it as BEHOLD_FEED_ID in Vercel → Settings → Environment Variables
+//   5. Redeploy — live posts will appear on the homepage automatically
 
-const TOKEN   = process.env.INSTAGRAM_ACCESS_TOKEN ?? "";
-const ACCOUNT = process.env.INSTAGRAM_ACCOUNT_ID ?? "me";
-const FIELDS  = "id,media_type,media_url,thumbnail_url,permalink,caption,timestamp";
-const LIMIT   = 9;
+const FEED_ID = process.env.BEHOLD_FEED_ID ?? "";
 
-export const revalidate = 3600; // re-fetch from Instagram at most once per hour
+export const revalidate = 3600; // re-fetch at most once per hour
 
 export async function GET() {
-  if (!TOKEN) {
-    return NextResponse.json({ error: "INSTAGRAM_ACCESS_TOKEN not set" }, { status: 503 });
+  if (!FEED_ID) {
+    return NextResponse.json({ error: "BEHOLD_FEED_ID not set" }, { status: 503 });
   }
 
   try {
-    const url = `https://graph.instagram.com/v21.0/${ACCOUNT}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${TOKEN}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(`https://feeds.behold.so/${FEED_ID}`, {
+      next: { revalidate: 3600 },
+    });
 
     if (!res.ok) {
       const body = await res.text();
-      console.error("Instagram API error:", body);
-      return NextResponse.json({ error: "Upstream error", detail: body }, { status: 502 });
+      console.error("Behold API error:", res.status, body);
+      return NextResponse.json({ error: "Upstream error" }, { status: 502 });
     }
 
     const json = await res.json();
 
-    // Normalise: videos expose thumbnail_url instead of media_url
-    const posts = (json.data ?? []).map((p: Record<string, string>) => ({
+    const posts = (json.posts ?? []).map((p: Record<string, string>) => ({
       id:        p.id,
-      type:      p.media_type,
-      image:     p.thumbnail_url ?? p.media_url,
+      type:      p.mediaType,
+      image:     p.thumbnailUrl ?? p.mediaUrl,
       permalink: p.permalink,
       caption:   p.caption ?? "",
       timestamp: p.timestamp,
@@ -48,7 +42,7 @@ export async function GET() {
 
     return NextResponse.json({ posts });
   } catch (err) {
-    console.error("Instagram fetch failed:", err);
+    console.error("Behold fetch failed:", err);
     return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
   }
 }
