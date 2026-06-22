@@ -91,7 +91,7 @@ export default function BlogPage() {
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3.2vw,38px)", letterSpacing: "-.6px", color: "#fff", margin: "0 0 8px", lineHeight: 1.05 }}>Register for CACNA 2026</h2>
               <p style={{ fontSize: 15.5, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>The 2026 CAC North America National Convention — July 13–18 at CAC Village, Blue Ridge Summit, PA. Secure your spot online.</p>
             </div>
-            <a href="https://cacnaconvention.org/2025-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red-deep)", fontWeight: 800, fontSize: 16, padding: "16px 30px", borderRadius: 999, textDecoration: "none" }}>
+            <a href="https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red-deep)", fontWeight: 800, fontSize: 16, padding: "16px 30px", borderRadius: 999, textDecoration: "none" }}>
               Register Now →
             </a>
           </div>

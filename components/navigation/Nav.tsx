@@ -30,7 +30,7 @@ const navItems: NavItem[] = [
     href: '/online',
     dropdown: [
       { href: '/online', label: 'Watch Online', desc: 'Live & on-demand services' },
-      { href: '/salvationcity', label: 'Salvation City', desc: 'Online assembly on Zoom' },
+      { href: '/salvationcity', label: 'Salvation City', desc: 'Our Rosedale, MD assembly' },
       { href: '/devotional', label: 'Devotional', desc: 'Daily Word & podcast' },
       { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
