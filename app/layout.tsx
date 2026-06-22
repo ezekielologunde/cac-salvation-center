@@ -6,6 +6,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SITE, SITE_URL, churchJsonLd } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleTags } from "@/components/analytics/GoogleTags";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -47,10 +48,10 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: ["/images/congregation.jpg"],
   },
-  icons: {
-    icon: "/images/logo.png",
-    shortcut: "/images/logo.png",
-    apple: "/images/logo.png",
+  verification: {
+    // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to emit the Search
+    // Console <meta> tag; omitted automatically when unset.
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
         <SpeedInsights />
+        <GoogleTags />
       </body>
     </html>
   );

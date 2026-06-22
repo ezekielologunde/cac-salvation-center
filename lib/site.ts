@@ -49,57 +49,79 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/contact", priority: 0.7 },
 ];
 
-/** schema.org Church structured data for rich results + local SEO. */
+/** schema.org structured data (@graph: Church + WebSite) for rich results,
+ *  local SEO, and AI answer-engines. */
 export function churchJsonLd() {
+  const churchId = `${SITE_URL}/#church`;
+  const fullAddress = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
   return {
     "@context": "https://schema.org",
-    "@type": "Church",
-    "@id": `${SITE_URL}/#church`,
-    name: SITE.name,
-    alternateName: SITE.shortName,
-    url: SITE_URL,
-    logo: `${SITE_URL}/images/logo.png`,
-    image: `${SITE_URL}/images/congregation.jpg`,
-    description: SITE.description,
-    telephone: SITE.telephone,
-    email: SITE.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.address.street,
-      addressLocality: SITE.address.city,
-      addressRegion: SITE.address.region,
-      postalCode: SITE.address.postalCode,
-      addressCountry: SITE.address.country,
-    },
-    sameAs: SITE.sameAs,
-    founder: { "@type": "Person", name: "Pastor Dr. H.O. Ilufoye" },
-    employee: [
-      { "@type": "Person", name: "Pastor Dr. Hezekiah O. Ilufoye PhD", jobTitle: "Baltimore DCC Superintendent" },
-      { "@type": "Person", name: "Pastor Felix Osunkiyesi", jobTitle: "Curate" },
-      { "@type": "Person", name: "Pastor Alfred Aremo", jobTitle: "Associate Pastor" },
-      { "@type": "Person", name: "Pastor Oludapo Eludoyin", jobTitle: "Associate Pastor" },
-      { "@type": "Person", name: "Pastor Enoch Ilufoye", jobTitle: "Assembly Pastor, CAC Kingdom Embassy" },
-    ],
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "09:25", closes: "12:30" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "19:00", closes: "20:30" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "19:00", closes: "20:30" },
-    ],
-    event: {
-      "@type": "Event",
-      name: "Sunday Worship",
-      eventSchedule: {
-        "@type": "Schedule",
-        byDay: "Sunday",
-        startTime: "10:30",
-        repeatFrequency: "P1W",
-      },
-      eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
-      location: {
-        "@type": "Place",
+    "@graph": [
+      {
+        "@type": "Church",
+        "@id": churchId,
         name: SITE.name,
-        address: `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`,
+        alternateName: SITE.shortName,
+        url: SITE_URL,
+        logo: `${SITE_URL}/images/logo.png`,
+        image: `${SITE_URL}/images/congregation.jpg`,
+        description: SITE.description,
+        telephone: SITE.telephone,
+        email: SITE.email,
+        priceRange: "Free",
+        isAccessibleForFree: true,
+        knowsLanguage: ["en", "yo"],
+        areaServed: ["Randallstown", "Baltimore", "Maryland", "United States"],
+        hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: SITE.address.street,
+          addressLocality: SITE.address.city,
+          addressRegion: SITE.address.region,
+          postalCode: SITE.address.postalCode,
+          addressCountry: SITE.address.country,
+        },
+        sameAs: SITE.sameAs,
+        founder: { "@type": "Person", name: "Pastor Dr. H.O. Ilufoye" },
+        employee: [
+          { "@type": "Person", name: "Pastor Dr. Hezekiah O. Ilufoye PhD", jobTitle: "Baltimore DCC Superintendent" },
+          { "@type": "Person", name: "Pastor Felix Osunkiyesi", jobTitle: "Curate" },
+          { "@type": "Person", name: "Pastor Alfred Aremo", jobTitle: "Associate Pastor" },
+          { "@type": "Person", name: "Pastor Oludapo Eludoyin", jobTitle: "Associate Pastor" },
+          { "@type": "Person", name: "Pastor Enoch Ilufoye", jobTitle: "Assembly Pastor, CAC Kingdom Embassy" },
+        ],
+        openingHoursSpecification: [
+          { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "09:25", closes: "12:30" },
+          { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "19:00", closes: "20:30" },
+          { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "19:00", closes: "20:30" },
+        ],
+        event: {
+          "@type": "Event",
+          name: "Sunday Worship",
+          eventSchedule: {
+            "@type": "Schedule",
+            byDay: "Sunday",
+            startTime: "10:30",
+            repeatFrequency: "P1W",
+          },
+          eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+          location: {
+            "@type": "Place",
+            name: SITE.name,
+            address: fullAddress,
+          },
+        },
       },
-    },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE.name,
+        alternateName: SITE.shortName,
+        description: SITE.description,
+        publisher: { "@id": churchId },
+        inLanguage: "en-US",
+      },
+    ],
   };
 }
