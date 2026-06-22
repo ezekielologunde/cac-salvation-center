@@ -1,15 +1,35 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  reactStrictMode: true,
+
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       { protocol: "https", hostname: "img.youtube.com" },
       { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
-  // Subdomain rewrites run in beforeFiles so they take priority over the
-  // filesystem — without this, app/page.tsx at "/" is found first and the
-  // host-based rewrite is never reached.
+
+  compiler: {
+    removeConsole: { exclude: ["error"] },
+  },
+
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
+
   async rewrites() {
     return {
       beforeFiles: [
