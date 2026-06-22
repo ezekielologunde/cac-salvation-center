@@ -6,20 +6,15 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host" as const, value: "blog.cacsalvationcenter.org" }],
-        destination: "https://www.cacsalvationcenter.org/blog",
-        permanent: false,
-      },
-    ];
-  },
   // Subdomain rewrites: serve each page at its own subdomain URL without
-  // changing the address bar (city + ilorin both keep their subdomain).
+  // changing the address bar.
   async rewrites() {
     return [
+      {
+        source: "/",
+        has: [{ type: "host" as const, value: "blog.cacsalvationcenter.org" }],
+        destination: "/blog",
+      },
       {
         source: "/",
         has: [{ type: "host" as const, value: "city.cacsalvationcenter.org" }],
