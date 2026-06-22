@@ -433,13 +433,10 @@ export default async function BlogSlugPage({
         }}
       >
         <div
+          className="blog-post-grid"
           style={{
             maxWidth: 1100,
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "minmax(0,2fr) minmax(0,1fr)",
-            gap: "clamp(40px,5vw,72px)",
-            alignItems: "start",
           }}
         >
           {/* Prose */}

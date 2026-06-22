@@ -154,6 +154,26 @@ html.lenis body { height: auto; }
   .hide-sm { display: none !important; }
 }
 
+/* ── Blog responsive layouts ── */
+.blog-featured-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 52px);
+  align-items: start;
+}
+.blog-post-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .blog-featured-grid,
+  .blog-post-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Nav responsive ── */
 .nav-desktop { display: flex; }
 .nav-hbg     { display: none; flex-direction: column; }

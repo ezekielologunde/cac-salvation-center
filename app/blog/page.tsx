@@ -248,7 +248,7 @@ export default function BlogPage() {
           <Reveal delay={80}>
             <h1 style={{
               fontFamily: "var(--font-display)", fontWeight: 800,
-              fontSize: "clamp(56px,9vw,130px)", letterSpacing: "-3px",
+              fontSize: "clamp(56px,9vw,130px)", letterSpacing: "-0.025em",
               color: "#fff", margin: "0 0 8px", lineHeight: 0.92, textAlign: "center",
             }}>Salvation Herald</h1>
           </Reveal>
@@ -262,13 +262,7 @@ export default function BlogPage() {
 
       {/* Featured + Sidebar */}
       <section style={{ background: "var(--cream)", padding: "clamp(40px,5vw,70px) clamp(20px,5vw,64px)" }}>
-        <div style={{
-          maxWidth: 1140, margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "minmax(0,2.1fr) minmax(280px,1fr)",
-          gap: "clamp(28px,4vw,52px)",
-          alignItems: "start",
-        }}>
+        <div className="blog-featured-grid" style={{ maxWidth: 1140, margin: "0 auto" }}>
           <div>
             <Reveal>
               <FeaturedCard post={featured} />
