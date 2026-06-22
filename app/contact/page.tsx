@@ -9,17 +9,32 @@ import { submitLead, isValidEmail } from "@/lib/forms";
 
 const SUBJECTS = [
   "General Enquiry",
-  "Prayer Request",
+  "New Membership / Join Church",
+  "Join Sisters Fellowship",
+  "Join Brothers Fellowship",
   "First Visit",
-  "Hall / Venue Hire",
+  "Prayer Request",
   "Pastoral Care",
+  "Hall / Venue Hire",
   "Giving & Donations",
   "Media & Livestream",
   "Other",
 ];
 
+const MEMBERSHIP_SUBJECTS = new Set([
+  "New Membership / Join Church",
+  "Join Sisters Fellowship",
+  "Join Brothers Fellowship",
+  "First Visit",
+]);
+
+const COUNTRIES = [
+  "United States", "Nigeria", "United Kingdom", "Canada",
+  "Ghana", "Jamaica", "Trinidad & Tobago", "Other",
+];
+
 export default function ContactPage() {
-  const [fields, setFields] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [fields, setFields] = useState({ name: "", email: "", phone: "", subject: "", country: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errMsg, setErrMsg] = useState("");
 
@@ -28,15 +43,19 @@ export default function ContactPage() {
       setFields(f => ({ ...f, [k]: e.target.value }));
   }
 
+  const isMembershipSubject = MEMBERSHIP_SUBJECTS.has(fields.subject);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrMsg("");
+    if (!fields.name.trim()) { setErrMsg("Please enter your name."); return; }
+    if (!fields.email.trim()) { setErrMsg("Please enter your email address."); return; }
+    if (!isValidEmail(fields.email)) { setErrMsg("Please enter a valid email address."); return; }
     if (!fields.message.trim()) { setErrMsg("Please write a message."); return; }
-    if (fields.email && !isValidEmail(fields.email)) { setErrMsg("Please enter a valid email address."); return; }
     setStatus("loading");
     try {
       await submitLead(
-        { Name: fields.name, Email: fields.email, Phone: fields.phone, Subject: fields.subject, Message: fields.message },
+        { "Name": fields.name, "Email": fields.email, "Phone": fields.phone, "Country": fields.country, "Subject": fields.subject, "Message": fields.message },
         `Contact — ${fields.subject || "General"}`
       );
       setStatus("success");
@@ -99,11 +118,11 @@ export default function ContactPage() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16, marginBottom: 16 }}>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Your Name</label>
-                    <input style={inputStyle} type="text" placeholder="John Doe" value={fields.name} onChange={update("name")} autoComplete="name" />
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Your Name <span style={{ color: "var(--red)" }}>*</span></label>
+                    <input style={inputStyle} type="text" placeholder="Jane Smith" value={fields.name} onChange={update("name")} autoComplete="name" />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Email Address</label>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Email Address <span style={{ color: "var(--red)" }}>*</span></label>
                     <input style={inputStyle} type="email" placeholder="you@example.com" value={fields.email} onChange={update("email")} autoComplete="email" />
                   </div>
                 </div>
@@ -114,13 +133,32 @@ export default function ContactPage() {
                     <input style={inputStyle} type="tel" placeholder="+1 (443) 000-0000" value={fields.phone} onChange={update("phone")} autoComplete="tel" />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Subject</label>
-                    <select style={{ ...inputStyle, cursor: "pointer" }} value={fields.subject} onChange={update("subject")}>
-                      <option value="">Select a topic…</option>
-                      {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Country <span style={{ fontWeight: 400, opacity: .6 }}>(optional)</span></label>
+                    <select style={{ ...inputStyle, cursor: "pointer" }} value={fields.country} onChange={update("country")} autoComplete="country-name">
+                      <option value="">Select country…</option>
+                      {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                   </div>
                 </div>
+
+                <div style={{ marginBottom: 16 }}>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Subject</label>
+                  <select style={{ ...inputStyle, cursor: "pointer" }} value={fields.subject} onChange={update("subject")}>
+                    <option value="">Select a topic…</option>
+                    {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+
+                {isMembershipSubject && (
+                  <div style={{ background: "rgba(214,40,40,.06)", border: "1px solid rgba(214,40,40,.2)", borderRadius: 12, padding: "14px 18px", marginBottom: 16, display: "flex", alignItems: "flex-start", gap: 12 }}>
+                    <span style={{ fontSize: 18, flexShrink: 0, marginTop: 1 }}>💡</span>
+                    <p style={{ margin: 0, fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.6 }}>
+                      For a faster welcome, fill out our{" "}
+                      <a href="/visit" style={{ color: "var(--red)", fontWeight: 700, textDecoration: "none" }}>Connect Card</a>{" "}
+                      — it captures your full details and ministry interests so we can connect you with the right people straight away.
+                    </p>
+                  </div>
+                )}
 
                 <div style={{ marginBottom: 22 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Message <span style={{ color: "var(--red)" }}>*</span></label>
