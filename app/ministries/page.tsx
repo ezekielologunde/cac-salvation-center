@@ -2,7 +2,6 @@ import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
-import Image from "next/image";
 import Link from "next/link";
 import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video, Users, Heart, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -26,12 +25,12 @@ type Ministry = {
 };
 
 const ministries: Ministry[] = [
-  { name: "Worship & Choir", desc: "Spirit-filled praise that leads the whole house into God's presence every Sunday.", icon: Music, image: "/images/choir.jpg", alt: "Salvation Center choir in red and white robes", href: "/contact", cta: "Join the choir" },
-  { name: "Blessed Sisters", desc: "Women growing together in faith, prayer, fellowship, and service to the community.", icon: HeartHandshake, image: "/images/worship.jpg", alt: "Women worshipping at Easter Sunday service", href: "/contact", cta: "Connect with the sisters" },
-  { name: "Youth & Young Adults", desc: "Raising the next generation as bold, grounded ambassadors of Christ.", icon: Sparkles, image: "/images/congregation.jpg", alt: "Congregation worshipping together", href: "/contact", cta: "Get involved" },
+  { name: "Worship & Choir", desc: "Spirit-filled praise that leads the whole house into God's presence every Sunday.", icon: Music, gradient: "linear-gradient(140deg,var(--red),var(--flame))", href: "/contact", cta: "Join the choir" },
+  { name: "Blessed Sisters", desc: "Women growing together in faith, prayer, fellowship, and service to the community.", icon: HeartHandshake, gradient: "linear-gradient(140deg,var(--flame),var(--gold))", href: "/contact", cta: "Connect with the sisters" },
+  { name: "Youth & Young Adults", desc: "Raising the next generation as bold, grounded ambassadors of Christ.", icon: Sparkles, gradient: "linear-gradient(140deg,var(--red-deep),var(--red))", href: "/contact", cta: "Get involved" },
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
   { name: "Prayer & Intercession", desc: "Standing in the gap for our church and our city — join the daily 5 AM prayer line.", icon: HandHeart, gradient: "linear-gradient(140deg,var(--red),var(--red-deep))", href: "/prayer", cta: "Join the prayer line" },
-  { name: "Media & Online", desc: "Carrying the service beyond our walls — streaming Spirit-filled worship to the world.", icon: Video, image: "/images/stage.jpg", alt: "Church stage with leadership and CAC banner", href: "/contact", cta: "Serve on media" },
+  { name: "Media & Online", desc: "Carrying the service beyond our walls — streaming Spirit-filled worship to the world.", icon: Video, gradient: "linear-gradient(140deg,var(--gold),var(--flame))", href: "/contact", cta: "Serve on media" },
 ];
 
 const groupCategories: { label: string; icon: LucideIcon; groups: string[] }[] = [
@@ -74,19 +73,13 @@ export default function MinistriesPage() {
           {ministries.map((m, i) => (
             <Reveal key={m.name} delay={(i % 3) * 90}>
               <div className="card-lift" style={{ height: "100%", borderRadius: 24, overflow: "hidden", background: "var(--paper)", border: "1px solid var(--line)", boxShadow: "0 14px 34px rgba(27,19,14,.08)", display: "flex", flexDirection: "column" }}>
-                <div style={{ position: "relative", height: 200, background: m.gradient ?? "var(--ink)" }}>
-                  {m.image ? (
-                    <Image src={m.image} alt={m.alt ?? m.name} fill style={{ objectFit: "cover" }} />
-                  ) : null}
-                  {m.image && <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(0,0,0,.45),transparent 55%)" }} />}
-                  <span style={{ position: "absolute", top: 16, left: 16, width: 44, height: 44, borderRadius: 13, background: m.image ? "rgba(255,255,255,.16)" : "rgba(255,255,255,.18)", backdropFilter: "blur(6px)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,.25)" }}>
+                <div style={{ position: "relative", height: 200, background: m.gradient }}>
+                  <span style={{ position: "absolute", top: 16, left: 16, width: 44, height: 44, borderRadius: 13, background: "rgba(255,255,255,.18)", backdropFilter: "blur(6px)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,.25)" }}>
                     <m.icon size={22} strokeWidth={1.85} color="#fff" aria-hidden />
                   </span>
-                  {!m.image && (
-                    <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
-                      <m.icon size={64} strokeWidth={1.4} color="rgba(255,255,255,.9)" aria-hidden />
-                    </div>
-                  )}
+                  <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+                    <m.icon size={64} strokeWidth={1.4} color="rgba(255,255,255,.9)" aria-hidden />
+                  </div>
                 </div>
                 <div style={{ padding: "24px 26px 26px", display: "flex", flexDirection: "column", flex: 1 }}>
                   <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, letterSpacing: "-.4px", color: "var(--ink)", margin: "0 0 10px" }}>{m.name}</h3>
