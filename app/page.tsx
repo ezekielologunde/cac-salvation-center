@@ -1,5 +1,6 @@
 import { Nav } from "@/components/navigation/Nav";
 import { Hero } from "@/components/sections/Hero";
+import { Watchword } from "@/components/sections/Watchword";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { PastorWelcome } from "@/components/sections/PastorWelcome";
 import { WhatToExpect } from "@/components/sections/WhatToExpect";
@@ -16,6 +17,7 @@ export default function Home() {
     <main>
       <Nav heroDark />
       <Hero />
+      <Watchword />
       <Testimonials />
       <PastorWelcome />
       <WhatToExpect />

@@ -5,12 +5,43 @@ import { IconBadge } from "@/components/ui/IconBadge";
 import { Church, HeartHandshake, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 const values = [
   { icon: Church, title: "Sound doctrine", desc: "Preaching the whole counsel of God, faithfully and without compromise." },
   { icon: HeartHandshake, title: "Real community", desc: "A family that worships, prays and grows together — onsite and online." },
   { icon: Globe, title: "Ambassadors", desc: "Equipping every believer to carry the Kingdom into everyday life." },
 ];
+
+type Home = { tag: string; name: string; place: string; href: string; cta: string; external?: boolean };
+
+const homes: Home[] = [
+  { tag: "Home base", name: "Salvation Center", place: "Baltimore DCC · Randallstown, Maryland", href: "/visit", cta: "Plan a visit" },
+  { tag: "Parent assembly", name: "CAC Salvation Centre, Ilorin", place: "Kwara State, Nigeria · established 1997", href: "/ilorin", cta: "Our roots" },
+  { tag: "Online assembly", name: "Salvation City", place: "Our online home, gathered on Zoom", href: "/salvationcity", cta: "Join online" },
+  { tag: "Sister assembly", name: "CAC Kingdom Embassy", place: "Pastored by Enoch Ilufoye", href: "https://cackingdomembassy.org", cta: "Visit site", external: true },
+  { tag: "Sister assembly", name: "CAC Palace of Peace", place: "A sister assembly of the CAC family", href: "https://cacpalaceofpeace.org", cta: "Visit site", external: true },
+];
+
+const homeCardStyle: CSSProperties = {
+  height: "100%", display: "flex", flexDirection: "column",
+  background: "rgba(255,247,239,.05)", border: "1px solid rgba(255,247,239,.12)",
+  borderRadius: 22, padding: "26px 24px", textDecoration: "none",
+};
+
+function HomeCard({ h }: { h: Home }) {
+  const content = (
+    <>
+      <span style={{ alignSelf: "flex-start", fontSize: 11, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--gold)", background: "rgba(232,163,61,.12)", border: "1px solid rgba(232,163,61,.28)", padding: "5px 12px", borderRadius: 999, marginBottom: 18 }}>{h.tag}</span>
+      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21, letterSpacing: "-.4px", color: "var(--cream)", margin: "0 0 6px", lineHeight: 1.15 }}>{h.name}</h3>
+      <p style={{ fontSize: 14, color: "rgba(255,247,239,.6)", lineHeight: 1.55, margin: "0 0 18px", flex: 1 }}>{h.place}</p>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "var(--gold)" }}>{h.cta} <span aria-hidden style={{ fontSize: 16 }}>→</span></span>
+    </>
+  );
+  return h.external
+    ? <a href={h.href} target="_blank" rel="noopener noreferrer" className="card-lift" style={homeCardStyle}>{content}</a>
+    : <Link href={h.href} className="card-lift" style={homeCardStyle}>{content}</Link>;
+}
 
 export const metadata = {
   title: "About — CAC Salvation Center",
@@ -176,6 +207,33 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* One family, many homes */}
+      <section style={{ background: "var(--ink)", padding: "100px clamp(20px,5vw,64px)", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden style={{ position: "absolute", top: -100, left: "50%", transform: "translateX(-50%)", width: 760, height: 460, background: "radial-gradient(circle,rgba(232,163,61,.18),transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 2 }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 16 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Our Homes</span>
+          </Reveal>
+          <Reveal delay={80} style={{ textAlign: "center", marginBottom: 18 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,5vw,64px)", letterSpacing: "-1.5px", color: "var(--cream)", margin: 0, lineHeight: .95 }}>
+              One family, many homes.
+            </h2>
+          </Reveal>
+          <Reveal delay={140} style={{ textAlign: "center", marginBottom: 52 }}>
+            <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "rgba(255,247,239,.7)", lineHeight: 1.7, maxWidth: 640, margin: "0 auto" }}>
+              One Salvation Center family, gathered in many places — across Maryland, Nigeria, and online. Every assembly preaches the same undiluted Gospel; every door opens with the same welcome.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {homes.map((h, i) => (
+              <Reveal key={h.name} delay={(i % 3) * 70}>
+                <HomeCard h={h} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* What We Believe — 13 Tenets */}
       <section style={{ background: "var(--cream)", padding: "100px clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
@@ -228,12 +286,12 @@ export default function AboutPage() {
           <div className="r2" style={{ gap: 22, alignItems: "stretch" }}>
             <Reveal style={{ background: "var(--ink)", color: "var(--cream)", borderRadius: 26, overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: 340, position: "relative" }}>
-                <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
+                <Image src="/images/pastor-couple.jpg" alt="Pastor Dr. H.O. Ilufoye and Evang. Mrs Victoria Ilufoye" fill style={{ objectFit: "cover", objectPosition: "center 28%" }} />
               </div>
               <div style={{ padding: 28 }}>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, lineHeight: 1.1 }}>Pastor Dr. Hezekiah O. Ilufoye</div>
-                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>Superintendent · Senior Pastor</div>
-                <p style={{ fontSize: 14.5, lineHeight: 1.65, opacity: .82, margin: "16px 0 0" }}>Founder of the Salvation Center family — leading with a heart to build God’s ambassadors and welcome every soul home.</p>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, lineHeight: 1.1 }}>Pastor Dr. Hezekiah O. Ilufoye<span style={{ display: "block", fontSize: 17, fontWeight: 700, color: "rgba(255,247,239,.85)", marginTop: 5 }}>&amp; Evang. Mrs Victoria Ilufoye</span></div>
+                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>Baltimore DCC Superintendent · First Lady</div>
+                <p style={{ fontSize: 14.5, lineHeight: 1.65, opacity: .82, margin: "16px 0 0" }}>Together they lead the Salvation Center family — building God’s ambassadors and welcoming every soul home.</p>
               </div>
             </Reveal>
             <Reveal delay={120} style={{ background: "linear-gradient(155deg, var(--red), var(--red-deep))", color: "var(--cream)", borderRadius: 26, padding: "clamp(32px,4vw,48px) clamp(28px,3.5vw,40px)", display: "flex", flexDirection: "column", justifyContent: "center", boxShadow: "0 18px 36px rgba(214,40,40,.26)" }}>

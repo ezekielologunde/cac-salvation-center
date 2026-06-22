@@ -18,7 +18,7 @@ export function PastorWelcome() {
           </div>
           <div style={{ position: "absolute", bottom: -22, left: -18, background: "var(--ink)", color: "var(--cream)", padding: "16px 22px", borderRadius: 16, boxShadow: "0 18px 36px rgba(27,19,14,.28)" }}>
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17 }}>Pastor Dr. H.O. Ilufoye</div>
-            <div style={{ fontSize: 12.5, color: "var(--gold)", fontWeight: 700, letterSpacing: ".5px", marginTop: 2 }}>Senior Pastor</div>
+            <div style={{ fontSize: 12.5, color: "var(--gold)", fontWeight: 700, letterSpacing: ".5px", marginTop: 2 }}>Baltimore DCC Superintendent</div>
           </div>
         </Reveal>
 

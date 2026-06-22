@@ -12,7 +12,7 @@ const photos = [
   { src: "/images/choir.jpg", alt: "The Salvation Center choir in red and white robes" },
   { src: "/images/stage.jpg", alt: "Church stage with leadership beneath the CAC banner" },
   { src: "/images/pastor.jpg", alt: "Pastor Dr. H.O. Ilufoye preaching" },
-  { src: "/images/pastor-choir.jpg", alt: "Pastor with the choir in worship" },
+  { src: "/images/pastor-choir.jpg", alt: "Pastor Dr. H.O. Ilufoye with the choir in worship" },
 ];
 
 export function Gallery() {

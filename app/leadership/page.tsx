@@ -11,21 +11,24 @@ export const metadata = {
 
 const featured = {
   name: "Pastor Dr. Hezekiah O. Ilufoye, PhD",
-  title: "Superintendent · Senior Pastor",
-  bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. A theologian, teacher, and shepherd, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
-  image: "/images/pastor.jpg",
+  partner: "Evang. Mrs Victoria Ilufoye",
+  title: "Baltimore DCC Superintendent · First Lady",
+  bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. Together with the First Lady, Evang. Mrs Victoria Ilufoye, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
+  image: "/images/pastor-couple.jpg",
 };
 
-const team = [
+const team: { name: string; title: string; bio: string; image?: string }[] = [
   {
     name: "Pastor Felix Osunkiyesi",
     title: "Curate",
-    bio: "Serving alongside the Senior Pastor in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
+    bio: "Serving alongside the Superintendent in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
+    image: "/images/pastor-osunkiyesi.webp",
   },
   {
     name: "Pastor Alfred Aremo",
     title: "Associate Pastor",
     bio: "An associate minister carrying the work of teaching, prayer, and shepherding — committed to seeing every member grow up in Christ and walk in their God-given purpose.",
+    image: "/images/pastor-aremo.webp",
   },
   {
     name: "Pastor Oludapo Eludoyin",
@@ -36,6 +39,7 @@ const team = [
     name: "Pastor Enoch Ilufoye",
     title: "Assembly Pastor · CAC Kingdom Embassy",
     bio: "Leading the CAC Kingdom Embassy assembly within the Baltimore DCC family — a next-generation voice carrying the Gospel with clarity, conviction, and cultural intelligence.",
+    image: "/images/pastor-enoch.webp",
   },
 ];
 
@@ -81,17 +85,17 @@ export default function LeadershipPage() {
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px) 56px" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
           <Reveal>
-            <div className="r-leader" style={{
-              display: "grid", gridTemplateColumns: "360px 1fr", gap: 48, alignItems: "stretch",
+            <div style={{
               background: "var(--ink)", borderRadius: 28, overflow: "hidden",
               boxShadow: "0 30px 60px rgba(27,19,14,.22)",
             }}>
-              <div style={{ position: "relative", minHeight: 460 }}>
-                <Image src={featured.image} alt={featured.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="(max-width: 760px) 100vw, 360px" />
+              <div style={{ position: "relative", width: "100%", height: "clamp(300px,42vw,470px)" }}>
+                <Image src={featured.image} alt={`${featured.name} & ${featured.partner}`} fill style={{ objectFit: "cover", objectPosition: "center 28%" }} sizes="(max-width: 1080px) 100vw, 1080px" />
               </div>
-              <div style={{ padding: "44px 44px 44px 0", color: "var(--cream)" }}>
+              <div style={{ padding: "clamp(32px,4vw,48px)", color: "var(--cream)" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>{featured.title}</div>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 22px", lineHeight: 1.04 }}>{featured.name}</h2>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 6px", lineHeight: 1.04 }}>{featured.name}</h2>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,26px)", color: "rgba(255,247,239,.85)", letterSpacing: "-.4px", margin: "0 0 22px" }}>&amp; {featured.partner}</div>
                 <p style={{ fontSize: 16.5, lineHeight: 1.75, opacity: .82, margin: 0 }}>{featured.bio}</p>
               </div>
             </div>
@@ -117,14 +121,20 @@ export default function LeadershipPage() {
                   height: "100%", display: "flex", flexDirection: "column", gap: 18,
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    <div aria-hidden style={{
-                      width: 64, height: 64, borderRadius: 18,
-                      background: gradients[i % gradients.length],
-                      display: "grid", placeItems: "center",
-                      color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22,
-                      letterSpacing: "-0.5px", boxShadow: "0 10px 22px rgba(214,40,40,.28)",
-                      flexShrink: 0,
-                    }}>{initials(p.name)}</div>
+                    {p.image ? (
+                      <div style={{ position: "relative", width: 64, height: 64, borderRadius: 18, overflow: "hidden", flexShrink: 0, boxShadow: "0 10px 22px rgba(27,19,14,.2)" }}>
+                        <Image src={p.image} alt={p.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="64px" />
+                      </div>
+                    ) : (
+                      <div aria-hidden style={{
+                        width: 64, height: 64, borderRadius: 18,
+                        background: gradients[i % gradients.length],
+                        display: "grid", placeItems: "center",
+                        color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22,
+                        letterSpacing: "-0.5px", boxShadow: "0 10px 22px rgba(214,40,40,.28)",
+                        flexShrink: 0,
+                      }}>{initials(p.name)}</div>
+                    )}
                     <div>
                       <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 4 }}>{p.title}</div>
                       <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, letterSpacing: "-0.4px", color: "var(--ink)", margin: 0, lineHeight: 1.15 }}>{p.name}</h3>
