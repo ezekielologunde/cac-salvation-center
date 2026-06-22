@@ -1,215 +1,349 @@
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
-import { Newspaper, ArrowRight, Calendar, BookOpen, Users, Mic2 } from "lucide-react";
+import { POSTS } from "@/lib/blog";
+import { specialEvents } from "@/lib/events";
+import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Clock, Calendar, MapPin, ShoppingBag, BookOpen, ArrowRight } from "lucide-react";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Blog & News — CAC Salvation Center",
   description:
-    "News, teaching, and stories from the Salvation Center family — devotionals, ministry updates, and reflections on Scripture.",
+    "Devotionals, ministry updates, and reflections from the Salvation Center — written for the body, by the body.",
   alternates: { canonical: "/blog" },
 };
 
-interface Post {
-  id: string;
-  cat: string;
-  icon: ReactNode;
-  title: string;
-  excerpt: string;
-  date: string;
-  accent: string;
-  href: string | null;
-  body: ReactNode[];
+const WHATSAPP_SHARE = (title: string, slug: string) =>
+  `https://wa.me/?text=${encodeURIComponent(`${title} — https://www.cacsalvationcenter.org/blog/${slug}`)}`;
+
+function CategoryBadge({ label, color }: { label: string; color: string }) {
+  return (
+    <span style={{
+      display: "inline-block", fontSize: 10, fontWeight: 800,
+      letterSpacing: "1.8px", textTransform: "uppercase",
+      color: "#fff", background: color,
+      borderRadius: 999, padding: "3px 11px",
+    }}>{label}</span>
+  );
 }
 
-const P = ({ children }: { children: ReactNode }) => (
-  <p style={{ margin: "0 0 14px", fontSize: 14.5, color: "var(--ink)", lineHeight: 1.82 }}>{children}</p>
-);
-
-const posts: Post[] = [
-  {
-    id: "good-women-2026",
-    cat: "Event Spotlight",
-    icon: <Mic2 size={14} strokeWidth={2.5} aria-hidden />,
-    title: "2026 Good Women Anniversary — \"Who Are You?\"",
-    excerpt: "On Sunday, June 28 the Baltimore DCC Good Women gather under a theme drawn from 1 Kings 3:16–27. Here is everything you need to know before you come.",
-    date: "June 22, 2026",
-    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
-    href: "/events/good-women-anniversary",
-    body: [
-      <P key="1">The Baltimore District Coordinating Council Good Women have chosen a theme that cuts straight to the heart: <em>Who Are You — Mother or Murderer?</em> Drawn from Solomon&apos;s judgment in 1 Kings 3:16–27, the question is not about biology. It is about the posture of the soul.</P>,
-      <P key="2">A mother gives. She intercedes, protects, and endures loss rather than see the child destroyed. The woman in that throne room was willing to lose custody rather than lose the child&apos;s life. Solomon saw it instantly — that readiness to suffer for another is the mark of genuine love.</P>,
-      <P key="3">The Good Women of our district will spend one morning sitting with that question: in my home, in my church, in my community — am I giving life or taking it? The service begins at <strong>11:00 AM on Sunday, June 28, 2026</strong>. Pastor Dr. H.O. Ilufoye, Pastor S.O. Oladele (CAC President), and Pastor Dr. T.O.A. Agbeja will minister the Word. Evangelists Bisi Benson and Buky Awosanya come as guest ministers. All are welcome.</P>,
-    ],
-  },
-  {
-    id: "god-builds-the-house",
-    cat: "Devotional",
-    icon: <BookOpen size={14} strokeWidth={2.5} aria-hidden />,
-    title: "The God who builds the house.",
-    excerpt: "On Psalm 127, the Building Project, and why every nail driven and every dollar given must begin in the Lord's hands.",
-    date: "June 15, 2026",
-    accent: "linear-gradient(135deg,#F15F22,#D62828)",
-    href: null,
-    body: [
-      <P key="1"><em>&ldquo;Unless the Lord builds the house, the builders labor in vain.&rdquo;</em> — Psalm 127:1</P>,
-      <P key="2">There is a temptation, in any building project, to treat prayer as the opening ceremony and the real work as everything that comes after. We ask God to bless the effort, then we step in and manage it ourselves. Psalm 127 will not allow this.</P>,
-      <P key="3">The psalm belongs to Solomon — a man who literally built the most famous house of God the ancient world had seen, and who also wrote, later in life, that all his labor was <em>vanity</em>. He knew both sides of the warning.</P>,
-      <P key="4">The Salvation Center&apos;s building initiative is not just a construction project. Every phase — the architectural plans, the fundraising, the permits, the congregation&apos;s sacrificial giving — is an act of worship or it is noise. What distinguishes them is whether the Lord is at the center or at the margins.</P>,
-      <P key="5">This is not mystical passivity. Solomon also built. He organized labor, sourced cedar from Lebanon, oversaw artisans. The Psalm does not say &ldquo;unless the Lord builds, do nothing.&rdquo; It says that your labor, however skilled, however persistent, produces nothing that lasts unless it is aligned with what God is already doing.</P>,
-      <P key="6">In your home, are you building something or merely occupying space? In your marriage, are you constructing a covenant or maintaining a contract? Psalm 127 begins with the house but it ends with children — the next generation is the fruit of a home the Lord has built. <strong>Pray first. Give from trust, not obligation. And labor hard, knowing that the One who commanded you to build also guarantees the completion.</strong></P>,
-    ],
-  },
-  {
-    id: "cacna-2026",
-    cat: "Ministry Update",
-    icon: <Users size={14} strokeWidth={2.5} aria-hidden />,
-    title: "CACNA 2026 — what to expect.",
-    excerpt: "Six days of worship and the Word at CAC Village, Blue Ridge Summit PA — July 13–18. Here is how to prepare, what to pack, and why you should not miss it.",
-    date: "June 10, 2026",
-    accent: "linear-gradient(135deg,#E8A33D,#F15F22)",
-    href: null,
-    body: [
-      <P key="1">The Christ Apostolic Church North America National Convention returns to CAC Village in Blue Ridge Summit, Pennsylvania from <strong>July 13 to 18, 2026</strong>. This is the gathering where the scattered family of CAC across North America becomes, for one week, a single congregation.</P>,
-      <P key="2"><strong>What to expect.</strong> The convention runs morning and evening sessions, six days. Expect deep worship, extended prayer, and messages from pastors and evangelists across the CAC global fellowship. The village setting means you are not commuting to an arena — you are resident in a camp, taking meals together, going on prayer walks, staying in late-night worship that no one wants to end.</P>,
-      <P key="3"><strong>Who should come.</strong> Everyone. The convention is not a pastors&apos; retreat. Youth services run in parallel to the main sessions. Children&apos;s programming is provided. Singles, couples, the elderly — the village is full of people at every stage of life pressing into God together.</P>,
-      <P key="4"><strong>How to prepare.</strong> Registration is open at the CACNA convention website. Secure your accommodation early — village beds are allocated first-come. If you are driving, Blue Ridge Summit is approximately two hours from Randallstown. Carpooling from Salvation Center will be coordinated — speak to any elder or contact the church office.</P>,
-      <P key="5">Pack for outdoor Pennsylvania in July: warm mornings, hot afternoons, cool evenings. Bring a Bible with writing margins. Bring a journal. Leave your calendar empty for six days and come with open hands.</P>,
-    ],
-  },
-  {
-    id: "ambassadors",
-    cat: "Reflection",
-    icon: <Mic2 size={14} strokeWidth={2.5} aria-hidden />,
-    title: "What it means to be ambassadors.",
-    excerpt: "2 Corinthians 5:17–20 and the daily call on every believer at the Salvation Center. We are not tourists in this world — we are representatives.",
-    date: "May 25, 2026",
-    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
-    href: null,
-    body: [
-      <P key="1"><em>&ldquo;We are therefore Christ&apos;s ambassadors, as though God were making his appeal through us.&rdquo;</em> — 2 Corinthians 5:20</P>,
-      <P key="2">An ambassador does not speak in their own name. They carry the authority of the one who sent them, the message of the one who sent them, and the reputation of the one who sent them. Their personal opinions are, in the formal moment, irrelevant.</P>,
-      <P key="3">Paul&apos;s picture of the Christian life is astonishingly bold. God, he says, is making his appeal <em>through us</em>. The same God who spoke light into being, who parted the sea, who raised his Son — is now, in this age, choosing to make his appeal through people like us. Through the member who shows up to Tuesday night prayer even when tired. Through the one who forgives when they had every right to retaliate. Through the family that gives to the building fund not because they are wealthy but because they believe.</P>,
-      <P key="4">The title comes with weight. Ambassadors can embarrass their country. They can misrepresent. They can go off-message. Paul knew this — the same letter is full of passages about his own weakness, his thorn, his afflictions. But the weakness of the vessel is not the end of the story. &ldquo;The power,&rdquo; he writes in chapter four, &ldquo;belongs to God.&rdquo;</P>,
-      <P key="5">At the Salvation Center we carry this identity into Randallstown, into Baltimore, into Ilorin, into Rosedale. Everywhere a member of this house goes, an ambassador is present. The question worth sitting with is not whether you hold the title — you do, by virtue of your new creation in Christ — but <strong>whether you are conscious of it when you wake up in the morning.</strong></P>,
-    ],
-  },
-];
-
-function PostCard({ post, featured = false }: { post: Post; featured?: boolean }) {
+function ArticleCard({ post }: { post: typeof POSTS[number] }) {
   return (
-    <article style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 24, display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 12px 30px rgba(27,19,14,.07)" }}>
-      {/* Color band */}
-      <div style={{ height: featured ? 200 : 150, background: post.accent, position: "relative", flexShrink: 0 }}>
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 70% 30%,rgba(255,255,255,.18),transparent 60%)" }} />
-        <div style={{ position: "absolute", left: 22, bottom: 18, display: "flex", alignItems: "center", gap: 7, color: "#fff", fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase" }}>
-          {post.icon} {post.cat}
+    <article className="card-lift" style={{
+      background: "var(--paper)", border: "1px solid var(--line)",
+      borderRadius: 22, overflow: "hidden", display: "flex",
+      flexDirection: "column", height: "100%",
+    }}>
+      <div style={{ height: 6, background: post.accent, flexShrink: 0 }} />
+      <div style={{ padding: "22px 24px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+          <CategoryBadge label={post.category} color={post.categoryColor} />
+          <span style={{ fontSize: 11.5, color: "var(--ink-soft)", fontWeight: 600 }}>{post.readTime}</span>
         </div>
-      </div>
-
-      {/* Body */}
-      <div style={{ padding: "clamp(22px,3vw,30px)", display: "flex", flexDirection: "column", flex: 1 }}>
-        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: featured ? "clamp(22px,2.8vw,30px)" : 22, letterSpacing: "-.5px", color: "var(--ink)", margin: "0 0 12px", lineHeight: 1.12 }}>{post.title}</h3>
-        <p style={{ fontSize: 15, color: "var(--ink-soft)", lineHeight: 1.72, margin: "0 0 20px" }}>{post.excerpt}</p>
-
-        {/* Article body */}
-        <div style={{ borderTop: "1px solid var(--line)", paddingTop: 20, marginTop: 4, flex: 1 }}>
-          {post.body}
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, fontWeight: 700, color: "var(--red)", letterSpacing: ".5px", textTransform: "uppercase" }}>
-            <Calendar size={13} strokeWidth={2.5} aria-hidden /> {post.date}
-          </div>
-          {post.href && (
-            <Link href={post.href} className="press" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13.5, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
-              Full details <ArrowRight size={14} strokeWidth={2.5} aria-hidden />
+        <h3 style={{
+          fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20,
+          letterSpacing: "-.4px", color: "var(--ink)", margin: "0 0 10px", lineHeight: 1.15,
+        }}>
+          <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+            {post.title}
+          </Link>
+        </h3>
+        <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.72, margin: "0 0 20px", flex: 1 }}>
+          {post.excerpt}
+        </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, borderTop: "1px solid var(--line)", paddingTop: 16, marginTop: "auto" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 11.5, color: "var(--ink-soft)", fontWeight: 600 }}>
+            <Calendar size={12} strokeWidth={2.5} aria-hidden /> {post.date}
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <a href={WHATSAPP_SHARE(post.title, post.slug)} target="_blank" rel="noopener noreferrer"
+              style={{ fontSize: 11.5, fontWeight: 700, color: "#25D366", textDecoration: "none" }}
+              aria-label="Share on WhatsApp">Share ↗</a>
+            <Link href={`/blog/${post.slug}`}
+              style={{ fontSize: 13, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+              Read →
             </Link>
-          )}
+          </div>
         </div>
       </div>
     </article>
   );
 }
 
+function FeaturedCard({ post }: { post: typeof POSTS[number] }) {
+  return (
+    <article style={{
+      background: "var(--paper)", border: "1px solid var(--line)",
+      borderRadius: 28, overflow: "hidden",
+      boxShadow: "0 16px 50px rgba(27,19,14,.10)",
+    }}>
+      <div style={{ height: 220, background: post.accent, position: "relative" }}>
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 70% 30%,rgba(255,255,255,.2),transparent 65%)" }} />
+        <div style={{ position: "absolute", top: 22, left: 24 }}>
+          <span style={{ display: "inline-block", fontSize: 9.5, fontWeight: 900, letterSpacing: "2.5px", textTransform: "uppercase", color: "#fff", background: "rgba(0,0,0,.35)", borderRadius: 999, padding: "5px 12px" }}>
+            Latest · {post.readTime}
+          </span>
+        </div>
+        <div style={{ position: "absolute", bottom: 24, left: 24, right: 24 }}>
+          <CategoryBadge label={post.category} color="rgba(0,0,0,.45)" />
+        </div>
+      </div>
+      <div style={{ padding: "28px 32px 32px" }}>
+        <h2 style={{
+          fontFamily: "var(--font-display)", fontWeight: 800,
+          fontSize: "clamp(26px,3.2vw,40px)", letterSpacing: "-1px",
+          color: "var(--ink)", margin: "0 0 14px", lineHeight: 1.06,
+        }}>
+          <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+            {post.title}
+          </Link>
+        </h2>
+        <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.75, margin: "0 0 24px" }}>
+          {post.excerpt}
+        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12.5, color: "var(--ink-soft)", fontWeight: 600 }}>
+            <Clock size={13} strokeWidth={2.5} aria-hidden /> {post.date}
+          </span>
+          <Link href={`/blog/${post.slug}`} className="press" style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "var(--red)", color: "#fff", fontWeight: 700, fontSize: 14,
+            padding: "10px 22px", borderRadius: 999, textDecoration: "none",
+            boxShadow: "0 8px 20px rgba(214,40,40,.3)",
+          }}>
+            Read full story <ArrowRight size={14} strokeWidth={2.5} aria-hidden />
+          </Link>
+          <a href={WHATSAPP_SHARE(post.title, post.slug)} target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 12.5, fontWeight: 700, color: "#25D366", textDecoration: "none" }}>
+            Share on WhatsApp ↗
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ScriptureWidget() {
+  const week = bibleReadingPlan[1];
+  return (
+    <aside style={{
+      background: "var(--ink)", borderRadius: 20, padding: "24px 26px",
+      marginBottom: 24, position: "relative", overflow: "hidden",
+    }}>
+      <div aria-hidden style={{ position: "absolute", top: -40, right: -40, width: 180, height: 140, background: "radial-gradient(circle,rgba(232,163,61,.25),transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 14 }}>
+          <BookOpen size={12} strokeWidth={2.5} color="var(--gold)" aria-hidden />
+          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)" }}>
+            This Week&apos;s Reading
+          </span>
+        </div>
+        <div style={{ fontSize: 12.5, fontWeight: 700, color: "rgba(255,247,239,.55)", marginBottom: 10 }}>Week 2 — {week.theme}</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          {[
+            ["Sun", week.sun], ["Mon", week.mon], ["Tue", week.tue],
+            ["Wed", week.wed], ["Thu", week.thu],
+          ].map(([day, reading]) => (
+            <div key={day} style={{ display: "flex", gap: 10, fontSize: 13 }}>
+              <span style={{ minWidth: 30, fontWeight: 800, color: "var(--gold)", fontSize: 11 }}>{day}</span>
+              <span style={{ color: "rgba(255,247,239,.75)", lineHeight: 1.45 }}>{reading}</span>
+            </div>
+          ))}
+        </div>
+        <Link href="/bible-plan" style={{ display: "inline-block", marginTop: 16, fontSize: 12, fontWeight: 700, color: "var(--gold)", textDecoration: "none" }}>
+          Full reading plan →
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
+function UpcomingEventWidget() {
+  const ev = specialEvents.find(e => e.href) ?? specialEvents[0];
+  return (
+    <aside style={{
+      background: "var(--cream-2)", border: "1px solid var(--line)",
+      borderRadius: 20, padding: "22px 24px", marginBottom: 24,
+    }}>
+      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 14 }}>
+        Upcoming Event
+      </div>
+      {ev.month && (
+        <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 12 }}>
+          <div style={{ textAlign: "center", minWidth: 44 }}>
+            <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)" }}>{ev.month}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 30, lineHeight: 1, color: "var(--ink)" }}>{ev.day}</div>
+          </div>
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 15, color: "var(--ink)", lineHeight: 1.2, marginBottom: 6 }}>{ev.title}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12.5, color: "var(--ink-soft)", marginBottom: 4 }}>
+              <Clock size={11} strokeWidth={2.5} aria-hidden /> {ev.timeLabel}
+            </div>
+            <div style={{ fontSize: 12.5, color: "var(--ink-soft)", lineHeight: 1.5 }}>{ev.desc.slice(0, 80)}…</div>
+          </div>
+        </div>
+      )}
+      {ev.href && (
+        <Link href={ev.href} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: "var(--red)", textDecoration: "none", marginTop: 8 }}>
+          Event details <ArrowRight size={12} strokeWidth={2.5} aria-hidden />
+        </Link>
+      )}
+    </aside>
+  );
+}
+
+function StoreAdWidget() {
+  return (
+    <aside style={{
+      background: "linear-gradient(140deg,#9E1B1B,#D62828)",
+      borderRadius: 20, padding: "24px 26px", position: "relative", overflow: "hidden",
+    }}>
+      <div aria-hidden style={{ position: "absolute", top: -30, right: -30, width: 130, height: 130, background: "radial-gradient(circle,rgba(232,163,61,.35),transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
+          <ShoppingBag size={12} strokeWidth={2.5} color="var(--gold)" aria-hidden />
+          <span style={{ fontSize: 9.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,247,239,.7)" }}>
+            From the Store
+          </span>
+        </div>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>
+          Wear the Word.
+        </div>
+        <p style={{ fontSize: 13, color: "rgba(255,247,239,.78)", lineHeight: 1.6, marginBottom: 18 }}>
+          CAC Salvation Center merchandise — shirts, bibles, custom prints, and more. Quality that carries the message.
+        </p>
+        <Link href="/store" className="press" style={{
+          display: "inline-flex", alignItems: "center", gap: 7,
+          background: "#fff", color: "var(--red)", fontWeight: 800,
+          fontSize: 13, padding: "10px 20px", borderRadius: 999, textDecoration: "none",
+        }}>
+          Shop Now <ArrowRight size={13} strokeWidth={2.5} aria-hidden />
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
 export default function BlogPage() {
-  const [featured, ...rest] = posts;
+  const [featured, ...rest] = POSTS;
+  const dateStr = new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 
   return (
     <main>
       <Nav heroDark />
 
-      {/* Hero */}
-      <section style={{ background: "var(--ink)", padding: "150px clamp(20px,5vw,64px) 96px", position: "relative", overflow: "hidden" }}>
-        <div aria-hidden style={{ position: "absolute", top: -100, right: -80, width: 580, height: 460, background: "radial-gradient(circle,rgba(232,163,61,.22),transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 880, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
+      {/* Masthead */}
+      <section style={{ background: "var(--ink)", padding: "130px clamp(20px,5vw,64px) 72px", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden style={{ position: "absolute", top: -100, right: -80, width: 560, height: 440, background: "radial-gradient(circle,rgba(232,163,61,.2),transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1140, margin: "0 auto", position: "relative", zIndex: 2 }}>
           <Reveal>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 18 }}>
-              <Newspaper size={14} strokeWidth={2.5} aria-hidden /> Blog &amp; News
+            <div style={{ borderBottom: "1px solid rgba(255,247,239,.12)", paddingBottom: 18, marginBottom: 22, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: "rgba(255,247,239,.45)", letterSpacing: ".5px" }}>{dateStr}</span>
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: "rgba(255,247,239,.45)", letterSpacing: ".5px" }}>cacsalvationcenter.org</span>
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(46px,7vw,98px)", letterSpacing: "-2.2px", color: "#fff", margin: "0 0 22px", lineHeight: 0.93 }}>
-              The voice of<br />
-              <span style={{ background: "linear-gradient(100deg,#F15F22,#D62828,#E8A33D)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>the family.</span>
-            </h1>
+            <h1 style={{
+              fontFamily: "var(--font-display)", fontWeight: 800,
+              fontSize: "clamp(56px,9vw,130px)", letterSpacing: "-3px",
+              color: "#fff", margin: "0 0 8px", lineHeight: 0.92, textAlign: "center",
+            }}>The Voice</h1>
           </Reveal>
-          <Reveal delay={160}>
-            <p style={{ fontSize: "clamp(16px,1.8vw,20px)", color: "rgba(255,247,239,.72)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto" }}>
-              Devotionals, ministry updates, and reflections from the Salvation Center — written for the body, by the body.
+          <Reveal delay={140}>
+            <p style={{ textAlign: "center", fontSize: 13, fontWeight: 700, letterSpacing: "5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 0 }}>
+              Christ Apostolic Church Salvation Center · Baltimore
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Featured post */}
-      <section style={{ background: "var(--cream)", padding: "clamp(50px,6vw,90px) clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Reveal style={{ marginBottom: 24 }}>
-            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Latest</span>
-          </Reveal>
-          <Reveal>
-            <PostCard post={featured} featured />
-          </Reveal>
+      {/* Featured + Sidebar */}
+      <section style={{ background: "var(--cream)", padding: "clamp(40px,5vw,70px) clamp(20px,5vw,64px)" }}>
+        <div style={{
+          maxWidth: 1140, margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "minmax(0,2.1fr) minmax(280px,1fr)",
+          gap: "clamp(28px,4vw,52px)",
+          alignItems: "start",
+        }}>
+          <div>
+            <Reveal>
+              <FeaturedCard post={featured} />
+            </Reveal>
+          </div>
+          <div>
+            <Reveal delay={80}>
+              <ScriptureWidget />
+            </Reveal>
+            <Reveal delay={120}>
+              <UpcomingEventWidget />
+            </Reveal>
+            <Reveal delay={160}>
+              <StoreAdWidget />
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* CACNA 2026 CTA */}
-      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(40px,5vw,60px)" }}>
-        <Reveal>
-          <div style={{ maxWidth: 900, margin: "0 auto", background: "linear-gradient(135deg,#9E1B1B,#D62828)", borderRadius: 28, padding: "clamp(28px,4vw,42px)", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24, boxShadow: "0 24px 60px rgba(214,40,40,.28)", position: "relative", overflow: "hidden" }}>
-            <div aria-hidden style={{ position: "absolute", top: -80, right: -60, width: 320, height: 280, background: "radial-gradient(circle,rgba(232,163,61,.3),transparent 65%)", pointerEvents: "none" }} />
-            <div style={{ flex: "1 1 320px", position: "relative", zIndex: 2 }}>
-              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,247,239,.85)", marginBottom: 10 }}>Registration open</div>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", letterSpacing: "-.6px", color: "#fff", margin: "0 0 8px", lineHeight: 1.05 }}>Register for CACNA 2026</h2>
-              <p style={{ fontSize: 15, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>July 13–18 at CAC Village, Blue Ridge Summit, PA. Secure your spot online today.</p>
+      {/* Article grid */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 32 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12, marginBottom: 0 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
+                More from the family
+              </span>
+              <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
             </div>
-            <a href="https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red-deep)", fontWeight: 800, fontSize: 16, padding: "16px 30px", borderRadius: 999, textDecoration: "none" }}>
-              Register Now →
-            </a>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* More articles */}
-      <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(70px,9vw,110px)" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <Reveal style={{ marginBottom: 36 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>More from the family</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,46px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0", lineHeight: 1 }}>
-              Teaching &amp; reflection.
-            </h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%,320px), 1fr))", gap: 22 }}>
+          <div style={{
+            marginTop: 28,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
+            gap: 22,
+          }}>
             {rest.map((p, i) => (
-              <Reveal key={p.id} delay={i * 90}>
-                <PostCard post={p} />
+              <Reveal key={p.slug} delay={i * 80}>
+                <ArticleCard post={p} />
               </Reveal>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* CACNA CTA */}
+      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(56px,7vw,90px)" }}>
+        <Reveal>
+          <div style={{
+            maxWidth: 900, margin: "0 auto",
+            background: "linear-gradient(135deg,#9E1B1B,#D62828)",
+            borderRadius: 28, padding: "clamp(28px,4vw,44px)",
+            display: "flex", flexWrap: "wrap", alignItems: "center",
+            justifyContent: "space-between", gap: 24,
+            boxShadow: "0 24px 60px rgba(214,40,40,.28)",
+            position: "relative", overflow: "hidden",
+          }}>
+            <div aria-hidden style={{ position: "absolute", top: -80, right: -60, width: 320, height: 280, background: "radial-gradient(circle,rgba(232,163,61,.3),transparent 65%)", pointerEvents: "none" }} />
+            <div style={{ flex: "1 1 320px", position: "relative", zIndex: 2 }}>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,247,239,.8)", marginBottom: 10 }}>
+                Registration open
+              </div>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", letterSpacing: "-.6px", color: "#fff", margin: "0 0 8px", lineHeight: 1.05 }}>
+                Register for CACNA 2026
+              </h2>
+              <p style={{ fontSize: 15, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>
+                July 13–18 at CAC Village, Blue Ridge Summit, PA.
+              </p>
+            </div>
+            <a href="https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press"
+              style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 15, padding: "14px 28px", borderRadius: 999, textDecoration: "none" }}>
+              Register Now →
+            </a>
+          </div>
+        </Reveal>
       </section>
 
       <FooterExperience />

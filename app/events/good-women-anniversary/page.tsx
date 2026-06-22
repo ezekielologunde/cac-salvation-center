@@ -18,7 +18,7 @@ export const metadata = {
 const ev = specialEvents.find((e) => e.id === "good-women-anniversary-2026")!;
 
 const ministers: { name: string; role: string; photo?: string }[] = [
-  { name: "Pastor Dr. H.O. Ilufoye", role: "Baltimore DCC Superintendent", photo: "/images/pastor.jpg" },
+  { name: "Pastor Dr. H.O. Ilufoye", role: "Baltimore DCC Superintendent", photo: "/images/pastor-couple.jpg" },
   { name: "Pastor S.O. Oladele", role: "C.A.C. President" },
   { name: "Pastor Dr. T.O.A. Agbeja", role: "Latunde Regional Superintendent" },
 ];
