@@ -1,13 +1,5 @@
 import type { NextConfig } from "next";
 
-const SITE = "https://www.cacsalvationcenter.org";
-
-// city + blog: redirect the subdomain to its page on the main site.
-const subdomainRedirects = [
-  { host: "city.cacsalvationcenter.org", path: "/salvationcity" },
-  { host: "blog.cacsalvationcenter.org", path: "/blog" },
-];
-
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -15,18 +7,24 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return subdomainRedirects.map((s) => ({
-      source: "/:path*",
-      has: [{ type: "host" as const, value: s.host }],
-      destination: `${SITE}${s.path}`,
-      permanent: false,
-    }));
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "blog.cacsalvationcenter.org" }],
+        destination: "https://www.cacsalvationcenter.org/blog",
+        permanent: false,
+      },
+    ];
   },
-  // ilorin keeps its OWN subdomain URL: rewrite the root to the Ilorin page so
-  // it serves at ilorin.cacsalvationcenter.org without changing the address bar.
-  // Only the root is rewritten — asset/_next paths pass through untouched.
+  // Subdomain rewrites: serve each page at its own subdomain URL without
+  // changing the address bar (city + ilorin both keep their subdomain).
   async rewrites() {
     return [
+      {
+        source: "/",
+        has: [{ type: "host" as const, value: "city.cacsalvationcenter.org" }],
+        destination: "/salvationcity",
+      },
       {
         source: "/",
         has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
