@@ -290,7 +290,7 @@ export default function AboutPage() {
               </div>
               <div style={{ padding: 28 }}>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, lineHeight: 1.1 }}>Pastor Dr. Hezekiah O. Ilufoye</div>
-                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>BDCC Superintendent</div>
+                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>Baltimore DCC Superintendent</div>
                 <p style={{ fontSize: 14.5, lineHeight: 1.65, opacity: .82, margin: "16px 0 0" }}>Founder of the Salvation Center family — leading with a heart to build God’s ambassadors and welcome every soul home.</p>
               </div>
             </Reveal>
