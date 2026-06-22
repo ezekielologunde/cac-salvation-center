@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Image from "next/image";
 import Link from "next/link";
-import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video } from "lucide-react";
+import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video, Users, Heart, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export const metadata = {
@@ -32,6 +32,13 @@ const ministries: Ministry[] = [
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
   { name: "Prayer & Intercession", desc: "Standing in the gap for our church and our city — join the daily 5 AM prayer line.", icon: HandHeart, gradient: "linear-gradient(140deg,var(--red),var(--red-deep))", href: "/prayer", cta: "Join the prayer line" },
   { name: "Media & Online", desc: "Carrying the service beyond our walls — streaming Spirit-filled worship to the world.", icon: Video, image: "/images/stage.jpg", alt: "Church stage with leadership and CAC banner", href: "/contact", cta: "Serve on media" },
+];
+
+const groupCategories: { label: string; icon: LucideIcon; groups: string[] }[] = [
+  { label: "Brothers' Fellowships", icon: Users, groups: ["Gideonite Brothers", "Blessed Brothers", "Victory Brothers", "Men's Group"] },
+  { label: "Sisters' Fellowships", icon: Heart, groups: ["Unity Sisters", "Blessed Sisters", "Glorious Sisters", "Women's Group", "Grandmas"] },
+  { label: "Generations", icon: Sparkles, groups: ["Kids Ministry", "Youth & Young Adults"] },
+  { label: "Service & Departments", icon: Wrench, groups: ["Prayer Warriors", "Sanctuary Keepers", "IT Department"] },
 ];
 
 export default function MinistriesPage() {
@@ -91,6 +98,40 @@ export default function MinistriesPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      {/* Fellowships & groups */}
+      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,96px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 14 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>The wider family</span>
+          </Reveal>
+          <Reveal delay={80} style={{ textAlign: "center", marginBottom: 52 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.4vw,56px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: 0, lineHeight: 0.98, textWrap: "balance" }}>
+              Fellowships &amp; groups
+            </h2>
+            <p style={{ fontSize: "clamp(15px,1.7vw,18px)", color: "var(--ink-soft)", lineHeight: 1.7, margin: "16px auto 0", maxWidth: 600 }}>
+              Beyond Sunday, the Salvation Center is a web of fellowships, bands, and teams — every one a place to belong and to serve.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 20 }}>
+            {groupCategories.map((cat, i) => (
+              <Reveal key={cat.label} delay={(i % 4) * 80}>
+                <div style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 24, padding: "28px 26px", boxShadow: "0 12px 30px rgba(27,19,14,.06)", display: "flex", flexDirection: "column" }}>
+                  <span style={{ display: "grid", placeItems: "center", width: 48, height: 48, borderRadius: 14, background: "linear-gradient(140deg,var(--flame),var(--red))", marginBottom: 18, boxShadow: "0 8px 20px rgba(214,40,40,.26)" }}>
+                    <cat.icon size={22} strokeWidth={1.9} color="#fff" aria-hidden />
+                  </span>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, letterSpacing: "-.3px", color: "var(--ink)", margin: "0 0 16px", lineHeight: 1.15 }}>{cat.label}</h3>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {cat.groups.map((g) => (
+                      <span key={g} style={{ fontSize: 13.5, fontWeight: 600, color: "var(--ink)", background: "var(--cream-2)", border: "1px solid var(--line)", padding: "7px 13px", borderRadius: 999 }}>{g}</span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

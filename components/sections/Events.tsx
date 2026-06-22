@@ -3,6 +3,12 @@ import { Reveal } from '@/components/ui/Reveal';
 
 const events = [
   {
+    month: 'Jun', day: '28',
+    title: '2026 Good Women Anniversary',
+    desc: '“Who Are You: Mother or Murderer?” · 11:00 AM ET.',
+    dateBg: 'linear-gradient(150deg,#D62828,#9E1B1B)',
+  },
+  {
     month: 'Sep', day: '03',
     title: 'Choir Anniversary',
     desc: 'A Sunday of praise and thanksgiving.',

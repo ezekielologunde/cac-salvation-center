@@ -21,6 +21,13 @@ export interface ChurchEvent {
 
 export const specialEvents: ChurchEvent[] = [
   {
+    id: "good-women-anniversary-2026",
+    title: "2026 Good Women Anniversary",
+    desc: "The Baltimore DCC Good Women mark their annual anniversary — theme: “Who Are You: Mother or Murderer?” (1 Kings 3:16–27). Guest ministers Evang. Mrs Bisi Benson and Evang. Mrs Buky Awosanya, with the BDCC Good Women leadership.",
+    dateLabel: "June 28, 2026", timeLabel: "11:00 AM ET", month: "JUN", day: "28",
+    startLocal: "20260628T110000", endLocal: "20260628T133000",
+  },
+  {
     id: "cacna-convention-2026",
     title: "CACNA 2026 Annual Convention",
     desc: "Christ Apostolic Church North America Annual Convention — six days of worship, teaching, and family at CAC Village, Blue Ridge Summit, PA.",
