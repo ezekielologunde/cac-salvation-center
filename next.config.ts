@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const SITE = "https://www.cacsalvationcenter.org";
 
-// salvationcity + blog: redirect the subdomain to its page on the main site.
+// city + blog: redirect the subdomain to its page on the main site.
 const subdomainRedirects = [
-  { host: "salvationcity.cacsalvationcenter.org", path: "/salvationcity" },
+  { host: "city.cacsalvationcenter.org", path: "/salvationcity" },
   { host: "blog.cacsalvationcenter.org", path: "/blog" },
 ];
 
