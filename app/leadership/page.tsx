@@ -16,16 +16,18 @@ const featured = {
   image: "/images/pastor.jpg",
 };
 
-const team = [
+const team: { name: string; title: string; bio: string; image?: string }[] = [
   {
     name: "Pastor Felix Osunkiyesi",
     title: "Curate",
     bio: "Serving alongside the Senior Pastor in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
+    image: "/images/pastor-osunkiyesi.webp",
   },
   {
     name: "Pastor Alfred Aremo",
     title: "Associate Pastor",
     bio: "An associate minister carrying the work of teaching, prayer, and shepherding — committed to seeing every member grow up in Christ and walk in their God-given purpose.",
+    image: "/images/pastor-aremo.webp",
   },
   {
     name: "Pastor Oludapo Eludoyin",
@@ -36,6 +38,7 @@ const team = [
     name: "Pastor Enoch Ilufoye",
     title: "Assembly Pastor · CAC Kingdom Embassy",
     bio: "Leading the CAC Kingdom Embassy assembly within the Baltimore DCC family — a next-generation voice carrying the Gospel with clarity, conviction, and cultural intelligence.",
+    image: "/images/pastor-enoch.webp",
   },
 ];
 
@@ -117,14 +120,20 @@ export default function LeadershipPage() {
                   height: "100%", display: "flex", flexDirection: "column", gap: 18,
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    <div aria-hidden style={{
-                      width: 64, height: 64, borderRadius: 18,
-                      background: gradients[i % gradients.length],
-                      display: "grid", placeItems: "center",
-                      color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22,
-                      letterSpacing: "-0.5px", boxShadow: "0 10px 22px rgba(214,40,40,.28)",
-                      flexShrink: 0,
-                    }}>{initials(p.name)}</div>
+                    {p.image ? (
+                      <div style={{ position: "relative", width: 64, height: 64, borderRadius: 18, overflow: "hidden", flexShrink: 0, boxShadow: "0 10px 22px rgba(27,19,14,.2)" }}>
+                        <Image src={p.image} alt={p.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="64px" />
+                      </div>
+                    ) : (
+                      <div aria-hidden style={{
+                        width: 64, height: 64, borderRadius: 18,
+                        background: gradients[i % gradients.length],
+                        display: "grid", placeItems: "center",
+                        color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22,
+                        letterSpacing: "-0.5px", boxShadow: "0 10px 22px rgba(214,40,40,.28)",
+                        flexShrink: 0,
+                      }}>{initials(p.name)}</div>
+                    )}
                     <div>
                       <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 4 }}>{p.title}</div>
                       <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, letterSpacing: "-0.4px", color: "var(--ink)", margin: 0, lineHeight: 1.15 }}>{p.name}</h3>

@@ -69,7 +69,7 @@ export function Hero() {
         padding: "140px clamp(20px,5vw,64px) 80px",
         overflow: "hidden",
         background: "#0d0a08",
-        backgroundImage: "url(https://img.youtube.com/vi/xIZBd9UYIDw/maxresdefault.jpg)",
+        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -85,7 +85,7 @@ export function Hero() {
       >
         {showVideo && (
           <iframe
-            src="https://www.youtube.com/embed/xIZBd9UYIDw?autoplay=1&mute=1&loop=1&playlist=xIZBd9UYIDw,RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+            src="https://www.youtube.com/embed/RX1NjOYtDxo?autoplay=1&mute=1&loop=1&playlist=RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0"
             title=""
             allow="autoplay; encrypted-media"
             aria-hidden="true"
