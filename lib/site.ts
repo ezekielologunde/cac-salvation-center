@@ -38,6 +38,7 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/salvation", priority: 0.8 },
   { path: "/salvationcity", priority: 0.8 },
   { path: "/events", priority: 0.7 },
+  { path: "/events/good-women-anniversary", priority: 0.65 },
   { path: "/calendar", priority: 0.8 },
   { path: "/testimonies", priority: 0.7 },
   { path: "/ilorin", priority: 0.6 },

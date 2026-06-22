@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
 
-const events = [
+const events: { month: string; day: string; title: string; desc: string; dateBg: string; href?: string }[] = [
   {
     month: 'Jun', day: '28',
     title: '2026 Good Women Anniversary',
     desc: '“Who Are You: Mother or Murderer?” · 11:00 AM ET.',
     dateBg: 'linear-gradient(150deg,#D62828,#9E1B1B)',
+    href: '/events/good-women-anniversary',
   },
   {
     month: 'Sep', day: '03',
@@ -45,6 +46,11 @@ export function Events() {
               <div>
                 <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px' }}>{ev.title}</div>
                 <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 6 }}>{ev.desc}</div>
+                {ev.href && (
+                  <Link href={ev.href} className="press" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, fontSize: 13.5, fontWeight: 700, color: 'var(--red)', textDecoration: 'none' }}>
+                    Full details <span aria-hidden style={{ fontSize: 15 }}>→</span>
+                  </Link>
+                )}
               </div>
             </Reveal>
           ))}

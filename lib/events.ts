@@ -17,6 +17,8 @@ export interface ChurchEvent {
   recurDay?: "SU" | "WE" | "FR";
   /** Monthly recurrence — "3SA" for 3rd Saturday, "3FR" for 3rd Friday, "-1" for last day of month. */
   recurMonthly?: string;
+  /** Optional dedicated detail page for a featured event. */
+  href?: string;
 }
 
 export const specialEvents: ChurchEvent[] = [
@@ -26,6 +28,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "The Baltimore DCC Good Women mark their annual anniversary — theme: “Who Are You: Mother or Murderer?” (1 Kings 3:16–27). Guest ministers Evang. Mrs Bisi Benson and Evang. Mrs Buky Awosanya, with the BDCC Good Women leadership.",
     dateLabel: "June 28, 2026", timeLabel: "11:00 AM ET", month: "JUN", day: "28",
     startLocal: "20260628T110000", endLocal: "20260628T133000",
+    href: "/events/good-women-anniversary",
   },
   {
     id: "cacna-convention-2026",
