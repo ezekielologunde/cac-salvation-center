@@ -5,7 +5,7 @@ import { POSTS } from "@/lib/blog";
 import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
-import { Clock, Calendar, MapPin, ShoppingBag, BookOpen, ArrowRight } from "lucide-react";
+import { Clock, Calendar, MapPin, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
 
 export const revalidate = 3600;
 
@@ -200,6 +200,7 @@ function StoreAdWidget() {
     <aside style={{
       background: "linear-gradient(140deg,#9E1B1B,#D62828)",
       borderRadius: 20, padding: "24px 26px", position: "relative", overflow: "hidden",
+      marginBottom: 24,
     }}>
       <div aria-hidden style={{ position: "absolute", top: -30, right: -30, width: 130, height: 130, background: "radial-gradient(circle,rgba(232,163,61,.35),transparent 70%)", pointerEvents: "none" }} />
       <div style={{ position: "relative", zIndex: 2 }}>
@@ -221,6 +222,42 @@ function StoreAdWidget() {
           fontSize: 13, padding: "10px 20px", borderRadius: 999, textDecoration: "none",
         }}>
           Shop Now <ArrowRight size={13} strokeWidth={2.5} aria-hidden />
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
+function HallRentalAdWidget() {
+  return (
+    <aside style={{
+      background: "linear-gradient(140deg,#1C3A2A,#2E6040)",
+      borderRadius: 20, padding: "24px 26px", position: "relative", overflow: "hidden",
+    }}>
+      <div aria-hidden style={{ position: "absolute", top: -30, right: -30, width: 130, height: 130, background: "radial-gradient(circle,rgba(232,163,61,.28),transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
+          <Building2 size={12} strokeWidth={2.5} color="var(--gold)" aria-hidden />
+          <span style={{ fontSize: 9.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,247,239,.7)" }}>
+            Space for Rent
+          </span>
+        </div>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21, color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>
+          Host Your Event Here.
+        </div>
+        <p style={{ fontSize: 13, color: "rgba(255,247,239,.82)", lineHeight: 1.65, marginBottom: 14 }}>
+          Our hall and parking lots are available for events, conferences, and birthdays. Flexible packages for any size gathering.
+        </p>
+        <a href="mailto:info@cacsalvationcenter.org"
+          style={{ display: "block", fontSize: 12.5, fontWeight: 700, color: "var(--gold)", textDecoration: "none", marginBottom: 14 }}>
+          info@cacsalvationcenter.org
+        </a>
+        <Link href="/contact" className="press" style={{
+          display: "inline-flex", alignItems: "center", gap: 7,
+          background: "#fff", color: "#1C3A2A", fontWeight: 800,
+          fontSize: 13, padding: "10px 20px", borderRadius: 999, textDecoration: "none",
+        }}>
+          Book or Enquire <ArrowRight size={13} strokeWidth={2.5} aria-hidden />
         </Link>
       </div>
     </aside>
@@ -277,6 +314,9 @@ export default function BlogPage() {
             </Reveal>
             <Reveal delay={160}>
               <StoreAdWidget />
+            </Reveal>
+            <Reveal delay={200}>
+              <HallRentalAdWidget />
             </Reveal>
           </div>
         </div>
