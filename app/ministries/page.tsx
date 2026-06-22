@@ -26,7 +26,7 @@ type Ministry = {
 
 const ministries: Ministry[] = [
   { name: "Worship & Choir", desc: "Spirit-filled praise that leads the whole house into God's presence every Sunday.", icon: Music, gradient: "linear-gradient(140deg,var(--red),var(--flame))", href: "/contact", cta: "Join the choir" },
-  { name: "Blessed Sisters", desc: "Women growing together in faith, prayer, fellowship, and service to the community.", icon: HeartHandshake, gradient: "linear-gradient(140deg,var(--flame),var(--gold))", href: "/contact", cta: "Connect with the sisters" },
+  { name: "Women's Fellowship", desc: "Sister Fellowship (Blessed Sisters, Unity Sisters, Glorious Sisters) and more — all women of the Salvation Center growing together in faith, prayer, and service.", icon: HeartHandshake, gradient: "linear-gradient(140deg,var(--flame),var(--gold))", href: "/contact", cta: "Connect with the sisters" },
   { name: "Youth & Young Adults", desc: "Raising the next generation as bold, grounded ambassadors of Christ.", icon: Sparkles, gradient: "linear-gradient(140deg,var(--red-deep),var(--red))", href: "/contact", cta: "Get involved" },
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
   { name: "Prayer & Intercession", desc: "Standing in the gap for our church and our city — join the daily 5 AM prayer line.", icon: HandHeart, gradient: "linear-gradient(140deg,var(--red),var(--red-deep))", href: "/prayer", cta: "Join the prayer line" },
@@ -36,8 +36,8 @@ const ministries: Ministry[] = [
 const groupCategories: { label: string; icon: LucideIcon; groups: string[] }[] = [
   { label: "Brothers' Fellowships", icon: Users, groups: ["Gideonite Brothers", "Blessed Brothers", "Victory Brothers", "Men's Group"] },
   { label: "Sisters' Fellowships", icon: Heart, groups: ["Unity Sisters", "Blessed Sisters", "Glorious Sisters", "Women's Group", "Grandmas"] },
-  { label: "Generations", icon: Sparkles, groups: ["Kids Ministry", "Youth & Young Adults"] },
-  { label: "Service & Departments", icon: Wrench, groups: ["Prayer Warriors", "Sanctuary Keepers", "IT Department"] },
+  { label: "Generations", icon: Sparkles, groups: ["Children's Ministry", "Youth & Young Adults"] },
+  { label: "Service & Departments", icon: Wrench, groups: ["Ushers", "Protocols", "Publication Team", "Hall Renting Committee"] },
 ];
 
 export default function MinistriesPage() {
@@ -132,9 +132,9 @@ export default function MinistriesPage() {
       <section style={{ background: "var(--ink)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)", textAlign: "center" }}>
         <Reveal>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.5vw,58px)", letterSpacing: "-1.2px", color: "var(--cream)", margin: "0 0 16px", lineHeight: 0.96 }}>Not sure where you fit?</h2>
-          <p style={{ fontSize: 17, color: "rgba(255,247,239,.6)", margin: "0 0 36px" }}>Reach out and we&apos;ll help you find your place to belong and serve.</p>
+          <p style={{ fontSize: 17, color: "rgba(255,247,239,.6)", margin: "0 0 36px" }}>Fill the serve form and we&apos;ll connect you with the right team or fellowship.</p>
           <Link href="/contact" className="btn-sheen press-lg" style={{ display: "inline-block", background: "var(--red)", color: "#fff", fontWeight: 700, fontSize: 16, padding: "17px 34px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 34px rgba(214,40,40,.4)" }}>
-            Talk to us →
+            Fill the serve form →
           </Link>
         </Reveal>
       </section>

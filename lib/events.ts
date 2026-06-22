@@ -52,6 +52,13 @@ export const specialEvents: ChurchEvent[] = [
     dateLabel: "October 1, 2026", timeLabel: "10:30 AM ET", month: "OCT", day: "01",
     startLocal: "20261001T103000", endLocal: "20261001T123000",
   },
+  {
+    id: "holy-land-pilgrimage-2026",
+    title: "Holy Land Pilgrimage 2026",
+    desc: "Join Evangelist Oyedeji for a 10-day journey through the Holy Land. Package includes round-trip flights from JFK, 8-night accommodation (7 nights in Israel + 1 in St. Catherine, Egypt), daily breakfast & dinner, licensed English-speaking guide, luxury coach transport, entrance fees, and a personal Pilgrim Certificate. Visa/border fees to Egypt ($90/person, subject to change) are extra. Register your space with a $500 deposit.",
+    dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
+    startLocal: "20261102T060000", endLocal: "20261112T230000",
+  },
 ];
 
 export const CACNA_LOCATION = "CAC Village, Blue Ridge Summit, PA";
