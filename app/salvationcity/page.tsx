@@ -1,124 +1,246 @@
-import { Nav } from "@/components/navigation/Nav";
-import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
-import { Video, Clock, Users, ArrowRight } from "lucide-react";
-import Link from "next/link";
-
-const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
+import { RevealText } from "@/components/ui/RevealText";
+import { FacebookIcon } from "@/components/ui/SocialIcons";
+import { MapPin, Phone, Mail, Navigation, ArrowUpRight } from "lucide-react";
 
 export const metadata = {
-  title: "Salvation City — CAC Salvation Center",
+  title: "CAC Salvation City — Rosedale, MD",
   description:
-    "Salvation City — the online assembly of the Salvation Center family. Join us live on Zoom for worship, the Word, and prayer.",
-  alternates: { canonical: "/salvationcity" },
+    "CAC Salvation City is a Bible believing church in Rosedale, MD. Come experience the joy of the Lord with us. 8330 Pulaski Hwy, Suite F, Rosedale, MD 21237.",
+  alternates: { canonical: "https://city.cacsalvationcenter.org" },
 };
+
+const c = {
+  deep: "#1A0C04",
+  brown: "#4A2208",
+  brownMid: "#7A4820",
+  brownSoft: "#A0622E",
+  yellow: "#F5D347",
+  yellowLight: "#FFF9C8",
+  yellowMid: "#FAE97A",
+  paper: "#FFFDF0",
+  cream: "#FFF8DB",
+  cream2: "#FFF3C0",
+  ink: "#1A0C04",
+  inkSoft: "#6B4020",
+  line: "rgba(74,34,8,.12)",
+  onDeep: "rgba(255,249,200,.82)",
+  onDeepLine: "rgba(255,249,200,.15)",
+};
+
+const ADDRESS = "8330 Pulaski Hwy Suite F, Rosedale, MD 21237";
+const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent("8330 Pulaski Hwy, Rosedale, MD 21237")}&z=15&output=embed`;
+const MAPS_LINK  = `https://maps.google.com/?q=${encodeURIComponent("8330 Pulaski Hwy Suite F, Rosedale, MD 21237")}`;
+const PHONE      = "+1 443-985-3738";
+const EMAIL      = "cacsalvationcity@outlook.com";
+const FB         = "https://www.facebook.com/profile.php?id=100083423624157";
+
+const connect = [
+  { label: "Facebook", desc: "Christ Apostolic Church - Salvation City", href: FB, icon: <FacebookIcon /> },
+  { label: "Email",    desc: EMAIL,    href: `mailto:${EMAIL}`,    icon: <Mail size={22} strokeWidth={2} /> },
+  { label: "Call",     desc: PHONE,    href: `tel:${PHONE.replace(/\s/g,"")}`, icon: <Phone size={22} strokeWidth={2} /> },
+  { label: "Main Site", desc: "cacsalvationcenter.org", href: "https://www.cacsalvationcenter.org", icon: <ArrowUpRight size={22} strokeWidth={2} /> },
+];
 
 export default function SalvationCityPage() {
   return (
-    <main>
-      <Nav heroDark />
+    <main style={{ background: c.paper, color: c.ink, fontFamily: "var(--font-body)" }}>
 
-      {/* Hero */}
-      <section style={{ background: "var(--ink)", padding: "150px clamp(20px,5vw,64px) 100px", position: "relative", overflow: "hidden" }}>
-        <div aria-hidden style={{ position: "absolute", top: -120, right: -120, width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle,rgba(232,163,61,.24),transparent 65%)", pointerEvents: "none" }} />
-        <div aria-hidden style={{ position: "absolute", bottom: -150, left: -100, width: 480, height: 480, borderRadius: "50%", background: "radial-gradient(circle,rgba(214,40,40,.2),transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
+      {/* ── Sticky header ────────────────────────────────── */}
+      <header style={{ position: "sticky", top: 0, zIndex: 50, background: `rgba(26,12,4,.93)`, backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", padding: "13px clamp(18px,4vw,40px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+          <a href="#top" style={{ display: "flex", flexDirection: "column", lineHeight: 1.05, textDecoration: "none" }}>
+            <span style={{ fontSize: 9.5, letterSpacing: "2.5px", textTransform: "uppercase", color: c.yellow, fontWeight: 800 }}>Christ Apostolic Church</span>
+            <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "#fff", letterSpacing: "-.2px" }}>Salvation City · Rosedale</span>
+          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <a href="#visit" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: c.ink, background: c.yellow, padding: "9px 16px", borderRadius: 999, textDecoration: "none" }}>
+              <Navigation size={14} strokeWidth={2.4} aria-hidden /> Visit
+            </a>
+            <a href="https://www.cacsalvationcenter.org" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: c.onDeep, textDecoration: "none", whiteSpace: "nowrap" }}>
+              CAC Baltimore <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden />
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <section id="top" style={{ background: `linear-gradient(165deg, ${c.deep} 0%, #2E1106 100%)`, color: "#fff", padding: "clamp(72px,10vw,128px) clamp(20px,5vw,64px) clamp(80px,11vw,140px)", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden style={{ position: "absolute", top: -180, right: -140, width: 620, height: 620, borderRadius: "50%", background: "radial-gradient(circle, rgba(245,211,71,.22), transparent 62%)", pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", bottom: -200, left: -160, width: 580, height: 580, borderRadius: "50%", background: "radial-gradient(circle, rgba(122,72,32,.35), transparent 60%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 940, margin: "0 auto", position: "relative", zIndex: 2, textAlign: "center" }}>
           <Reveal>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>An Online Assembly</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.yellow, background: "rgba(245,211,71,.10)", border: "1px solid rgba(245,211,71,.30)", padding: "7px 16px", borderRadius: 999 }}>
+              <MapPin size={14} strokeWidth={2.5} aria-hidden /> Baltimore, MD · Rosedale, MD
+            </span>
           </Reveal>
-          <Reveal delay={80}>
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(46px,7.2vw,104px)", letterSpacing: "-2.4px", color: "#fff", margin: "16px 0 22px", lineHeight: 0.92 }}>
-              Salvation<br />
-              <span style={{ background: "linear-gradient(100deg,#F15F22,#D62828,#E8A33D)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>City.</span>
-            </h1>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(52px,9vw,112px)", letterSpacing: "-0.03em", lineHeight: 0.9, margin: "26px 0 0" }}>
+            <RevealText immediate>Salvation</RevealText>
+            <br />
+            <RevealText immediate delay={0.15} style={{ color: c.yellow }}>City.</RevealText>
+          </h1>
+          <Reveal delay={320}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginTop: 24, fontSize: 12.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: c.yellowMid, flexWrap: "wrap", justifyContent: "center" }}>
+              <span style={{ width: 30, height: 1, background: "rgba(245,211,71,.4)" }} aria-hidden />
+              Christ Apostolic Church
+              <span style={{ width: 30, height: 1, background: "rgba(245,211,71,.4)" }} aria-hidden />
+            </div>
           </Reveal>
-          <Reveal delay={160}>
-            <p style={{ fontSize: "clamp(17px,1.9vw,20px)", color: "rgba(255,247,239,.78)", lineHeight: 1.7, maxWidth: 620, margin: "0 auto 36px" }}>
-              The online assembly of the Salvation Center family. Wherever you are in the world, gather with us live — worship, the Word, prayer.
+          <Reveal delay={380}>
+            <p style={{ fontSize: "clamp(17px,2vw,22px)", color: c.onDeep, lineHeight: 1.7, maxWidth: 640, margin: "22px auto 0" }}>
+              A Bible believing church in Rosedale, Maryland.<br />Come experience the joy of the Lord with us.
             </p>
           </Reveal>
-          <Reveal delay={220}>
-            <a href={ZOOM_URL} target="_blank" rel="noopener noreferrer" className="press-lg" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 16, padding: "18px 32px", borderRadius: 999, textDecoration: "none", boxShadow: "0 18px 38px rgba(214,40,40,.5)" }}>
-              <Video size={18} strokeWidth={2.5} aria-hidden /> Join on Zoom <ArrowRight size={17} strokeWidth={2.5} aria-hidden />
-            </a>
+          <Reveal delay={460}>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 13, marginTop: 38 }}>
+              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: c.yellow, color: c.deep, fontWeight: 800, fontSize: 16, padding: "16px 28px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 36px rgba(245,211,71,.30)" }}>
+                <Navigation size={18} strokeWidth={2.3} aria-hidden /> Get Directions
+              </a>
+              <a href={FB} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, color: "#fff", border: `1.5px solid ${c.onDeepLine}`, background: "rgba(255,255,255,.06)", fontWeight: 700, fontSize: 16, padding: "16px 26px", borderRadius: 999, textDecoration: "none" }}>
+                <FacebookIcon /> Find us on Facebook
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* What to expect */}
-      <section style={{ background: "var(--cream)", padding: "clamp(60px,7vw,96px) clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Reveal style={{ textAlign: "center", marginBottom: 44 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>What to expect</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,4.5vw,56px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: "12px 0 0", lineHeight: 1 }}>
-              Real church, online.
-            </h2>
+      {/* ── Scripture quote ───────────────────────────────── */}
+      <section style={{ background: c.cream, padding: "clamp(60px,8vw,108px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center" }}>
+          <Reveal>
+            <div aria-hidden style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 100, lineHeight: 0.5, color: c.yellow, marginBottom: 4 }}>&ldquo;</div>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
-            {[
-              { icon: Video, title: "Live on Zoom", desc: "Faces and voices — not just a stream. Worship the same way you would in the room." },
-              { icon: Clock, title: "Spirit-led rhythm", desc: "Praise, the Word, prayer ministry, and time for personal testimonies — week after week." },
-              { icon: Users, title: "Family across borders", desc: "Saints from Maryland, Lagos, London, Toronto, and beyond — gathered as one." },
-            ].map((f, i) => (
-              <Reveal key={f.title} delay={i * 80}>
-                <div style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "30px 28px", boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
-                  <div style={{ display: "grid", placeItems: "center", width: 52, height: 52, borderRadius: 16, background: "linear-gradient(135deg,var(--flame),var(--red))", marginBottom: 18, boxShadow: "0 10px 22px rgba(214,40,40,.32)" }}>
-                    <f.icon size={24} strokeWidth={2} color="#fff" aria-hidden />
-                  </div>
-                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, letterSpacing: "-.4px", color: "var(--ink)", margin: "0 0 8px" }}>{f.title}</h3>
-                  <p style={{ fontSize: 15, color: "var(--ink-soft)", lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+          <Reveal delay={80}>
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(22px,3vw,38px)", letterSpacing: "-0.02em", color: c.ink, lineHeight: 1.32, margin: "0 0 20px" }}>
+              New life brings renewal, it brings new strength and gives a fresh spirit.
+            </p>
+          </Reveal>
+          <Reveal delay={160}>
+            <span style={{ fontSize: 14, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: c.brownSoft }}>2 Corinthians 5:17</span>
+          </Reveal>
+          <Reveal delay={220}>
+            <p style={{ fontSize: 17, color: c.inkSoft, marginTop: 24, lineHeight: 1.8 }}>
+              Welcome to CAC Salvation City. #FirstSundayOfTheMonth #CACSalvation #WelcomeHome
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Location & Contact ───────────────────────────── */}
+      <section id="visit" style={{ background: c.paper, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "start" }}>
+
+          {/* Details column */}
+          <Reveal>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.brownMid }}>Come worship with us</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,48px)", letterSpacing: "-1.2px", color: c.ink, margin: "12px 0 24px", lineHeight: 0.98 }}>Visit us in Rosedale.</h2>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 14, background: c.cream, border: `1px solid ${c.line}`, borderRadius: 18, padding: "20px 22px" }}>
+                <MapPin size={22} strokeWidth={2.2} color={c.brownMid} style={{ flexShrink: 0, marginTop: 2 }} aria-hidden />
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", color: c.brownSoft, marginBottom: 4 }}>Address</div>
+                  <p style={{ fontSize: 16.5, color: c.ink, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>{ADDRESS}</p>
+                  <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 10, fontSize: 14, fontWeight: 700, color: c.brownMid, textDecoration: "none" }}>
+                    Open in Maps <ArrowUpRight size={14} aria-hidden />
+                  </a>
                 </div>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 14, background: c.cream, border: `1px solid ${c.line}`, borderRadius: 18, padding: "18px 22px" }}>
+                <Phone size={20} strokeWidth={2.2} color={c.brownMid} style={{ flexShrink: 0 }} aria-hidden />
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", color: c.brownSoft, marginBottom: 3 }}>Phone</div>
+                  <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{ fontSize: 16, fontWeight: 700, color: c.ink, textDecoration: "none" }}>{PHONE}</a>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 14, background: c.cream, border: `1px solid ${c.line}`, borderRadius: 18, padding: "18px 22px" }}>
+                <Mail size={20} strokeWidth={2.2} color={c.brownMid} style={{ flexShrink: 0 }} aria-hidden />
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", color: c.brownSoft, marginBottom: 3 }}>Email</div>
+                  <a href={`mailto:${EMAIL}`} style={{ fontSize: 15.5, fontWeight: 700, color: c.ink, textDecoration: "none", wordBreak: "break-word" }}>{EMAIL}</a>
+                </div>
+              </div>
+            </div>
+
+            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: c.brown, color: "#fff", fontWeight: 700, fontSize: 15.5, padding: "14px 28px", borderRadius: 999, textDecoration: "none", boxShadow: "0 14px 30px rgba(74,34,8,.24)", marginTop: 26 }}>
+              <Navigation size={17} strokeWidth={2.3} aria-hidden /> Get Directions
+            </a>
+          </Reveal>
+
+          {/* Map */}
+          <Reveal delay={120}>
+            <div style={{ height: "clamp(300px,38vw,420px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(26,12,4,.12)" }}>
+              <iframe title="Map to CAC Salvation City, Rosedale MD" src={MAPS_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ width: "100%", height: "100%", border: 0, display: "block" }} />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Connect ──────────────────────────────────────── */}
+      <section id="connect" style={{ background: `linear-gradient(165deg, ${c.brown} 0%, #2E1106 100%)`, color: "#fff", padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 44 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.yellow }}>Follow · Call · Write</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1.2px", color: "#fff", margin: "12px 0 0", lineHeight: 1 }}>Stay with the family.</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16 }}>
+            {connect.map((x, i) => (
+              <Reveal key={x.label} delay={i * 70}>
+                <a
+                  href={x.href}
+                  {...(x.href.startsWith("mailto") || x.href.startsWith("tel") || x.href.startsWith("/") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                  className="card-lift"
+                  style={{ display: "flex", flexDirection: "column", gap: 14, height: "100%", background: "rgba(255,255,255,.07)", border: `1px solid ${c.onDeepLine}`, borderRadius: 20, padding: "24px 22px", textDecoration: "none" }}
+                >
+                  <span style={{ display: "grid", placeItems: "center", width: 46, height: 46, borderRadius: 13, background: "rgba(245,211,71,.18)", color: c.yellow, flexShrink: 0 }}>{x.icon}</span>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, color: "#fff", marginBottom: 4 }}>{x.label}</div>
+                    <div style={{ fontSize: 13.5, color: c.onDeep, lineHeight: 1.5, wordBreak: "break-word" }}>{x.desc}</div>
+                  </div>
+                  <span style={{ marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: c.yellow }}>Open <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden /></span>
+                </a>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Zoom details card */}
-      <section style={{ background: "var(--cream-2)", padding: "clamp(50px,6vw,90px) clamp(20px,5vw,64px)" }}>
-        <Reveal>
-          <div style={{ maxWidth: 820, margin: "0 auto", background: "var(--ink)", color: "var(--cream)", borderRadius: 28, padding: "clamp(36px,5vw,52px)", boxShadow: "0 30px 60px rgba(27,19,14,.22)", position: "relative", overflow: "hidden" }}>
-            <div aria-hidden style={{ position: "absolute", top: -100, right: -100, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle,rgba(232,163,61,.25),transparent 65%)", pointerEvents: "none" }} />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 16 }}>
-                <Video size={14} strokeWidth={2.5} aria-hidden /> Join the room
+      {/* ── Footer ───────────────────────────────────────── */}
+      <footer style={{ background: c.deep, color: "#fff", padding: "clamp(48px,6vw,72px) clamp(20px,5vw,64px) 36px" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 36, paddingBottom: 32, borderBottom: `1px solid ${c.onDeepLine}` }}>
+            <div>
+              <div style={{ fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", color: c.yellow, fontWeight: 800 }}>Christ Apostolic Church</div>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, marginTop: 4 }}>Salvation City</div>
+              <p style={{ fontSize: 14, color: c.onDeep, lineHeight: 1.65, margin: "14px 0 0", maxWidth: 300 }}>A Bible believing church in Rosedale, MD. Come experience the joy of the Lord with us.</p>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, color: c.yellow }}>Visit</div>
+              <p style={{ fontSize: 14, color: c.onDeep, lineHeight: 1.7, margin: 0 }}>{ADDRESS}</p>
+              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 12, fontSize: 13.5, fontWeight: 700, color: c.yellowMid, textDecoration: "none" }}>Directions <ArrowUpRight size={14} aria-hidden /></a>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, color: c.yellow }}>Connect</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 14 }}>
+                <a href={FB} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Facebook</a>
+                <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{ color: c.onDeep, textDecoration: "none" }}>{PHONE}</a>
+                <a href={`mailto:${EMAIL}`} style={{ color: c.onDeep, textDecoration: "none", wordBreak: "break-word" }}>{EMAIL}</a>
               </div>
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,42px)", letterSpacing: "-.8px", margin: "0 0 16px", lineHeight: 1.05 }}>
-                Salvation City · Live Zoom
-              </h3>
-              <p style={{ fontSize: 15, color: "rgba(255,247,239,.7)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                Tap below and the Zoom app will take you straight into the room. Bring your Bible, bring a friend.
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-                <a href={ZOOM_URL} target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 15, padding: "15px 26px", borderRadius: 999, textDecoration: "none", boxShadow: "0 14px 30px rgba(214,40,40,.42)" }}>
-                  <Video size={17} strokeWidth={2.5} aria-hidden /> Open in Zoom
-                </a>
-                <Link href="/online" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(255,247,239,.08)", color: "var(--cream)", fontWeight: 700, fontSize: 15, padding: "15px 26px", borderRadius: 999, textDecoration: "none", border: "1px solid rgba(255,247,239,.18)" }}>
-                  Watch on YouTube instead
-                </Link>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, color: c.yellow }}>The wider family</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 14 }}>
+                <a href="https://www.cacsalvationcenter.org" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Salvation Center · Baltimore</a>
+                <a href="https://ilorin.cacsalvationcenter.org" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Salvation Centre · Ilorin</a>
               </div>
-              <p style={{ fontSize: 12, color: "rgba(255,247,239,.45)", marginTop: 22, wordBreak: "break-all" }}>
-                Meeting ID: 846 3538 8414
-              </p>
             </div>
           </div>
-        </Reveal>
-      </section>
+          <div style={{ fontSize: 13, color: c.onDeep, marginTop: 22 }}>© 2026 Christ Apostolic Church — Salvation City · Rosedale, MD</div>
+        </div>
+      </footer>
 
-      {/* CTA */}
-      <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)", textAlign: "center" }}>
-        <Reveal>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4vw,52px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: "0 0 16px", lineHeight: 1 }}>Closer than you think.</h2>
-          <p style={{ fontSize: 17, color: "var(--ink-soft)", margin: "0 0 30px", maxWidth: 540, marginInline: "auto" }}>
-            Already a part of Salvation City? Plan a visit and meet the family onsite in Randallstown, MD.
-          </p>
-          <Link href="/visit" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "var(--ink)", color: "#fff", fontWeight: 800, fontSize: 16, padding: "17px 30px", borderRadius: 999, textDecoration: "none" }}>
-            Plan a Visit <ArrowRight size={17} strokeWidth={2.5} aria-hidden />
-          </Link>
-        </Reveal>
-      </section>
-
-      <FooterExperience />
     </main>
   );
 }
