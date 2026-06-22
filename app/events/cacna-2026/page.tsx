@@ -4,8 +4,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { MapPin, CalendarDays, Car, Package, Clock, Users, Heart, ArrowLeft } from "lucide-react";
-import { specialEvents, googleCalUrl, icsDataUri } from "@/lib/events";
+import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { CalendarPlus, Download } from "lucide-react";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "CACNA 2026 Annual Convention — CAC Salvation Center",
@@ -41,9 +43,16 @@ const logistics = [
 ];
 
 export default function CACNA2026Page() {
+  const isPast = isEventPast(ev);
   return (
     <main>
       <Nav heroDark />
+      {isPast && (
+        <div role="status" style={{ background: '#2c2825', padding: '13px clamp(20px,5vw,64px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, fontWeight: 600, color: 'rgba(255,247,239,.7)' }}>
+          <span>This event has passed — page kept as an archive.</span>
+          <Link href="/events" style={{ color: 'var(--gold)', fontWeight: 700, fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>See upcoming events →</Link>
+        </div>
+      )}
 
       {/* Hero */}
       <section style={{ background: "var(--ink)", padding: "150px clamp(20px,5vw,64px) clamp(80px,10vw,120px)", position: "relative", overflow: "hidden" }}>
@@ -83,6 +92,7 @@ export default function CACNA2026Page() {
             </p>
           </Reveal>
 
+          {!isPast && (
           <Reveal delay={280}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
               <a href={CACNA_REG} target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "var(--gold)", color: "var(--ink)", fontWeight: 800, fontSize: 16, padding: "16px 30px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 40px rgba(232,163,61,.4)" }}>
@@ -96,6 +106,7 @@ export default function CACNA2026Page() {
               </a>
             </div>
           </Reveal>
+          )}
         </div>
       </section>
 
@@ -219,6 +230,7 @@ export default function CACNA2026Page() {
       </section>
 
       {/* Registration CTA */}
+      {!isPast && (
       <section style={{ background: "var(--ink)", padding: "clamp(60px,8vw,100px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
           <Reveal>
@@ -240,6 +252,7 @@ export default function CACNA2026Page() {
           </Reveal>
         </div>
       </section>
+      )}
 
       <FooterExperience />
     </main>

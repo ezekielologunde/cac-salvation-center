@@ -5,8 +5,10 @@ import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import Image from "next/image";
 import { CalendarPlus, Download, MapPin, Clock, BookOpen } from "lucide-react";
-import { specialEvents, googleCalUrl, icsDataUri } from "@/lib/events";
+import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { SITE } from "@/lib/site";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "2026 Good Women Anniversary — CAC Salvation Center",
@@ -74,9 +76,16 @@ function PersonCard({ name, role, photo, dark = false, accent = false }: { name:
 
 export default function GoodWomenAnniversaryPage() {
   const addressLine = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
+  const isPast = isEventPast(ev);
   return (
     <main>
       <Nav heroDark />
+      {isPast && (
+        <div role="status" style={{ background: '#2c2825', padding: '13px clamp(20px,5vw,64px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, fontWeight: 600, color: 'rgba(255,247,239,.7)' }}>
+          <span>This event has passed — page kept as an archive.</span>
+          <Link href="/events" style={{ color: 'var(--gold)', fontWeight: 700, fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>See upcoming events →</Link>
+        </div>
+      )}
 
       {/* Hero */}
       <section style={{ background: "var(--ink)", padding: "150px clamp(20px,5vw,64px) clamp(64px,8vw,100px)", position: "relative", overflow: "hidden" }}>
@@ -104,6 +113,7 @@ export default function GoodWomenAnniversaryPage() {
               <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><MapPin size={16} strokeWidth={2} aria-hidden color="var(--gold)" /> {addressLine}</span>
             </div>
           </Reveal>
+          {!isPast && (
           <Reveal delay={480}>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
               <a href={googleCalUrl(ev)} target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red)", color: "#fff", fontWeight: 700, fontSize: 15, padding: "14px 26px", borderRadius: 999, textDecoration: "none", boxShadow: "0 14px 30px rgba(214,40,40,.4)" }}>
@@ -114,6 +124,7 @@ export default function GoodWomenAnniversaryPage() {
               </a>
             </div>
           </Reveal>
+          )}
         </div>
       </section>
 
@@ -180,6 +191,7 @@ export default function GoodWomenAnniversaryPage() {
       </section>
 
       {/* Closing CTA */}
+      {!isPast && (
       <section style={{ background: "linear-gradient(135deg,#9E1B1B,#D62828)", padding: "clamp(60px,8vw,100px) clamp(20px,5vw,64px)", textAlign: "center" }}>
         <Reveal style={{ maxWidth: 680, margin: "0 auto" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.5vw,56px)", letterSpacing: "-1.2px", color: "#fff", margin: "0 0 16px", lineHeight: 0.98 }}>Come celebrate with us.</h2>
@@ -196,6 +208,7 @@ export default function GoodWomenAnniversaryPage() {
           </div>
         </Reveal>
       </section>
+      )}
 
       <FooterExperience />
     </main>

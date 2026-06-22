@@ -21,6 +21,20 @@ export interface ChurchEvent {
   href?: string;
 }
 
+/**
+ * Returns true when a non-recurring event's end time (ET) has passed.
+ * Weekly/monthly recurring events always return false — they're never "over".
+ * Approximate DST: EDT (UTC-4) March–October, EST (UTC-5) November–February.
+ */
+export function isEventPast(ev: ChurchEvent): boolean {
+  if (ev.recurDay || ev.recurMonthly) return false;
+  const s = ev.endLocal || ev.startLocal;
+  const y = +s.slice(0, 4), mo = +s.slice(4, 6) - 1, d = +s.slice(6, 8);
+  const h = +s.slice(9, 11), mi = +s.slice(11, 13);
+  const offset = mo >= 2 && mo <= 9 ? 4 : 5;
+  return Date.now() > Date.UTC(y, mo, d, h + offset, mi);
+}
+
 export const specialEvents: ChurchEvent[] = [
   {
     id: "good-women-anniversary-2026",

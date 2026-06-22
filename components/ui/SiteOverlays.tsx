@@ -20,7 +20,9 @@ export function SiteOverlays() {
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     // 1. CACNA announcement bar — persists until dismissed
-    if (!localStorage.getItem('ann-cacna2026')) {
+    // July 18 22:00 EDT = July 19 02:00 UTC — bar auto-expires after the event
+    const CACNA_END = Date.UTC(2026, 6, 19, 2, 0);
+    if (Date.now() < CACNA_END && !localStorage.getItem('ann-cacna2026')) {
       setBar(true);
       document.documentElement.style.setProperty('--bar-h', '44px');
     }
