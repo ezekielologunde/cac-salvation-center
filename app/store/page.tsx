@@ -46,7 +46,7 @@ const pillars = [
 const trust = [
   { icon: Heart,   label: "Proceeds support ministries", desc: "Every sale funds the building project and outreach." },
   { icon: Package, label: "Ships within 5 business days", desc: "Maryland local pickup available on request." },
-  { icon: Shield,  label: "Secure ordering via WhatsApp", desc: "No cart checkout needed — we walk you through it." },
+  { icon: Shield,  label: "Secure checkout via Stripe", desc: "Card, Apple Pay & Google Pay accepted. Receipt sent instantly." },
 ];
 
 export default function StorePage() {
