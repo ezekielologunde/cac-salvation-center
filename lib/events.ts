@@ -36,6 +36,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "Christ Apostolic Church North America Annual Convention — six days of worship, teaching, and family at CAC Village, Blue Ridge Summit, PA.",
     dateLabel: "July 13–18, 2026", timeLabel: "All week", month: "JUL", day: "13",
     startLocal: "20260713T180000", endLocal: "20260718T220000",
+    href: "/events/cacna-2026",
   },
   {
     id: "choir-anniversary-2026",

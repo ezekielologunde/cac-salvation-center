@@ -7,6 +7,7 @@ const WEEKLY = new Set([
   "/online",
   "/events",
   "/events/good-women-anniversary",
+  "/events/cacna-2026",
   "/calendar",
   "/devotional",
   "/bible-plan",

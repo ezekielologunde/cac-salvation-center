@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { CalendarPlus, Download } from "lucide-react";
-import { specialEvents, weeklyServices, googleCalUrl, icsDataUri, type ChurchEvent } from "@/lib/events";
+import { specialEvents, weeklyServices, monthlyServices, googleCalUrl, icsDataUri, type ChurchEvent } from "@/lib/events";
 
 export const metadata = {
   title: "Events — CAC Salvation Center",
@@ -110,6 +110,29 @@ export default function EventsPage() {
                   <div style={{ fontWeight: 700, fontSize: 15, color: "var(--gold)", marginBottom: 14 }}>{ev.timeLabel}</div>
                   <p style={{ fontSize: 14.5, color: "rgba(255,247,239,.62)", lineHeight: 1.65, margin: "0 0 20px", flex: 1 }}>{ev.desc}</p>
                   <AddToCalendar ev={ev} dark />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Monthly gatherings */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 40 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Each month</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0" }}>Monthly gatherings</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 18 }}>
+            {monthlyServices.map((ev, i) => (
+              <Reveal key={ev.id} delay={i * 80}>
+                <div className="card-lift" style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "28px 26px", display: "flex", flexDirection: "column", boxShadow: "0 10px 28px rgba(27,19,14,.07)" }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--red)", marginBottom: 10 }}>{ev.dateLabel}</div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--ink)", letterSpacing: "-.4px", margin: "0 0 6px" }}>{ev.title}</h3>
+                  <div style={{ fontWeight: 700, fontSize: 15, color: "var(--flame)", marginBottom: 14 }}>{ev.timeLabel}</div>
+                  <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.65, margin: "0 0 20px", flex: 1 }}>{ev.desc}</p>
+                  <AddToCalendar ev={ev} />
                 </div>
               </Reveal>
             ))}

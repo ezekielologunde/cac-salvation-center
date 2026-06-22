@@ -117,6 +117,21 @@ export default function GoodWomenAnniversaryPage() {
         </div>
       </section>
 
+      {/* Official flyer */}
+      <section style={{ background: "var(--ink)", padding: "0 clamp(20px,5vw,64px) clamp(50px,6vw,80px)" }}>
+        <Reveal style={{ maxWidth: 680, margin: "0 auto" }}>
+          <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,.5)", border: "1px solid rgba(255,247,239,.08)" }}>
+            <Image
+              src="/images/good-women-anniversary-2026.jpg"
+              alt="2026 Good Women Anniversary official flyer — Who Are You: Mother or Murderer? June 28, 2026"
+              width={1280} height={720}
+              style={{ width: "100%", height: "auto", display: "block" }}
+              priority
+            />
+          </div>
+        </Reveal>
+      </section>
+
       {/* Theme intro */}
       <section style={{ background: "var(--cream-2)", padding: "clamp(50px,6vw,80px) clamp(20px,5vw,64px)", borderBottom: "1px solid var(--line)" }}>
         <Reveal style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
