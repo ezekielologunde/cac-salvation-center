@@ -11,7 +11,7 @@ export const metadata = {
 
 const featured = {
   name: "Pastor Dr. Hezekiah O. Ilufoye, PhD",
-  title: "Superintendent · Senior Pastor",
+  title: "BDCC Superintendent",
   bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. A theologian, teacher, and shepherd, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
   image: "/images/pastor.jpg",
 };
@@ -20,7 +20,7 @@ const team: { name: string; title: string; bio: string; image?: string }[] = [
   {
     name: "Pastor Felix Osunkiyesi",
     title: "Curate",
-    bio: "Serving alongside the Senior Pastor in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
+    bio: "Serving alongside the Superintendent in the day-to-day pastoral oversight of the Salvation Center — preaching, discipleship, and caring for the flock with steadiness and grace.",
     image: "/images/pastor-osunkiyesi.webp",
   },
   {

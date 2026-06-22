@@ -74,7 +74,7 @@ export function churchJsonLd() {
     sameAs: SITE.sameAs,
     founder: { "@type": "Person", name: "Pastor Dr. H.O. Ilufoye" },
     employee: [
-      { "@type": "Person", name: "Pastor Dr. Hezekiah O. Ilufoye PhD", jobTitle: "Superintendent / Senior Pastor" },
+      { "@type": "Person", name: "Pastor Dr. Hezekiah O. Ilufoye PhD", jobTitle: "BDCC Superintendent" },
       { "@type": "Person", name: "Pastor Felix Osunkiyesi", jobTitle: "Curate" },
       { "@type": "Person", name: "Pastor Alfred Aremo", jobTitle: "Associate Pastor" },
       { "@type": "Person", name: "Pastor Oludapo Eludoyin", jobTitle: "Associate Pastor" },
