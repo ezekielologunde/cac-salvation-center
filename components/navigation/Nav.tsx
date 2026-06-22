@@ -158,7 +158,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
       <nav
         ref={navRef}
         style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+          position: 'fixed', top: 'var(--bar-h, 0px)', left: 0, right: 0, zIndex: 100,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '13px clamp(20px,5vw,64px)',
           transition: 'background .4s, box-shadow .4s',

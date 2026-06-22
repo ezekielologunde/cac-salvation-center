@@ -7,6 +7,7 @@ import { SITE, SITE_URL, churchJsonLd } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleTags } from "@/components/analytics/GoogleTags";
+import { SiteOverlays } from "@/components/ui/SiteOverlays";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           // ever break out of the <script> element (JSON-LD hardening).
           dangerouslySetInnerHTML={{ __html: JSON.stringify(churchJsonLd()).replace(/</g, "\\u003c") }}
         />
+        <SiteOverlays />
         <ScrollProgress />
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
