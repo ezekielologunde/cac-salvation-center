@@ -286,12 +286,12 @@ export default function AboutPage() {
           <div className="r2" style={{ gap: 22, alignItems: "stretch" }}>
             <Reveal style={{ background: "var(--ink)", color: "var(--cream)", borderRadius: 26, overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: 340, position: "relative" }}>
-                <Image src="/images/pastor.jpg" alt="Pastor Dr. H.O. Ilufoye" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
+                <Image src="/images/pastor-couple.jpg" alt="Pastor Dr. H.O. Ilufoye and Evang. Mrs Victoria Ilufoye" fill style={{ objectFit: "cover", objectPosition: "center 28%" }} />
               </div>
               <div style={{ padding: 28 }}>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, lineHeight: 1.1 }}>Pastor Dr. Hezekiah O. Ilufoye</div>
-                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>Baltimore DCC Superintendent</div>
-                <p style={{ fontSize: 14.5, lineHeight: 1.65, opacity: .82, margin: "16px 0 0" }}>Founder of the Salvation Center family — leading with a heart to build God’s ambassadors and welcome every soul home.</p>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 26, lineHeight: 1.1 }}>Pastor Dr. Hezekiah O. Ilufoye<span style={{ display: "block", fontSize: 17, fontWeight: 700, color: "rgba(255,247,239,.85)", marginTop: 5 }}>&amp; Evang. Mrs Victoria Ilufoye</span></div>
+                <div style={{ color: "var(--gold)", fontWeight: 700, fontSize: 13, letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>Baltimore DCC Superintendent · First Lady</div>
+                <p style={{ fontSize: 14.5, lineHeight: 1.65, opacity: .82, margin: "16px 0 0" }}>Together they lead the Salvation Center family — building God’s ambassadors and welcoming every soul home.</p>
               </div>
             </Reveal>
             <Reveal delay={120} style={{ background: "linear-gradient(155deg, var(--red), var(--red-deep))", color: "var(--cream)", borderRadius: 26, padding: "clamp(32px,4vw,48px) clamp(28px,3.5vw,40px)", display: "flex", flexDirection: "column", justifyContent: "center", boxShadow: "0 18px 36px rgba(214,40,40,.26)" }}>

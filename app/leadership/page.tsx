@@ -11,9 +11,10 @@ export const metadata = {
 
 const featured = {
   name: "Pastor Dr. Hezekiah O. Ilufoye, PhD",
-  title: "Baltimore DCC Superintendent",
-  bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. A theologian, teacher, and shepherd, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
-  image: "/images/pastor.jpg",
+  partner: "Evang. Mrs Victoria Ilufoye",
+  title: "Baltimore DCC Superintendent · First Lady",
+  bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. Together with the First Lady, Evang. Mrs Victoria Ilufoye, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
+  image: "/images/pastor-couple.jpg",
 };
 
 const team: { name: string; title: string; bio: string; image?: string }[] = [
@@ -84,17 +85,17 @@ export default function LeadershipPage() {
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px) 56px" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
           <Reveal>
-            <div className="r-leader" style={{
-              display: "grid", gridTemplateColumns: "360px 1fr", gap: 48, alignItems: "stretch",
+            <div style={{
               background: "var(--ink)", borderRadius: 28, overflow: "hidden",
               boxShadow: "0 30px 60px rgba(27,19,14,.22)",
             }}>
-              <div style={{ position: "relative", minHeight: 460 }}>
-                <Image src={featured.image} alt={featured.name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="(max-width: 760px) 100vw, 360px" />
+              <div style={{ position: "relative", width: "100%", height: "clamp(300px,42vw,470px)" }}>
+                <Image src={featured.image} alt={`${featured.name} & ${featured.partner}`} fill style={{ objectFit: "cover", objectPosition: "center 28%" }} sizes="(max-width: 1080px) 100vw, 1080px" />
               </div>
-              <div style={{ padding: "44px 44px 44px 0", color: "var(--cream)" }}>
+              <div style={{ padding: "clamp(32px,4vw,48px)", color: "var(--cream)" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>{featured.title}</div>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 22px", lineHeight: 1.04 }}>{featured.name}</h2>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 6px", lineHeight: 1.04 }}>{featured.name}</h2>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,26px)", color: "rgba(255,247,239,.85)", letterSpacing: "-.4px", margin: "0 0 22px" }}>&amp; {featured.partner}</div>
                 <p style={{ fontSize: 16.5, lineHeight: 1.75, opacity: .82, margin: 0 }}>{featured.bio}</p>
               </div>
             </div>
