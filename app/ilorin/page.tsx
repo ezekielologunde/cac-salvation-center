@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
@@ -8,7 +7,7 @@ export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
   description:
     "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.",
-  alternates: { canonical: "/ilorin" },
+  alternates: { canonical: "https://ilorin.cacsalvationcenter.org" },
 };
 
 // Distinct green identity for the Ilorin HQ micro-site (separate from the main red theme).
@@ -62,9 +61,9 @@ export default function IlorinPage() {
             <a href="#visit" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "#fff", background: c.green, padding: "9px 16px", borderRadius: 999, textDecoration: "none" }}>
               <Navigation size={14} strokeWidth={2.4} aria-hidden /> Visit
             </a>
-            <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: c.onDeep, textDecoration: "none", whiteSpace: "nowrap" }}>
+            <a href="https://www.cacsalvationcenter.org" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: c.onDeep, textDecoration: "none", whiteSpace: "nowrap" }}>
               CAC Baltimore <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden />
-            </Link>
+            </a>
           </div>
         </div>
       </header>
@@ -222,7 +221,7 @@ export default function IlorinPage() {
             <div>
               <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, color: c.gold }}>The wider family</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 14 }}>
-                <Link href="/" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Salvation Center · Baltimore</Link>
+                <a href="https://www.cacsalvationcenter.org" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Salvation Center · Baltimore</a>
                 <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Kingdom Embassy</a>
                 <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>CAC Palace of Peace</a>
               </div>

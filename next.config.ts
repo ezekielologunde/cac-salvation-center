@@ -2,11 +2,9 @@ import type { NextConfig } from "next";
 
 const SITE = "https://www.cacsalvationcenter.org";
 
-// Subdomain aliases → their page on the main site. Each fires only for its own
-// host, and only once that subdomain is pointed at Vercel (dormant until then).
+// salvationcity + blog: redirect the subdomain to its page on the main site.
 const subdomainRedirects = [
   { host: "salvationcity.cacsalvationcenter.org", path: "/salvationcity" },
-  { host: "ilorin.cacsalvationcenter.org", path: "/ilorin" },
   { host: "blog.cacsalvationcenter.org", path: "/blog" },
 ];
 
@@ -23,6 +21,18 @@ const nextConfig: NextConfig = {
       destination: `${SITE}${s.path}`,
       permanent: false,
     }));
+  },
+  // ilorin keeps its OWN subdomain URL: rewrite the root to the Ilorin page so
+  // it serves at ilorin.cacsalvationcenter.org without changing the address bar.
+  // Only the root is rewritten — asset/_next paths pass through untouched.
+  async rewrites() {
+    return [
+      {
+        source: "/",
+        has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
+        destination: "/ilorin",
+      },
+    ];
   },
 };
 
