@@ -1,4 +1,6 @@
+"use client";
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import { Reveal } from '@/components/ui/Reveal';
 
@@ -10,20 +12,105 @@ const pinSvg = (color: string) => (
 
 const mapsUrl = (q: string) => `https://maps.google.com/?q=${encodeURIComponent(q)}`;
 
-type Church = { city: string; name: string; address: string; href: string; external: boolean; cta: string };
+const US_COLOR = '#C53030';
+const NG_COLOR = '#B7791F';
+
+type Church = {
+  city: string; name: string; address: string;
+  href: string; external: boolean; cta: string;
+  lat: number; lng: number;
+};
 
 const usChurches: Church[] = [
-  { city: 'Philadelphia, PA', name: 'C.A.C Kingdom Embassy', address: '1107 Bleigh Ave, Philadelphia, PA 19111', href: 'https://cackingdomembassy.org', external: true, cta: 'Visit site' },
-  { city: 'Catonsville, MD', name: 'C.A.C Palace Of Peace', address: '1451 N Rolling Rd, Catonsville, MD 21228', href: 'https://cacpalaceofpeace.org', external: true, cta: 'Visit site' },
-  { city: 'Rosedale, MD', name: 'C.A.C Salvation City', address: '8330 Pulaski Highway, Unit P, Rosedale, MD 21237', href: '/salvationcity', external: false, cta: 'Learn more' },
+  { city: 'Philadelphia, PA', name: 'C.A.C Kingdom Embassy', address: '1107 Bleigh Ave, Philadelphia, PA 19111', href: 'https://cackingdomembassy.org', external: true, cta: 'Visit site', lat: 40.0523, lng: -75.0813 },
+  { city: 'Catonsville, MD', name: 'C.A.C Palace Of Peace', address: '1451 N Rolling Rd, Catonsville, MD 21228', href: 'https://cacpalaceofpeace.org', external: true, cta: 'Visit site', lat: 39.2783, lng: -76.7347 },
+  { city: 'Rosedale, MD', name: 'C.A.C Salvation City', address: '8330 Pulaski Highway, Unit P, Rosedale, MD 21237', href: '/salvationcity', external: false, cta: 'Learn more', lat: 39.3634, lng: -76.5098 },
 ];
 
 const ngChurches: Church[] = [
-  { city: 'Ilorin, Kwara', name: 'C.A.C Salvation Center — Ilorin', address: 'Fate-Tanke Road & Abdullahi Mohammed St, 240102', href: '/ilorin', external: false, cta: 'Learn more' },
-  { city: 'Ilorin, Kwara', name: 'C.A.C Holyghost Chapel', address: 'Behind Emmanuel Baptist College, Ilorin, 240102', href: mapsUrl('C.A.C Holyghost Chapel, Behind Emmanuel Baptist College, Ilorin, Nigeria'), external: true, cta: 'Directions' },
-  { city: 'Osogbo', name: 'C.A.C Salvation City Osogbo', address: 'Arogun mosa Omobasorun St, Oke-Baale, 230284', href: mapsUrl('C.A.C Salvation City, Arogun mosa Omobasorun St, Oke-Baale, Osogbo, Nigeria'), external: true, cta: 'Directions' },
-  { city: 'Ilorin, Kwara', name: 'C.A.C Kingdom Embassy Ilorin', address: 'Reke, Ilorin, Kwara, Nigeria', href: mapsUrl('C.A.C Kingdom Embassy, Reke, Ilorin, Kwara, Nigeria'), external: true, cta: 'Directions' },
+  { city: 'Ilorin, Kwara', name: 'C.A.C Salvation Center — Ilorin', address: 'Fate-Tanke Road & Abdullahi Mohammed St, 240102', href: '/ilorin', external: false, cta: 'Learn more', lat: 8.4966, lng: 4.5426 },
+  { city: 'Ilorin, Kwara', name: 'C.A.C Holyghost Chapel', address: 'Behind Emmanuel Baptist College, Ilorin, 240102', href: mapsUrl('C.A.C Holyghost Chapel, Behind Emmanuel Baptist College, Ilorin, Nigeria'), external: true, cta: 'Directions', lat: 8.4802, lng: 4.5524 },
+  { city: 'Osogbo', name: 'C.A.C Salvation City Osogbo', address: 'Arogun mosa Omobasorun St, Oke-Baale, 230284', href: mapsUrl('C.A.C Salvation City, Arogun mosa Omobasorun St, Oke-Baale, Osogbo, Nigeria'), external: true, cta: 'Directions', lat: 7.7719, lng: 4.5624 },
+  { city: 'Ilorin, Kwara', name: 'C.A.C Kingdom Embassy Ilorin', address: 'Reke, Ilorin, Kwara, Nigeria', href: mapsUrl('C.A.C Kingdom Embassy, Reke, Ilorin, Kwara, Nigeria'), external: true, cta: 'Directions', lat: 8.5024, lng: 4.5300 },
 ];
+
+function WorldMap() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    let map: any = null;
+
+    (async () => {
+      if (!document.getElementById('lf-css')) {
+        const link = document.createElement('link');
+        link.id = 'lf-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+      }
+
+      const L: any = await new Promise(res => {
+        if ((window as any).L) { res((window as any).L); return; }
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        s.onload = () => res((window as any).L);
+        document.head.appendChild(s);
+      });
+
+      if (!ref.current) return;
+
+      map = L.map(ref.current, {
+        center: [20, -18],
+        zoom: 2,
+        minZoom: 1,
+        maxZoom: 14,
+        scrollWheelZoom: false,
+        zoomControl: true,
+        worldCopyJump: true,
+      });
+
+      L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        { subdomains: 'abcd', maxZoom: 20, attribution: '© CARTO' }
+      ).addTo(map);
+
+      const dot = (color: string) => L.divIcon({
+        className: '',
+        html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.5);cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>`,
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+        popupAnchor: [0, -10],
+      });
+
+      const all = [
+        ...usChurches.map(c => ({ ...c, color: US_COLOR })),
+        ...ngChurches.map(c => ({ ...c, color: NG_COLOR })),
+      ];
+
+      all.forEach(c => {
+        const cta = c.href
+          ? `<a href="${c.href}" target="${c.external ? '_blank' : '_self'}" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:${c.color};text-decoration:none">${c.cta} →</a>`
+          : '';
+        L.marker([c.lat, c.lng], { icon: dot(c.color) })
+          .addTo(map)
+          .bindPopup(
+            `<div style="font-family:Georgia,serif;min-width:190px">
+              <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${c.color};margin-bottom:4px">${c.city}</div>
+              <div style="font-size:13px;font-weight:700;color:#1B130E;line-height:1.3;margin-bottom:3px">${c.name}</div>
+              <div style="font-size:11px;color:#888;line-height:1.4">${c.address}</div>
+              ${cta}
+            </div>`,
+            { maxWidth: 260, closeButton: false }
+          );
+      });
+    })();
+
+    return () => { map?.remove(); };
+  }, []);
+
+  return <div ref={ref} style={{ width: '100%', height: '100%' }} />;
+}
 
 function ChurchCard({ c, accent }: { c: Church; accent: string }) {
   const style: CSSProperties = {
@@ -57,44 +144,27 @@ export function GlobalChurches() {
             Worship with us around the world
           </h2>
           <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 560, margin: '16px auto 0' }}>
-            Find a seat at one of our district churches in the U.S. or our extension churches in Nigeria — tap any for its site or directions.
+            Find a seat at one of our district churches in the U.S. or our extension churches in Nigeria — tap any pin for details.
           </p>
         </Reveal>
 
-        {/* Embedded maps */}
+        {/* Single interactive world map */}
         <Reveal style={{ marginBottom: 44 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-            {/* US */}
-            <div style={{ borderRadius: 22, overflow: 'hidden', boxShadow: '0 26px 60px rgba(27,19,14,.2)' }}>
-              <div style={{ padding: '12px 18px', background: '#1B130E', display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ width: 9, height: 9, borderRadius: '50%', background: 'var(--red)', flexShrink: 0 }} />
-                <span style={{ fontWeight: 800, fontSize: 13.5, color: 'rgba(255,247,239,.9)' }}>United States · 3 district churches</span>
+          <div style={{ borderRadius: 22, overflow: 'hidden', boxShadow: '0 26px 60px rgba(27,19,14,.2)' }}>
+            <div style={{ padding: '13px 20px', background: '#1B130E', display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: US_COLOR, flexShrink: 0, boxShadow: '0 0 0 2px rgba(197,48,48,.3)' }} />
+                <span style={{ fontWeight: 800, fontSize: 12.5, color: 'rgba(255,247,239,.85)' }}>United States · 3 churches</span>
               </div>
-              <iframe
-                src="https://maps.google.com/maps?q=Randallstown+Maryland&z=10&output=embed"
-                width="100%"
-                height="280"
-                style={{ display: 'block', border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="U.S. district churches"
-              />
+              <span style={{ color: 'rgba(255,247,239,.2)', fontSize: 16 }}>|</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: NG_COLOR, flexShrink: 0, boxShadow: '0 0 0 2px rgba(183,121,31,.3)' }} />
+                <span style={{ fontWeight: 800, fontSize: 12.5, color: 'rgba(255,247,239,.85)' }}>Nigeria · 4 churches</span>
+              </div>
+              <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,247,239,.4)', fontStyle: 'italic' }}>Click any pin · scroll to zoom</span>
             </div>
-            {/* Nigeria */}
-            <div style={{ borderRadius: 22, overflow: 'hidden', boxShadow: '0 26px 60px rgba(27,19,14,.2)' }}>
-              <div style={{ padding: '12px 18px', background: '#1B130E', display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ width: 9, height: 9, borderRadius: '50%', background: 'var(--gold)', flexShrink: 0 }} />
-                <span style={{ fontWeight: 800, fontSize: 13.5, color: 'rgba(255,247,239,.9)' }}>Nigeria · 4 extension churches</span>
-              </div>
-              <iframe
-                src="https://maps.google.com/maps?q=Ilorin+Kwara+Nigeria&z=10&output=embed"
-                width="100%"
-                height="280"
-                style={{ display: 'block', border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Nigeria extension churches"
-              />
+            <div style={{ height: 420 }}>
+              <WorldMap />
             </div>
           </div>
         </Reveal>
