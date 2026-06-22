@@ -58,6 +58,54 @@ const tagColor: Record<string, string> = {
   Restoration: "linear-gradient(135deg,#F15F22,#E8A33D)",
 };
 
+const googleReviews = [
+  {
+    name: "Paul Sunmbola",
+    isLocalGuide: true,
+    quote: "Have you being in the community or new, and need a place where you can call home? This is the place to be. Spirit filled and offers opportunity for growth. Wonderful Sunday School sessions and Great service experiences. Join us as we worship the Lord, you will be glad you did. God bless you.",
+  },
+  {
+    name: "Tolu (PTM)",
+    isLocalGuide: false,
+    quote: "This District Cordinating Council of the Christ Apostolic Church is a place where you want to worship. The pastor, his family, and congregation are honest, faithful, loving, and amazing. They preach the word of God, pray fervently and more.",
+  },
+  {
+    name: "Riss",
+    isLocalGuide: false,
+    quote: "Great church, great service. All pastors are great and Bible centered. This is a church that really support and stand with one through the bad and good times. They exhibits the through love of Jesus Christ.",
+  },
+  {
+    name: "Ifemi Mercy",
+    isLocalGuide: false,
+    quote: "More than love it / A family church to attend.",
+  },
+  {
+    name: "T",
+    isLocalGuide: true,
+    quote: "Loved the entire service, nice place to worship.",
+  },
+  {
+    name: "Abiodun Adegoroye",
+    isLocalGuide: false,
+    quote: "A great place to worship God and fellowship.",
+  },
+  {
+    name: "Wole Toye",
+    isLocalGuide: false,
+    quote: "The challenges event hall is good.",
+  },
+  {
+    name: "Ademola Adesina",
+    isLocalGuide: true,
+    quote: "A living church of the Lord where prayers are answered.",
+  },
+  {
+    name: "Alex Owanikin",
+    isLocalGuide: false,
+    quote: "Beautiful and Rewarding.",
+  },
+];
+
 export default function TestimoniesPage() {
   return (
     <main>
@@ -112,6 +160,44 @@ export default function TestimoniesPage() {
                   <div style={{ borderTop: "1px solid var(--line)", paddingTop: 16 }}>
                     <div style={{ fontWeight: 800, fontSize: 15, color: "var(--ink)" }}>{s.name}</div>
                     <div style={{ fontSize: 13, color: "var(--ink-soft)", marginTop: 2 }}>{s.where}</div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Google Reviews */}
+      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 40 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 24px", marginBottom: 18 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#fff", boxShadow: "0 2px 10px rgba(0,0,0,.12)", display: "grid", placeItems: "center", flexShrink: 0 }}>
+                  <span style={{ fontWeight: 900, fontSize: 20, background: "linear-gradient(135deg,#4285F4 25%,#EA4335 50%,#FBBC05 75%,#34A853)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", lineHeight: 1 }}>G</span>
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 24, color: "var(--ink)", lineHeight: 1 }}>4.9</div>
+                  <div style={{ fontSize: 11.5, color: "var(--ink-soft)", fontWeight: 600, marginTop: 1 }}>16 Google reviews</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 22, letterSpacing: 1, color: "#FBBC04", lineHeight: 1 }}>★★★★★</div>
+            </div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3.6vw,46px)", letterSpacing: "-1px", color: "var(--ink)", margin: 0 }}>What our community says</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 18 }}>
+            {googleReviews.map((r, i) => (
+              <Reveal key={i} delay={(i % 3) * 70}>
+                <article style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "22px 22px 18px", display: "flex", flexDirection: "column", boxShadow: "0 8px 24px rgba(27,19,14,.05)" }}>
+                  <div style={{ fontSize: 17, letterSpacing: 1, color: "#FBBC04", marginBottom: 12 }}>★★★★★</div>
+                  <p style={{ fontSize: 15, color: "var(--ink)", lineHeight: 1.65, margin: "0 0 20px", flex: 1, fontStyle: "italic" }}>&ldquo;{r.quote}&rdquo;</p>
+                  <div style={{ borderTop: "1px solid var(--line)", paddingTop: 14, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: 14, color: "var(--ink)" }}>{r.name}</div>
+                      {r.isLocalGuide && <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--ink-soft)", letterSpacing: "0.5px", marginTop: 2 }}>Local Guide</div>}
+                    </div>
+                    <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--ink-soft)", letterSpacing: "1px", textTransform: "uppercase" }}>Google</div>
                   </div>
                 </article>
               </Reveal>

@@ -61,43 +61,42 @@ export function GlobalChurches() {
           </p>
         </Reveal>
 
-        {/* SVG arc map */}
-        <Reveal style={{
-          position: 'relative', background: 'var(--ink)', borderRadius: 28, overflow: 'hidden',
-          height: 'clamp(220px,26vw,320px)', boxShadow: '0 26px 60px rgba(27,19,14,.2)',
-          backgroundImage: 'radial-gradient(rgba(255,247,239,.10) 1.4px,transparent 1.4px)',
-          backgroundSize: '26px 26px',
-          marginBottom: 44,
-        }}>
-          <svg viewBox="0 0 1000 360" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
-            <path d="M250 175 C 420 60, 620 60, 740 150" fill="none" stroke="#E8A33D" strokeWidth="2.4" strokeDasharray="9 11" style={{ animation: 'map-dash 9s linear infinite', opacity: .85 }} />
-          </svg>
-
-          {/* USA cluster */}
-          <div style={{ position: 'absolute', left: '25%', top: '48%', transform: 'translate(-50%,-50%)', textAlign: 'center' }}>
-            <div style={{ position: 'relative', width: 18, height: 18, margin: '0 auto' }}>
-              <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--red)' }} />
-              <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--red)', animation: 'ping-dot 2.4s ease-out infinite' }} />
+        {/* Embedded maps */}
+        <Reveal style={{ marginBottom: 44 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+            {/* US */}
+            <div style={{ borderRadius: 22, overflow: 'hidden', boxShadow: '0 26px 60px rgba(27,19,14,.2)' }}>
+              <div style={{ padding: '12px 18px', background: '#1B130E', display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ width: 9, height: 9, borderRadius: '50%', background: 'var(--red)', flexShrink: 0 }} />
+                <span style={{ fontWeight: 800, fontSize: 13.5, color: 'rgba(255,247,239,.9)' }}>United States · 3 district churches</span>
+              </div>
+              <iframe
+                src="https://maps.google.com/maps?q=Randallstown+Maryland&z=10&output=embed"
+                width="100%"
+                height="280"
+                style={{ display: 'block', border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="U.S. district churches"
+              />
             </div>
-            <div style={{ marginTop: 14, background: 'rgba(255,247,239,.08)', border: '1px solid rgba(255,247,239,.16)', backdropFilter: 'blur(6px)', color: 'var(--cream)', borderRadius: 14, padding: '12px 18px' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20 }}>United States</div>
-              <div style={{ fontSize: 12.5, color: 'var(--gold)', fontWeight: 700, letterSpacing: '.5px' }}>3 DISTRICT CHURCHES</div>
+            {/* Nigeria */}
+            <div style={{ borderRadius: 22, overflow: 'hidden', boxShadow: '0 26px 60px rgba(27,19,14,.2)' }}>
+              <div style={{ padding: '12px 18px', background: '#1B130E', display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ width: 9, height: 9, borderRadius: '50%', background: 'var(--gold)', flexShrink: 0 }} />
+                <span style={{ fontWeight: 800, fontSize: 13.5, color: 'rgba(255,247,239,.9)' }}>Nigeria · 4 extension churches</span>
+              </div>
+              <iframe
+                src="https://maps.google.com/maps?q=Ilorin+Kwara+Nigeria&z=10&output=embed"
+                width="100%"
+                height="280"
+                style={{ display: 'block', border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Nigeria extension churches"
+              />
             </div>
           </div>
-
-          {/* Nigeria cluster */}
-          <div style={{ position: 'absolute', left: '74%', top: '42%', transform: 'translate(-50%,-50%)', textAlign: 'center' }}>
-            <div style={{ position: 'relative', width: 18, height: 18, margin: '0 auto' }}>
-              <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--gold)' }} />
-              <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--gold)', animation: 'ping-dot 2.4s ease-out .9s infinite' }} />
-            </div>
-            <div style={{ marginTop: 14, background: 'rgba(255,247,239,.08)', border: '1px solid rgba(255,247,239,.16)', backdropFilter: 'blur(6px)', color: 'var(--cream)', borderRadius: 14, padding: '12px 18px' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20 }}>Nigeria</div>
-              <div style={{ fontSize: 12.5, color: 'var(--gold)', fontWeight: 700, letterSpacing: '.5px' }}>4 EXTENSION CHURCHES</div>
-            </div>
-          </div>
-
-          <div style={{ position: 'absolute', left: 24, bottom: 20, color: 'rgba(255,247,239,.55)', fontSize: 12.5, fontWeight: 600, letterSpacing: '.5px' }}>7 churches · 2 nations · 1 family</div>
         </Reveal>
 
         {/* US section */}

@@ -16,11 +16,6 @@ function buildHtml(rows: [string, string][]): string {
 }
 
 export async function POST(req: Request) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    return NextResponse.json({ method: "mailto" });
-  }
-
   let body: Record<string, string>;
   try {
     body = await req.json();
@@ -31,6 +26,21 @@ export async function POST(req: Request) {
   const { formName, ...fields } = body;
   const subject = `${formName ?? "Form submission"} — CAC Salvation Center`;
   const rows = Object.entries(fields).filter(([, v]) => v?.trim()) as [string, string][];
+
+  // Log to Google Sheets — fire-and-forget, always runs regardless of Resend status
+  const hook = process.env.SHEETS_WEBHOOK;
+  if (hook) {
+    fetch(hook, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formName, ...fields }),
+    }).catch((e) => console.error("[contact] Sheets webhook failed:", e));
+  }
+
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    return NextResponse.json({ method: "mailto" });
+  }
 
   try {
     const resend = new Resend(key);
