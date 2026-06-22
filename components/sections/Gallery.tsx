@@ -6,14 +6,32 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { haptic } from "@/lib/haptics";
 
-const photos = [
-  { src: "/images/congregation.jpg", alt: "Congregation in colorful African attire worshipping together" },
-  { src: "/images/worship.jpg", alt: "Women singing at Easter Sunday service" },
-  { src: "/images/choir.jpg", alt: "The Salvation Center choir in red and white robes" },
-  { src: "/images/stage.jpg", alt: "Church stage with leadership beneath the CAC banner" },
-  { src: "/images/pastor.jpg", alt: "Pastor Dr. H.O. Ilufoye preaching" },
-  { src: "/images/pastor-choir.jpg", alt: "Pastor Dr. H.O. Ilufoye with the choir in worship" },
+// ─── Cloudinary gallery ───────────────────────────────────────────────────────
+// Set NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME in Vercel env vars after uploading your
+// photos to Cloudinary. Add filenames (without extension) to CLOUDINARY_PHOTOS.
+//
+// URL shape: https://res.cloudinary.com/<cloud>/image/upload/f_auto,q_auto,w_1200/<filename>
+const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_PHOTOS: { file: string; alt: string }[] = [
+  // Add entries here once photos are uploaded to Cloudinary, e.g.:
+  // { file: "cac/congregation-2024", alt: "Congregation worshipping together" },
 ];
+
+function cloudUrl(file: string) {
+  return `https://res.cloudinary.com/${CLOUD}/image/upload/f_auto,q_auto,w_1200/${file}`;
+}
+
+const photos =
+  CLOUD && CLOUDINARY_PHOTOS.length > 0
+    ? CLOUDINARY_PHOTOS.map(p => ({ src: cloudUrl(p.file), alt: p.alt }))
+    : [
+        { src: "/images/congregation.jpg", alt: "Congregation in colorful African attire worshipping together" },
+        { src: "/images/worship.jpg", alt: "Women singing at Easter Sunday service" },
+        { src: "/images/choir.jpg", alt: "The Salvation Center choir in red and white robes" },
+        { src: "/images/stage.jpg", alt: "Church stage with leadership beneath the CAC banner" },
+        { src: "/images/pastor.jpg", alt: "Pastor Dr. H.O. Ilufoye preaching" },
+        { src: "/images/pastor-choir.jpg", alt: "Pastor Dr. H.O. Ilufoye with the choir in worship" },
+      ];
 
 export function Gallery() {
   const reduce = useReducedMotion();

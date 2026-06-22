@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
   // Subdomain rewrites run in beforeFiles so they take priority over the
