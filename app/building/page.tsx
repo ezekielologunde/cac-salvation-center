@@ -91,6 +91,31 @@ export default function BuildingPage() {
         </div>
       </section>
 
+      {/* Progress */}
+      <section style={{ background: "var(--cream-2)", padding: "clamp(48px,5vw,72px) clamp(20px,5vw,64px) 0" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          <Reveal>
+            <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "clamp(24px,3vw,36px)", boxShadow: "0 12px 30px rgba(27,19,14,.06)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 6, marginBottom: 18 }}>
+                <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>Project Progress</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--ink-soft)" }}>Phase 1 of 4 &mdash; Land &amp; Vision</span>
+              </div>
+              <div style={{ height: 10, borderRadius: 99, background: "var(--line)", overflow: "hidden" }}>
+                <div style={{ height: "100%", width: "25%", borderRadius: 99, background: "linear-gradient(90deg,var(--flame),var(--red))" }} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 4, marginTop: 10 }}>
+                {["Land & Vision","Design & Permits","Build","Dedicate"].map((label, i) => (
+                  <div key={label} style={{ textAlign: "center" }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: i === 0 ? "var(--red)" : "var(--line)", margin: "0 auto 5px", boxShadow: i === 0 ? "0 0 0 3px rgba(214,40,40,.2)" : "none" }} />
+                    <span style={{ fontSize: 11, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? "var(--ink)" : "var(--ink-soft)", lineHeight: 1.3, display: "block" }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Phases */}
       <section style={{ background: "var(--cream-2)", padding: "clamp(60px,7vw,96px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>

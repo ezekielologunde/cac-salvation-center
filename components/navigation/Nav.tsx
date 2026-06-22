@@ -39,7 +39,14 @@ const navItems: NavItem[] = [
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
     ],
   },
-  { label: 'Visit', href: '/visit' },
+  {
+    label: 'Visit',
+    href: '/visit',
+    dropdown: [
+      { href: '/visit', label: 'Plan a Visit', desc: 'Service times, directions & what to expect' },
+      { href: '/venue', label: 'Venue Hire', desc: 'Book our hall & parking for your event' },
+    ],
+  },
   {
     label: 'Give',
     href: '/giving',

@@ -29,6 +29,9 @@ const quickLinks = [
   ['/store', 'Store'],
   ['/events', 'Events'],
   ['/calendar', 'Calendar'],
+  ['/gallery', 'Gallery'],
+  ['/testimonies', 'Testimonies'],
+  ['/venue', 'Venue Hire'],
   ['/visit', 'Visit Us'],
   ['/contact', 'Contact'],
 ] as const;
