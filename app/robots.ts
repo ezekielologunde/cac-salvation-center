@@ -1,9 +1,38 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// AI assistants and answer-engines we explicitly welcome — being listed by name
+// improves "AI reach" (citations in ChatGPT, Claude, Perplexity, Google AI, etc.)
+// and future-proofs us if the wildcard group is ever tightened.
+const AI_BOTS = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-Web",
+  "anthropic-ai",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Google-Extended",
+  "Applebot-Extended",
+  "Amazonbot",
+  "Bytespider",
+  "CCBot",
+  "cohere-ai",
+  "DuckAssistBot",
+  "Meta-ExternalAgent",
+];
+
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: [
+      // Everyone is welcome to crawl the whole public site.
+      { userAgent: "*", allow: "/" },
+      { userAgent: AI_BOTS, allow: "/" },
+      // Google Ads' landing-page crawler ignores the "*" group, so it must be
+      // addressed by name or Ads can't verify the pages it sends traffic to.
+      { userAgent: ["AdsBot-Google", "AdsBot-Google-Mobile"], allow: "/" },
+    ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };
