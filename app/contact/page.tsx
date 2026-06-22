@@ -1,19 +1,58 @@
 "use client";
+import { useState } from "react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { useEffect } from "react";
+import { submitLead, isValidEmail } from "@/lib/forms";
+
+const SUBJECTS = [
+  "General Enquiry",
+  "Prayer Request",
+  "First Visit",
+  "Hall / Venue Hire",
+  "Pastoral Care",
+  "Giving & Donations",
+  "Media & Livestream",
+  "Other",
+];
 
 export default function ContactPage() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "//embed.typeform.com/next/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => { document.body.removeChild(script); };
-  }, []);
+  const [fields, setFields] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errMsg, setErrMsg] = useState("");
+
+  function update(k: keyof typeof fields) {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setFields(f => ({ ...f, [k]: e.target.value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setErrMsg("");
+    if (!fields.message.trim()) { setErrMsg("Please write a message."); return; }
+    if (fields.email && !isValidEmail(fields.email)) { setErrMsg("Please enter a valid email address."); return; }
+    setStatus("loading");
+    try {
+      await submitLead(
+        { Name: fields.name, Email: fields.email, Phone: fields.phone, Subject: fields.subject, Message: fields.message },
+        `Contact — ${fields.subject || "General"}`
+      );
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrMsg("Something went wrong. Please try again or email us directly.");
+    }
+  }
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%", boxSizing: "border-box",
+    padding: "13px 16px", borderRadius: 12,
+    border: "1.5px solid var(--line)", background: "var(--cream)",
+    fontSize: 15, color: "var(--ink)", outline: "none",
+    fontFamily: "var(--font-body)", transition: "border-color .15s",
+  };
 
   return (
     <main>
@@ -40,17 +79,72 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Typeform */}
+      {/* Contact Form */}
       <section style={{ background: "var(--cream-2)", padding: "60px clamp(20px,5vw,64px) 100px" }}>
         <Reveal>
-          <div
-            data-tf-live="01JYYBW0RJRTT8FG5HMGVK9D07"
-            style={{ maxWidth: 820, margin: "0 auto", minHeight: 600 }}
-          />
+          <div style={{ maxWidth: 820, margin: "0 auto", background: "var(--paper)", borderRadius: 24, border: "1px solid var(--line)", padding: "clamp(28px,4vw,52px)", boxShadow: "0 16px 48px rgba(27,19,14,.06)" }}>
+            {status === "success" ? (
+              <div style={{ textAlign: "center", padding: "40px 0" }}>
+                <div style={{ fontSize: 48, marginBottom: 16 }}>🙏</div>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, color: "var(--ink)", margin: "0 0 12px" }}>Message received!</h2>
+                <p style={{ color: "var(--ink-soft)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                  Thank you for reaching out. Someone from our team will get back to you soon.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,32px)", color: "var(--ink)", margin: "0 0 28px", letterSpacing: "-0.5px" }}>
+                  Send us a message
+                </h2>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16, marginBottom: 16 }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Your Name</label>
+                    <input style={inputStyle} type="text" placeholder="John Doe" value={fields.name} onChange={update("name")} autoComplete="name" />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Email Address</label>
+                    <input style={inputStyle} type="email" placeholder="you@example.com" value={fields.email} onChange={update("email")} autoComplete="email" />
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16, marginBottom: 16 }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Phone <span style={{ fontWeight: 400, opacity: .6 }}>(optional)</span></label>
+                    <input style={inputStyle} type="tel" placeholder="+1 (443) 000-0000" value={fields.phone} onChange={update("phone")} autoComplete="tel" />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Subject</label>
+                    <select style={{ ...inputStyle, cursor: "pointer" }} value={fields.subject} onChange={update("subject")}>
+                      <option value="">Select a topic…</option>
+                      {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: 22 }}>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink-soft)", marginBottom: 6 }}>Message <span style={{ color: "var(--red)" }}>*</span></label>
+                  <textarea style={{ ...inputStyle, minHeight: 150, resize: "vertical", lineHeight: 1.6 }} placeholder="How can we help you?" value={fields.message} onChange={update("message")} required />
+                </div>
+
+                {errMsg && (
+                  <p style={{ color: "var(--red)", fontSize: 14, fontWeight: 600, margin: "0 0 16px" }}>{errMsg}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  style={{ padding: "14px 36px", borderRadius: 999, background: status === "loading" ? "var(--line)" : "linear-gradient(100deg,#F15F22,#D62828)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", cursor: status === "loading" ? "not-allowed" : "pointer", transition: "opacity .15s", letterSpacing: ".3px" }}
+                >
+                  {status === "loading" ? "Sending…" : "Send Message"}
+                </button>
+              </form>
+            )}
+          </div>
         </Reveal>
       </section>
 
-      {/* Quick contact info */}
+      {/* Other ways to reach us */}
       <section style={{ background: "var(--cream)", padding: "80px clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
