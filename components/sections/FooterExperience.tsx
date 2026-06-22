@@ -96,8 +96,8 @@ export function FooterExperience() {
 
         <div>
           <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--ink)', marginBottom: 16 }}>Explore</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14.5 }}>
-            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/ministries', 'Ministries'], ['/online', 'Online'], ['/giving', 'Giving'], ['/prayer', 'Prayer'], ['/devotional', 'Devotional'], ['/salvation', 'Salvation'], ['/events', 'Events'], ['/gallery', 'Gallery'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: '11px 22px', fontSize: 14.5 }}>
+            {([['/', 'Home'], ['/about', 'Who We Are'], ['/leadership', 'Leadership'], ['/ministries', 'Ministries'], ['/online', 'Online'], ['/devotional', 'Devotional'], ['/bible-plan', 'Bible Plan'], ['/giving', 'Giving'], ['/building', 'Building'], ['/prayer', 'Prayer'], ['/salvation', 'Salvation'], ['/events', 'Events'], ['/calendar', 'Calendar'], ['/testimonies', 'Testimonies'], ['/gallery', 'Gallery'], ['/blog', 'Blog'], ['/store', 'Store'], ['/visit', 'Visit'], ['/contact', 'Contact']] as const).map(([href, label]) => (
               <Link key={href} href={href} style={{ color: 'var(--ink-soft)', textDecoration: 'none' }}>{label}</Link>
             ))}
           </div>

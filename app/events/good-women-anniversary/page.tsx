@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
+import Image from "next/image";
 import { CalendarPlus, Download, MapPin, Clock, BookOpen } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri } from "@/lib/events";
 import { SITE } from "@/lib/site";
@@ -16,8 +17,8 @@ export const metadata = {
 
 const ev = specialEvents.find((e) => e.id === "good-women-anniversary-2026")!;
 
-const ministers = [
-  { name: "Pastor Dr. H.O. Ilufoye", role: "BDCC Superintendent" },
+const ministers: { name: string; role: string; photo?: string }[] = [
+  { name: "Pastor Dr. H.O. Ilufoye", role: "BDCC Superintendent", photo: "/images/pastor.jpg" },
   { name: "Pastor S.O. Oladele", role: "C.A.C. President" },
   { name: "Pastor Dr. T.O.A. Agbeja", role: "Latunde Regional Superintendent" },
 ];
@@ -41,7 +42,7 @@ function initials(name: string) {
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
-function PersonCard({ name, role, dark = false, accent = false }: { name: string; role: string; dark?: boolean; accent?: boolean }) {
+function PersonCard({ name, role, photo, dark = false, accent = false }: { name: string; role: string; photo?: string; dark?: boolean; accent?: boolean }) {
   return (
     <div style={{
       display: "flex", alignItems: "center", gap: 16, height: "100%",
@@ -50,12 +51,18 @@ function PersonCard({ name, role, dark = false, accent = false }: { name: string
       borderRadius: 18, padding: "18px 20px",
       boxShadow: dark ? "none" : "0 8px 22px rgba(27,19,14,.05)",
     }}>
-      <span style={{
-        flexShrink: 0, width: 52, height: 52, borderRadius: "50%", display: "grid", placeItems: "center",
-        fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "#fff",
-        background: accent ? "linear-gradient(140deg,var(--gold),var(--flame))" : "linear-gradient(140deg,var(--flame),var(--red))",
-        boxShadow: "0 8px 18px rgba(214,40,40,.26)",
-      }}>{initials(name)}</span>
+      {photo ? (
+        <span style={{ flexShrink: 0, position: "relative", width: 52, height: 52, borderRadius: "50%", overflow: "hidden", boxShadow: "0 8px 18px rgba(214,40,40,.26)" }}>
+          <Image src={photo} alt={name} fill style={{ objectFit: "cover", objectPosition: "center top" }} sizes="52px" />
+        </span>
+      ) : (
+        <span style={{
+          flexShrink: 0, width: 52, height: 52, borderRadius: "50%", display: "grid", placeItems: "center",
+          fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "#fff",
+          background: accent ? "linear-gradient(140deg,var(--gold),var(--flame))" : "linear-gradient(140deg,var(--flame),var(--red))",
+          boxShadow: "0 8px 18px rgba(214,40,40,.26)",
+        }}>{initials(name)}</span>
+      )}
       <div style={{ minWidth: 0 }}>
         <div style={{ fontWeight: 700, fontSize: 15.5, color: dark ? "var(--cream)" : "var(--ink)", lineHeight: 1.25 }}>{name}</div>
         <div style={{ fontSize: 13, color: dark ? "rgba(255,247,239,.6)" : "var(--ink-soft)", marginTop: 3 }}>{role}</div>

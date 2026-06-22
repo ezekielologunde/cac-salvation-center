@@ -10,7 +10,7 @@ const posts = [
   { src: "/images/congregation.jpg", alt: "Congregation worshipping together" },
   { src: "/images/worship.jpg", alt: "Women singing at Sunday service" },
   { src: "/images/choir.jpg", alt: "The choir in red and white robes" },
-  { src: "/images/pastor-choir.jpg", alt: "Pastor with the choir" },
+  { src: "/images/pastor-choir.jpg", alt: "Pastor Dr. H.O. Ilufoye with the choir" },
   { src: "/images/stage.jpg", alt: "Church stage and leadership" },
   { src: "/images/pastor.jpg", alt: "Pastor Dr. H.O. Ilufoye preaching" },
 ];
