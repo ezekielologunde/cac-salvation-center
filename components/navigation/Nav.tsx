@@ -26,7 +26,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: 'Online',
+    label: 'Grow',
     href: '/online',
     dropdown: [
       { href: '/online', label: 'Watch Online', desc: 'Live & on-demand services' },
@@ -35,17 +35,25 @@ const navItems: NavItem[] = [
       { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
-      { href: '/giving', label: 'Giving', desc: 'Tithe & offering' },
-      { href: '/building', label: 'Building Project', desc: 'A house for His Name' },
     ],
   },
   { label: 'Visit', href: '/visit' },
+  {
+    label: 'Give',
+    href: '/giving',
+    dropdown: [
+      { href: '/giving', label: 'Giving', desc: 'Tithe & offering — support the work' },
+      { href: '/building', label: 'Building Project', desc: 'A house for His Name' },
+    ],
+  },
   {
     label: 'Calendar',
     href: '/calendar',
     dropdown: [
       { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
       { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
+      { href: '/events/cacna-2026', label: 'CACNA 2026', desc: 'National convention · July 13–18, Blue Ridge Summit PA' },
+      { href: '/events/good-women-anniversary', label: 'Good Women Anniversary', desc: 'Annual celebration of womanhood in faith' },
     ],
   },
   {
@@ -53,7 +61,7 @@ const navItems: NavItem[] = [
     href: '/blog',
     dropdown: [
       { href: '/blog', label: 'Blog & News', desc: 'Stories from the family' },
-      { href: '/store', label: 'Store', desc: 'Sermons, study guides & merch' },
+      { href: '/store', label: 'Store', desc: 'Apparel, Bibles, music & prints' },
     ],
   },
   { label: 'Contact', href: '/contact' },

@@ -16,11 +16,17 @@ const socials = [
 
 const quickLinks = [
   ['/about', 'Who We Are'],
-  ['/ministries', 'Ministries'],
   ['/leadership', 'Leadership'],
+  ['/ministries', 'Ministries'],
   ['/online', 'Watch Online'],
   ['/devotional', 'Devotional'],
+  ['/prayer', 'Prayer'],
+  ['/salvation', 'Salvation'],
+  ['/bible-plan', 'Bible Reading Plan'],
   ['/giving', 'Giving'],
+  ['/building', 'Building Project'],
+  ['/blog', 'Blog & News'],
+  ['/store', 'Store'],
   ['/events', 'Events'],
   ['/calendar', 'Calendar'],
   ['/visit', 'Visit Us'],
