@@ -56,6 +56,7 @@ const navItems: NavItem[] = [
       { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
       { href: '/events/cacna-2026', label: 'CACNA 2026', desc: 'National convention · July 13–18, Blue Ridge Summit PA' },
       { href: '/events/good-women-anniversary', label: 'Good Women Anniversary', desc: 'Annual celebration of womanhood in faith' },
+      { href: '/events/pilgrimage-2026', label: 'Holy Land Pilgrimage', desc: 'Nov 2–12, 2026 · Israel & Egypt · JFK' },
     ],
   },
   {
@@ -152,21 +153,21 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '18px clamp(20px,5vw,64px)',
+          padding: '13px clamp(20px,5vw,64px)',
           transition: 'background .4s, box-shadow .4s',
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', color: barInk, flexShrink: 0, transition: 'color .4s' }}>
-          <Image src="/images/logo.png" alt="CAC Salvation Center" width={46} height={46} style={{ borderRadius: 14, objectFit: 'cover', flexShrink: 0 }} />
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: barInk, flexShrink: 0, transition: 'color .4s' }}>
+          <Image src="/images/logo.png" alt="CAC Salvation Center" width={42} height={42} style={{ borderRadius: 12, objectFit: 'cover', flexShrink: 0 }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: barAccent, fontWeight: 700, transition: 'color .4s' }}>Christ Apostolic Church</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 21, letterSpacing: '-.3px', marginTop: 3 }}>Salvation Center</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 19, letterSpacing: '-.3px', marginTop: 3 }}>Salvation Center</span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="nav-desktop" style={{ alignItems: 'center', gap: 4 }}>
+        <div className="nav-desktop" style={{ alignItems: 'center', gap: 2 }}>
           {navItems.map((item) => {
             const active = pathname === item.href || (item.dropdown?.some(d => pathname === d.href));
             const isOpen = openDropdown === item.label;
@@ -184,7 +185,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
                     fontSize: 14.5, fontWeight: active ? 700 : 600,
                     color: active ? barAccent : barInk,
                     textDecoration: 'none', transition: 'color .4s',
-                    padding: '8px 14px', borderRadius: 8,
+                    padding: '7px 10px', borderRadius: 8,
                   }}>
                     {item.label}
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
@@ -219,7 +220,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
               <Link key={item.label} href={item.href!} style={{
                 fontSize: 14.5, fontWeight: active ? 700 : 600,
                 color: active ? barAccent : barInk,
-                textDecoration: 'none', padding: '8px 14px', borderRadius: 8,
+                textDecoration: 'none', padding: '7px 10px', borderRadius: 8,
                 transition: 'color .4s',
               }}>
                 {item.label}
@@ -227,26 +228,27 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             );
           })}
 
-          {/* Desktop search icon */}
-          <button
-            onClick={() => setSearchOpen(true)}
-            aria-label="Search"
-            title="Search (Ctrl+K)"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px 10px', color: barInk, display: 'flex', alignItems: 'center', borderRadius: 8, transition: 'color .4s', marginRight: 2 }}
-          >
-            <Search size={18} strokeWidth={2} />
-          </button>
-
-          <Link
-            href={isLive ? LIVE_URL : '/online'}
-            {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            onClick={() => haptic('medium')}
-            className="press"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: isLive ? 'var(--red)' : (dark ? 'var(--red)' : 'var(--ink)'), color: 'var(--cream)', fontWeight: 700, fontSize: 14, padding: '11px 20px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', marginLeft: 8, boxShadow: isLive ? '0 8px 24px rgba(214,40,40,.5)' : 'none' }}
-          >
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff5252', animation: 'pulse-red 1.8s infinite', display: 'inline-block' }} />
-            {isLive ? 'LIVE NOW' : 'Watch Live'}
-          </Link>
+          {/* Search + Watch Live group */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 8 }}>
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label="Search"
+              title="Search (Ctrl+K)"
+              style={{ background: lightBar ? 'rgba(255,247,239,.1)' : 'var(--cream-2)', border: `1px solid ${lightBar ? 'rgba(255,247,239,.18)' : 'var(--line)'}`, borderRadius: 999, cursor: 'pointer', padding: '9px 13px', color: barInk, display: 'flex', alignItems: 'center', transition: 'all .4s' }}
+            >
+              <Search size={16} strokeWidth={2} />
+            </button>
+            <Link
+              href={isLive ? LIVE_URL : '/online'}
+              {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              onClick={() => haptic('medium')}
+              className="press"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: isLive ? 'var(--red)' : (dark ? 'var(--red)' : 'var(--ink)'), color: 'var(--cream)', fontWeight: 700, fontSize: 14, padding: '10px 18px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', boxShadow: isLive ? '0 8px 24px rgba(214,40,40,.5)' : 'none' }}
+            >
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff5252', animation: 'pulse-red 1.8s infinite', display: 'inline-block' }} />
+              {isLive ? 'LIVE NOW' : 'Watch Live'}
+            </Link>
+          </div>
         </div>
 
         {/* Mobile search icon */}

@@ -55,10 +55,10 @@ export const specialEvents: ChurchEvent[] = [
   {
     id: "holy-land-pilgrimage-2026",
     title: "Holy Land Pilgrimage 2026",
-    desc: "Join Evangelist Oyedeji on a CACNA Pilgrimage Ministry trip to the Holy Land. Package includes round-trip flights from JFK, 8-night accommodation (7 nights in Israel + 1 in St. Catherine, Egypt), daily breakfast & dinner, licensed English-speaking guide, luxury coach transport, entrance fees, and a personal Pilgrim Certificate. Visa/border fees to Egypt ($90/person, subject to change) are extra. Register your space with a $500 deposit. Learn more: cacnapilgrimage.org | info@cacnapilgrimage.org | @cacnapilgrimage",
+    desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, November 2–12, 2026. Package includes round-trip flights from JFK, 8 nights accommodation (7 in Israel + 1 in St. Catherine, Egypt), daily meals, private guide, group coach, and Pilgrimage Certificate. Price $4,795 · $500 deposit to register · $2,000 second payment due Oct 31. Contact: info@cacnapilgrimage.org | @cacnapilgrimage",
     dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
     startLocal: "20261102T060000", endLocal: "20261112T230000",
-    href: "https://cacnapilgrimage.org",
+    href: "/events/pilgrimage-2026",
   },
 ];
 
