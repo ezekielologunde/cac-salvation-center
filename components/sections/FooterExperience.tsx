@@ -11,7 +11,7 @@ import { haptic } from '@/lib/haptics';
 
 const socials = [
   { icon: <FacebookIcon />, title: 'Facebook', href: 'https://www.facebook.com/CacSalvationCenterBaltimore' },
-  { icon: <InstagramIcon />, title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimoreusa/' },
+  { icon: <InstagramIcon />, title: 'Instagram', href: 'https://www.instagram.com/salvationcenterbaltimore/' },
   { icon: <YoutubeIcon />, title: 'YouTube', href: 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA' },
   { icon: <TikTokIcon />, title: 'TikTok', href: 'https://www.tiktok.com/@salvationcenterus' },
 ];

@@ -17,7 +17,7 @@ export const SITE = {
   },
   sameAs: [
     "https://www.facebook.com/CacSalvationCenterBaltimore",
-    "https://www.instagram.com/salvationcenterbaltimoreusa/",
+    "https://www.instagram.com/salvationcenterbaltimore/",
     "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA",
     "https://www.tiktok.com/@salvationcenterus",
   ],
@@ -34,6 +34,7 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/building", priority: 0.8 },
   { path: "/prayer", priority: 0.8 },
   { path: "/devotional", priority: 0.7 },
+  { path: "/bible-plan", priority: 0.7 },
   { path: "/salvation", priority: 0.8 },
   { path: "/salvationcity", priority: 0.8 },
   { path: "/events", priority: 0.7 },

@@ -34,6 +34,7 @@ const navItems: NavItem[] = [
       { href: '/building', label: 'Building Project', desc: 'A house for His Name' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
       { href: '/devotional', label: 'Devotional', desc: 'Daily Word & podcast' },
+      { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
     ],
   },

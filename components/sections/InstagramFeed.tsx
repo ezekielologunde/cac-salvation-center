@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { InstagramIcon } from "@/components/ui/SocialIcons";
 
-const IG_URL = "https://www.instagram.com/salvationcenterbaltimoreusa/";
-const HANDLE = "@salvationcenterbaltimoreusa";
+const IG_URL = "https://www.instagram.com/salvationcenterbaltimore/";
+const HANDLE = "@salvationcenterbaltimore";
 
 // Recent church moments. (A live IG feed needs an API token or a widget such as
 // Behold/EmbedSocial — these link straight to the profile in the meantime.)
