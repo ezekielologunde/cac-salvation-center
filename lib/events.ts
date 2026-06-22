@@ -55,9 +55,10 @@ export const specialEvents: ChurchEvent[] = [
   {
     id: "holy-land-pilgrimage-2026",
     title: "Holy Land Pilgrimage 2026",
-    desc: "Join Evangelist Oyedeji for a 10-day journey through the Holy Land. Package includes round-trip flights from JFK, 8-night accommodation (7 nights in Israel + 1 in St. Catherine, Egypt), daily breakfast & dinner, licensed English-speaking guide, luxury coach transport, entrance fees, and a personal Pilgrim Certificate. Visa/border fees to Egypt ($90/person, subject to change) are extra. Register your space with a $500 deposit.",
+    desc: "Join Evangelist Oyedeji on a CACNA Pilgrimage Ministry trip to the Holy Land. Package includes round-trip flights from JFK, 8-night accommodation (7 nights in Israel + 1 in St. Catherine, Egypt), daily breakfast & dinner, licensed English-speaking guide, luxury coach transport, entrance fees, and a personal Pilgrim Certificate. Visa/border fees to Egypt ($90/person, subject to change) are extra. Register your space with a $500 deposit. Learn more: cacnapilgrimage.org | info@cacnapilgrimage.org | @cacnapilgrimage",
     dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
     startLocal: "20261102T060000", endLocal: "20261112T230000",
+    href: "https://cacnapilgrimage.org",
   },
 ];
 
@@ -122,6 +123,7 @@ export interface AnnualMoment {
 }
 
 export const annualMoments: AnnualMoment[] = [
+  { id: "macedonia-outreach", title: "Macedonia Outreach", when: "Annually", desc: "An annual mission to forgotten rural ministers in hard-to-reach and unreachable places — carrying the gospel where most cannot go. Follow the journey: @macedonia.outreach on Instagram." },
   { id: "church-anniversary", title: "Church Anniversary", when: "July — 24 years strong in 2026", desc: "Celebrating God’s faithfulness to the Baltimore-Maryland DCC since 2002. Exact date announced from the pulpit each year." },
   { id: "graduation-sunday", title: "Graduation Ceremony", when: "August — annually", desc: "Honoring the graduates of our family — high school, college, and beyond. Date set fresh each year." },
   { id: "mothers-day", title: "Mother’s Day Sunday", when: "2nd Sunday of May", desc: "A Sunday set apart to celebrate and pray over every mother in the house." },

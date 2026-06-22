@@ -3,7 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
-import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video, Users, Heart, Wrench } from "lucide-react";
+import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video, Users, Heart, Wrench, Globe } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export const metadata = {
@@ -31,6 +31,7 @@ const ministries: Ministry[] = [
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
   { name: "Prayer & Intercession", desc: "Standing in the gap for our church and our city — join the daily 5 AM prayer line.", icon: HandHeart, gradient: "linear-gradient(140deg,var(--red),var(--red-deep))", href: "/prayer", cta: "Join the prayer line" },
   { name: "Media & Online", desc: "Carrying the service beyond our walls — streaming Spirit-filled worship to the world.", icon: Video, gradient: "linear-gradient(140deg,var(--gold),var(--flame))", href: "/contact", cta: "Serve on media" },
+  { name: "Macedonia Outreach", desc: "An annual mission to forgotten rural ministers in hard-to-reach and unreachable places — carrying the gospel where most cannot go.", icon: Globe, gradient: "linear-gradient(140deg,#1B4332,#2D6A4F)", image: "/images/macedonia-logo.png", alt: "Macedonia Outreach logo", href: "https://www.instagram.com/macedonia.outreach/", cta: "Follow on Instagram" },
 ];
 
 const groupCategories: { label: string; icon: LucideIcon; groups: string[] }[] = [
@@ -73,20 +74,32 @@ export default function MinistriesPage() {
           {ministries.map((m, i) => (
             <Reveal key={m.name} delay={(i % 3) * 90}>
               <div className="card-lift" style={{ height: "100%", borderRadius: 24, overflow: "hidden", background: "var(--paper)", border: "1px solid var(--line)", boxShadow: "0 14px 34px rgba(27,19,14,.08)", display: "flex", flexDirection: "column" }}>
-                <div style={{ position: "relative", height: 200, background: m.gradient }}>
-                  <span style={{ position: "absolute", top: 16, left: 16, width: 44, height: 44, borderRadius: 13, background: "rgba(255,255,255,.18)", backdropFilter: "blur(6px)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,.25)" }}>
+                <div style={{ position: "relative", height: 200, background: m.image ? "#0F1F0F" : m.gradient }}>
+                  <span style={{ position: "absolute", top: 16, left: 16, width: 44, height: 44, borderRadius: 13, background: "rgba(255,255,255,.18)", backdropFilter: "blur(6px)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,.25)", zIndex: 2 }}>
                     <m.icon size={22} strokeWidth={1.85} color="#fff" aria-hidden />
                   </span>
-                  <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
-                    <m.icon size={64} strokeWidth={1.4} color="rgba(255,255,255,.9)" aria-hidden />
-                  </div>
+                  {m.image ? (
+                    <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", padding: "20px 28px" }}>
+                      <img src={m.image} alt={m.alt ?? m.name} style={{ maxHeight: 130, maxWidth: "100%", objectFit: "contain" }} />
+                    </div>
+                  ) : (
+                    <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+                      <m.icon size={64} strokeWidth={1.4} color="rgba(255,255,255,.9)" aria-hidden />
+                    </div>
+                  )}
                 </div>
                 <div style={{ padding: "24px 26px 26px", display: "flex", flexDirection: "column", flex: 1 }}>
                   <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, letterSpacing: "-.4px", color: "var(--ink)", margin: "0 0 10px" }}>{m.name}</h3>
                   <p style={{ fontSize: 15, color: "var(--ink-soft)", lineHeight: 1.65, margin: "0 0 20px" }}>{m.desc}</p>
-                  <Link href={m.href} className="press" style={{ marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
-                    {m.cta} <span aria-hidden style={{ fontSize: 16 }}>→</span>
-                  </Link>
+                  {m.href.startsWith("http") ? (
+                    <a href={m.href} target="_blank" rel="noopener noreferrer" className="press" style={{ marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+                      {m.cta} <span aria-hidden style={{ fontSize: 16 }}>→</span>
+                    </a>
+                  ) : (
+                    <Link href={m.href} className="press" style={{ marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+                      {m.cta} <span aria-hidden style={{ fontSize: 16 }}>→</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </Reveal>
