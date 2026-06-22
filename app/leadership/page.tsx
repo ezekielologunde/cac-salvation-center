@@ -34,6 +34,7 @@ const team: { name: string; title: string; bio: string; image?: string }[] = [
     name: "Pastor Oludapo Eludoyin",
     title: "Associate Pastor",
     bio: "An associate minister with a heart for evangelism and pastoral care, serving the congregation in worship, prayer ministry, and the equipping of saints for the work of the kingdom.",
+    image: "/images/pastor-eludoyin.webp",
   },
   {
     name: "Pastor Enoch Ilufoye",

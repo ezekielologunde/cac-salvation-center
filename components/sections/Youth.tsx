@@ -34,10 +34,8 @@ export function Youth() {
           </Reveal>
 
           <Reveal delay={100}>
-            <a
-              href="https://blog.cacsalvationcenter.org"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/bible-plan"
               className="card-lift"
               style={{ textDecoration: 'none', color: 'inherit', background: 'var(--paper)', borderRadius: 24, padding: 32, boxShadow: '0 10px 26px rgba(27,19,14,.06)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260, height: '100%' }}
             >
@@ -45,9 +43,9 @@ export function Youth() {
               <div>
                 <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px', lineHeight: 1.05 }}>2026 Bible Reading Calendar</div>
                 <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 10 }}>The Hope for Today weekly reading, a chapter a day as one church.</div>
-                <div style={{ marginTop: 14, fontSize: 14, fontWeight: 700, color: 'var(--red)', display: 'flex', alignItems: 'center', gap: 7 }}>Read on the blog <span style={{ fontSize: 17 }}>→</span></div>
+                <div style={{ marginTop: 14, fontSize: 14, fontWeight: 700, color: 'var(--red)', display: 'flex', alignItems: 'center', gap: 7 }}>Open the weekly plan <span style={{ fontSize: 17 }}>→</span></div>
               </div>
-            </a>
+            </Link>
           </Reveal>
 
           <Reveal delay={200}>
