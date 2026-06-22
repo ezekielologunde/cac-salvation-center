@@ -32,6 +32,7 @@ const ngChurches: Church[] = [
   { city: 'Ilorin, Kwara', name: 'C.A.C Holyghost Chapel', address: 'Behind Emmanuel Baptist College, Ilorin, 240102', href: mapsUrl('C.A.C Holyghost Chapel, Behind Emmanuel Baptist College, Ilorin, Nigeria'), external: true, cta: 'Directions', lat: 8.4802, lng: 4.5524 },
   { city: 'Osogbo', name: 'C.A.C Salvation City Osogbo', address: 'Arogun mosa Omobasorun St, Oke-Baale, 230284', href: mapsUrl('C.A.C Salvation City, Arogun mosa Omobasorun St, Oke-Baale, Osogbo, Nigeria'), external: true, cta: 'Directions', lat: 7.7719, lng: 4.5624 },
   { city: 'Ilorin, Kwara', name: 'C.A.C Kingdom Embassy Ilorin', address: 'Reke, Ilorin, Kwara, Nigeria', href: mapsUrl('C.A.C Kingdom Embassy, Reke, Ilorin, Kwara, Nigeria'), external: true, cta: 'Directions', lat: 8.5024, lng: 4.5300 },
+  { city: 'Osogbo, Osun', name: 'C.A.C Salvation Centre Kingdom Embassy Osogbo', address: 'Osogbo, Osun State, Nigeria', href: mapsUrl('CAC Salvation Centre Kingdom Embassy, Osogbo, Osun, Nigeria'), external: true, cta: 'Directions', lat: 7.7650, lng: 4.5750 },
 ];
 
 function WorldMap() {
@@ -159,7 +160,7 @@ export function GlobalChurches() {
               <span style={{ color: 'rgba(255,247,239,.2)', fontSize: 16 }}>|</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: NG_COLOR, flexShrink: 0, boxShadow: '0 0 0 2px rgba(183,121,31,.3)' }} />
-                <span style={{ fontWeight: 800, fontSize: 12.5, color: 'rgba(255,247,239,.85)' }}>Nigeria · 4 churches</span>
+                <span style={{ fontWeight: 800, fontSize: 12.5, color: 'rgba(255,247,239,.85)' }}>Nigeria · 5 churches</span>
               </div>
               <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,247,239,.4)', fontStyle: 'italic' }}>Click any pin · scroll to zoom</span>
             </div>
