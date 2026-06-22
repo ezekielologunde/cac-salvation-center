@@ -11,7 +11,7 @@ const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhs
 const platforms = [
   { name: "YouTube", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
   { name: "Facebook", desc: "Stream + community discussion", href: "https://www.facebook.com/CacSalvationCenterBaltimore" },
-  { name: "Zoom", desc: "Join Sunday service live via Zoom", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
+  { name: "Zoom", desc: "Our online room for every service", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
   { name: "Spotify", desc: "Hope for Today — weekly podcast", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
   { name: "Apple Podcasts", desc: "Subscribe for auto-downloads", href: "https://podcasts.apple.com/search?term=CAC+Salvation+Center" },
 ];
@@ -70,7 +70,7 @@ export default async function OnlinePage() {
                 <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff", animation: "pulse-red 1.8s infinite", display: "inline-block" }} /> Join the service live
               </div>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3.4vw,40px)", letterSpacing: "-1px", color: "#fff", margin: "0 0 6px" }}>Join us on Zoom</h2>
-              <p style={{ fontSize: 15, color: "rgba(255,255,255,.88)", margin: 0 }}>Sundays 10:30 AM ET · Meeting ID 846 3538 8414</p>
+              <p style={{ fontSize: 15, color: "rgba(255,255,255,.88)", margin: 0 }}>Our online room for every service — Sun 10:30 AM · Wed &amp; Fri 7:00 PM ET · Meeting ID 846 3538 8414</p>
             </div>
             <span style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#0B5CD6", fontWeight: 800, fontSize: 16, padding: "15px 28px", borderRadius: 999 }}>
               Open Zoom →

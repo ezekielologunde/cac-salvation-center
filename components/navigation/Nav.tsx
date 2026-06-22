@@ -39,7 +39,14 @@ const navItems: NavItem[] = [
     ],
   },
   { label: 'Visit', href: '/visit' },
-  { label: 'Calendar', href: '/calendar' },
+  {
+    label: 'Calendar',
+    href: '/calendar',
+    dropdown: [
+      { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
+      { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
+    ],
+  },
   {
     label: 'Resources',
     href: '/blog',
