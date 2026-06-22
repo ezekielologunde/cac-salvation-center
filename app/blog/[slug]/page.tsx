@@ -553,12 +553,12 @@ export default async function BlogSlugPage({
                     style={{ display: "block", fontSize: 12.5, fontWeight: 700, color: "var(--gold)", textDecoration: "none", marginBottom: 14 }}>
                     info@cacsalvationcenter.org
                   </a>
-                  <Link href="/contact" style={{
+                  <Link href="/venue" style={{
                     display: "inline-flex", alignItems: "center", gap: 7,
                     background: "#fff", color: "#1C3A2A", fontWeight: 800,
                     fontSize: 13, padding: "9px 18px", borderRadius: 999, textDecoration: "none",
                   }}>
-                    Book or Enquire <ArrowRight size={13} strokeWidth={2.5} aria-hidden />
+                    View Venue &amp; Book <ArrowRight size={13} strokeWidth={2.5} aria-hidden />
                   </Link>
                 </div>
               </div>
