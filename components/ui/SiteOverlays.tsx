@@ -14,7 +14,6 @@ function isSundayService() {
 export function SiteOverlays() {
   const [bar, setBar] = useState(false);
   const [toast, setToast] = useState(false);
-  const [modal, setModal] = useState(false);
   const [slide, setSlide] = useState(false);
 
   useEffect(() => {
@@ -32,13 +31,7 @@ export function SiteOverlays() {
       timers.push(setTimeout(() => setToast(false), 12000));
     }
 
-    // 3. Welcome modal — first-ever visit, 2 s delay
-    if (!localStorage.getItem('cac-visited')) {
-      localStorage.setItem('cac-visited', '1');
-      timers.push(setTimeout(() => setModal(true), 2000));
-    }
-
-    // 4. Prayer slide-in — once per session, 45 s delay
+    // 3. Prayer slide-in — once per session, 45 s delay
     if (!sessionStorage.getItem('prayer-prompt-seen')) {
       timers.push(setTimeout(() => {
         sessionStorage.setItem('prayer-prompt-seen', '1');
@@ -128,54 +121,7 @@ export function SiteOverlays() {
         </div>
       )}
 
-      {/* ── 3. First-visit welcome modal ─────────────────────────── */}
-      {modal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Welcome to CAC Salvation Center"
-          style={{ position: 'fixed', inset: 0, zIndex: 950, background: 'rgba(27,19,14,.62)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}
-          onClick={(e) => { if (e.target === e.currentTarget) setModal(false); }}
-        >
-          <div style={{ background: '#fff', borderRadius: 24, maxWidth: 440, width: '100%', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,.4)' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1B130E,#3A2410)', padding: '32px 32px 28px', position: 'relative' }}>
-              <button
-                onClick={() => setModal(false)}
-                aria-label="Close welcome message"
-                style={{ position: 'absolute', top: 14, right: 14, background: 'rgba(255,247,239,.15)', border: 'none', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,247,239,.7)', fontSize: 18 }}
-              >
-                ×
-              </button>
-              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#E8A33D', marginBottom: 10 }}>First time here?</div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, color: '#fff', lineHeight: 1.15 }}>
-                You&apos;re welcome here.
-              </div>
-            </div>
-            <div style={{ padding: '24px 32px 28px' }}>
-              <p style={{ fontSize: 15, color: '#5f5e5a', lineHeight: 1.7, marginBottom: 20 }}>
-                Join us every Sunday at <strong style={{ color: '#1B130E' }}>10:30 AM</strong> at 10710 Marriottsville Rd, Randallstown, MD. No dress code, no pressure — just a real community of faith.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <Link
-                  href="/visit"
-                  onClick={() => setModal(false)}
-                  style={{ display: 'block', textAlign: 'center', background: '#D62828', color: '#fff', fontWeight: 800, fontSize: 15, padding: '14px 24px', borderRadius: 999, textDecoration: 'none' }}
-                >
-                  Plan my first visit →
-                </Link>
-                <button
-                  onClick={() => setModal(false)}
-                  style={{ background: 'none', border: 'none', color: '#888780', fontSize: 13, cursor: 'pointer', padding: 4 }}
-                >
-                  Maybe next time
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── 4. Prayer request slide-in ───────────────────────────── */}
+      {/* ── 3. Prayer request slide-in ───────────────────────────── */}
       {slide && (
         <div
           role="complementary"
