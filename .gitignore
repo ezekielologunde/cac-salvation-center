@@ -36,8 +36,15 @@ yarn-error.log*
 # vercel
 .vercel
 
-# local scripts with hardcoded credentials — never commit
+# local scripts with hardcoded credentials / PII — never commit
 scripts/fetch-gallery.mjs
+scripts/import-to-sheets.html
+
+# loose root assets — never commit
+*.png
+*.jpg
+*.jpeg
+cacsalvationcenter.org.txt
 
 # site backups and personal data — never commit
 *.tar.gz
