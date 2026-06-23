@@ -20,7 +20,7 @@ export default function AdminLogin() {
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
     if (authError) {
-      setError(authError.message);
+      setError("Invalid email or password.");
       setLoading(false);
       return;
     }

@@ -13,6 +13,49 @@ const HERO_T = {
   yo: { badge: "ỌJỌ́ ÀÌKÚ", line1: "Káàbọ̀", line2: "sí Ilé." },
 } as const;
 
+const BG_WORDS = [
+  { w: "GRACE",     l: 4,  delay: 0,   dur: 22, sz: 48, o: 0.055 },
+  { w: "FAITH",     l: 77, delay: 1,   dur: 28, sz: 30, o: 0.045 },
+  { w: "HOPE",      l: 21, delay: 2,   dur: 18, sz: 62, o: 0.06  },
+  { w: "LOVE",      l: 63, delay: 0.5, dur: 24, sz: 38, o: 0.05  },
+  { w: "GLORY",     l: 41, delay: 2.5, dur: 20, sz: 26, o: 0.04  },
+  { w: "WORSHIP",   l: 87, delay: 1.5, dur: 30, sz: 22, o: 0.05  },
+  { w: "AMEN",      l: 11, delay: 3,   dur: 16, sz: 44, o: 0.055 },
+  { w: "SALVATION", l: 53, delay: 1.2, dur: 32, sz: 18, o: 0.04  },
+] as const;
+
+function AnimLetters({ children, delay = 0 }: { children: string; delay?: number }) {
+  const reduce = useReducedMotion();
+  const chars = Array.from(children);
+  return (
+    <motion.span
+      aria-label={children}
+      style={{ display: "inline-block" }}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: reduce ? 0 : 0.045, delayChildren: delay } },
+      }}
+      initial="hidden"
+      animate="show"
+    >
+      {chars.map((char, i) => (
+        <span key={i} aria-hidden style={{ display: "inline-flex", overflow: "hidden", verticalAlign: "top" }}>
+          <motion.span
+            variants={
+              reduce
+                ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.3 } } }
+                : { hidden: { y: "110%" }, show: { y: "0%", transition: { type: "spring" as const, stiffness: 220, damping: 24, mass: 0.6 } } }
+            }
+            style={{ display: "inline-block" }}
+          >
+            {char}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  );
+}
+
 export function Hero() {
   const { label: nextLabel, countdown } = useCountdown();
   const ref = useRef<HTMLElement>(null);
@@ -94,8 +137,8 @@ export function Hero() {
             style={{
               position: "absolute", top: "50%", left: "50%",
               transform: "translate(-50%,-50%)",
-              width: "177.78vh", height: "56.25vw",
-              minWidth: "100%", minHeight: "100%",
+              width: "calc(177.78vh + 200px)", height: "calc(56.25vw + 200px)",
+              minWidth: "calc(100% + 200px)", minHeight: "calc(100% + 200px)",
               border: "none", pointerEvents: "none",
             }}
           />
@@ -115,6 +158,34 @@ export function Hero() {
         position: "absolute", bottom: 0, left: 0, right: 0, height: 160, zIndex: 1,
         background: "linear-gradient(to bottom,transparent,rgba(0,0,0,.65))",
       }} />
+
+      {/* Floating ambient words */}
+      {!reduce && (
+        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, overflow: "hidden", pointerEvents: "none" }}>
+          {BG_WORDS.map(({ w, l, delay, dur, sz, o }) => (
+            <motion.span
+              key={w}
+              initial={{ y: "110vh" }}
+              animate={{ y: "-110vh" }}
+              transition={{ duration: dur, delay, repeat: Infinity, ease: "linear" }}
+              style={{
+                position: "absolute",
+                left: `${l}%`,
+                top: 0,
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: sz,
+                color: `rgba(255,255,255,${o})`,
+                letterSpacing: "-0.02em",
+                userSelect: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {w}
+            </motion.span>
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <motion.div
@@ -139,14 +210,18 @@ export function Hero() {
           </span>
         </Reveal>
 
-        <h1 style={{
-          fontFamily: "var(--font-display)", fontWeight: 800,
-          fontSize: "clamp(52px,7.4vw,104px)",
-          lineHeight: .94, letterSpacing: "-0.03em",
-          margin: "22px 0 0", color: "#fff",
-          textWrap: "balance",
-        }}>
-          <RevealText key={`l1-${lang}`} immediate>{t.line1}</RevealText>
+        <motion.h1
+          animate={reduce ? {} : { y: [0, -10, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+          style={{
+            fontFamily: "var(--font-display)", fontWeight: 800,
+            fontSize: "clamp(52px,7.4vw,104px)",
+            lineHeight: .94, letterSpacing: "-0.03em",
+            margin: "22px 0 0", color: "#fff",
+            textWrap: "balance",
+          }}
+        >
+          <AnimLetters key={`l1-${lang}`}>{t.line1}</AnimLetters>
           <br />
           <RevealText
             key={`l2-${lang}`}
@@ -162,7 +237,7 @@ export function Hero() {
           >
             {t.line2}
           </RevealText>
-        </h1>
+        </motion.h1>
 
         <Reveal delay={300} style={{ marginTop: 18 }}>
           <div role="group" aria-label="Greeting language" style={{ display: "inline-flex", gap: 4, padding: 4, borderRadius: 999, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.18)", backdropFilter: "blur(8px)" }}>
