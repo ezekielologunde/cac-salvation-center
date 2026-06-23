@@ -14,7 +14,7 @@ const featured = {
   partner: "Evang. Mrs Victoria Ilufoye",
   title: "Baltimore DCC Superintendent · First Lady",
   bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. Together with the First Lady, Evang. Mrs Victoria Ilufoye, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
-  image: "/images/pastor-couple.jpg",
+  image: "/images/pastor-couple.png",
 };
 
 const team: { name: string; title: string; bio: string; image?: string }[] = [
@@ -84,20 +84,27 @@ export default function LeadershipPage() {
 
       {/* Featured pastor */}
       <section style={{ background: "var(--cream-2)", padding: "80px clamp(20px,5vw,64px) 56px" }}>
+        <style>{`
+          .ldr-card { display: grid; grid-template-columns: 1fr clamp(220px,34%,400px); min-height: 460px; }
+          @media (max-width: 680px) { .ldr-card { grid-template-columns: 1fr; } .ldr-photo { min-height: 320px; } }
+        `}</style>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
           <Reveal>
-            <div style={{
-              background: "var(--ink)", borderRadius: 28, overflow: "hidden",
-              boxShadow: "0 30px 60px rgba(27,19,14,.22)",
-            }}>
-              <div style={{ position: "relative", width: "100%", height: "clamp(300px,42vw,470px)" }}>
-                <Image src={featured.image} alt={`${featured.name} & ${featured.partner}`} fill style={{ objectFit: "cover", objectPosition: "center 28%" }} sizes="(max-width: 1080px) 100vw, 1080px" />
-              </div>
-              <div style={{ padding: "clamp(32px,4vw,48px)", color: "var(--cream)" }}>
+            <div className="ldr-card" style={{ background: "var(--ink)", borderRadius: 28, overflow: "hidden", boxShadow: "0 30px 60px rgba(27,19,14,.22)" }}>
+              <div style={{ padding: "clamp(36px,5vw,60px)", display: "flex", flexDirection: "column", justifyContent: "center", color: "var(--cream)" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>{featured.title}</div>
                 <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,42px)", letterSpacing: "-1px", margin: "0 0 6px", lineHeight: 1.04 }}>{featured.name}</h2>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,26px)", color: "rgba(255,247,239,.85)", letterSpacing: "-.4px", margin: "0 0 22px" }}>&amp; {featured.partner}</div>
-                <p style={{ fontSize: 16.5, lineHeight: 1.75, opacity: .82, margin: 0 }}>{featured.bio}</p>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,26px)", color: "rgba(255,247,239,.8)", letterSpacing: "-.4px", margin: "0 0 22px" }}>&amp; {featured.partner}</div>
+                <p style={{ fontSize: 16.5, lineHeight: 1.75, color: "rgba(255,247,239,.78)", margin: 0 }}>{featured.bio}</p>
+              </div>
+              <div className="ldr-photo" style={{ position: "relative" }}>
+                <Image
+                  src={featured.image}
+                  alt={`${featured.name} & ${featured.partner}`}
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "center bottom" }}
+                  sizes="(max-width: 680px) 100vw, 400px"
+                />
               </div>
             </div>
           </Reveal>
