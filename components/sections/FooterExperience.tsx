@@ -6,6 +6,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { FacebookIcon, InstagramIcon, YoutubeIcon, TikTokIcon } from '@/components/ui/SocialIcons';
 import { haptic } from '@/lib/haptics';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { NewsletterForm } from '@/components/sections/NewsletterForm';
 
 const socials = [
   { icon: <FacebookIcon />, title: 'Facebook', href: 'https://www.facebook.com/CacSalvationCenterBaltimore' },
@@ -108,6 +109,20 @@ export function FooterExperience() {
             </div>
           </div>
 
+        </div>
+
+        {/* Newsletter */}
+        <div style={{ maxWidth: 1240, margin: '0 auto', padding: '36px 0', borderBottom: '1px solid rgba(255,247,239,.1)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24 }}>
+            <div style={{ flex: '1 1 260px' }}>
+              <div style={{ fontWeight: 800, fontSize: 12, textTransform: 'uppercase', letterSpacing: '1.8px', color: 'var(--gold)', marginBottom: 6 }}>Stay connected</div>
+              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: '#fff', margin: '0 0 4px', letterSpacing: '-.3px' }}>Get updates from the family.</p>
+              <p style={{ fontSize: 13.5, color: 'rgba(255,247,239,.45)', margin: 0 }}>Sermons, events, and encouragement — straight to your inbox.</p>
+            </div>
+            <div style={{ flex: '1 1 340px' }}>
+              <NewsletterForm />
+            </div>
+          </div>
         </div>
 
         {/* Bottom bar */}
