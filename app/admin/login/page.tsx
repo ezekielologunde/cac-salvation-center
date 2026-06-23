@@ -1,29 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useActionState } from "react";
+import { loginAction } from "./actions";
+
 export default function AdminLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (authError) {
-      setError("Invalid email or password.");
-      setLoading(false);
-      return;
-    }
-
-    window.location.href = "/admin";
-  }
+  const [state, action, isPending] = useActionState(loginAction, null);
 
   const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const unauthorized = urlParams?.get("error") === "unauthorized";
@@ -78,15 +59,14 @@ export default function AdminLogin() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <form action={action} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>
               Email
             </label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
               required
               autoComplete="email"
               style={{
@@ -109,8 +89,7 @@ export default function AdminLogin() {
             </label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
               required
               autoComplete="current-password"
               style={{
@@ -127,27 +106,27 @@ export default function AdminLogin() {
             />
           </div>
 
-          {error && (
-            <p style={{ color: "#dc2626", fontSize: 14, margin: 0 }}>{error}</p>
+          {state?.error && (
+            <p style={{ color: "#dc2626", fontSize: 14, margin: 0 }}>{state.error}</p>
           )}
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={isPending}
             style={{
-              background: loading ? "#999" : "var(--red)",
+              background: isPending ? "#999" : "var(--red)",
               color: "white",
               border: "none",
               borderRadius: 8,
               padding: "12px 24px",
               fontSize: 15,
               fontWeight: 600,
-              cursor: loading ? "not-allowed" : "pointer",
+              cursor: isPending ? "not-allowed" : "pointer",
               fontFamily: "inherit",
               marginTop: 4,
             }}
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {isPending ? "Signing in…" : "Sign In"}
           </button>
         </form>
       </div>
