@@ -18,9 +18,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!profile) redirect("/admin/login?error=unauthorized");
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#f5f5f0" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#f4f4f0" }}>
       <AdminSidebar email={user.email ?? ""} />
-      <main style={{ flex: 1, padding: "32px 40px", overflowY: "auto" }}>
+      <main style={{ flex: 1, padding: "40px 48px", overflowY: "auto", minWidth: 0 }}>
         {children}
       </main>
     </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Heart } from 'lucide-react';
 
@@ -12,9 +13,12 @@ function isSundayService() {
 }
 
 export function SiteOverlays() {
+  const pathname = usePathname();
   const [bar, setBar] = useState(false);
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
+
+  if (pathname.startsWith('/admin')) return null;
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
