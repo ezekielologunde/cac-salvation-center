@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { createEvent, updateEvent, deleteEvent } from "@/app/admin/events/actions";
+import { createEvent, updateEvent, deleteEvent } from "@/app/admin/(protected)/events/actions";
 
 type Event = {
   id: string;

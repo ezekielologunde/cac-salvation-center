@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { createPost, updatePost, deletePost } from "@/app/admin/blog/actions";
+import { createPost, updatePost, deletePost } from "@/app/admin/(protected)/blog/actions";
 
 type Post = {
   id: string;
