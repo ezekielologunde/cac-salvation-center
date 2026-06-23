@@ -3,9 +3,8 @@ import { Resend } from "resend";
 import { headers } from "next/headers";
 import { createServiceClient } from "@/lib/supabase/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-05-27.dahlia",
-});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!.trim(), { apiVersion: "2024-06-20" as any });
 
 const FROM = "CAC Salvation Center <noreply@cacsalvationcenter.org>";
 const STAFF_EMAIL = "info@cacsalvationcenter.org";
