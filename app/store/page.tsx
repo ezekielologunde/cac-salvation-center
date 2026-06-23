@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { ShoppingBag, Shirt, BookOpen, Music2, Printer, Shield, Heart, Package, Mail, ExternalLink } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
+import { AddToCartButton } from "@/components/store/AddToCartButton";
 
 export const metadata = {
   title: "Store — CAC Salvation Center",
@@ -217,18 +218,14 @@ export default async function StorePage() {
                             </a>
                           )}
                           {product.order_method === "stripe" && (
-                            <a
-                              href={mailLink(product.name)}
-                              style={{
-                                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                                background: "var(--red)", color: "#fff", fontWeight: 700, fontSize: 14,
-                                padding: "12px 20px", borderRadius: 999, textDecoration: "none",
-                                boxShadow: "0 8px 20px rgba(214,40,40,.28)",
-                              }}
-                            >
-                              <Mail size={14} strokeWidth={2.2} aria-hidden />
-                              Buy Now
-                            </a>
+                            <AddToCartButton
+                              id={product.id}
+                              name={product.name}
+                              category={product.category}
+                              priceCents={product.price_cents}
+                              priceDisplay={product.price_display}
+                              accent={accent}
+                            />
                           )}
                         </div>
                       </div>
