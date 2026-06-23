@@ -6,7 +6,6 @@ import { PastorWelcome } from "@/components/sections/PastorWelcome";
 import { WhatToExpect } from "@/components/sections/WhatToExpect";
 import { Impact } from "@/components/sections/Impact";
 import { Youth } from "@/components/sections/Youth";
-import { ThisSunday } from "@/components/sections/ThisSunday";
 import { Events } from "@/components/sections/Events";
 import { GlobalChurches } from "@/components/sections/GlobalChurches";
 import { PlanVisit } from "@/components/sections/PlanVisit";
@@ -60,7 +59,6 @@ export default async function Home() {
       ))}
       <Hero />
       <Watchword />
-      <ThisSunday />
       <Testimonials />
       <PastorWelcome />
       <WhatToExpect />
