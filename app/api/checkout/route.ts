@@ -1,10 +1,18 @@
 import Stripe from "stripe";
-import type { CartItem } from "@/contexts/CartContext";
+import { createServiceClient } from "@/lib/supabase/server";
+import { rateLimit } from "@/lib/rateLimit";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalvationcenter.org";
 
+type OrderItem = { id: string; quantity: number; variant?: string };
+
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anon";
+  if (!rateLimit(ip, 20, 60_000)) {
+    return Response.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   if (!process.env.STRIPE_SECRET_KEY) {
     return Response.json(
       { error: "Stripe is not configured. Please add STRIPE_SECRET_KEY to your environment." },
@@ -12,34 +20,67 @@ export async function POST(req: Request) {
     );
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2026-05-27.dahlia",
-  });
-
-  let items: CartItem[];
+  let orderItems: OrderItem[];
   try {
-    ({ items } = await req.json());
+    ({ items: orderItems } = await req.json());
   } catch {
     return Response.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  if (!Array.isArray(items) || items.length === 0) {
+  if (!Array.isArray(orderItems) || orderItems.length === 0) {
     return Response.json({ error: "Cart is empty" }, { status: 400 });
   }
 
-  const hasPhysical = items.some((i) => !i.isDigital);
+  const validItems = orderItems.filter(
+    (i) =>
+      typeof i.id === "string" &&
+      Number.isInteger(i.quantity) &&
+      i.quantity > 0 &&
+      i.quantity <= 100
+  );
+  if (validItems.length === 0) {
+    return Response.json({ error: "Invalid cart items" }, { status: 400 });
+  }
 
-  const line_items = items.map((item) => ({
-    price_data: {
-      currency: "usd",
-      product_data: {
-        name: item.variant ? `${item.name} — ${item.variant}` : item.name,
-        description: item.category,
+  // Server-side price lookup — client-supplied priceCents is ignored
+  const supabase = createServiceClient();
+  const ids = [...new Set(validItems.map((i) => i.id))];
+  const { data: products, error: dbError } = await supabase
+    .from("products")
+    .select("id, name, category, price_cents")
+    .in("id", ids)
+    .eq("published", true);
+
+  if (dbError || !products) {
+    return Response.json({ error: "Could not load products" }, { status: 500 });
+  }
+
+  const productMap = new Map(products.map((p) => [p.id, p]));
+
+  for (const item of validItems) {
+    if (!productMap.has(item.id)) {
+      return Response.json({ error: "Unknown or unavailable product" }, { status: 400 });
+    }
+  }
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2026-05-27.dahlia",
+  });
+
+  const line_items = validItems.map((item) => {
+    const product = productMap.get(item.id)!;
+    return {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: item.variant ? `${product.name} — ${item.variant}` : product.name,
+          description: product.category,
+        },
+        unit_amount: product.price_cents,
       },
-      unit_amount: item.priceCents,
-    },
-    quantity: item.quantity,
-  }));
+      quantity: item.quantity,
+    };
+  });
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -47,19 +88,17 @@ export async function POST(req: Request) {
     mode: "payment",
     success_url: `${SITE_URL}/store/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${SITE_URL}/store`,
-    ...(hasPhysical
-      ? { shipping_address_collection: { allowed_countries: ["US", "CA"] } }
-      : {}),
+    shipping_address_collection: { allowed_countries: ["US", "CA"] },
     phone_number_collection: { enabled: true },
     billing_address_collection: "auto",
     custom_text: {
       submit: {
-        message: "Your receipt will be emailed by Stripe. Digital downloads are delivered within 24 hours. All proceeds support CAC Salvation Center ministries.",
+        message:
+          "Your receipt will be emailed by Stripe. Digital downloads are delivered within 24 hours. All proceeds support CAC Salvation Center ministries.",
       },
     },
     metadata: {
       source: "cac-salvation-center-store",
-      has_digital: String(items.some((i) => i.isDigital)),
     },
   });
 

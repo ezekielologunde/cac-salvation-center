@@ -24,7 +24,7 @@ export default async function NewsletterPage() {
         </h1>
         {total > 0 && (
           <a
-            href={`data:text/csv;charset=utf-8,Email,Name,Source,Subscribed%0A${active.map((s) => `${s.email},${s.name ?? ""},${s.source ?? ""},${s.subscribed_at ?? ""}`).join("%0A")}`}
+            href={`data:text/csv;charset=utf-8,${["Email,Name,Source,Subscribed", ...active.map((s) => [s.email, s.name ?? "", s.source ?? "", s.subscribed_at ?? ""].map((v) => { const s2 = String(v).replace(/^[=+\-@]/, "'$&"); return s2.includes(",") || s2.includes('"') || s2.includes("\n") ? `"${s2.replace(/"/g, '""')}"` : s2; }).join(","))].join("%0A")}`}
             download="newsletter-subscribers.csv"
             style={{ background: "var(--red)", color: "white", padding: "10px 20px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}
           >

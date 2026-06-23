@@ -1,16 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/supabase/require-admin";
 import { SITE_URL } from "@/lib/site";
 
 export type InviteState = { error: string; success: boolean; email: string };
 
 export async function inviteAdmin(_: InviteState, formData: FormData): Promise<InviteState> {
+  const { supabase: service } = await requireAdmin();
+
   const email = (formData.get("email") as string).trim().toLowerCase();
   if (!email) return { error: "Email is required.", success: false, email: "" };
-
-  const service = createServiceClient();
 
   const { data: existing } = await service
     .from("admin_profiles")
@@ -37,12 +37,8 @@ export async function inviteAdmin(_: InviteState, formData: FormData): Promise<I
 }
 
 export async function removeAdmin(id: string) {
-  // Prevent removing yourself
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user?.id === id) return;
-
-  const service = createServiceClient();
+  const { supabase: service, user } = await requireAdmin();
+  if (user.id === id) return; // prevent self-removal
   await service.from("admin_profiles").delete().eq("id", id);
   revalidatePath("/admin/admins");
 }

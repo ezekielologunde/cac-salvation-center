@@ -1,6 +1,6 @@
 "use server";
 
-import { createServiceClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 export type SubscribeState = { ok: boolean; message: string } | null;
 
@@ -15,7 +15,7 @@ export async function subscribeAction(
     return { ok: false, message: "Please enter a valid email address." };
   }
 
-  const supabase = createServiceClient();
+  const supabase = await createClient();
   const { error } = await supabase
     .from("newsletter_subscribers")
     .upsert({ email, name, active: true, source: "website" }, { onConflict: "email" });

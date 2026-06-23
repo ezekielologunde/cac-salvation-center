@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
+import { rateLimit } from "@/lib/rateLimit";
 
 const FROM = "CAC Salvation Center <noreply@cacsalvationcenter.org>";
 const TO   = "info@cacsalvationcenter.org";
@@ -56,6 +57,11 @@ async function saveToSupabase(formName: string, fields: Record<string, string>):
 }
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anon";
+  if (!rateLimit(ip, 5, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await req.json();

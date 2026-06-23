@@ -43,10 +43,11 @@ export function CartSidebar() {
     playCheckout();
     haptic([60, 30, 100]);
     try {
+      const orderItems = items.map(({ id, quantity, variant }) => ({ id, quantity, variant }));
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items: orderItems }),
       });
       const data = await res.json();
       if (!res.ok) {
