@@ -1,4 +1,5 @@
 import { createServiceClient } from "@/lib/supabase/server";
+import NewsletterBroadcast from "@/components/admin/NewsletterBroadcast";
 
 export default async function NewsletterPage() {
   const supabase = createServiceClient();
@@ -32,6 +33,8 @@ export default async function NewsletterPage() {
           </a>
         )}
       </div>
+
+      <NewsletterBroadcast subscriberCount={active.length} />
 
       {!subscribers?.length ? (
         <div style={{ background: "white", borderRadius: 12, padding: "48px 32px", textAlign: "center", color: "var(--ink-soft)" }}>

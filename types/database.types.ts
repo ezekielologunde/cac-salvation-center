@@ -247,70 +247,73 @@ export type Database = {
       }
       orders: {
         Row: {
-          id: string
-          stripe_session_id: string | null
-          stripe_payment_intent: string | null
-          customer_name: string | null
+          amount_total: number
+          created_at: string | null
+          currency: string | null
           customer_email: string
+          customer_name: string | null
           customer_phone: string | null
-          shipping_name: string | null
+          id: string
+          line_items: Json
+          notes: string | null
+          refunded_amount: number | null
+          shipping_city: string | null
+          shipping_country: string | null
           shipping_line1: string | null
           shipping_line2: string | null
-          shipping_city: string | null
-          shipping_state: string | null
+          shipping_name: string | null
           shipping_postal_code: string | null
-          shipping_country: string | null
-          line_items: Json
-          amount_total: number
-          currency: string
-          status: string
-          refunded_amount: number | null
-          notes: string | null
-          created_at: string
+          shipping_state: string | null
+          status: string | null
+          stripe_payment_intent: string | null
+          stripe_session_id: string
+          updated_at: string | null
         }
         Insert: {
-          id?: string
-          stripe_session_id?: string | null
-          stripe_payment_intent?: string | null
-          customer_name?: string | null
+          amount_total: number
+          created_at?: string | null
+          currency?: string | null
           customer_email: string
+          customer_name?: string | null
           customer_phone?: string | null
-          shipping_name?: string | null
+          id?: string
+          line_items?: Json
+          notes?: string | null
+          refunded_amount?: number | null
+          shipping_city?: string | null
+          shipping_country?: string | null
           shipping_line1?: string | null
           shipping_line2?: string | null
-          shipping_city?: string | null
-          shipping_state?: string | null
+          shipping_name?: string | null
           shipping_postal_code?: string | null
-          shipping_country?: string | null
-          line_items?: Json
-          amount_total?: number
-          currency?: string
-          status?: string
-          refunded_amount?: number | null
-          notes?: string | null
-          created_at?: string
+          shipping_state?: string | null
+          status?: string | null
+          stripe_payment_intent?: string | null
+          stripe_session_id: string
+          updated_at?: string | null
         }
         Update: {
-          id?: string
-          stripe_session_id?: string | null
-          stripe_payment_intent?: string | null
-          customer_name?: string | null
+          amount_total?: number
+          created_at?: string | null
+          currency?: string | null
           customer_email?: string
+          customer_name?: string | null
           customer_phone?: string | null
-          shipping_name?: string | null
+          id?: string
+          line_items?: Json
+          notes?: string | null
+          refunded_amount?: number | null
+          shipping_city?: string | null
+          shipping_country?: string | null
           shipping_line1?: string | null
           shipping_line2?: string | null
-          shipping_city?: string | null
-          shipping_state?: string | null
+          shipping_name?: string | null
           shipping_postal_code?: string | null
-          shipping_country?: string | null
-          line_items?: Json
-          amount_total?: number
-          currency?: string
-          status?: string
-          refunded_amount?: number | null
-          notes?: string | null
-          created_at?: string
+          shipping_state?: string | null
+          status?: string | null
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

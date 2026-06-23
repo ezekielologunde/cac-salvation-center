@@ -1,6 +1,7 @@
 import { createServiceClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import OrderActions from "@/components/admin/OrderActions";
 
 type LineItem = { description: string; quantity: number; amount_total: number };
 
@@ -24,6 +25,8 @@ type Order = {
   status: string;
   refunded_amount: number | null;
   notes: string | null;
+  tracking_number: string | null;
+  shipped_at: string | null;
   created_at: string;
 };
 
@@ -147,20 +150,14 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             </div>
           </div>
 
-          {/* Notes */}
-          <Card title="Notes">
-            <textarea
-              readOnly
-              defaultValue={order.notes ?? ""}
-              placeholder="No notes."
-              style={{
-                width: "100%", minHeight: 90, padding: "10px 12px", fontSize: 13,
-                color: "var(--ink)", border: "1px solid var(--line)", borderRadius: 8,
-                resize: "vertical", fontFamily: "inherit", background: "#fafafa",
-                boxSizing: "border-box",
-              }}
-            />
-          </Card>
+          {/* Notes + Shipping actions */}
+          <OrderActions
+            orderId={order.id}
+            status={order.status}
+            notes={order.notes ?? null}
+            trackingNumber={order.tracking_number ?? null}
+            shippedAt={order.shipped_at ?? null}
+          />
 
           {/* Status timeline */}
           <Card title="Timeline">
@@ -177,7 +174,14 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                   <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#1d4ed8", marginTop: 4, flexShrink: 0 }} />
                   <div>
                     <p style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", margin: "0 0 2px" }}>Shipped</p>
-                    <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>Status marked as shipped</p>
+                    <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
+                      {order.shipped_at ? formatDate(order.shipped_at) : "Status marked as shipped"}
+                    </p>
+                    {order.tracking_number && (
+                      <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: "2px 0 0" }}>
+                        Tracking: {order.tracking_number}
+                      </p>
+                    )}
                   </div>
                 </div>
               )}

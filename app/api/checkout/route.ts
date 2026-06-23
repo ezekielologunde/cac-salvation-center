@@ -13,11 +13,16 @@ export async function POST(req: Request) {
     return Response.json({ error: "Too many requests" }, { status: 429 });
   }
 
-  if (!process.env.STRIPE_SECRET_KEY) {
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeKey) {
     return Response.json(
       { error: "Stripe is not configured. Please add STRIPE_SECRET_KEY to your environment." },
       { status: 503 }
     );
+  }
+  if (!stripeKey.startsWith("sk_")) {
+    console.error("[checkout] STRIPE_SECRET_KEY does not start with 'sk_' — likely wrong key type");
+    return Response.json({ error: "Stripe configuration error. Please contact support." }, { status: 503 });
   }
 
   let orderItems: OrderItem[];
@@ -61,11 +66,20 @@ export async function POST(req: Request) {
     if (!productMap.has(item.id)) {
       return Response.json({ error: "Unknown or unavailable product" }, { status: 400 });
     }
+    const p = productMap.get(item.id)!;
+    if (!p.price_cents || p.price_cents < 50) {
+      return Response.json({ error: `"${p.name}" is not available for checkout at this time.` }, { status: 400 });
+    }
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2026-05-27.dahlia",
-  });
+  // Use a stable Stripe API version — named releases like ".dahlia" require
+  // the account to opt in via the Stripe dashboard; using one without opt-in
+  // returns a 400 error for every request.
+  // Use a stable Stripe API version — named releases like ".dahlia" require
+  // the account to opt in via the Stripe dashboard; using one without opt-in
+  // returns a 400 error for every request.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const stripe = new Stripe(stripeKey, { apiVersion: "2024-06-20" as any });
 
   const line_items = validItems.map((item) => {
     const product = productMap.get(item.id)!;
@@ -106,8 +120,19 @@ export async function POST(req: Request) {
 
     return Response.json({ url: session.url });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Stripe error";
-    console.error("[checkout] Stripe session error:", msg);
+    if (err instanceof Stripe.errors.StripeError) {
+      console.error("[checkout] Stripe error:", JSON.stringify({
+        type: err.type,
+        code: err.code,
+        statusCode: err.statusCode,
+        message: err.message,
+      }));
+      if (err.type === "StripeAuthenticationError") {
+        return Response.json({ error: "Payment provider configuration error. Please contact support." }, { status: 500 });
+      }
+      return Response.json({ error: `Checkout failed: ${err.message}` }, { status: 500 });
+    }
+    console.error("[checkout] Unexpected error:", err instanceof Error ? err.message : String(err));
     return Response.json({ error: "Could not create checkout session. Please try again." }, { status: 500 });
   }
 }

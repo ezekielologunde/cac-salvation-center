@@ -26,8 +26,12 @@ const AI_BOTS = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // Everyone is welcome to crawl the whole public site.
-      { userAgent: "*", allow: "/" },
+      // Everyone is welcome to crawl the public site; admin and checkout are private.
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/admin/", "/store/success"],
+      },
       { userAgent: AI_BOTS, allow: "/" },
       // Google Ads' landing-page crawler ignores the "*" group, so it must be
       // addressed by name or Ads can't verify the pages it sends traffic to.
