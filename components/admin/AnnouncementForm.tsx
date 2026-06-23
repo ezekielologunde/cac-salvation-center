@@ -127,7 +127,7 @@ export default function AnnouncementForm({
           </div>
 
           {/* CTA */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
             <div>
               <label style={labelStyle}>CTA Button Text <span style={muted}>— optional</span></label>
               <input
@@ -152,7 +152,7 @@ export default function AnnouncementForm({
           </div>
 
           {/* Colors */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
             <div>
               <label style={labelStyle}>Background Color</label>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -182,7 +182,7 @@ export default function AnnouncementForm({
           </div>
 
           {/* Placement + Expires */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
             <div>
               <label style={labelStyle}>Placement</label>
               <select

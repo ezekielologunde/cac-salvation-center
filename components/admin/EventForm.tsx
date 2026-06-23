@@ -99,7 +99,7 @@ export default function EventForm({ event }: { event?: Event }) {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
           <div>
             <label style={label}>Start Date & Time *</label>
             <input

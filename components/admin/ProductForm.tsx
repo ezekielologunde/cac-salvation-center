@@ -136,7 +136,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
           <div>
             <label style={label}>Price Display *</label>
             <input
@@ -171,7 +171,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
           <div>
             <label style={label}>Image URL <span style={muted}>— optional</span></label>
             <input
