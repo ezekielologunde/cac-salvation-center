@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "Too many requests" }, { status: 429 });
   }
 
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  const stripeKey = process.env.STRIPE_SECRET_KEY?.trim();
   if (!stripeKey) {
     return Response.json(
       { error: "Stripe is not configured. Please add STRIPE_SECRET_KEY to your environment." },
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     );
   }
   if (!stripeKey.startsWith("sk_") && !stripeKey.startsWith("rk_")) {
-    console.error("[checkout] STRIPE_SECRET_KEY has unexpected format (not sk_ or rk_)");
+    console.error(`[checkout] STRIPE_SECRET_KEY unexpected format — length:${stripeKey.length} prefix:${stripeKey.substring(0, 3)}`);
     return Response.json({ error: "Stripe configuration error. Please contact support." }, { status: 503 });
   }
 
