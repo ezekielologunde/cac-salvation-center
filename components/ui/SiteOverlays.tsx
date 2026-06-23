@@ -6,29 +6,38 @@ import { Heart } from 'lucide-react';
 
 const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
 
+type BannerAnn = { id: string; title: string; cta_text: string | null; cta_url: string | null; bg_color: string; text_color: string };
+
 function isSundayService() {
   const et = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
   const h = et.getHours();
   return et.getDay() === 0 && h >= 9 && h < 13;
 }
 
-export function SiteOverlays() {
+export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const pathname = usePathname();
   const [bar, setBar] = useState(false);
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
+  const [dbBar, setDbBar] = useState(false);
 
   if (pathname.startsWith('/admin')) return null;
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    // 1. CACNA announcement bar — persists until dismissed
-    // July 18 22:00 EDT = July 19 02:00 UTC — bar auto-expires after the event
-    const CACNA_END = Date.UTC(2026, 6, 19, 2, 0);
-    if (Date.now() < CACNA_END && !localStorage.getItem('ann-cacna2026')) {
-      setBar(true);
+    // 1a. DB banner announcement — takes priority over CACNA bar
+    if (bannerAnn && !localStorage.getItem(`ann-db-${bannerAnn.id}`)) {
+      setDbBar(true);
       document.documentElement.style.setProperty('--bar-h', '44px');
+    } else {
+      // 1b. CACNA announcement bar — persists until dismissed
+      // July 18 22:00 EDT = July 19 02:00 UTC — bar auto-expires after the event
+      const CACNA_END = Date.UTC(2026, 6, 19, 2, 0);
+      if (Date.now() < CACNA_END && !localStorage.getItem('ann-cacna2026')) {
+        setBar(true);
+        document.documentElement.style.setProperty('--bar-h', '44px');
+      }
     }
 
     // 2. Live toast — Sundays 9 AM–1 PM ET, once per session
@@ -54,6 +63,12 @@ export function SiteOverlays() {
     document.documentElement.style.setProperty('--bar-h', '0px');
   }
 
+  function dismissDbBar() {
+    setDbBar(false);
+    if (bannerAnn) localStorage.setItem(`ann-db-${bannerAnn.id}`, '1');
+    document.documentElement.style.setProperty('--bar-h', '0px');
+  }
+
   function dismissToast() {
     setToast(false);
     sessionStorage.setItem('live-toast-seen', '1');
@@ -61,7 +76,39 @@ export function SiteOverlays() {
 
   return (
     <>
-      {/* ── 1. Announcement bar ─────────────────────────────────── */}
+      {/* ── 1a. DB banner announcement ──────────────────────────── */}
+      {dbBar && bannerAnn && (
+        <div
+          role="banner"
+          style={{
+            position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+            background: bannerAnn.bg_color, height: 44,
+            display: 'flex', alignItems: 'center',
+            padding: '0 clamp(16px,4vw,48px)', gap: 12,
+          }}
+        >
+          <span style={{ color: bannerAnn.text_color, fontSize: 13, fontWeight: 600, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {bannerAnn.title}
+          </span>
+          {bannerAnn.cta_text && bannerAnn.cta_url && (
+            <a
+              href={bannerAnn.cta_url}
+              style={{ color: bannerAnn.text_color, fontSize: 13, fontWeight: 800, textDecoration: 'underline', whiteSpace: 'nowrap', flexShrink: 0, opacity: 0.9 }}
+            >
+              {bannerAnn.cta_text} →
+            </a>
+          )}
+          <button
+            onClick={dismissDbBar}
+            aria-label="Dismiss announcement"
+            style={{ background: 'none', border: 'none', color: bannerAnn.text_color, cursor: 'pointer', fontSize: 20, lineHeight: 1, padding: '0 0 0 8px', flexShrink: 0, opacity: 0.5 }}
+          >
+            ×
+          </button>
+        </div>
+      )}
+
+      {/* ── 1b. CACNA announcement bar ──────────────────────────── */}
       {bar && (
         <div
           role="banner"

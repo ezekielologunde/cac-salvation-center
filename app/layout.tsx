@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleTags } from "@/components/analytics/GoogleTags";
 import { SiteOverlays } from "@/components/ui/SiteOverlays";
+import { createServiceClient } from "@/lib/supabase/server";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -61,7 +62,21 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  let bannerAnn: { id: string; title: string; cta_text: string | null; cta_url: string | null; bg_color: string; text_color: string } | null = null;
+  try {
+    const service = createServiceClient();
+    const { data } = await service
+      .from("announcements")
+      .select("id, title, cta_text, cta_url, bg_color, text_color")
+      .eq("active", true)
+      .in("placement", ["banner", "both"])
+      .or("expires_at.is.null,expires_at.gt." + new Date().toISOString())
+      .order("sort_order")
+      .limit(1)
+      .maybeSingle();
+    bannerAnn = data ?? null;
+  } catch { /* non-blocking */ }
   return (
     <html lang="en" className={`${bricolage.variable} ${jakarta.variable}`}>
       <head>
@@ -77,7 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           // ever break out of the <script> element (JSON-LD hardening).
           dangerouslySetInnerHTML={{ __html: JSON.stringify(churchJsonLd()).replace(/</g, "\\u003c") }}
         />
-        <SiteOverlays />
+        <SiteOverlays bannerAnn={bannerAnn} />
         <ScrollProgress />
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
