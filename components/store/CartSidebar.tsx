@@ -2,8 +2,8 @@
 
 import { useCart } from "@/contexts/CartContext";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, ShoppingBag, Trash2, CreditCard, Shield } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { CreditCard, Minus, Plus, Shield, ShoppingBag, Trash2, X } from "lucide-react";
 import { playRemove, playCheckout, playOpen, haptic } from "@/lib/feedback";
 
 function fmt(cents: number) {
@@ -40,8 +40,7 @@ export function CartSidebar() {
   async function handleCheckout() {
     setLoading(true);
     setError(null);
-    playCheckout();
-    haptic([60, 30, 100]);
+    try { playCheckout(); haptic([60, 30, 100]); } catch { /* ignore */ }
     try {
       const orderItems = items.map(({ id, quantity, variant }) => ({ id, quantity, variant }));
       const res = await fetch("/api/checkout", {
@@ -49,12 +48,14 @@ export function CartSidebar() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: orderItems }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+      let data: { url?: string; error?: string } = {};
+      try { data = await res.json(); } catch { /* non-JSON response from server */ }
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Could not start checkout. Please try again.");
         setLoading(false);
         return;
       }
+      // Keep loading=true while Stripe page loads (overlay stays until navigation)
       window.location.href = data.url;
     } catch {
       setError("Could not connect to checkout. Please try again.");
@@ -236,7 +237,7 @@ export function CartSidebar() {
               disabled={loading}
               style={{
                 width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 9,
-                background: loading ? "var(--ink-soft)" : "var(--red)",
+                background: loading ? "#b91c1c" : "var(--red)",
                 color: "#fff", fontWeight: 800, fontSize: 16,
                 padding: "16px 24px", borderRadius: 999, border: "none",
                 cursor: loading ? "not-allowed" : "pointer",
@@ -244,9 +245,22 @@ export function CartSidebar() {
                 transition: "background .2s",
               }}
             >
-              <CreditCard size={17} strokeWidth={2.2} aria-hidden />
-              {loading ? "Redirecting…" : "Proceed to Checkout"}
+              {loading ? (
+                <>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" style={{ animation: "spin .7s linear infinite", flexShrink: 0 }}>
+                    <circle cx="12" cy="12" r="10" strokeOpacity=".25" />
+                    <path d="M12 2a10 10 0 0 1 10 10" />
+                  </svg>
+                  Redirecting to Stripe…
+                </>
+              ) : (
+                <>
+                  <CreditCard size={17} strokeWidth={2.2} aria-hidden />
+                  Proceed to Checkout
+                </>
+              )}
             </button>
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 12, fontSize: 12, color: "var(--ink-soft)" }}>
               <Shield size={12} strokeWidth={2} aria-hidden />
               Secure payment powered by Stripe
@@ -261,45 +275,6 @@ export function CartSidebar() {
         )}
       </aside>
 
-      {/* Full-screen checkout loading overlay */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            style={{
-              position: "fixed", inset: 0, zIndex: 9999,
-              background: "rgba(27,19,14,.82)",
-              backdropFilter: "blur(7px)",
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center", gap: 24,
-            }}
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 0.85, repeat: Infinity, ease: "linear" }}
-              style={{
-                width: 52, height: 52,
-                borderTop:    "3px solid #fff",
-                borderRight:  "3px solid rgba(255,255,255,.13)",
-                borderBottom: "3px solid rgba(255,255,255,.13)",
-                borderLeft:   "3px solid rgba(255,255,255,.13)",
-                borderRadius: "50%",
-              }}
-            />
-            <div style={{ textAlign: "center" }}>
-              <p style={{ color: "#fff", fontWeight: 700, fontSize: 20, margin: "0 0 8px", letterSpacing: "-.3px" }}>
-                Taking you to checkout…
-              </p>
-              <p style={{ color: "rgba(255,255,255,.42)", fontSize: 14, margin: 0 }}>
-                Secure payment powered by Stripe
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

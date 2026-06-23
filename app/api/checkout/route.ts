@@ -82,25 +82,32 @@ export async function POST(req: Request) {
     };
   });
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items,
-    mode: "payment",
-    success_url: `${SITE_URL}/store/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/store`,
-    shipping_address_collection: { allowed_countries: ["US", "CA"] },
-    phone_number_collection: { enabled: true },
-    billing_address_collection: "auto",
-    custom_text: {
-      submit: {
-        message:
-          "Your receipt will be emailed by Stripe. Digital downloads are delivered within 24 hours. All proceeds support CAC Salvation Center ministries.",
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items,
+      mode: "payment",
+      success_url: `${SITE_URL}/store/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}/store`,
+      shipping_address_collection: { allowed_countries: ["US", "CA"] },
+      phone_number_collection: { enabled: true },
+      billing_address_collection: "auto",
+      custom_text: {
+        submit: {
+          message:
+            "Your receipt will be emailed. All proceeds support CAC Salvation Center ministries.",
+        },
       },
-    },
-    metadata: {
-      source: "cac-salvation-center-store",
-    },
-  });
+      metadata: { source: "cac-salvation-center-store" },
+    });
 
-  return Response.json({ url: session.url });
+    if (!session.url) {
+      return Response.json({ error: "Stripe did not return a checkout URL." }, { status: 500 });
+    }
+
+    return Response.json({ url: session.url });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Stripe error";
+    console.error("[checkout] Stripe session error:", msg);
+    return Response.json({ error: "Could not create checkout session. Please try again." }, { status: 500 });
+  }
 }
