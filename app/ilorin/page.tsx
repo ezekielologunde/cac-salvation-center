@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
-import { YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
-import { MapPin, Mail, Navigation, Podcast, ArrowUpRight } from "lucide-react";
+import { YoutubeIcon, FacebookIcon, InstagramIcon } from "@/components/ui/SocialIcons";
+import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music } from "lucide-react";
 
 export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
@@ -31,13 +32,18 @@ const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent("C.A.C S
 const MAPS_LINK = `https://maps.google.com/?q=${encodeURIComponent("C.A.C Salvation Centre, Fate-Tanke Road, Oko Erin, Ilorin, Kwara, Nigeria")}`;
 const YT = "https://www.youtube.com/@c.a.csalvationvoicefate-ta5068";
 const SPOTIFY = "https://open.spotify.com/show/2VBBGHUo6nMITGmGGrEUoM";
+const APPLE_PODCASTS = "https://podcasts.apple.com/search?term=CAC+Salvation+Centre+Ilorin";
+const AUDIOMACK = "https://audiomack.com/search?q=RT+Owoseni+CAC+Salvation";
 const FB = "https://www.facebook.com/cacsalvationcentre";
 const EMAIL = "cacsalvationcentreilorin@gmail.com";
 
 const connect = [
   { label: "YouTube", desc: "C.A.C Salvation Voice — services & messages", href: YT, icon: <YoutubeIcon /> },
-  { label: "Spotify", desc: "Listen to the podcast on the go", href: SPOTIFY, icon: <Podcast size={22} strokeWidth={2} /> },
-  { label: "Facebook", desc: "Daily encouragement & updates", href: FB, icon: <FacebookIcon /> },
+  { label: "Spotify", desc: "Pastor Owoseni's messages on the go", href: SPOTIFY, icon: <Podcast size={22} strokeWidth={2} /> },
+  { label: "Apple Podcasts", desc: "Subscribe for auto-downloads", href: APPLE_PODCASTS, icon: <Podcast size={22} strokeWidth={2} /> },
+  { label: "Audiomack", desc: "Sermons, prayers & Total Restoration", href: AUDIOMACK, icon: <Music size={22} strokeWidth={2} /> },
+  { label: "Facebook", desc: "Ministry updates & live events", href: FB, icon: <FacebookIcon /> },
+  { label: "Instagram", desc: "Visual excerpts & announcements", href: "https://www.instagram.com/cacsalvationcentreilorin/", icon: <InstagramIcon /> },
   { label: "Email", desc: EMAIL, href: `mailto:${EMAIL}`, icon: <Mail size={22} strokeWidth={2} /> },
 ];
 
@@ -53,9 +59,12 @@ export default function IlorinPage() {
       {/* Header */}
       <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(6,49,31,.92)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", padding: "13px clamp(18px,4vw,40px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-          <a href="#top" style={{ display: "flex", flexDirection: "column", lineHeight: 1.05, textDecoration: "none" }}>
-            <span style={{ fontSize: 9.5, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, fontWeight: 800 }}>Christ Apostolic Church</span>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "#fff", letterSpacing: "-.2px" }}>Salvation Centre · Ilorin</span>
+          <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+            <Image src="/images/logo.png" alt="C.A.C Salvation Centre" width={36} height={36} style={{ borderRadius: 9, objectFit: "cover", flexShrink: 0 }} />
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.05 }}>
+              <span style={{ fontSize: 9.5, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, fontWeight: 800 }}>Christ Apostolic Church</span>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "#fff", letterSpacing: "-.2px" }}>Salvation Centre · Ilorin</span>
+            </div>
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <a href="#visit" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "#fff", background: c.green, padding: "9px 16px", borderRadius: 999, textDecoration: "none" }}>
@@ -144,8 +153,52 @@ export default function IlorinPage() {
         </div>
       </section>
 
+      {/* District Superintendent */}
+      <section style={{ background: c.cream2, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 44 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>District Superintendent</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Pastoral Leadership.</h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "center", background: c.paper, borderRadius: 28, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 44px rgba(8,40,24,.09)" }}>
+              <div style={{ position: "relative", minHeight: "clamp(300px,40vw,460px)" }}>
+                <Image
+                  src="/images/pastor-owoseni.jpg"
+                  alt="Pastor R.T. Owoseni — District Superintendent, C.A.C Salvation Centre Ilorin"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  sizes="(max-width: 700px) 100vw, 500px"
+                />
+              </div>
+              <div style={{ padding: "clamp(32px,4vw,52px)" }}>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: c.green, marginBottom: 14 }}>District Superintendent</div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3vw,38px)", letterSpacing: "-0.8px", color: c.ink, margin: "0 0 18px", lineHeight: 1.08 }}>Pastor R.T. Owoseni</h3>
+                <p style={{ fontSize: 16, color: c.inkSoft, lineHeight: 1.8, margin: "0 0 28px", maxWidth: 480 }}>
+                  A minister and the lead pastor at C.A.C Salvation Centre, Ilorin. Well known for his deep spiritual teaching, leadership in workers&apos; retreats, and outreach across digital platforms — his messages carry clarity, conviction, and a pastor&apos;s heart.
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                  <a href={SPOTIFY} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1DB954", color: "#fff", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 999, textDecoration: "none" }}>
+                    <Podcast size={15} strokeWidth={2} aria-hidden /> Spotify
+                  </a>
+                  <a href={APPLE_PODCASTS} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#9B4DC7", color: "#fff", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 999, textDecoration: "none" }}>
+                    <Podcast size={15} strokeWidth={2} aria-hidden /> Apple Podcasts
+                  </a>
+                  <a href={AUDIOMACK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#FF6600", color: "#fff", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 999, textDecoration: "none" }}>
+                    <Music size={15} strokeWidth={2} aria-hidden /> Audiomack
+                  </a>
+                  <a href={FB} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1877F2", color: "#fff", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 999, textDecoration: "none" }}>
+                    <FacebookIcon size={15} /> Facebook
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Visit */}
-      <section id="visit" style={{ background: c.cream2, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+      <section id="visit" style={{ background: c.paper, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "center" }}>
           <Reveal>
             <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>Come and worship</span>
@@ -214,6 +267,8 @@ export default function IlorinPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 14 }}>
                 <a href={YT} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>YouTube</a>
                 <a href={SPOTIFY} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Spotify Podcast</a>
+                <a href={APPLE_PODCASTS} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Apple Podcasts</a>
+                <a href={AUDIOMACK} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Audiomack</a>
                 <a href={FB} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Facebook</a>
                 <a href={`mailto:${EMAIL}`} style={{ color: c.onDeep, textDecoration: "none", wordBreak: "break-word" }}>{EMAIL}</a>
               </div>
