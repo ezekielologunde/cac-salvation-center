@@ -120,7 +120,7 @@ export default function LeadershipPage() {
               Serving alongside.
             </h2>
           </Reveal>
-          <div className="r-leader-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 22 }}>
+          <div className="r2" style={{ gap: 22 }}>
             {team.map((p, i) => (
               <Reveal key={p.name} delay={i * 70}>
                 <div style={{

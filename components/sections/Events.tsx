@@ -34,17 +34,18 @@ export function Events() {
 
         <div className="r2" style={{ gap: 22 }}>
           {events.map((ev, i) => (
-            <Reveal key={ev.title} delay={i * 120} style={{ display: 'flex', gap: 24, alignItems: 'center', background: 'var(--paper)', borderRadius: 24, padding: 28, boxShadow: '0 10px 26px rgba(27,19,14,.06)' }}>
+            <Reveal key={ev.title} delay={i * 120} style={{ display: 'flex', gap: 20, alignItems: 'flex-start', background: 'var(--paper)', borderRadius: 24, padding: 28, boxShadow: '0 10px 26px rgba(27,19,14,.06)' }}>
               <div style={{
-                flexShrink: 0, width: 92, height: 92, borderRadius: 18,
+                flexShrink: 0, width: 80, height: 80, borderRadius: 16,
                 background: ev.dateBg,
                 color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', lineHeight: 1,
+                marginTop: 2,
               }}>
-                <span style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1 }}>{ev.month}</span>
-                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 38 }}>{ev.day}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1 }}>{ev.month}</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 32 }}>{ev.day}</span>
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, letterSpacing: '-.5px' }}>{ev.title}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(17px,4vw,24px)', letterSpacing: '-.4px', lineHeight: 1.2 }}>{ev.title}</div>
                 <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 6 }}>{ev.desc}</div>
                 {ev.href && (
                   <Link href={ev.href} className="press" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, fontSize: 13.5, fontWeight: 700, color: 'var(--red)', textDecoration: 'none' }}>
