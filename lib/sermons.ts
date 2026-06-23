@@ -22,6 +22,25 @@ function decodeXml(s: string): string {
     .replace(/&#39;|&apos;/g, "'");
 }
 
+export async function getLiveStream(): Promise<Sermon | null> {
+  const key = process.env.YOUTUBE_API_KEY;
+  if (!key) return null;
+  try {
+    const url =
+      `https://www.googleapis.com/youtube/v3/search` +
+      `?part=snippet&channelId=${CHANNEL_ID}&type=video` +
+      `&eventType=live&maxResults=1&key=${encodeURIComponent(key)}`;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    const data = await res.json() as { items?: { id: { videoId: string }; snippet: { title: string; publishedAt: string } }[] };
+    const items = data.items ?? [];
+    if (!items.length) return null;
+    return { id: items[0].id.videoId, title: items[0].snippet.title, published: items[0].snippet.publishedAt ?? "" };
+  } catch {
+    return null;
+  }
+}
+
 async function fromApi(limit: number): Promise<Sermon[] | null> {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) return null;
@@ -29,7 +48,7 @@ async function fromApi(limit: number): Promise<Sermon[] | null> {
     const url =
       `https://www.googleapis.com/youtube/v3/search` +
       `?part=snippet&channelId=${CHANNEL_ID}&type=video` +
-      `&order=date&maxResults=${limit}&key=${encodeURIComponent(key)}`;
+      `&eventType=completed&order=date&maxResults=${limit}&key=${encodeURIComponent(key)}`;
     const res = await fetch(url, { next: { revalidate: 86400 } });
     if (!res.ok) return null;
     const data = await res.json() as { items?: { id: { videoId: string }; snippet: { title: string; publishedAt: string } }[] };

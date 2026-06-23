@@ -3,7 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import Image from "next/image";
 import Link from "next/link";
-import { getSermons, formatSermonDate } from "@/lib/sermons";
+import { getSermons, getLiveStream, formatSermonDate } from "@/lib/sermons";
 import { Video } from "lucide-react";
 
 const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
@@ -29,7 +29,8 @@ export const metadata = {
 };
 
 export default async function OnlinePage() {
-  const pastSermons = await getSermons(9);
+  const [live, pastSermons] = await Promise.all([getLiveStream(), getSermons(9)]);
+  const featured = live ?? pastSermons[0];
   return (
     <main style={{ background: "#0C0E13", minHeight: "100vh" }}>
       <Nav dark />
@@ -85,15 +86,18 @@ export default async function OnlinePage() {
           <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: 28, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,.5)" }}>
             <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
               <iframe
-                src={`https://www.youtube.com/embed/${pastSermons[0]?.id ?? "xIZBd9UYIDw"}`}
-                title={pastSermons[0]?.title ?? "CAC Salvation Center — Latest Service"}
+                src={`https://www.youtube.com/embed/${featured?.id ?? "xIZBd9UYIDw"}`}
+                title={featured?.title ?? "CAC Salvation Center — Latest Service"}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
               />
             </div>
             <div style={{ background: "#161B22", padding: "20px 28px", display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginRight: 8 }}>● Latest service</span>
+              {live
+                ? <span style={{ fontSize: 12, fontWeight: 700, color: "var(--red)", marginRight: 8, animation: "pulse-red 1.8s infinite" }}>● LIVE NOW</span>
+                : <span style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginRight: 8 }}>● Latest service</span>
+              }
               <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 600, marginRight: 4 }}>Watch on:</span>
               {platforms.slice(0, 3).map(p => (
                 <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.7)", textDecoration: "none", padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(255,255,255,.12)" }}>
