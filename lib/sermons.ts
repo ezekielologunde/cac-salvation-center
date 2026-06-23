@@ -30,7 +30,7 @@ async function fromApi(limit: number): Promise<Sermon[] | null> {
       `https://www.googleapis.com/youtube/v3/search` +
       `?part=snippet&channelId=${CHANNEL_ID}&type=video` +
       `&order=date&maxResults=${limit}&key=${encodeURIComponent(key)}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, { next: { revalidate: 86400 } });
     if (!res.ok) return null;
     const data = await res.json() as { items?: { id: { videoId: string }; snippet: { title: string; publishedAt: string } }[] };
     const items = data.items ?? [];
@@ -47,7 +47,7 @@ async function fromApi(limit: number): Promise<Sermon[] | null> {
 
 async function fromRss(limit: number): Promise<Sermon[] | null> {
   try {
-    const res = await fetch(FEED_URL, { next: { revalidate: 3600 } });
+    const res = await fetch(FEED_URL, { next: { revalidate: 86400 } });
     if (!res.ok) return null;
     const xml = await res.text();
     const entries = xml.split("<entry>").slice(1);
