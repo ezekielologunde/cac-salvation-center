@@ -3,27 +3,69 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { CheckCircle2, ShoppingBag, Mail, MessageCircle, Home } from "lucide-react";
 import Link from "next/link";
 import Stripe from "stripe";
+import { createServiceClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Order Confirmed — CAC Salvation Center Store",
   description: "Thank you for your order from the Salvation Center Store.",
 };
 
-async function getSession(sessionId: string) {
-  if (!process.env.STRIPE_SECRET_KEY || !sessionId) return null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function getSession(sessionId: string): Promise<Stripe.Checkout.Session | null> {
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  if (!key || !sessionId) return null;
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: "2026-05-27.dahlia",
-    });
-    return await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["line_items"],
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stripe = new Stripe(key, { apiVersion: "2024-06-20" as any });
+    return await stripe.checkout.sessions.retrieve(sessionId, { expand: ["line_items"] });
   } catch {
     return null;
   }
 }
 
-export default async function StorSuccessPage({
+async function saveOrderFallback(session: Stripe.Checkout.Session): Promise<void> {
+  try {
+    const supabase = createServiceClient();
+    const sd = session.collected_information?.shipping_details ?? null;
+    const paymentIntent =
+      typeof session.payment_intent === "string"
+        ? session.payment_intent
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        : (session.payment_intent as any)?.id ?? null;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from as any)("orders").upsert(
+      {
+        stripe_session_id: session.id,
+        stripe_payment_intent: paymentIntent,
+        customer_name: session.customer_details?.name ?? null,
+        customer_email: session.customer_details?.email ?? "",
+        customer_phone: session.customer_details?.phone ?? null,
+        shipping_name: sd?.name ?? session.customer_details?.name ?? null,
+        shipping_line1: sd?.address?.line1 ?? null,
+        shipping_line2: sd?.address?.line2 ?? null,
+        shipping_city: sd?.address?.city ?? null,
+        shipping_state: sd?.address?.state ?? null,
+        shipping_postal_code: sd?.address?.postal_code ?? null,
+        shipping_country: sd?.address?.country ?? null,
+        line_items: (session.line_items?.data ?? []).map((li) => ({
+          description: li.description ?? "Item",
+          quantity: li.quantity ?? 1,
+          amount_total: li.amount_total ?? 0,
+        })),
+        amount_total: session.amount_total ?? 0,
+        currency: session.currency ?? "usd",
+        status: "paid",
+      },
+      { onConflict: "stripe_session_id" },
+    );
+    console.log("[success] Order upserted to DB:", session.id);
+  } catch (err) {
+    console.error("[success] Failed to save order fallback:", err);
+  }
+}
+
+export default async function StoreSuccessPage({
   searchParams,
 }: {
   searchParams: Promise<{ session_id?: string }>;
@@ -31,11 +73,19 @@ export default async function StorSuccessPage({
   const { session_id } = await searchParams;
   const session = session_id ? await getSession(session_id) : null;
 
-  const hasDigital = session?.metadata?.has_digital === "true";
+  // Save immediately — webhook is primary, this is the fallback
+  if (session && session.payment_status === "paid") {
+    await saveOrderFallback(session);
+  }
+
   const email = session?.customer_details?.email;
   const name = session?.customer_details?.name;
   const amountTotal = session?.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : null;
   const items = session?.line_items?.data ?? [];
+  const hasDigital = session?.metadata?.has_digital === "true";
+
+  // Short human-readable ref shown to customer and visible in admin (Stripe session ID suffix)
+  const orderRef = session?.id ? session.id.slice(-8).toUpperCase() : null;
 
   return (
     <main>
@@ -69,20 +119,35 @@ export default async function StorSuccessPage({
               "Your receipt has been sent to your email by Stripe."
             )}
           </p>
-          {amountTotal && (
-            <div style={{
-              display: "inline-block", marginTop: 24,
-              background: "rgba(255,247,239,.07)", border: "1px solid rgba(255,247,239,.14)",
-              borderRadius: 16, padding: "14px 28px",
-            }}>
-              <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 6 }}>
-                Order total
+
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
+            {amountTotal && (
+              <div style={{
+                background: "rgba(255,247,239,.07)", border: "1px solid rgba(255,247,239,.14)",
+                borderRadius: 16, padding: "14px 28px",
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 6 }}>
+                  Order total
+                </div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 32, color: "#fff" }}>
+                  {amountTotal}
+                </div>
               </div>
-              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 32, color: "#fff" }}>
-                {amountTotal}
+            )}
+            {orderRef && (
+              <div style={{
+                background: "rgba(255,247,239,.07)", border: "1px solid rgba(255,247,239,.14)",
+                borderRadius: 16, padding: "14px 28px",
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 6 }}>
+                  Order ref
+                </div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 24, color: "#fff", letterSpacing: "2px" }}>
+                  #{orderRef}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </section>
 
@@ -136,11 +201,11 @@ export default async function StorSuccessPage({
               <div>
                 <div style={{ fontWeight: 700, fontSize: 15, color: "var(--ink)", marginBottom: 4 }}>Questions? WhatsApp us</div>
                 <div style={{ fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.65 }}>
-                  Reach the church directly at{" "}
+                  Reach us at{" "}
                   <a href="https://wa.me/14432726794" target="_blank" rel="noopener noreferrer" style={{ color: "#25D366", fontWeight: 700 }}>
                     +1 (443) 272-6794
                   </a>{" "}
-                  with your order details.
+                  {orderRef && <>with your order ref <strong>#{orderRef}</strong>.</>}
                 </div>
               </div>
             </div>
