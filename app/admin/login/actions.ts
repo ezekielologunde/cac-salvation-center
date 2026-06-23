@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function loginAction(_: unknown, formData: FormData) {
@@ -12,5 +11,5 @@ export async function loginAction(_: unknown, formData: FormData) {
 
   if (error) return { error: "Invalid email or password." };
 
-  redirect("/admin");
+  return { success: true };
 }

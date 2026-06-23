@@ -1,10 +1,18 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { loginAction } from "./actions";
 
 export default function AdminLogin() {
+  const router = useRouter();
   const [state, action, isPending] = useActionState(loginAction, null);
+
+  useEffect(() => {
+    if (state && "success" in state && state.success) {
+      router.push("/admin");
+    }
+  }, [state, router]);
 
   const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const unauthorized = urlParams?.get("error") === "unauthorized";

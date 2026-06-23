@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll:    () => request.cookies.getAll(),
+        getAll: () => request.cookies.getAll(),
         setAll: (pairs) => {
           pairs.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({ request });
@@ -22,28 +22,9 @@ export async function proxy(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    if (!user) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
-    const { data: profile } = await supabase
-      .from("admin_profiles")
-      .select("id")
-      .eq("id", user.id)
-      .single();
-    if (!profile) {
-      await supabase.auth.signOut();
-      return NextResponse.redirect(new URL("/admin/login?error=unauthorized", request.url));
-    }
-  }
-
-  if (pathname === "/admin/login" && user) {
-    const { data: profile } = await supabase
-      .from("admin_profiles")
-      .select("id")
-      .eq("id", user.id)
-      .single();
-    if (profile) return NextResponse.redirect(new URL("/admin", request.url));
+  // Unauthenticated users cannot access any /admin route except /admin/login
+  if (pathname.startsWith("/admin") && pathname !== "/admin/login" && !user) {
+    return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
   return response;
