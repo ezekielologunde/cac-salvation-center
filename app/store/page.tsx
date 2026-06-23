@@ -244,7 +244,7 @@ export default async function StorePage() {
           <Reveal style={{ marginBottom: 20 }}>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 10 }}>How ordering works</div>
             <p style={{ fontSize: 15, color: "var(--ink)", lineHeight: 1.78, margin: "0 0 10px" }}>
-              <strong>Apparel &amp; Music</strong> — click "Buy Now" or "Request order" and we'll reply within 24 hours with payment details. Cards, Apple Pay, and Google Pay accepted.
+              <strong>Apparel &amp; Music</strong> — click "Add to Cart" to check out securely via Stripe, or "Request order" for custom sizing and we'll reply within 24 hours. Cards, Apple Pay, and Google Pay accepted.
             </p>
             <p style={{ fontSize: 15, color: "var(--ink)", lineHeight: 1.78, margin: 0 }}>
               <strong>Bibles</strong> link directly to Amazon. <strong>Custom prints</strong> are ordered via email — we confirm details and quote the final price. All proceeds support CAC Salvation Center ministries.

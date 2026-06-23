@@ -245,6 +245,75 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          id: string
+          stripe_session_id: string | null
+          stripe_payment_intent: string | null
+          customer_name: string | null
+          customer_email: string
+          customer_phone: string | null
+          shipping_name: string | null
+          shipping_line1: string | null
+          shipping_line2: string | null
+          shipping_city: string | null
+          shipping_state: string | null
+          shipping_postal_code: string | null
+          shipping_country: string | null
+          line_items: Json
+          amount_total: number
+          currency: string
+          status: string
+          refunded_amount: number | null
+          notes: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          stripe_session_id?: string | null
+          stripe_payment_intent?: string | null
+          customer_name?: string | null
+          customer_email: string
+          customer_phone?: string | null
+          shipping_name?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_city?: string | null
+          shipping_state?: string | null
+          shipping_postal_code?: string | null
+          shipping_country?: string | null
+          line_items?: Json
+          amount_total?: number
+          currency?: string
+          status?: string
+          refunded_amount?: number | null
+          notes?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          stripe_session_id?: string | null
+          stripe_payment_intent?: string | null
+          customer_name?: string | null
+          customer_email?: string
+          customer_phone?: string | null
+          shipping_name?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_city?: string | null
+          shipping_state?: string | null
+          shipping_postal_code?: string | null
+          shipping_country?: string | null
+          line_items?: Json
+          amount_total?: number
+          currency?: string
+          status?: string
+          refunded_amount?: number | null
+          notes?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
       prayer_requests: {
         Row: {
           archived: boolean
