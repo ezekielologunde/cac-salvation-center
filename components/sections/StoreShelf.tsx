@@ -10,6 +10,7 @@ import { useCart } from "@/contexts/CartContext";
 import { CartSidebar } from "@/components/store/CartSidebar";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
 import type { StoreProduct, ProductCategory } from "@/lib/products";
+import Image from "next/image";
 import { playAdd, haptic } from "@/lib/feedback";
 
 const EMAIL = "info@cacsalvationcenter.org";
@@ -81,11 +82,12 @@ function ProductCard({ p }: { p: StoreProduct }) {
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 75% 25%,rgba(255,255,255,.15),transparent 55%)" }} />
           {p.image ? (
             <>
-              <img
+              <Image
                 src={p.image}
                 alt={p.imageAlt ?? p.name}
-                loading="lazy"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                sizes="(max-width: 640px) 45vw, 30vw"
+                style={{ objectFit: "cover" }}
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(0,0,0,.52) 0%,transparent 52%)" }} />
             </>

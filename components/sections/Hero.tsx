@@ -112,7 +112,7 @@ export function Hero() {
         padding: "140px clamp(20px,5vw,64px) 80px",
         overflow: "hidden",
         background: "#0d0a08",
-        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg)",
+        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/hqdefault.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
