@@ -1,6 +1,7 @@
-import { createServiceClient } from "@/lib/supabase/server";
+﻿import { createServiceClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { toggleActive } from "./actions";
+import ActionButton from "@/components/admin/ActionButton";
 
 export default async function AnnouncementsListPage() {
   const supabase = createServiceClient();
@@ -13,7 +14,7 @@ export default async function AnnouncementsListPage() {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: 0 }}>Announcements</h1>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: 0 }}>Announcements</h1>
         <Link
           href="/admin/announcements/new"
           style={{ background: "var(--red)", color: "white", padding: "10px 20px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}
@@ -23,7 +24,7 @@ export default async function AnnouncementsListPage() {
       </div>
 
       {!announcements?.length ? (
-        <div style={{ background: "white", borderRadius: 12, padding: "48px 32px", textAlign: "center", color: "rgba(0,0,0,0.4)" }}>
+        <div style={{ background: "white", borderRadius: 12, padding: "48px 32px", textAlign: "center", color: "var(--ink-soft)" }}>
           <p style={{ fontSize: 16, margin: "0 0 12px" }}>No announcements yet.</p>
           <Link href="/admin/announcements/new" style={{ color: "var(--red)", fontWeight: 600 }}>
             Add your first announcement →
@@ -69,7 +70,7 @@ export default async function AnnouncementsListPage() {
                 {/* Placement badge */}
                 <span style={{
                   background: "#f3f4f6",
-                  color: "rgba(0,0,0,0.5)",
+                  color: "var(--ink-soft)",
                   borderRadius: 20,
                   padding: "3px 10px",
                   fontSize: 12,
@@ -93,7 +94,7 @@ export default async function AnnouncementsListPage() {
 
                 {/* Expires */}
                 {a.expires_at && (
-                  <span style={{ fontSize: 12, color: "rgba(0,0,0,0.4)" }}>
+                  <span style={{ fontSize: 12, color: "var(--ink-soft)" }}>
                     Expires: {new Date(a.expires_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                   </span>
                 )}
@@ -108,8 +109,7 @@ export default async function AnnouncementsListPage() {
 
                 {/* Toggle Active */}
                 <form action={toggleActive.bind(null, a.id, !a.active)}>
-                  <button
-                    type="submit"
+                  <ActionButton
                     style={{
                       background: "transparent",
                       border: "1.5px solid rgba(0,0,0,0.15)",
@@ -117,14 +117,12 @@ export default async function AnnouncementsListPage() {
                       padding: "5px 14px",
                       fontSize: 12,
                       fontWeight: 600,
-                      color: "rgba(0,0,0,0.5)",
-                      cursor: "pointer",
-                      fontFamily: "inherit",
+                      color: "var(--ink-soft)",
                       whiteSpace: "nowrap",
                     }}
                   >
                     {a.active ? "Deactivate" : "Activate"}
-                  </button>
+                  </ActionButton>
                 </form>
               </div>
             );

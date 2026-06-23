@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -113,7 +113,7 @@ export default function AdminLogin() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
-            style={{ fontFamily: "Georgia, serif", fontSize: 24, color: "var(--ink)", margin: 0 }}
+            style={{ fontSize: 20, fontWeight: 700, color: "var(--ink)", margin: 0 }}
           >
             Admin Login
           </motion.h1>

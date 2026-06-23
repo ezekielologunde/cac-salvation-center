@@ -99,6 +99,11 @@ export default function AnnouncementForm({
 
   return (
     <div style={{ maxWidth: 720 }}>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <form onSubmit={handleSubmit}>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
@@ -110,6 +115,7 @@ export default function AnnouncementForm({
               value={title}
               onChange={(e) => { setTitle(e.target.value); setSaved(false); }}
               required
+              className="adm-inp"
               style={inp}
               placeholder="e.g. Sunday Service Time Change"
             />
@@ -123,6 +129,7 @@ export default function AnnouncementForm({
               value={body}
               onChange={(e) => { setBody(e.target.value); setSaved(false); }}
               rows={3}
+              className="adm-inp"
               style={{ ...inp, resize: "vertical" }}
               placeholder="Additional details shown beneath the title…"
             />
@@ -136,6 +143,7 @@ export default function AnnouncementForm({
                 name="cta_text"
                 value={ctaText}
                 onChange={(e) => { setCtaText(e.target.value); setSaved(false); }}
+                className="adm-inp"
                 style={inp}
                 placeholder="Register Now →"
               />
@@ -147,6 +155,7 @@ export default function AnnouncementForm({
                 name="cta_url"
                 value={ctaUrl}
                 onChange={(e) => { setCtaUrl(e.target.value); setSaved(false); }}
+                className="adm-inp"
                 style={inp}
                 placeholder="https://…"
               />
@@ -191,6 +200,7 @@ export default function AnnouncementForm({
                 name="placement"
                 value={placement}
                 onChange={(e) => { setPlacement(e.target.value); setSaved(false); }}
+                className="adm-inp"
                 style={{ ...inp }}
               >
                 <option value="homepage">Homepage</option>
@@ -205,6 +215,7 @@ export default function AnnouncementForm({
                 name="expires_at"
                 value={expiresAt}
                 onChange={(e) => { setExpiresAt(e.target.value); setSaved(false); }}
+                className="adm-inp"
                 style={inp}
               />
             </div>
@@ -274,7 +285,7 @@ export default function AnnouncementForm({
               type="submit"
               disabled={isPending}
               style={{
-                background: isPending ? "#999" : "var(--red)",
+                background: "var(--red)",
                 color: "white",
                 border: "none",
                 borderRadius: 8,
@@ -283,6 +294,8 @@ export default function AnnouncementForm({
                 fontWeight: 600,
                 cursor: isPending ? "not-allowed" : "pointer",
                 fontFamily: "inherit",
+                opacity: isPending ? 0.65 : 1,
+                transition: "opacity 0.15s",
               }}
             >
               {isPending ? "Saving…" : isEdit ? "Save Changes" : "Create Announcement"}

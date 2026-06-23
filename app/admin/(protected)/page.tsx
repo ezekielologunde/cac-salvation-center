@@ -32,10 +32,10 @@ export default async function AdminDashboard() {
   return (
     <div style={{ maxWidth: 900 }}>
       <div style={{ marginBottom: 36 }}>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 30, color: "var(--ink)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>
+        <h1 style={{ fontSize: 26, fontWeight: 700, color: "var(--ink)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>
           Dashboard
         </h1>
-        <p style={{ color: "rgba(0,0,0,0.45)", fontSize: 15, margin: 0 }}>
+        <p style={{ color: "var(--ink-soft)", fontSize: 14, margin: 0 }}>
           {totalAttention > 0
             ? `${totalAttention} item${totalAttention !== 1 ? "s" : ""} need your attention today.`
             : "Everything is up to date."}

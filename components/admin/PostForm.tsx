@@ -91,11 +91,16 @@ export default function PostForm({ post }: { post?: Post }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 820 }}>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
         <div>
           <label style={label}>Title *</label>
-          <input name="title" value={title} onChange={handleTitleChange} required style={inp} />
+          <input name="title" value={title} onChange={handleTitleChange} required className="adm-inp" style={inp} />
         </div>
 
         <div>
@@ -107,6 +112,7 @@ export default function PostForm({ post }: { post?: Post }) {
             value={slug}
             onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); setSaved(false); }}
             required
+            className="adm-inp"
             style={{ ...inp, fontFamily: "monospace", fontSize: 13 }}
           />
         </div>
@@ -120,6 +126,7 @@ export default function PostForm({ post }: { post?: Post }) {
             value={excerpt}
             onChange={(e) => { setExcerpt(e.target.value); setSaved(false); }}
             rows={3}
+            className="adm-inp"
             style={{ ...inp, resize: "vertical" }}
           />
         </div>
@@ -134,6 +141,7 @@ export default function PostForm({ post }: { post?: Post }) {
             onChange={(e) => { setBody(e.target.value); setSaved(false); }}
             rows={24}
             required
+            className="adm-inp"
             style={{ ...inp, resize: "vertical", fontFamily: "monospace", fontSize: 13, lineHeight: 1.6 }}
           />
         </div>
@@ -156,7 +164,7 @@ export default function PostForm({ post }: { post?: Post }) {
             type="submit"
             disabled={isPending}
             style={{
-              background: isPending ? "#999" : "var(--red)",
+              background: "var(--red)",
               color: "white",
               border: "none",
               borderRadius: 8,
@@ -165,6 +173,8 @@ export default function PostForm({ post }: { post?: Post }) {
               fontWeight: 600,
               cursor: isPending ? "not-allowed" : "pointer",
               fontFamily: "inherit",
+              opacity: isPending ? 0.65 : 1,
+              transition: "opacity 0.15s",
             }}
           >
             {isPending ? "Saving…" : isEdit ? "Save Changes" : "Create Post"}

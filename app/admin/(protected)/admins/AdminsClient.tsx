@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState, useTransition } from "react";
 import { inviteAdmin, removeAdmin, type InviteState } from "./actions";
@@ -38,7 +38,7 @@ export default function AdminsClient({
         border: "1px solid rgba(0,0,0,0.07)",
         marginBottom: 32,
       }}>
-        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "var(--ink)", margin: "0 0 18px", letterSpacing: "-0.01em" }}>
+        <h2 style={{ fontSize: 15, fontWeight: 600, color: "var(--ink)", margin: "0 0 16px" }}>
           Invite a new admin
         </h2>
         <form action={formAction} style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -105,12 +105,12 @@ export default function AdminsClient({
         overflow: "hidden",
       }}>
         <div style={{ padding: "18px 24px 14px", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "var(--ink)", margin: 0, letterSpacing: "-0.01em" }}>
-            Current admins <span style={{ fontSize: 13, fontWeight: 500, color: "rgba(0,0,0,0.4)", fontFamily: "inherit" }}>({admins.length})</span>
+          <h2 style={{ fontSize: 15, fontWeight: 600, color: "var(--ink)", margin: 0 }}>
+            Current admins <span style={{ fontSize: 13, fontWeight: 500, color: "var(--ink-soft)", fontFamily: "inherit" }}>({admins.length})</span>
           </h2>
         </div>
         {admins.length === 0 ? (
-          <p style={{ padding: "24px", color: "rgba(0,0,0,0.4)", fontSize: 14, margin: 0 }}>No admins found.</p>
+          <p style={{ padding: "24px", color: "var(--ink-soft)", fontSize: 14, margin: 0 }}>No admins found.</p>
         ) : (
           admins.map((admin, i) => {
             const isSelf = admin.id === currentUserId;
@@ -155,7 +155,7 @@ export default function AdminsClient({
                       </span>
                     )}
                   </p>
-                  <p style={{ margin: 0, fontSize: 12, color: "rgba(0,0,0,0.38)" }}>
+                  <p style={{ margin: 0, fontSize: 12, color: "var(--ink-soft)" }}>
                     Added {joined}
                   </p>
                 </div>
@@ -169,7 +169,7 @@ export default function AdminsClient({
                     style={{
                       background: "transparent",
                       border: "1px solid rgba(0,0,0,0.1)",
-                      color: "rgba(0,0,0,0.45)",
+                      color: "var(--ink-soft)",
                       borderRadius: 8,
                       padding: "6px 14px",
                       fontSize: 12,

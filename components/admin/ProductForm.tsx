@@ -97,6 +97,11 @@ export default function ProductForm({ product }: { product?: Product }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 720 }}>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
         <div>
@@ -106,6 +111,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             value={name}
             onChange={(e) => { setName(e.target.value); setSaved(false); }}
             required
+            className="adm-inp"
             style={inp}
           />
         </div>
@@ -117,6 +123,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             value={category}
             onChange={(e) => { setCategory(e.target.value); setSaved(false); }}
             required
+            className="adm-inp"
             style={inp}
           >
             <option value="apparel">Apparel</option>
@@ -134,6 +141,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             value={description}
             onChange={(e) => { setDescription(e.target.value); setSaved(false); }}
             rows={3}
+            className="adm-inp"
             style={{ ...inp, resize: "vertical" }}
           />
         </div>
@@ -147,6 +155,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               onChange={(e) => { setPriceDisplay(e.target.value); setSaved(false); }}
               required
               placeholder="e.g. $29.99"
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -158,6 +167,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               value={priceCents}
               min={0}
               onChange={(e) => { setPriceCents(parseInt(e.target.value, 10) || 0); setSaved(false); }}
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -169,6 +179,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             name="badge"
             value={badge}
             onChange={(e) => { setBadge(e.target.value); setSaved(false); }}
+            className="adm-inp"
             style={inp}
           />
         </div>
@@ -182,6 +193,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               value={imageUrl}
               onChange={(e) => { setImageUrl(e.target.value); setSaved(false); }}
               placeholder="https://…"
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -191,6 +203,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               name="image_alt"
               value={imageAlt}
               onChange={(e) => { setImageAlt(e.target.value); setSaved(false); }}
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -203,6 +216,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             value={orderMethod}
             onChange={(e) => { setOrderMethod(e.target.value); setSaved(false); }}
             required
+            className="adm-inp"
             style={inp}
           >
             <option value="email">Email</option>
@@ -219,6 +233,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               value={stripePriceId}
               onChange={(e) => { setStripePriceId(e.target.value); setSaved(false); }}
               placeholder="price_…"
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -234,6 +249,7 @@ export default function ProductForm({ product }: { product?: Product }) {
                 value={externalLink}
                 onChange={(e) => { setExternalLink(e.target.value); setSaved(false); }}
                 placeholder="https://…"
+                className="adm-inp"
                 style={inp}
               />
             </div>
@@ -243,6 +259,7 @@ export default function ProductForm({ product }: { product?: Product }) {
                 name="external_label"
                 value={externalLabel}
                 onChange={(e) => { setExternalLabel(e.target.value); setSaved(false); }}
+                className="adm-inp"
                 style={inp}
               />
             </div>
@@ -265,6 +282,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             name="sort_order"
             value={sortOrder}
             onChange={(e) => { setSortOrder(parseInt(e.target.value, 10) || 0); setSaved(false); }}
+            className="adm-inp"
             style={{ ...inp, width: 120 }}
           />
         </div>
@@ -287,7 +305,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             type="submit"
             disabled={isPending}
             style={{
-              background: isPending ? "#999" : "var(--red)",
+              background: "var(--red)",
               color: "white",
               border: "none",
               borderRadius: 8,
@@ -296,6 +314,8 @@ export default function ProductForm({ product }: { product?: Product }) {
               fontWeight: 600,
               cursor: isPending ? "not-allowed" : "pointer",
               fontFamily: "inherit",
+              opacity: isPending ? 0.65 : 1,
+              transition: "opacity 0.15s",
             }}
           >
             {isPending ? "Saving…" : isEdit ? "Save Changes" : "Create Product"}

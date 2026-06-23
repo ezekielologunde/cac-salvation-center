@@ -1,4 +1,4 @@
-import { createServiceClient } from "@/lib/supabase/server";
+﻿import { createServiceClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { addImage, removeImage, toggleImagePublished } from "./actions";
 
@@ -12,11 +12,16 @@ export default async function GalleryAdminPage() {
 
   return (
     <div>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); outline: none; }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "0 0 4px" }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: "0 0 4px" }}>
           Gallery
         </h1>
-        <p style={{ fontSize: 14, color: "rgba(0,0,0,0.45)", margin: 0 }}>
+        <p style={{ fontSize: 14, color: "var(--ink-soft)", margin: 0 }}>
           Manage photos shown on the public gallery page
         </p>
       </div>
@@ -29,7 +34,7 @@ export default async function GalleryAdminPage() {
         boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
         marginBottom: 36,
       }}>
-        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "var(--ink)", margin: "0 0 20px" }}>
+        <h2 style={{ fontSize: 15, fontWeight: 600, color: "var(--ink)", margin: "0 0 16px" }}>
           Add Photo
         </h2>
         <form action={addImage} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -40,6 +45,7 @@ export default async function GalleryAdminPage() {
             <input
               name="cloudinary_public_id"
               required
+              className="adm-inp"
               placeholder="e.g. congregation/sunday-service-2024"
               style={{
                 width: "100%",
@@ -58,10 +64,11 @@ export default async function GalleryAdminPage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>
-                Caption <span style={{ color: "rgba(0,0,0,0.35)", fontWeight: 400 }}>(optional)</span>
+                Caption <span style={{ color: "var(--ink-soft)", fontWeight: 400 }}>(optional)</span>
               </label>
               <input
                 name="caption"
+                className="adm-inp"
                 placeholder="Short caption for this photo"
                 style={{
                   width: "100%",
@@ -78,10 +85,11 @@ export default async function GalleryAdminPage() {
             </div>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>
-                Alt Text <span style={{ color: "rgba(0,0,0,0.35)", fontWeight: 400 }}>(optional)</span>
+                Alt Text <span style={{ color: "var(--ink-soft)", fontWeight: 400 }}>(optional)</span>
               </label>
               <input
                 name="alt_text"
+                className="adm-inp"
                 placeholder="Describe the image for accessibility"
                 style={{
                   width: "100%",
@@ -105,6 +113,7 @@ export default async function GalleryAdminPage() {
               </label>
               <select
                 name="category"
+                className="adm-inp"
                 defaultValue="general"
                 style={{
                   width: "100%",
@@ -133,6 +142,7 @@ export default async function GalleryAdminPage() {
               <input
                 name="sort_order"
                 type="number"
+                className="adm-inp"
                 defaultValue={0}
                 style={{
                   width: "100%",
@@ -150,7 +160,7 @@ export default async function GalleryAdminPage() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-            <p style={{ fontSize: 12, color: "rgba(0,0,0,0.4)", margin: 0 }}>
+            <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
               Enter the Cloudinary public ID of an image already uploaded to the CAC account (cloud: dkmn2rtbc)
             </p>
             <button
@@ -181,7 +191,7 @@ export default async function GalleryAdminPage() {
           borderRadius: 12,
           padding: "48px 32px",
           textAlign: "center",
-          color: "rgba(0,0,0,0.4)",
+          color: "var(--ink-soft)",
           boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
         }}>
           <p style={{ fontSize: 16, margin: 0 }}>No photos yet. Add your first photo above.</p>
@@ -209,7 +219,7 @@ export default async function GalleryAdminPage() {
               />
               <div style={{ padding: "10px 12px" }}>
                 {img.caption && (
-                  <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", margin: "0 0 8px", lineHeight: 1.4 }}>
+                  <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: "0 0 8px", lineHeight: 1.4 }}>
                     {img.caption}
                   </p>
                 )}
@@ -231,8 +241,8 @@ export default async function GalleryAdminPage() {
                     style={{
                       flex: 1,
                       background: "transparent",
-                      color: "#2563eb",
-                      border: "1.5px solid #2563eb",
+                      color: "var(--red)",
+                      border: "1.5px solid var(--red)",
                       borderRadius: 6,
                       padding: "5px 0",
                       fontSize: 12,

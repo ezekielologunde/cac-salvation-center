@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
 import EventForm from "@/components/admin/EventForm";
@@ -29,11 +29,11 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
   return (
     <div>
       <div style={{ marginBottom: 28 }}>
-        <Link href="/admin/events" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
+        <Link href="/admin/events" style={{ color: "var(--ink-soft)", fontSize: 13, textDecoration: "none" }}>
           ← Events
         </Link>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>Edit Event</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: "8px 0 0" }}>Edit Event</h1>
           {event.published && (
             <Link
               href="/events"

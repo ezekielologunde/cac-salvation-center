@@ -83,11 +83,16 @@ export default function EventForm({ event }: { event?: Event }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 720 }}>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
         <div>
           <label style={label}>Title *</label>
-          <input name="title" value={title} onChange={(e) => { setTitle(e.target.value); setSaved(false); }} required style={inp} />
+          <input name="title" value={title} onChange={(e) => { setTitle(e.target.value); setSaved(false); }} required className="adm-inp" style={inp} />
         </div>
 
         <div>
@@ -97,6 +102,7 @@ export default function EventForm({ event }: { event?: Event }) {
             value={description}
             onChange={(e) => { setDescription(e.target.value); setSaved(false); }}
             rows={5}
+            className="adm-inp"
             style={{ ...inp, resize: "vertical" }}
           />
         </div>
@@ -110,6 +116,7 @@ export default function EventForm({ event }: { event?: Event }) {
               value={eventDate}
               onChange={(e) => { setEventDate(e.target.value); setSaved(false); }}
               required
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -120,6 +127,7 @@ export default function EventForm({ event }: { event?: Event }) {
               name="end_date"
               value={endDate}
               onChange={(e) => { setEndDate(e.target.value); setSaved(false); }}
+              className="adm-inp"
               style={inp}
             />
           </div>
@@ -127,12 +135,12 @@ export default function EventForm({ event }: { event?: Event }) {
 
         <div>
           <label style={label}>Location <span style={muted}>— optional</span></label>
-          <input name="location" value={location} onChange={(e) => { setLocation(e.target.value); setSaved(false); }} style={inp} placeholder="e.g. CAC Salvation Center, Lagos" />
+          <input name="location" value={location} onChange={(e) => { setLocation(e.target.value); setSaved(false); }} className="adm-inp" style={inp} placeholder="e.g. CAC Salvation Center, Lagos" />
         </div>
 
         <div>
           <label style={label}>Registration / Info URL <span style={muted}>— optional</span></label>
-          <input type="url" name="event_url" value={eventUrl} onChange={(e) => { setEventUrl(e.target.value); setSaved(false); }} style={inp} placeholder="https://…" />
+          <input type="url" name="event_url" value={eventUrl} onChange={(e) => { setEventUrl(e.target.value); setSaved(false); }} className="adm-inp" style={inp} placeholder="https://…" />
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -153,7 +161,7 @@ export default function EventForm({ event }: { event?: Event }) {
             type="submit"
             disabled={isPending}
             style={{
-              background: isPending ? "#999" : "var(--red)",
+              background: "var(--red)",
               color: "white",
               border: "none",
               borderRadius: 8,
@@ -162,6 +170,8 @@ export default function EventForm({ event }: { event?: Event }) {
               fontWeight: 600,
               cursor: isPending ? "not-allowed" : "pointer",
               fontFamily: "inherit",
+              opacity: isPending ? 0.65 : 1,
+              transition: "opacity 0.15s",
             }}
           >
             {isPending ? "Saving…" : isEdit ? "Save Changes" : "Create Event"}

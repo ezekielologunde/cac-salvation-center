@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
 import GalleryImageForm from "@/components/admin/GalleryImageForm";
@@ -28,10 +28,10 @@ export default async function EditGalleryImagePage({ params }: { params: Promise
   return (
     <div>
       <div style={{ marginBottom: 28 }}>
-        <Link href="/admin/gallery" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
+        <Link href="/admin/gallery" style={{ color: "var(--ink-soft)", fontSize: 13, textDecoration: "none" }}>
           ← Gallery
         </Link>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: "8px 0 0" }}>
           Edit Photo
         </h1>
       </div>
@@ -45,7 +45,7 @@ export default async function EditGalleryImagePage({ params }: { params: Promise
             style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }}
           />
           <div style={{ padding: "12px 16px" }}>
-            <p style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", margin: "0 0 4px", fontFamily: "monospace" }}>
+            <p style={{ fontSize: 11, color: "var(--ink-soft)", margin: "0 0 4px", fontFamily: "monospace" }}>
               {image.cloudinary_public_id}
             </p>
           </div>

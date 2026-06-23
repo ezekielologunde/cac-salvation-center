@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
 import PostForm from "@/components/admin/PostForm";
@@ -20,11 +20,11 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
   return (
     <div>
       <div style={{ marginBottom: 28 }}>
-        <Link href="/admin/blog" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
+        <Link href="/admin/blog" style={{ color: "var(--ink-soft)", fontSize: 13, textDecoration: "none" }}>
           ← Blog Posts
         </Link>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: "8px 0 0" }}>
             Edit Post
           </h1>
           {post.published && (

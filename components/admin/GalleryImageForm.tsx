@@ -73,6 +73,11 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+      <style>{`
+        .adm-inp { transition: border-color 0.15s, box-shadow 0.15s; }
+        .adm-inp:focus-visible { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,40,40,0.12); }
+        .adm-inp:hover:not(:focus-visible) { border-color: rgba(27,19,14,0.24); }
+      `}</style>
       <div>
         <label style={lbl}>Caption <span style={{ fontWeight: 400, opacity: 0.5 }}>(optional)</span></label>
         <input
@@ -80,6 +85,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
           value={caption}
           onChange={(e) => { setCaption(e.target.value); setSaved(false); }}
           placeholder="Short description of the photo"
+          className="adm-inp"
           style={inp}
         />
       </div>
@@ -91,6 +97,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
           value={altText}
           onChange={(e) => { setAltText(e.target.value); setSaved(false); }}
           placeholder="Describe the image content"
+          className="adm-inp"
           style={inp}
         />
       </div>
@@ -102,6 +109,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
             name="category"
             value={category}
             onChange={(e) => { setCategory(e.target.value); setSaved(false); }}
+            className="adm-inp"
             style={{ ...inp, background: "white" }}
           >
             <option value="general">General</option>
@@ -118,6 +126,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
             type="number"
             value={sortOrder}
             onChange={(e) => { setSortOrder(Number(e.target.value)); setSaved(false); }}
+            className="adm-inp"
             style={inp}
           />
         </div>
@@ -141,7 +150,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
           type="submit"
           disabled={isPending}
           style={{
-            background: isPending ? "#999" : "var(--red)",
+            background: "var(--red)",
             color: "white",
             border: "none",
             borderRadius: 8,
@@ -150,6 +159,8 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
             fontWeight: 600,
             cursor: isPending ? "not-allowed" : "pointer",
             fontFamily: "inherit",
+            opacity: isPending ? 0.65 : 1,
+            transition: "opacity 0.15s",
           }}
         >
           {isPending ? "Saving…" : "Save Changes"}

@@ -14,12 +14,12 @@ const STAT_CARDS = [
 ];
 
 const QUICK_ACTIONS = [
-  { href: "/admin/blog/new",          label: "Write a Blog Post" },
-  { href: "/admin/events/new",        label: "Add an Event" },
-  { href: "/admin/testimonies",       label: "Review Testimonies" },
-  { href: "/admin/store/new",         label: "Add Product" },
-  { href: "/admin/gallery",           label: "Upload to Gallery" },
-  { href: "/admin/announcements/new", label: "New Announcement" },
+  { href: "/admin/blog/new",          label: "Write a Blog Post",  icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" },
+  { href: "/admin/events/new",        label: "Add an Event",       icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  { href: "/admin/testimonies",       label: "Review Testimonies", icon: "M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" },
+  { href: "/admin/store/new",         label: "Add Product",        icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" },
+  { href: "/admin/gallery",           label: "Upload to Gallery",  icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  { href: "/admin/announcements/new", label: "New Announcement",   icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" },
 ];
 
 type Stats = { posts: number; events: number; pendingTestimonies: number; prayers: number; contacts: number; products: number; gallery: number; announcements: number };
@@ -28,14 +28,28 @@ export default function DashboardCards({ stats }: { stats: Stats }) {
   return (
     <>
       <style>{`
-        .stat-card { transition: box-shadow 0.2s, transform 0.2s; }
-        .stat-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.11) !important; transform: translateY(-2px); }
-        .quick-btn { transition: opacity 0.15s, transform 0.15s; }
-        .quick-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .stat-card { transition: box-shadow 0.18s, transform 0.18s; }
+        .stat-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.09) !important; transform: translateY(-2px); }
+        .quick-btn {
+          display: flex; align-items: center; gap: 8px;
+          padding: 9px 16px; border-radius: 8px;
+          border: 1.5px solid rgba(27,19,14,0.12);
+          background: white; color: var(--ink);
+          text-decoration: none; font-size: 13.5px; font-weight: 500;
+          font-family: inherit; cursor: pointer;
+          transition: border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.15s;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .quick-btn:hover {
+          border-color: var(--red);
+          color: var(--red);
+          box-shadow: 0 2px 8px rgba(214,40,40,0.1);
+          transform: translateY(-1px);
+        }
       `}</style>
 
       {/* Stat grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(165px, 1fr))", gap: 16, marginBottom: 48 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(165px, 1fr))", gap: 14, marginBottom: 44 }}>
         {STAT_CARDS.map(({ key, label, color, bg, href, icon }) => {
           const count = stats[key as keyof Stats];
           const hasAlert = (key === "pendingTestimonies" || key === "prayers" || key === "contacts") && count > 0;
@@ -46,37 +60,37 @@ export default function DashboardCards({ stats }: { stats: Stats }) {
               className="stat-card"
               style={{
                 background: "white",
-                borderRadius: 14,
-                padding: "22px 20px",
+                borderRadius: 12,
+                padding: "20px 18px",
                 textDecoration: "none",
                 display: "block",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-                border: `1px solid ${hasAlert ? color + "30" : "rgba(0,0,0,0.06)"}`,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+                border: `1px solid ${hasAlert ? color + "30" : "rgba(0,0,0,0.07)"}`,
                 position: "relative",
                 overflow: "hidden",
               }}
             >
               <div style={{
                 position: "absolute", top: 0, left: 0, right: 0, height: 3,
-                background: color, borderRadius: "14px 14px 0 0",
+                background: color,
               }} />
               <div style={{
-                width: 38, height: 38, borderRadius: 10, background: bg,
-                display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14,
+                width: 36, height: 36, borderRadius: 9, background: bg,
+                display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12,
               }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d={icon} />
                 </svg>
               </div>
-              <p style={{ fontSize: 34, fontWeight: 700, color: "var(--ink)", margin: "0 0 4px", fontFamily: "Georgia, serif", lineHeight: 1 }}>
+              <p style={{ fontSize: 28, fontWeight: 700, color: "var(--ink)", margin: "0 0 3px", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>
                 {count}
               </p>
-              <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", margin: 0, fontWeight: 500 }}>{label}</p>
+              <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0, fontWeight: 500 }}>{label}</p>
               {hasAlert && (
                 <span style={{
                   position: "absolute", top: 14, right: 14,
-                  width: 8, height: 8, borderRadius: "50%", background: color,
-                  boxShadow: `0 0 0 3px ${bg}`,
+                  width: 7, height: 7, borderRadius: "50%", background: color,
+                  boxShadow: `0 0 0 2.5px ${bg}`,
                 }} />
               )}
             </Link>
@@ -86,27 +100,15 @@ export default function DashboardCards({ stats }: { stats: Stats }) {
 
       {/* Quick actions */}
       <div>
-        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 20, color: "var(--ink)", margin: "0 0 16px", letterSpacing: "-0.01em" }}>
+        <h2 style={{ fontSize: 14, fontWeight: 600, color: "var(--ink-soft)", margin: "0 0 12px", letterSpacing: "0.04em", textTransform: "uppercase" }}>
           Quick Actions
         </h2>
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          {QUICK_ACTIONS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="quick-btn"
-              style={{
-                background: "var(--red)",
-                color: "white",
-                padding: "10px 22px",
-                borderRadius: 10,
-                textDecoration: "none",
-                fontSize: 14,
-                fontWeight: 600,
-                boxShadow: "0 2px 8px rgba(185,28,28,0.25)",
-                display: "inline-block",
-              }}
-            >
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {QUICK_ACTIONS.map(({ href, label, icon }) => (
+            <Link key={href} href={href} className="quick-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <path d={icon} />
+              </svg>
               {label}
             </Link>
           ))}

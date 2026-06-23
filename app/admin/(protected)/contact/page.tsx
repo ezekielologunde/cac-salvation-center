@@ -1,5 +1,6 @@
-import { createServiceClient } from "@/lib/supabase/server";
+﻿import { createServiceClient } from "@/lib/supabase/server";
 import { archiveContact, unarchiveContact } from "./actions";
+import ActionButton from "@/components/admin/ActionButton";
 
 type ContactRow = {
   id: string;
@@ -21,7 +22,6 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
       borderRadius: 10,
       padding: "20px 24px",
       boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
-      borderLeft: `4px solid ${archived ? "#d1d5db" : "#7c3aed"}`,
       opacity: archived ? 0.7 : 1,
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, marginBottom: 12 }}>
@@ -29,7 +29,7 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
           <p style={{ fontWeight: 700, fontSize: 15, color: "var(--ink)", margin: "0 0 2px" }}>
             {item.name}
             {item.subject && (
-              <span style={{ fontWeight: 400, color: "rgba(0,0,0,0.5)", marginLeft: 8, fontSize: 14 }}>
+              <span style={{ fontWeight: 400, color: "var(--ink-soft)", marginLeft: 8, fontSize: 14 }}>
                 — {item.subject}
               </span>
             )}
@@ -37,18 +37,18 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
             <a
               href={`mailto:${item.email}?subject=Re: ${encodeURIComponent(item.subject ?? "Your message to CAC Salvation Center")}`}
-              style={{ fontSize: 13, color: "#7c3aed", textDecoration: "none", fontWeight: 500 }}
+              style={{ fontSize: 13, color: "var(--red)", textDecoration: "none", fontWeight: 500 }}
             >
               {item.email}
             </a>
-            <span style={{ fontSize: 12, color: "rgba(0,0,0,0.35)" }}>{date}</span>
+            <span style={{ fontSize: 12, color: "var(--ink-soft)" }}>{date}</span>
           </div>
         </div>
         <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
           <a
             href={`mailto:${item.email}?subject=Re: ${encodeURIComponent(item.subject ?? "Your message to CAC Salvation Center")}`}
             style={{
-              background: "#7c3aed",
+              background: "var(--red)",
               color: "white",
               border: "none",
               borderRadius: 6,
@@ -62,20 +62,18 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
             Reply
           </a>
           <form action={archived ? unarchiveContact.bind(null, item.id) : archiveContact.bind(null, item.id)}>
-            <button type="submit" style={{
+            <ActionButton style={{
               background: "transparent",
-              color: archived ? "#2563eb" : "rgba(0,0,0,0.35)",
-              border: `1px solid ${archived ? "#2563eb" : "rgba(0,0,0,0.15)"}`,
+              color: "var(--ink-soft)",
+              border: "1px solid rgba(27,19,14,0.15)",
               borderRadius: 6,
               padding: "5px 12px",
               fontSize: 12,
               fontWeight: 600,
-              cursor: "pointer",
-              fontFamily: "inherit",
               whiteSpace: "nowrap",
             }}>
               {archived ? "Unarchive" : "Archive"}
-            </button>
+            </ActionButton>
           </form>
         </div>
       </div>
@@ -109,21 +107,21 @@ export default async function ContactPage() {
   return (
     <div>
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "0 0 6px", display: "flex", alignItems: "center", gap: 12 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", margin: "0 0 6px", display: "flex", alignItems: "center", gap: 12 }}>
           Contact Inbox
           {active.length > 0 && (
-            <span style={{ background: "#7c3aed", color: "white", borderRadius: 20, fontSize: 13, fontWeight: 700, padding: "3px 11px" }}>
+            <span style={{ background: "var(--red)", color: "white", borderRadius: 20, fontSize: 13, fontWeight: 700, padding: "3px 11px" }}>
               {active.length}
             </span>
           )}
         </h1>
-        <p style={{ fontSize: 14, color: "rgba(0,0,0,0.45)", margin: 0 }}>
+        <p style={{ fontSize: 14, color: "var(--ink-soft)", margin: 0 }}>
           Click Reply or the email address to respond in your mail client.
         </p>
       </div>
 
       {active.length === 0 ? (
-        <div style={{ background: "white", borderRadius: 12, padding: "48px 32px", textAlign: "center", color: "rgba(0,0,0,0.35)", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
+        <div style={{ background: "white", borderRadius: 12, padding: "48px 32px", textAlign: "center", color: "var(--ink-soft)", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
           <p style={{ fontSize: 16, margin: 0 }}>No unread messages.</p>
         </div>
       ) : (
@@ -134,7 +132,7 @@ export default async function ContactPage() {
 
       {archived.length > 0 && (
         <section>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "var(--ink)", margin: "0 0 16px", opacity: 0.6 }}>
+          <h2 style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-soft)", margin: "0 0 14px" }}>
             Archived <span style={{ fontWeight: 400, fontSize: 13 }}>(most recent 30)</span>
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

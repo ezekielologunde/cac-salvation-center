@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 
@@ -19,10 +19,10 @@ export default function AdminError({ error, reset }: { error: Error & { digest?:
       }}>
         ✕
       </div>
-      <h1 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1b130e", margin: "0 0 8px", fontWeight: 700 }}>
+      <h1 style={{ fontSize: 20, fontWeight: 700, color: "#1b130e", margin: "0 0 8px" }}>
         Something went wrong
       </h1>
-      <p style={{ fontSize: 14, color: "rgba(0,0,0,0.5)", maxWidth: 380, margin: "0 auto 28px", lineHeight: 1.6 }}>
+      <p style={{ fontSize: 14, color: "var(--ink-soft)", maxWidth: 380, margin: "0 auto 28px", lineHeight: 1.6 }}>
         An unexpected error occurred. Try refreshing or head back to the dashboard.
       </p>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
@@ -41,7 +41,7 @@ export default function AdminError({ error, reset }: { error: Error & { digest?:
           href="/admin"
           style={{
             padding: "9px 20px", borderRadius: 8,
-            background: "transparent", color: "rgba(0,0,0,0.5)",
+            background: "transparent", color: "var(--ink-soft)",
             fontWeight: 600, fontSize: 13,
             border: "1px solid rgba(0,0,0,0.15)",
             textDecoration: "none", fontFamily: "inherit",
