@@ -39,7 +39,19 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
         <Link href="/admin/store" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
           ← Store
         </Link>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>Edit Product</h1>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+          <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>Edit Product</h1>
+          {product.published && (
+            <Link
+              href="/store"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, fontWeight: 600, color: "var(--red)", textDecoration: "none", whiteSpace: "nowrap" }}
+            >
+              View on site ↗
+            </Link>
+          )}
+        </div>
       </div>
       <div style={{ background: "white", borderRadius: 12, padding: "32px 36px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
         <ProductForm product={product} />

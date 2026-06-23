@@ -23,9 +23,21 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
         <Link href="/admin/blog" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
           ← Blog Posts
         </Link>
-        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>
-          Edit Post
-        </h1>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+          <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>
+            Edit Post
+          </h1>
+          {post.published && (
+            <Link
+              href={`/blog/${post.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, fontWeight: 600, color: "var(--red)", textDecoration: "none", whiteSpace: "nowrap" }}
+            >
+              View on site ↗
+            </Link>
+          )}
+        </div>
       </div>
       <div style={{ background: "white", borderRadius: 12, padding: "32px 36px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
         <PostForm post={{ id: post.id, title: post.title, slug: post.slug, excerpt: post.excerpt, body: post.body, published: post.published }} />
