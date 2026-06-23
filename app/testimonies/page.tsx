@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
@@ -56,6 +57,7 @@ const tagColor: Record<string, string> = {
   Salvation: "linear-gradient(135deg,#F15F22,#D62828)",
   Ministry: "linear-gradient(135deg,#9E1B1B,#1B130E)",
   Restoration: "linear-gradient(135deg,#F15F22,#E8A33D)",
+  Testimony: "linear-gradient(135deg,#D62828,#F15F22)",
 };
 
 const googleReviews = [
@@ -106,7 +108,24 @@ const googleReviews = [
   },
 ];
 
-export default function TestimoniesPage() {
+export default async function TestimoniesPage() {
+  const { data: dbRows } = await createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+    .from("testimonies")
+    .select("id, name, message")
+    .eq("approved", true)
+    .order("created_at", { ascending: false });
+
+  const dynamicStories = (dbRows ?? []).map((t: { id: string; name: string; message: string }) => ({
+    name: t.name,
+    where: "Congregation",
+    quote: t.message,
+    tag: "Testimony",
+  }));
+  const allStories = [...stories, ...dynamicStories];
+
   return (
     <main>
       <Nav heroDark />
@@ -147,7 +166,7 @@ export default function TestimoniesPage() {
       <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 22 }}>
-            {stories.map((s, i) => (
+            {allStories.map((s, i) => (
               <Reveal key={i} delay={(i % 3) * 80}>
                 <article style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 24, padding: "28px 28px 26px", display: "flex", flexDirection: "column", boxShadow: "0 12px 30px rgba(27,19,14,.06)" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>

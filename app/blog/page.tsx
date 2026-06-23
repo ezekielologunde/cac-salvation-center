@@ -1,13 +1,36 @@
+import { createClient } from "@supabase/supabase-js";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
-import { POSTS } from "@/lib/blog";
+import { POSTS, type BlogPost } from "@/lib/blog";
 import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
 import { Clock, Calendar, MapPin, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
 
 export const revalidate = 3600;
+
+type DbBlogRow = {
+  id: string; title: string; slug: string; excerpt: string | null;
+  body: string; published_at: string | null; created_at: string;
+};
+
+function dbPostToBlogPost(p: DbBlogRow): BlogPost {
+  const date = new Date(p.published_at ?? p.created_at);
+  const words = p.body.split(/\s+/).length;
+  return {
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt ?? p.body.slice(0, 160) + "…",
+    date: date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+    dateIso: p.published_at ?? p.created_at,
+    category: "Ministry Update",
+    categoryColor: "#D62828",
+    accent: "#D62828",
+    readTime: `${Math.max(1, Math.round(words / 200))} min read`,
+    body: p.body.split(/\n\n+/),
+  };
+}
 
 export const metadata = {
   title: "Blog & News — CAC Salvation Center",
@@ -264,8 +287,20 @@ function HallRentalAdWidget() {
   );
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  const { data: dbRows } = await supabase
+    .from("blog_posts")
+    .select("id, title, slug, excerpt, body, published_at, created_at")
+    .eq("published", true)
+    .order("published_at", { ascending: false });
+
+  const dynamicPosts = (dbRows ?? []).map(dbPostToBlogPost);
   const [featured, ...rest] = POSTS;
+  const allArticles = [...rest, ...dynamicPosts];
   const dateStr = new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 
   return (
@@ -339,7 +374,7 @@ export default function BlogPage() {
             gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
             gap: 22,
           }}>
-            {rest.map((p, i) => (
+            {allArticles.map((p, i) => (
               <Reveal key={p.slug} delay={i * 80}>
                 <ArticleCard post={p} />
               </Reveal>

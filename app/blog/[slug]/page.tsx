@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
 import { ArrowLeft, Share2, Clock, Calendar, ExternalLink, Building2, ArrowRight } from "lucide-react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
@@ -10,8 +11,61 @@ import { POSTS, getPost } from "@/lib/blog";
 import type { BlogPost } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
-export function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug }));
+function makePublicClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
+
+function dbRowToPost(row: {
+  title: string; slug: string; excerpt: string | null; body: string;
+  published_at: string | null; created_at: string;
+}): BlogPost {
+  const date = new Date(row.published_at ?? row.created_at);
+  const words = row.body.split(/\s+/).length;
+  return {
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt ?? row.body.slice(0, 160) + "…",
+    date: date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+    dateIso: row.published_at ?? row.created_at,
+    category: "Ministry Update",
+    categoryColor: "#D62828",
+    accent: "#D62828",
+    readTime: `${Math.max(1, Math.round(words / 200))} min read`,
+    body: row.body.split(/\n\n+/),
+  };
+}
+
+export async function generateStaticParams() {
+  const staticParams = POSTS.map((p) => ({ slug: p.slug }));
+  try {
+    const { data } = await makePublicClient()
+      .from("blog_posts")
+      .select("slug")
+      .eq("published", true);
+    const dbParams = (data ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
+    return [...staticParams, ...dbParams];
+  } catch {
+    return staticParams;
+  }
+}
+
+async function resolvePost(slug: string): Promise<BlogPost | null> {
+  const post = getPost(slug);
+  if (post) return post;
+  try {
+    const { data } = await makePublicClient()
+      .from("blog_posts")
+      .select("title, slug, excerpt, body, published_at, created_at")
+      .eq("slug", slug)
+      .eq("published", true)
+      .single();
+    return data ? dbRowToPost(data) : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({
@@ -20,7 +74,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await resolvePost(slug);
   if (!post) return { title: "Not Found" };
   return {
     title: `${post.title} — CAC Salvation Center`,
@@ -255,7 +309,7 @@ export default async function BlogSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await resolvePost(slug);
   if (!post) notFound();
 
   const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);

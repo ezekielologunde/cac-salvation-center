@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,6 +8,34 @@ import { CalendarPlus, Download } from "lucide-react";
 import { specialEvents, weeklyServices, monthlyServices, googleCalUrl, icsDataUri, isEventPast, type ChurchEvent } from "@/lib/events";
 
 export const revalidate = 3600;
+
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+type DbEventRow = {
+  id: string; title: string; description: string | null;
+  event_date: string; end_date: string | null;
+  location: string | null; event_url: string | null;
+};
+
+function dbEventToChurchEvent(e: DbEventRow): ChurchEvent {
+  const start = new Date(e.event_date);
+  const end = e.end_date ? new Date(e.end_date) : start;
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const toLocal = (dt: Date) =>
+    `${dt.getUTCFullYear()}${pad(dt.getUTCMonth() + 1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00`;
+  return {
+    id: e.id,
+    title: e.title,
+    desc: e.description ?? "",
+    dateLabel: start.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }),
+    timeLabel: start.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" }) + " ET",
+    month: MONTHS[start.getUTCMonth()],
+    day: pad(start.getUTCDate()),
+    startLocal: toLocal(start),
+    endLocal: toLocal(end),
+    href: e.event_url ?? undefined,
+  };
+}
 
 export const metadata = {
   title: "Events — CAC Salvation Center",
@@ -37,9 +66,20 @@ function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }
   );
 }
 
-export default function EventsPage() {
-  const upcoming = specialEvents.filter(ev => !isEventPast(ev));
-  const past = specialEvents.filter(ev => isEventPast(ev));
+export default async function EventsPage() {
+  const { data: dbRows } = await createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+    .from("events")
+    .select("id, title, description, event_date, end_date, location, event_url")
+    .eq("published", true)
+    .order("event_date");
+
+  const dynamicEvents = (dbRows ?? []).map(dbEventToChurchEvent);
+  const allSpecialEvents = [...specialEvents, ...dynamicEvents];
+  const upcoming = allSpecialEvents.filter(ev => !isEventPast(ev));
+  const past = allSpecialEvents.filter(ev => isEventPast(ev));
   return (
     <main>
       <Nav heroDark />
