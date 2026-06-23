@@ -39,6 +39,15 @@ yarn-error.log*
 # local scripts with hardcoded credentials — never commit
 scripts/fetch-gallery.mjs
 
+# site backups and personal data — never commit
+*.tar.gz
+cacsalva_*/
+wp_www.*/
+*.csv
+responses-*.csv
+Gallery/
+.playwright-mcp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
