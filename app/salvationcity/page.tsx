@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { FacebookIcon } from "@/components/ui/SocialIcons";
-import { MapPin, Phone, Mail, Navigation, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, Navigation, ArrowUpRight, Video } from "lucide-react";
 
 export const metadata = {
   title: "CAC Salvation City — Rosedale, MD",
@@ -28,6 +28,7 @@ const c = {
   onDeepLine: "rgba(255,249,200,.15)",
 };
 
+const ZOOM    = "https://us02web.zoom.us/my/cacsalvationcenter?pwd=lyeF5MqjRvAUyCLfieAaf8Ij0NJfnN.1&omn=84863890827";
 const ADDRESS = "8330 Pulaski Hwy Suite F, Rosedale, MD 21237";
 const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent("8330 Pulaski Hwy, Rosedale, MD 21237")}&z=15&output=embed`;
 const MAPS_LINK  = `https://maps.google.com/?q=${encodeURIComponent("8330 Pulaski Hwy Suite F, Rosedale, MD 21237")}`;
@@ -36,6 +37,7 @@ const EMAIL      = "cacsalvationcity@outlook.com";
 const FB         = "https://www.facebook.com/profile.php?id=100083423624157";
 
 const connect = [
+  { label: "Join on Zoom", desc: "Worship with us online — every Sunday", href: ZOOM, icon: <Video size={22} strokeWidth={2} /> },
   { label: "Facebook", desc: "Christ Apostolic Church - Salvation City", href: FB, icon: <FacebookIcon /> },
   { label: "Email",    desc: EMAIL,    href: `mailto:${EMAIL}`,    icon: <Mail size={22} strokeWidth={2} /> },
   { label: "Call",     desc: PHONE,    href: `tel:${PHONE.replace(/\s/g,"")}`, icon: <Phone size={22} strokeWidth={2} /> },
@@ -96,8 +98,11 @@ export default function SalvationCityPage() {
               <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: c.yellow, color: c.deep, fontWeight: 800, fontSize: 16, padding: "16px 28px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 36px rgba(245,211,71,.30)" }}>
                 <Navigation size={18} strokeWidth={2.3} aria-hidden /> Get Directions
               </a>
+              <a href={ZOOM} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, color: "#fff", border: `1.5px solid ${c.onDeepLine}`, background: "rgba(255,255,255,.06)", fontWeight: 700, fontSize: 16, padding: "16px 26px", borderRadius: 999, textDecoration: "none" }}>
+                <Video size={18} strokeWidth={2} aria-hidden /> Join on Zoom
+              </a>
               <a href={FB} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, color: "#fff", border: `1.5px solid ${c.onDeepLine}`, background: "rgba(255,255,255,.06)", fontWeight: 700, fontSize: 16, padding: "16px 26px", borderRadius: 999, textDecoration: "none" }}>
-                <FacebookIcon /> Find us on Facebook
+                <FacebookIcon /> Facebook
               </a>
             </div>
           </Reveal>
@@ -224,6 +229,7 @@ export default function SalvationCityPage() {
             <div>
               <div style={{ fontWeight: 800, fontSize: 13, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, color: c.yellow }}>Connect</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 14 }}>
+                <a href={ZOOM} target="_blank" rel="noopener noreferrer" style={{ color: c.yellowMid, textDecoration: "none", fontWeight: 700 }}>Join on Zoom</a>
                 <a href={FB} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Facebook</a>
                 <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{ color: c.onDeep, textDecoration: "none" }}>{PHONE}</a>
                 <a href={`mailto:${EMAIL}`} style={{ color: c.onDeep, textDecoration: "none", wordBreak: "break-word" }}>{EMAIL}</a>
