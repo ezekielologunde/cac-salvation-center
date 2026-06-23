@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import PostForm from "@/components/admin/PostForm";
 
 type PostRow = { id: string; title: string; slug: string; excerpt: string | null; body: string; published: boolean };
 
 export default async function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const result = await supabase
     .from("blog_posts")
     .select("id, title, slug, excerpt, body, published")

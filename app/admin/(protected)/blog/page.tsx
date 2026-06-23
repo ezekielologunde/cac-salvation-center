@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export default async function BlogListPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data: posts } = await supabase
     .from("blog_posts")
     .select("id, title, slug, published, published_at, created_at")

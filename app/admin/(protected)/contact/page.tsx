@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { archiveContact, unarchiveContact } from "./actions";
 
 type ContactRow = {
@@ -87,7 +87,7 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
 }
 
 export default async function ContactPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
 
   const [activeResult, archivedResult] = await Promise.all([
     supabase

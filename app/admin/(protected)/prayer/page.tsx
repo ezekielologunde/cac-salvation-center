@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { archivePrayer, unarchivePrayer } from "./actions";
 
 type PrayerRow = {
@@ -70,7 +70,7 @@ function PrayerCard({ item, archived }: { item: PrayerRow; archived: boolean }) 
 }
 
 export default async function PrayerPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
 
   const [activeResult, archivedResult] = await Promise.all([
     supabase

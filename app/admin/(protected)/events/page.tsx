@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export default async function EventsListPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data: events } = await supabase
     .from("events")
     .select("id, title, event_date, location, published")

@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { approveTestimony, deleteTestimony } from "./actions";
 
 export default async function TestimoniesPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data: pending } = await supabase
     .from("testimonies")
     .select("id, name, content, created_at")
