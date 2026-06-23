@@ -312,8 +312,28 @@ export default async function BlogSlugPage({
   const post = await resolvePost(slug);
   if (!post) notFound();
 
-  const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
-  const sidebarPosts = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  // Fetch recent DB posts to include alongside static posts
+  let dbRelated: BlogPost[] = [];
+  try {
+    const { data } = await makePublicClient()
+      .from("blog_posts")
+      .select("title, slug, excerpt, body, published_at, created_at")
+      .eq("published", true)
+      .neq("slug", slug)
+      .order("published_at", { ascending: false })
+      .limit(6);
+    dbRelated = (data ?? []).map(dbRowToPost);
+  } catch {
+    // fall through to static posts only
+  }
+  // DB posts first (newest), then static — deduped by slug
+  const seen = new Set<string>([slug]);
+  const allRelated: BlogPost[] = [];
+  for (const p of [...dbRelated, ...POSTS]) {
+    if (!seen.has(p.slug)) { seen.add(p.slug); allRelated.push(p); }
+  }
+  const related = allRelated.slice(0, 3);
+  const sidebarPosts = allRelated.slice(0, 3);
 
   const shareUrl = `${SITE_URL}/blog/${post.slug}`;
   const shareText = encodeURIComponent(`${post.title} — ${shareUrl}`);
