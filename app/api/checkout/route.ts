@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       { status: 503 }
     );
   }
-  if (!stripeKey.startsWith("sk_")) {
-    console.error("[checkout] STRIPE_SECRET_KEY does not start with 'sk_' — likely wrong key type");
+  if (!stripeKey.startsWith("sk_") && !stripeKey.startsWith("rk_")) {
+    console.error("[checkout] STRIPE_SECRET_KEY has unexpected format (not sk_ or rk_)");
     return Response.json({ error: "Stripe configuration error. Please contact support." }, { status: 503 });
   }
 
