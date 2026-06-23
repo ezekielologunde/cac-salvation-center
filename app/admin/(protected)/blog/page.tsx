@@ -27,7 +27,8 @@ export default async function BlogListPage() {
         </div>
       ) : (
         <div style={{ background: "white", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 520 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.08)", background: "#fafafa" }}>
                 {["Title", "Slug", "Status", "Date", ""].map((h) => (
@@ -76,6 +77,7 @@ export default async function BlogListPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>

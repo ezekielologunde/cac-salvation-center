@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminShell from "@/components/admin/AdminShell";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -18,11 +18,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!profile) redirect("/admin/login?error=unauthorized");
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#f4f4f0" }}>
-      <AdminSidebar email={user.email ?? ""} />
-      <main style={{ flex: 1, padding: "40px 48px", overflowY: "auto", minWidth: 0 }}>
-        {children}
-      </main>
-    </div>
+    <AdminShell email={user.email ?? ""}>
+      {children}
+    </AdminShell>
   );
 }
