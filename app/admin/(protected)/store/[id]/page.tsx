@@ -1,0 +1,49 @@
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { createServiceClient } from "@/lib/supabase/server";
+import ProductForm from "@/components/admin/ProductForm";
+
+type ProductRow = {
+  id: string;
+  name: string;
+  category: string;
+  description: string | null;
+  price_display: string;
+  price_cents: number;
+  badge: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  order_method: string;
+  stripe_price_id: string | null;
+  external_link: string | null;
+  external_label: string | null;
+  published: boolean;
+  sort_order: number;
+};
+
+export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const supabase = createServiceClient();
+  const result = await supabase
+    .from("products")
+    .select("id, name, category, description, price_display, price_cents, badge, image_url, image_alt, order_method, stripe_price_id, external_link, external_label, published, sort_order")
+    .eq("id", id)
+    .single();
+
+  const product = result.data as ProductRow | null;
+  if (!product) notFound();
+
+  return (
+    <div>
+      <div style={{ marginBottom: 28 }}>
+        <Link href="/admin/store" style={{ color: "rgba(0,0,0,0.4)", fontSize: 13, textDecoration: "none" }}>
+          ← Store
+        </Link>
+        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "var(--ink)", margin: "8px 0 0" }}>Edit Product</h1>
+      </div>
+      <div style={{ background: "white", borderRadius: 12, padding: "32px 36px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
+        <ProductForm product={product} />
+      </div>
+    </div>
+  );
+}

@@ -8,15 +8,21 @@ const STAT_CARDS = [
   { key: "pendingTestimonies", label: "Testimonies Pending", color: "#d97706", bg: "#fffbeb", href: "/admin/testimonies", icon: "M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" },
   { key: "prayers",            label: "Prayer Requests",     color: "#dc2626", bg: "#fef2f2", href: "/admin/prayer",       icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
   { key: "contacts",           label: "Contact Messages",    color: "#7c3aed", bg: "#f5f3ff", href: "/admin/contact",      icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+  { key: "products",      label: "Products Live",       color: "#0891b2", bg: "#ecfeff", href: "/admin/store",         icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" },
+  { key: "gallery",       label: "Gallery Images",       color: "#7c3aed", bg: "#f5f3ff", href: "/admin/gallery",       icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  { key: "announcements", label: "Active Announcements", color: "#d97706", bg: "#fffbeb", href: "/admin/announcements", icon: "M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" },
 ];
 
 const QUICK_ACTIONS = [
-  { href: "/admin/blog/new",    label: "Write a Blog Post" },
-  { href: "/admin/events/new",  label: "Add an Event" },
-  { href: "/admin/testimonies", label: "Review Testimonies" },
+  { href: "/admin/blog/new",          label: "Write a Blog Post" },
+  { href: "/admin/events/new",        label: "Add an Event" },
+  { href: "/admin/testimonies",       label: "Review Testimonies" },
+  { href: "/admin/store/new",         label: "Add Product" },
+  { href: "/admin/gallery",           label: "Upload to Gallery" },
+  { href: "/admin/announcements/new", label: "New Announcement" },
 ];
 
-type Stats = { posts: number; events: number; pendingTestimonies: number; prayers: number; contacts: number };
+type Stats = { posts: number; events: number; pendingTestimonies: number; prayers: number; contacts: number; products: number; gallery: number; announcements: number };
 
 export default function DashboardCards({ stats }: { stats: Stats }) {
   return (

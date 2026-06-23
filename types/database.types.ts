@@ -191,6 +191,144 @@ export type Database = {
         }
         Relationships: []
       }
+      announcements: {
+        Row: {
+          active: boolean
+          bg_color: string
+          body: string | null
+          created_at: string
+          cta_text: string | null
+          cta_url: string | null
+          expires_at: string | null
+          id: string
+          placement: string
+          sort_order: number
+          text_color: string
+          title: string
+        }
+        Insert: {
+          active?: boolean
+          bg_color?: string
+          body?: string | null
+          created_at?: string
+          cta_text?: string | null
+          cta_url?: string | null
+          expires_at?: string | null
+          id?: string
+          placement?: string
+          sort_order?: number
+          text_color?: string
+          title: string
+        }
+        Update: {
+          active?: boolean
+          bg_color?: string
+          body?: string | null
+          created_at?: string
+          cta_text?: string | null
+          cta_url?: string | null
+          expires_at?: string | null
+          id?: string
+          placement?: string
+          sort_order?: number
+          text_color?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      gallery_images: {
+        Row: {
+          alt_text: string | null
+          caption: string | null
+          category: string
+          cloudinary_public_id: string
+          created_at: string
+          id: string
+          published: boolean
+          sort_order: number
+        }
+        Insert: {
+          alt_text?: string | null
+          caption?: string | null
+          category?: string
+          cloudinary_public_id: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          sort_order?: number
+        }
+        Update: {
+          alt_text?: string | null
+          caption?: string | null
+          category?: string
+          cloudinary_public_id?: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          badge: string | null
+          category: string
+          created_at: string
+          description: string | null
+          external_label: string | null
+          external_link: string | null
+          id: string
+          image_alt: string | null
+          image_url: string | null
+          name: string
+          order_method: string
+          price_cents: number
+          price_display: string
+          published: boolean
+          sort_order: number
+          stripe_price_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          badge?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          external_label?: string | null
+          external_link?: string | null
+          id?: string
+          image_alt?: string | null
+          image_url?: string | null
+          name: string
+          order_method?: string
+          price_cents?: number
+          price_display?: string
+          published?: boolean
+          sort_order?: number
+          stripe_price_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          badge?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          external_label?: string | null
+          external_link?: string | null
+          id?: string
+          image_alt?: string | null
+          image_url?: string | null
+          name?: string
+          order_method?: string
+          price_cents?: number
+          price_display?: string
+          published?: boolean
+          sort_order?: number
+          stripe_price_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

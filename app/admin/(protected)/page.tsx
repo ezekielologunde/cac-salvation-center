@@ -3,19 +3,25 @@ import DashboardCards from "@/components/admin/DashboardCards";
 
 async function getStats() {
   const service = createServiceClient();
-  const [posts, events, testimonies, prayers, contacts] = await Promise.all([
+  const [posts, events, testimonies, prayers, contacts, products, gallery, announcements] = await Promise.all([
     service.from("blog_posts").select("id", { count: "exact", head: true }),
     service.from("events").select("id", { count: "exact", head: true }),
     service.from("testimonies").select("id", { count: "exact", head: true }).eq("approved", false),
     service.from("prayer_requests").select("id", { count: "exact", head: true }).eq("archived", false),
     service.from("contact_submissions").select("id", { count: "exact", head: true }).eq("archived", false),
+    service.from("products").select("id", { count: "exact", head: true }).eq("published", true),
+    service.from("gallery_images").select("id", { count: "exact", head: true }).eq("published", true),
+    service.from("announcements").select("id", { count: "exact", head: true }).eq("active", true),
   ]);
   return {
-    posts:              posts.count ?? 0,
-    events:             events.count ?? 0,
+    posts: posts.count ?? 0,
+    events: events.count ?? 0,
     pendingTestimonies: testimonies.count ?? 0,
-    prayers:            prayers.count ?? 0,
-    contacts:           contacts.count ?? 0,
+    prayers: prayers.count ?? 0,
+    contacts: contacts.count ?? 0,
+    products: products.count ?? 0,
+    gallery: gallery.count ?? 0,
+    announcements: announcements.count ?? 0,
   };
 }
 

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { StoreShelf } from "@/components/sections/StoreShelf";
 import { ShoppingBag, Shirt, BookOpen, Music2, Printer, Shield, Heart, Package } from "lucide-react";
+import { createServiceClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Store — CAC Salvation Center",
@@ -49,7 +50,13 @@ const trust = [
   { icon: Shield,  label: "Secure checkout via Stripe", desc: "Card, Apple Pay & Google Pay accepted. Receipt sent instantly." },
 ];
 
-export default function StorePage() {
+export default async function StorePage() {
+  const service = createServiceClient();
+  const { data: dbProducts } = await service
+    .from("products")
+    .select("*")
+    .eq("published", true)
+    .order("sort_order");
   return (
     <main>
       <Nav heroDark />
@@ -142,6 +149,94 @@ export default function StorePage() {
           </div>
         </div>
       </section>
+
+      {/* DB products — rendered when the Supabase products table has published items */}
+      {dbProducts && dbProducts.length > 0 && (
+        <section style={{ background: "var(--cream)", padding: "clamp(48px,6vw,80px) clamp(20px,5vw,64px)", borderBottom: "1px solid var(--line)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <Reveal style={{ marginBottom: 36 }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3.8vw,44px)", letterSpacing: "-1px", color: "var(--ink)", margin: 0 }}>New in store.</h2>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--red)", letterSpacing: "1.5px", textTransform: "uppercase" }}>{dbProducts.length} item{dbProducts.length !== 1 ? "s" : ""}</span>
+              </div>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%,240px), 1fr))", gap: 20 }}>
+              {dbProducts.map((product, i) => (
+                <Reveal key={product.id} delay={i * 60}>
+                  <div style={{
+                    background: "var(--paper)",
+                    border: "1px solid var(--line)",
+                    borderRadius: 20,
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "0 8px 20px rgba(27,19,14,.06)",
+                    height: "100%",
+                  }}>
+                    {/* Image */}
+                    {product.image_url && (
+                      <div style={{ aspectRatio: "4/3", overflow: "hidden", background: "var(--cream-2)" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={product.image_url}
+                          alt={product.image_alt ?? product.name}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </div>
+                    )}
+                    {!product.image_url && (
+                      <div style={{ aspectRatio: "4/3", background: "linear-gradient(135deg,#1B130E,#3A2518)", display: "grid", placeItems: "center" }}>
+                        <ShoppingBag size={36} color="rgba(255,255,255,.35)" strokeWidth={1.5} aria-hidden />
+                      </div>
+                    )}
+                    {/* Body */}
+                    <div style={{ padding: "18px 18px 20px", display: "flex", flexDirection: "column", flex: 1, gap: 6 }}>
+                      {product.category && (
+                        <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--red)" }}>{product.category}</span>
+                      )}
+                      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, color: "var(--ink)", margin: 0, lineHeight: 1.3 }}>{product.name}</h3>
+                      {product.description && (
+                        <p style={{ fontSize: 13, color: "var(--ink-soft)", lineHeight: 1.6, margin: 0, flex: 1 }}>{product.description}</p>
+                      )}
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 12, gap: 8, flexWrap: "wrap" }}>
+                        {product.price_display && (
+                          <span style={{ fontWeight: 800, fontSize: 16, color: "var(--ink)" }}>{product.price_display}</span>
+                        )}
+                        {product.order_method === "external" && product.external_link && (
+                          <a
+                            href={product.external_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: "inline-block", background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 13, padding: "7px 18px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}
+                          >
+                            {product.external_label || "Order"}
+                          </a>
+                        )}
+                        {product.order_method === "email" && (
+                          <a
+                            href={`mailto:info@cacsalvationcenter.org?subject=Order%3A%20${encodeURIComponent(product.name)}`}
+                            style={{ display: "inline-block", background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 13, padding: "7px 18px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}
+                          >
+                            Order via Email
+                          </a>
+                        )}
+                        {product.order_method === "stripe" && (
+                          <a
+                            href={`mailto:info@cacsalvationcenter.org?subject=Purchase%3A%20${encodeURIComponent(product.name)}`}
+                            style={{ display: "inline-block", background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 13, padding: "7px 18px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}
+                          >
+                            Buy Now
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Store shelf */}
       <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>

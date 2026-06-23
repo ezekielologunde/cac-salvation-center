@@ -37,6 +37,21 @@ const NAV = [
     icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
   },
   {
+    href: "/admin/store",
+    label: "Store",
+    icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
+  },
+  {
+    href: "/admin/gallery",
+    label: "Gallery",
+    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
+  },
+  {
+    href: "/admin/announcements",
+    label: "Announcements",
+    icon: "M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z",
+  },
+  {
     href: "/admin/admins",
     label: "Manage Admins",
     icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
@@ -68,20 +83,22 @@ export default function AdminSidebar({ email }: { email: string }) {
       <div style={{ padding: "28px 20px 22px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 2 }}>
           <div style={{
-            width: 34,
-            height: 34,
+            width: 38,
+            height: 38,
             borderRadius: 8,
-            background: "var(--red)",
+            background: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            boxShadow: "0 4px 12px rgba(185,28,28,0.4)",
+            overflow: "hidden",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
           }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-              <rect x="11" y="3" width="2" height="18" rx="1" />
-              <rect x="4" y="9" width="16" height="2" rx="1" />
-            </svg>
+            <img
+              src="/images/logo.png"
+              alt="CAC Salvation Center"
+              style={{ width: 34, height: 34, objectFit: "contain" }}
+            />
           </div>
           <div>
             <p style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.9)", margin: 0, letterSpacing: "-0.01em" }}>

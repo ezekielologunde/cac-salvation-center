@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createServiceClient } from "@/lib/supabase/server";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
@@ -109,19 +109,17 @@ const googleReviews = [
 ];
 
 export default async function TestimoniesPage() {
-  const { data: dbRows } = await createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+  const service = createServiceClient();
+  const { data: dbRows } = await service
     .from("testimonies")
-    .select("id, name, message")
+    .select("id, name, content")
     .eq("approved", true)
     .order("created_at", { ascending: false });
 
-  const dynamicStories = (dbRows ?? []).map((t: { id: string; name: string; message: string }) => ({
+  const dynamicStories = (dbRows ?? []).map((t: { id: string; name: string; content: string }) => ({
     name: t.name,
     where: "Congregation",
-    quote: t.message,
+    quote: t.content,
     tag: "Testimony",
   }));
   const allStories = [...stories, ...dynamicStories];
