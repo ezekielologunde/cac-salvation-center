@@ -257,6 +257,7 @@ export type Database = {
           line_items: Json
           notes: string | null
           refunded_amount: number | null
+          shipped_at: string | null
           shipping_city: string | null
           shipping_country: string | null
           shipping_line1: string | null
@@ -267,6 +268,7 @@ export type Database = {
           status: string | null
           stripe_payment_intent: string | null
           stripe_session_id: string
+          tracking_number: string | null
           updated_at: string | null
         }
         Insert: {
@@ -280,6 +282,7 @@ export type Database = {
           line_items?: Json
           notes?: string | null
           refunded_amount?: number | null
+          shipped_at?: string | null
           shipping_city?: string | null
           shipping_country?: string | null
           shipping_line1?: string | null
@@ -290,6 +293,7 @@ export type Database = {
           status?: string | null
           stripe_payment_intent?: string | null
           stripe_session_id: string
+          tracking_number?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -303,6 +307,7 @@ export type Database = {
           line_items?: Json
           notes?: string | null
           refunded_amount?: number | null
+          shipped_at?: string | null
           shipping_city?: string | null
           shipping_country?: string | null
           shipping_line1?: string | null
@@ -313,6 +318,7 @@ export type Database = {
           status?: string | null
           stripe_payment_intent?: string | null
           stripe_session_id?: string
+          tracking_number?: string | null
           updated_at?: string | null
         }
         Relationships: []
@@ -353,11 +359,13 @@ export type Database = {
           category: string
           created_at: string
           description: string | null
+          digital_file_url: string | null
           external_label: string | null
           external_link: string | null
           id: string
           image_alt: string | null
           image_url: string | null
+          is_digital: boolean
           name: string
           order_method: string
           price_cents: number
@@ -372,11 +380,13 @@ export type Database = {
           category?: string
           created_at?: string
           description?: string | null
+          digital_file_url?: string | null
           external_label?: string | null
           external_link?: string | null
           id?: string
           image_alt?: string | null
           image_url?: string | null
+          is_digital?: boolean
           name: string
           order_method?: string
           price_cents?: number
@@ -391,11 +401,13 @@ export type Database = {
           category?: string
           created_at?: string
           description?: string | null
+          digital_file_url?: string | null
           external_label?: string | null
           external_link?: string | null
           id?: string
           image_alt?: string | null
           image_url?: string | null
+          is_digital?: boolean
           name?: string
           order_method?: string
           price_cents?: number

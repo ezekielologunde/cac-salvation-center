@@ -18,6 +18,7 @@ type Product = {
   order_method: string;
   external_link: string | null;
   external_label: string | null;
+  is_digital: boolean;
 };
 
 const CATEGORY_ICONS: Record<string, typeof ShoppingBag> = {
@@ -255,6 +256,7 @@ export function StoreProducts({ products }: { products: Product[] }) {
                           priceCents={product.price_cents}
                           priceDisplay={product.price_display}
                           accent={accent}
+                          isDigital={product.is_digital}
                         />
                       )}
                     </div>

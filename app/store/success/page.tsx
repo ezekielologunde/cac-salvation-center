@@ -17,7 +17,9 @@ async function getSession(sessionId: string): Promise<Stripe.Checkout.Session | 
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const stripe = new Stripe(key, { apiVersion: "2024-06-20" as any });
-    return await stripe.checkout.sessions.retrieve(sessionId, { expand: ["line_items"] });
+    return await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items", "line_items.data.price.product"],
+    });
   } catch {
     return null;
   }
@@ -48,11 +50,17 @@ async function saveOrderFallback(session: Stripe.Checkout.Session): Promise<void
         shipping_state: sd?.address?.state ?? null,
         shipping_postal_code: sd?.address?.postal_code ?? null,
         shipping_country: sd?.address?.country ?? null,
-        line_items: (session.line_items?.data ?? []).map((li) => ({
-          description: li.description ?? "Item",
-          quantity: li.quantity ?? 1,
-          amount_total: li.amount_total ?? 0,
-        })),
+        line_items: (session.line_items?.data ?? []).map((li) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const prod = li.price?.product as any;
+          return {
+            description: li.description ?? "Item",
+            quantity: li.quantity ?? 1,
+            amount_total: li.amount_total ?? 0,
+            product_id: prod?.metadata?.product_id ?? null,
+            is_digital: prod?.metadata?.is_digital === "true",
+          };
+        }),
         amount_total: session.amount_total ?? 0,
         currency: session.currency ?? "usd",
         status: "paid",

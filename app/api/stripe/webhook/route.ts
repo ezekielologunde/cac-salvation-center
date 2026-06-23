@@ -266,6 +266,91 @@ async function sendStaffOrderEmail(session: Stripe.Checkout.Session): Promise<vo
   }
 }
 
+// ─── Digital download delivery ──────────────────────────────────────────────
+
+type DigitalItem = { description: string; quantity: number; product_id: string | null; is_digital: boolean; amount_total: number };
+
+async function sendDownloadEmail(
+  customerEmail: string,
+  customerName: string | null,
+  items: DigitalItem[],
+  supabase: ReturnType<typeof createServiceClient>,
+): Promise<void> {
+  if (!process.env.RESEND_API_KEY) return;
+
+  const digitalItems = items.filter((li) => li.is_digital && li.product_id);
+  if (digitalItems.length === 0) return;
+
+  // Fetch download URLs from products table
+  const ids = digitalItems.map((li) => li.product_id!);
+  const { data: products } = await supabase
+    .from("products")
+    .select("id, name, digital_file_url")
+    .in("id", ids);
+
+  const productMap = new Map((products ?? []).map((p) => [p.id, p]));
+
+  const downloadRows = digitalItems
+    .map((li) => {
+      const p = productMap.get(li.product_id!);
+      const url = p?.digital_file_url ?? null;
+      if (!url) return null;
+      return `
+        <div style="background:#F9F8F6;border-radius:12px;padding:18px 22px;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:700;color:#1B130E;margin-bottom:8px">${li.description}</div>
+          <a href="${url}" style="display:inline-block;background:#1B130E;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:9px 18px;border-radius:8px">
+            Download file →
+          </a>
+        </div>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  if (!downloadRows) return;
+
+  const greeting = customerName ? `Hi ${customerName.split(" ")[0]},` : "Hello,";
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f0ede8;font-family:Georgia,serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ede8;padding:40px 16px"><tr><td align="center">
+<table width="100%" style="max-width:580px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(27,19,14,.1)">
+<tr><td style="background:#1B130E;padding:28px 32px">
+  <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8A33D;margin-bottom:6px">CAC Salvation Center</div>
+  <div style="font-size:26px;font-weight:700;color:#fff;line-height:1.2">Your download is ready 🎵</div>
+</td></tr>
+<tr><td style="padding:28px 32px">
+  <p style="margin:0 0 8px;font-size:16px;color:#1B130E;line-height:1.7">${greeting}</p>
+  <p style="margin:0 0 24px;font-size:15px;color:#5f5e5a;line-height:1.7">Thank you for your purchase. Click the button below to download your file.</p>
+  ${downloadRows}
+  <div style="margin-top:24px;background:#f9f8f6;border-radius:10px;padding:16px 20px">
+    <p style="font-size:13px;color:#5f5e5a;margin:0;line-height:1.7">
+      Questions? Reach us on WhatsApp at
+      <a href="https://wa.me/14432726794" style="color:#25D366;font-weight:700;text-decoration:none">+1 (443) 272-6794</a>
+      or email <a href="mailto:info@cacsalvationcenter.org" style="color:#D62828;text-decoration:none">info@cacsalvationcenter.org</a>.
+    </p>
+  </div>
+</td></tr>
+<tr><td style="padding:16px 32px;border-top:1px solid #ede9e4">
+  <p style="margin:0;font-size:12px;color:#aaa">
+    <a href="https://cacsalvationcenter.org" style="color:#D62828;text-decoration:none;font-weight:700">cacsalvationcenter.org</a>
+    &nbsp;·&nbsp; Randallstown, Maryland
+  </p>
+</td></tr>
+</table></td></tr></table></body></html>`;
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: FROM,
+      to: customerEmail,
+      subject: "Your digital download — CAC Salvation Center",
+      html,
+    });
+    console.log("[webhook] Download email sent to:", customerEmail);
+  } catch (err) {
+    console.error("[webhook] Failed to send download email:", err);
+  }
+}
+
 // ─── Refund emails ───────────────────────────────────────────────────────────
 
 async function sendRefundEmails(charge: Stripe.Charge): Promise<void> {
@@ -394,11 +479,23 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const sessionId = (event.data.object as Stripe.Checkout.Session).id;
         const session = await stripe.checkout.sessions.retrieve(sessionId, {
-          expand: ["line_items"],
+          expand: ["line_items", "line_items.data.price.product"],
         });
         console.log("[webhook] Payment completed:", session.id, "amount:", session.amount_total, "email:", session.customer_details?.email);
 
         // Save order to Supabase
+        const enrichedLineItems = (session.line_items?.data ?? []).map((li) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const prod = li.price?.product as any;
+          return {
+            description: li.description ?? "Item",
+            quantity: li.quantity ?? 1,
+            amount_total: li.amount_total ?? 0,
+            product_id: prod?.metadata?.product_id ?? null,
+            is_digital: prod?.metadata?.is_digital === "true",
+          };
+        });
+
         try {
           const supabase = createServiceClient();
           const paymentIntent = typeof session.payment_intent === "string"
@@ -420,11 +517,7 @@ export async function POST(req: Request) {
             shipping_state: sd?.address?.state ?? null,
             shipping_postal_code: sd?.address?.postal_code ?? null,
             shipping_country: sd?.address?.country ?? null,
-            line_items: (session.line_items?.data ?? []).map((li) => ({
-              description: li.description ?? "Item",
-              quantity: li.quantity ?? 1,
-              amount_total: li.amount_total ?? 0,
-            })),
+            line_items: enrichedLineItems,
             amount_total: session.amount_total ?? 0,
             currency: session.currency ?? "usd",
             status: "paid",
@@ -437,6 +530,19 @@ export async function POST(req: Request) {
         // Fire-and-forget emails
         sendOrderEmail(session).catch(() => {});
         sendStaffOrderEmail(session).catch(() => {});
+
+        // Send download links if any digital items
+        if (session.metadata?.has_digital === "true") {
+          const customerEmail = session.customer_details?.email;
+          if (customerEmail) {
+            sendDownloadEmail(
+              customerEmail,
+              session.customer_details?.name ?? null,
+              enrichedLineItems,
+              createServiceClient(),
+            ).catch(() => {});
+          }
+        }
         break;
       }
 

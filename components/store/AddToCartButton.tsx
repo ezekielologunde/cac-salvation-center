@@ -11,14 +11,15 @@ interface Props {
   priceCents: number;
   priceDisplay: string;
   accent: string;
+  isDigital?: boolean;
 }
 
-export function AddToCartButton({ id, name, category, priceCents, priceDisplay, accent }: Props) {
+export function AddToCartButton({ id, name, category, priceCents, priceDisplay, accent, isDigital }: Props) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
 
   function handleAdd() {
-    addItem({ id, name, category, priceCents, priceDisplay, accent });
+    addItem({ id, name, category, priceCents, priceDisplay, accent, isDigital });
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   }

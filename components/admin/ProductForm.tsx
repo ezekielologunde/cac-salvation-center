@@ -19,6 +19,8 @@ type Product = {
   external_label: string | null;
   published: boolean;
   sort_order: number;
+  is_digital: boolean;
+  digital_file_url: string | null;
 };
 
 const inp: React.CSSProperties = {
@@ -60,6 +62,8 @@ export default function ProductForm({ product }: { product?: Product }) {
   const [published, setPublished] = useState(product?.published ?? false);
   const [sortOrder, setSortOrder] = useState(product?.sort_order ?? 0);
   const [isPending, startTransition] = useTransition();
+  const [isDigital, setIsDigital] = useState(product?.is_digital ?? false);
+  const [digitalFileUrl, setDigitalFileUrl] = useState(product?.digital_file_url ?? "");
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
@@ -284,6 +288,38 @@ export default function ProductForm({ product }: { product?: Product }) {
             />
           </div>
         </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <input type="hidden" name="is_digital" value={isDigital ? "true" : "false"} />
+          <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 14, color: "var(--ink)" }}>
+            <input
+              type="checkbox"
+              checked={isDigital}
+              onChange={(e) => { setIsDigital(e.target.checked); setSaved(false); }}
+              style={{ width: 16, height: 16, cursor: "pointer" }}
+            />
+            Digital product (download delivered by email after payment)
+          </label>
+        </div>
+
+        {isDigital && (
+          <div>
+            <label style={label}>Download URL <span style={muted}>— direct link to the file (MP3, PDF, ZIP, etc.)</span></label>
+            <input
+              type="url"
+              name="digital_file_url"
+              value={digitalFileUrl}
+              onChange={(e) => { setDigitalFileUrl(e.target.value); setSaved(false); }}
+              placeholder="https://…"
+              className="adm-inp"
+              style={inp}
+            />
+            <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: "6px 0 0" }}>
+              Upload the file to Cloudinary or your file host, then paste the URL here. This URL is emailed to the customer after payment — make sure it's accessible.
+            </p>
+          </div>
+        )}
+        {!isDigital && <input type="hidden" name="digital_file_url" value="" />}
 
         <div>
           <label style={label}>Order Method *</label>

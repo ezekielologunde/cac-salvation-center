@@ -23,6 +23,8 @@ export async function createProduct(formData: FormData) {
       external_label: (formData.get("external_label") as string) || null,
       published: formData.get("published") === "true",
       sort_order: parseInt(formData.get("sort_order") as string, 10) || 0,
+      is_digital: formData.get("is_digital") === "true",
+      digital_file_url: (formData.get("digital_file_url") as string) || null,
     })
     .select("id")
     .single();
@@ -55,6 +57,8 @@ export async function updateProduct(id: string, formData: FormData) {
       external_label: (formData.get("external_label") as string) || null,
       published: formData.get("published") === "true",
       sort_order: parseInt(formData.get("sort_order") as string, 10) || 0,
+      is_digital: formData.get("is_digital") === "true",
+      digital_file_url: (formData.get("digital_file_url") as string) || null,
     })
     .eq("id", id);
 

@@ -88,6 +88,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   const order = data as unknown as Order;
   const items = (order.line_items ?? []) as LineItem[];
   const hasShipping = order.shipping_line1 || order.shipping_city;
+  const hasDigital = items.some((li) => (li as { is_digital?: boolean }).is_digital);
 
   return (
     <div style={{ maxWidth: 900 }}>
@@ -157,6 +158,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             notes={order.notes ?? null}
             trackingNumber={order.tracking_number ?? null}
             shippedAt={order.shipped_at ?? null}
+            hasDigital={hasDigital}
           />
 
           {/* Status timeline */}

@@ -19,6 +19,8 @@ type ProductRow = {
   external_label: string | null;
   published: boolean;
   sort_order: number;
+  is_digital: boolean;
+  digital_file_url: string | null;
 };
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
@@ -26,7 +28,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   const supabase = createServiceClient();
   const result = await supabase
     .from("products")
-    .select("id, name, category, description, price_display, price_cents, badge, image_url, image_alt, order_method, stripe_price_id, external_link, external_label, published, sort_order")
+    .select("id, name, category, description, price_display, price_cents, badge, image_url, image_alt, order_method, stripe_price_id, external_link, external_label, published, sort_order, is_digital, digital_file_url")
     .eq("id", id)
     .single();
 

@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   const ids = [...new Set(validItems.map((i) => i.id))];
   const { data: products, error: dbError } = await supabase
     .from("products")
-    .select("id, name, category, price_cents")
+    .select("id, name, category, price_cents, is_digital, digital_file_url")
     .in("id", ids)
     .eq("published", true);
 
@@ -72,14 +72,11 @@ export async function POST(req: Request) {
     }
   }
 
-  // Use a stable Stripe API version — named releases like ".dahlia" require
-  // the account to opt in via the Stripe dashboard; using one without opt-in
-  // returns a 400 error for every request.
-  // Use a stable Stripe API version — named releases like ".dahlia" require
-  // the account to opt in via the Stripe dashboard; using one without opt-in
-  // returns a 400 error for every request.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stripe = new Stripe(stripeKey, { apiVersion: "2024-06-20" as any });
+
+  const allDigital = validItems.every((i) => productMap.get(i.id)!.is_digital);
+  const hasDigital = validItems.some((i) => productMap.get(i.id)!.is_digital);
 
   const line_items = validItems.map((item) => {
     const product = productMap.get(item.id)!;
@@ -89,6 +86,11 @@ export async function POST(req: Request) {
         product_data: {
           name: item.variant ? `${product.name} — ${item.variant}` : product.name,
           description: product.category,
+          // Embed product_id and is_digital so webhook/success page can trace back without DB lookup
+          metadata: {
+            product_id: product.id,
+            is_digital: product.is_digital ? "true" : "false",
+          },
         },
         unit_amount: product.price_cents,
       },
@@ -102,16 +104,23 @@ export async function POST(req: Request) {
       mode: "payment",
       success_url: `${SITE_URL}/store/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${SITE_URL}/store`,
-      shipping_address_collection: { allowed_countries: ["US", "CA"] },
-      phone_number_collection: { enabled: true },
+      // Skip shipping for digital-only orders
+      ...(allDigital ? {} : {
+        shipping_address_collection: { allowed_countries: ["US", "CA"] },
+        phone_number_collection: { enabled: true },
+      }),
       billing_address_collection: "auto",
       custom_text: {
         submit: {
-          message:
-            "Your receipt will be emailed. All proceeds support CAC Salvation Center ministries.",
+          message: allDigital
+            ? "Download link emailed within minutes. All proceeds support CAC Salvation Center ministries."
+            : "Your receipt will be emailed. All proceeds support CAC Salvation Center ministries.",
         },
       },
-      metadata: { source: "cac-salvation-center-store" },
+      metadata: {
+        source: "cac-salvation-center-store",
+        has_digital: hasDigital ? "true" : "false",
+      },
     });
 
     if (!session.url) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { markShipped, updateNotes } from "@/app/admin/(protected)/orders/actions";
+import { markShipped, updateNotes, resendDownloadLink } from "@/app/admin/(protected)/orders/actions";
 
 interface Props {
   orderId: string;
@@ -9,6 +9,7 @@ interface Props {
   notes: string | null;
   trackingNumber: string | null;
   shippedAt: string | null;
+  hasDigital: boolean;
 }
 
 function formatDate(iso: string) {
@@ -20,7 +21,7 @@ function formatDate(iso: string) {
   );
 }
 
-export default function OrderActions({ orderId, status, notes, trackingNumber, shippedAt }: Props) {
+export default function OrderActions({ orderId, status, notes, trackingNumber, shippedAt, hasDigital }: Props) {
   const [localNotes, setLocalNotes] = useState(notes ?? "");
   const [notesFeedback, setNotesFeedback] = useState<"saved" | "error" | null>(null);
   const [notesError, setNotesError] = useState("");
@@ -29,6 +30,9 @@ export default function OrderActions({ orderId, status, notes, trackingNumber, s
   const [tracking, setTracking] = useState("");
   const [shippedFeedback, setShippedFeedback] = useState("");
   const [shipPending, startShipTrans] = useTransition();
+
+  const [downloadFeedback, setDownloadFeedback] = useState("");
+  const [downloadPending, startDownloadTrans] = useTransition();
 
   function saveNotes() {
     startNotesTrans(async () => {
@@ -41,6 +45,13 @@ export default function OrderActions({ orderId, status, notes, trackingNumber, s
         setNotesFeedback("error");
         setNotesError(res.error ?? "Failed to save.");
       }
+    });
+  }
+
+  function sendDownload() {
+    startDownloadTrans(async () => {
+      const res = await resendDownloadLink(orderId);
+      setDownloadFeedback(res.ok ? "Download link sent!" : (res.error ?? "Something went wrong."));
     });
   }
 
@@ -83,6 +94,42 @@ export default function OrderActions({ orderId, status, notes, trackingNumber, s
 
   return (
     <>
+      {/* Digital download */}
+      {hasDigital && (
+        <div style={cardStyle}>
+          <div style={cardHeaderStyle}>
+            <p style={cardTitleStyle}>Digital Download</p>
+          </div>
+          <div style={cardBodyStyle}>
+            <p style={{ fontSize: 13, color: "var(--ink-soft)", margin: "0 0 12px", lineHeight: 1.6 }}>
+              This order contains digital items. The download link is emailed automatically after payment. Use the button below to resend it.
+            </p>
+            <button
+              onClick={sendDownload}
+              disabled={downloadPending}
+              style={{
+                padding: "8px 18px",
+                background: "var(--ink)",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: downloadPending ? "not-allowed" : "pointer",
+                opacity: downloadPending ? 0.6 : 1,
+              }}
+            >
+              {downloadPending ? "Sending…" : "Resend Download Link"}
+            </button>
+            {downloadFeedback && (
+              <p style={{ fontSize: 13, margin: "10px 0 0", fontWeight: 600, color: downloadFeedback.includes("sent") ? "#15803d" : "#dc2626" }}>
+                {downloadFeedback}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Notes */}
       <div style={cardStyle}>
         <div style={cardHeaderStyle}>

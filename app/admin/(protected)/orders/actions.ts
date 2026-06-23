@@ -154,6 +154,97 @@ export async function markShipped(
   return { ok: true };
 }
 
+export async function resendDownloadLink(
+  orderId: string,
+): Promise<{ ok: boolean; error?: string }> {
+  try {
+    await requireAdmin();
+  } catch {
+    return { ok: false, error: "Unauthorized" };
+  }
+
+  const supabase = createServiceClient();
+
+  const { data: order } = await supabase
+    .from("orders")
+    .select("customer_email, customer_name, line_items")
+    .eq("id", orderId)
+    .single();
+
+  if (!order) return { ok: false, error: "Order not found" };
+
+  type RichLineItem = { description: string; quantity: number; amount_total: number; product_id?: string | null; is_digital?: boolean };
+  const lineItems: RichLineItem[] = (order.line_items ?? []) as RichLineItem[];
+  const digitalItems = lineItems.filter((li) => li.is_digital && li.product_id);
+
+  if (digitalItems.length === 0) return { ok: false, error: "No digital items found on this order" };
+
+  const ids = digitalItems.map((li) => li.product_id!);
+  const { data: products } = await supabase
+    .from("products")
+    .select("id, name, digital_file_url")
+    .in("id", ids);
+
+  const productMap = new Map((products ?? []).map((p) => [p.id, p]));
+
+  const downloadRows = digitalItems
+    .map((li) => {
+      const p = productMap.get(li.product_id!);
+      const url = p?.digital_file_url ?? null;
+      if (!url) return null;
+      return `
+        <div style="background:#F9F8F6;border-radius:12px;padding:18px 22px;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:700;color:#1B130E;margin-bottom:8px">${li.description}</div>
+          <a href="${url}" style="display:inline-block;background:#1B130E;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:9px 18px;border-radius:8px">
+            Download file →
+          </a>
+        </div>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  if (!downloadRows) return { ok: false, error: "No download URLs configured for these products" };
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return { ok: false, error: "Email service not configured" };
+
+  const greeting = order.customer_name ? `Hi ${(order.customer_name as string).split(" ")[0]},` : "Hello,";
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f0ede8;font-family:Georgia,serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ede8;padding:40px 16px"><tr><td align="center">
+<table width="100%" style="max-width:580px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(27,19,14,.1)">
+<tr><td style="background:#1B130E;padding:28px 32px">
+  <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8A33D;margin-bottom:6px">CAC Salvation Center</div>
+  <div style="font-size:26px;font-weight:700;color:#fff;line-height:1.2">Your download is ready 🎵</div>
+</td></tr>
+<tr><td style="padding:28px 32px">
+  <p style="margin:0 0 8px;font-size:16px;color:#1B130E;line-height:1.7">${greeting}</p>
+  <p style="margin:0 0 24px;font-size:15px;color:#5f5e5a;line-height:1.7">Here is your download link from CAC Salvation Center.</p>
+  ${downloadRows}
+  <div style="margin-top:24px;background:#f9f8f6;border-radius:10px;padding:16px 20px">
+    <p style="font-size:13px;color:#5f5e5a;margin:0;line-height:1.7">
+      Questions? WhatsApp us at <a href="https://wa.me/14432726794" style="color:#25D366;font-weight:700;text-decoration:none">+1 (443) 272-6794</a>.
+    </p>
+  </div>
+</td></tr>
+<tr><td style="padding:16px 32px;border-top:1px solid #ede9e4">
+  <p style="margin:0;font-size:12px;color:#aaa"><a href="https://cacsalvationcenter.org" style="color:#D62828;text-decoration:none;font-weight:700">cacsalvationcenter.org</a> &nbsp;·&nbsp; Randallstown, Maryland</p>
+</td></tr>
+</table></td></tr></table></body></html>`;
+
+  try {
+    await new Resend(apiKey).emails.send({
+      from: "CAC Salvation Center <noreply@cacsalvationcenter.org>",
+      to: order.customer_email as string,
+      subject: "Your digital download — CAC Salvation Center",
+      html,
+    });
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "Failed to send email" };
+  }
+}
+
 export async function updateNotes(
   orderId: string,
   notes: string,
