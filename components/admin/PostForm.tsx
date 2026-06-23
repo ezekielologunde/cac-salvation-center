@@ -71,6 +71,7 @@ export default function PostForm({ post }: { post?: Post }) {
           await createPost(formData);
         }
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to save");
       }
     });
@@ -82,6 +83,7 @@ export default function PostForm({ post }: { post?: Post }) {
       try {
         await deletePost(post!.id);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to delete");
       }
     });

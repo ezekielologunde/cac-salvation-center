@@ -53,6 +53,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
         await updateImage(image.id, formData);
         setSaved(true);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to save");
       }
     });
@@ -64,6 +65,7 @@ export default function GalleryImageForm({ image }: { image: ImageRow }) {
       try {
         await removeImage(image.id);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to delete");
       }
     });

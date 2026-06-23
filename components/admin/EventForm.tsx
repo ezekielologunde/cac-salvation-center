@@ -63,6 +63,7 @@ export default function EventForm({ event }: { event?: Event }) {
           await createEvent(formData);
         }
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to save");
       }
     });
@@ -74,6 +75,7 @@ export default function EventForm({ event }: { event?: Event }) {
       try {
         await deleteEvent(event!.id);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to delete");
       }
     });

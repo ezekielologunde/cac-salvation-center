@@ -79,6 +79,7 @@ export default function AnnouncementForm({
           await createAnnouncement(formData);
         }
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to save");
       }
     });
@@ -90,6 +91,7 @@ export default function AnnouncementForm({
       try {
         await deleteAnnouncement(announcement!.id);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to delete");
       }
     });

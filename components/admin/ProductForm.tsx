@@ -77,6 +77,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           await createProduct(formData);
         }
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to save");
       }
     });
@@ -88,6 +89,7 @@ export default function ProductForm({ product }: { product?: Product }) {
       try {
         await deleteProduct(product!.id);
       } catch (err) {
+        if (typeof err === 'object' && err !== null && 'digest' in err) throw err;
         setError(err instanceof Error ? err.message : "Failed to delete");
       }
     });
