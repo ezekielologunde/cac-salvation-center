@@ -29,6 +29,7 @@ function AnimLetters({ children, delay = 0 }: { children: string; delay?: number
   const chars = Array.from(children);
   return (
     <motion.span
+      role="img"
       aria-label={children}
       style={{ display: "inline-block" }}
       variants={{
@@ -112,7 +113,7 @@ export function Hero() {
         padding: "140px clamp(20px,5vw,64px) 80px",
         overflow: "hidden",
         background: "#0d0a08",
-        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/hqdefault.jpg)",
+        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
