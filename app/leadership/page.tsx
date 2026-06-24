@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Leadership — CAC Salvation Center",
-  description: "Meet the pastoral team of CAC Salvation Center — Pastor Dr. Hezekiah O. Ilufoye, Pastor Felix Osunkiyesi, Pastor Alfred Aremo, Pastor Oludapo Eludoyin, and Pastor Enoch Ilufoye.",
+  title: "Our Pastors — CAC Salvation Center | Randallstown, MD",
+  description: "Meet the pastoral team at CAC Salvation Center in Randallstown, MD — led by Superintendent Pastor Dr. Hezekiah O. Ilufoye and our associate pastors.",
+  alternates: { canonical: "/leadership" },
 };
 
 const featured = {

@@ -27,7 +27,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "CAC Salvation Center — Church in Randallstown, MD",
-  description: SITE.description,
+  description: "Spirit-filled Sunday worship at 10:30 AM ET · Randallstown, MD · streaming live on YouTube, Facebook & Zoom. Christ Apostolic Church — real community, real faith.",
   keywords: [
     "CAC Salvation Center", "Christ Apostolic Church", "church in Randallstown MD",
     "Baltimore church", "Sunday service", "online church", "Yoruba church Maryland",

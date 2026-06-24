@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Navigation, ArrowUpRight, Video } from "lucide-rea
 export const metadata = {
   title: "CAC Salvation City — Rosedale, MD",
   description:
-    "CAC Salvation City is a Bible believing church in Rosedale, MD. Come experience the joy of the Lord with us. 8330 Pulaski Hwy, Suite F, Rosedale, MD 21237.",
+    "Spirit-filled worship in Rosedale, MD. Sunday services at 8330 Pulaski Hwy Suite F, Rosedale MD 21237. Part of the Christ Apostolic Church family — all are welcome.",
   alternates: { canonical: "https://city.cacsalvationcenter.org" },
 };
 
