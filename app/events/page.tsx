@@ -6,10 +6,31 @@ import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { CalendarPlus, Download } from "lucide-react";
 import { specialEvents, weeklyServices, monthlyServices, googleCalUrl, icsDataUri, isEventPast, type ChurchEvent } from "@/lib/events";
+import { SITE, SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600;
 
 const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+function toIso(s: string): string {
+  const mo = parseInt(s.slice(4, 6), 10);
+  const off = mo >= 3 && mo <= 10 ? "-04:00" : "-05:00";
+  return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T${s.slice(9,11)}:${s.slice(11,13)}:00${off}`;
+}
+
+function evPlace(id: string) {
+  if (id === "cacna-convention-2026")
+    return { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", addressLocality: "Blue Ridge Summit", addressRegion: "PA", addressCountry: "US" } };
+  if (id === "holy-land-pilgrimage-2026")
+    return { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } };
+  return { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } };
+}
+
+function evOffers(id: string) {
+  if (id === "holy-land-pilgrimage-2026")
+    return { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026` };
+  return { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" };
+}
 
 type DbEventRow = {
   id: string; title: string; description: string | null;
@@ -80,8 +101,33 @@ export default async function EventsPage() {
   const allSpecialEvents = [...specialEvents, ...dynamicEvents];
   const upcoming = allSpecialEvents.filter(ev => !isEventPast(ev));
   const past = allSpecialEvents.filter(ev => isEventPast(ev));
+
+  const eventsJsonLd = upcoming.length > 0 ? {
+    "@context": "https://schema.org",
+    "@graph": upcoming.map((ev) => ({
+      "@type": "Event",
+      name: ev.title,
+      description: ev.desc,
+      startDate: toIso(ev.startLocal),
+      endDate: toIso(ev.endLocal),
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      image: `${SITE_URL}/images/congregation.jpg`,
+      url: ev.href ? `${SITE_URL}${ev.href}` : `${SITE_URL}/events`,
+      location: evPlace(ev.id),
+      organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
+      offers: evOffers(ev.id),
+    })),
+  } : null;
+
   return (
     <main>
+      {eventsJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsJsonLd).replace(/</g, "\\u003c") }}
+        />
+      )}
       <Nav heroDark />
 
       {/* Hero */}

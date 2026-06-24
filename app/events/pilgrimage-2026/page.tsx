@@ -5,6 +5,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { MapPin, Flame, Waves, Landmark, Eye, ArrowLeft, CalendarPlus, Download, Phone, Mail, CreditCard } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
+import { SITE, SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -60,8 +61,24 @@ const included = [
 
 export default function PilgrimagePage() {
   const isPast = isEventPast(ev);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: ev.title,
+    description: ev.desc,
+    startDate: "2026-11-02T06:00:00-05:00",
+    endDate: "2026-11-12T23:00:00+02:00",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: `${SITE_URL}/images/congregation.jpg`,
+    url: `${SITE_URL}/events/pilgrimage-2026`,
+    location: { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } },
+    organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
+    offers: { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026` },
+  };
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
       {isPast && (
         <div role="status" style={{ background: '#2c2825', padding: '13px clamp(20px,5vw,64px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, fontWeight: 600, color: 'rgba(255,247,239,.7)' }}>

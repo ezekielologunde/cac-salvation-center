@@ -98,22 +98,6 @@ export function churchJsonLd() {
           { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "19:00", closes: "20:30" },
           { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "19:00", closes: "20:30" },
         ],
-        event: {
-          "@type": "Event",
-          name: "Sunday Worship",
-          eventSchedule: {
-            "@type": "Schedule",
-            byDay: "Sunday",
-            startTime: "10:30",
-            repeatFrequency: "P1W",
-          },
-          eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
-          location: {
-            "@type": "Place",
-            name: SITE.name,
-            address: fullAddress,
-          },
-        },
       },
       {
         "@type": "WebSite",

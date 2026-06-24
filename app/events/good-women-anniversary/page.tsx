@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CalendarPlus, Download, MapPin, Clock, BookOpen } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -77,8 +77,24 @@ function PersonCard({ name, role, photo, dark = false, accent = false }: { name:
 export default function GoodWomenAnniversaryPage() {
   const addressLine = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
   const isPast = isEventPast(ev);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: ev.title,
+    description: ev.desc,
+    startDate: "2026-06-28T11:00:00-04:00",
+    endDate: "2026-06-28T13:30:00-04:00",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: `${SITE_URL}/images/congregation.jpg`,
+    url: `${SITE_URL}/events/good-women-anniversary`,
+    location: { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } },
+    organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
+  };
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
       {isPast && (
         <div role="status" style={{ background: '#2c2825', padding: '13px clamp(20px,5vw,64px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, fontWeight: 600, color: 'rgba(255,247,239,.7)' }}>
