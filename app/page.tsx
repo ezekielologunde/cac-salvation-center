@@ -1,17 +1,21 @@
+import dynamic from "next/dynamic";
 import { Nav } from "@/components/navigation/Nav";
 import { Hero } from "@/components/sections/Hero";
-import { Watchword } from "@/components/sections/Watchword";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { PastorWelcome } from "@/components/sections/PastorWelcome";
-import { WhatToExpect } from "@/components/sections/WhatToExpect";
-import { Impact } from "@/components/sections/Impact";
-import { Youth } from "@/components/sections/Youth";
-import { Events } from "@/components/sections/Events";
-import { GlobalChurches } from "@/components/sections/GlobalChurches";
-import { PlanVisit } from "@/components/sections/PlanVisit";
-import { InstagramFeed } from "@/components/sections/InstagramFeed";
-import { FooterExperience } from "@/components/sections/FooterExperience";
 import { createServiceClient } from "@/lib/supabase/server";
+
+// Below-fold sections split into separate JS chunks — browser parses them
+// incrementally instead of one blocking task, cutting TBT significantly.
+const Watchword     = dynamic(() => import("@/components/sections/Watchword").then(m => ({ default: m.Watchword })));
+const Testimonials  = dynamic(() => import("@/components/sections/Testimonials").then(m => ({ default: m.Testimonials })));
+const PastorWelcome = dynamic(() => import("@/components/sections/PastorWelcome").then(m => ({ default: m.PastorWelcome })));
+const WhatToExpect  = dynamic(() => import("@/components/sections/WhatToExpect").then(m => ({ default: m.WhatToExpect })));
+const Impact        = dynamic(() => import("@/components/sections/Impact").then(m => ({ default: m.Impact })));
+const Youth         = dynamic(() => import("@/components/sections/Youth").then(m => ({ default: m.Youth })));
+const Events        = dynamic(() => import("@/components/sections/Events").then(m => ({ default: m.Events })));
+const GlobalChurches = dynamic(() => import("@/components/sections/GlobalChurches").then(m => ({ default: m.GlobalChurches })));
+const PlanVisit     = dynamic(() => import("@/components/sections/PlanVisit").then(m => ({ default: m.PlanVisit })));
+const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed").then(m => ({ default: m.InstagramFeed })));
+const FooterExperience = dynamic(() => import("@/components/sections/FooterExperience").then(m => ({ default: m.FooterExperience })));
 
 const faqJsonLd = {
   "@context": "https://schema.org",
