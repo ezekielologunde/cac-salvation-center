@@ -13,6 +13,33 @@ import { InstagramFeed } from "@/components/sections/InstagramFeed";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { createServiceClient } from "@/lib/supabase/server";
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What time is Sunday service at CAC Salvation Center?",
+      acceptedAnswer: { "@type": "Answer", text: "Sunday worship begins at 10:30 AM ET at 10710 Marriottsville Rd, Randallstown, MD 21133. All are welcome — in person or online." },
+    },
+    {
+      "@type": "Question",
+      name: "Where is CAC Salvation Center located?",
+      acceptedAnswer: { "@type": "Answer", text: "10710 Marriottsville Rd, Randallstown, MD 21133 — part of the Christ Apostolic Church Baltimore-Maryland District." },
+    },
+    {
+      "@type": "Question",
+      name: "Can I watch the Sunday service online?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Every Sunday at 10:30 AM ET we stream live on YouTube, Facebook, and Zoom. Visit cacsalvationcenter.org/online for the links." },
+    },
+    {
+      "@type": "Question",
+      name: "How do I contact CAC Salvation Center?",
+      acceptedAnswer: { "@type": "Answer", text: "Call or WhatsApp +1 443-272-6794, or email info@cacsalvationcenter.org. Address: 10710 Marriottsville Rd, Randallstown, MD 21133." },
+    },
+  ],
+};
+
 export default async function Home() {
   const service = createServiceClient();
   const { data: announcements } = await service
@@ -25,6 +52,10 @@ export default async function Home() {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+      />
       <Nav heroDark />
       {announcements?.map((ann) => (
         <div key={ann.id} style={{

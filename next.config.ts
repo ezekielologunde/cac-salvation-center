@@ -45,6 +45,15 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  async redirects() {
+    return [
+      { source: "/leadership-meet-our-pastors", destination: "/leadership", permanent: true },
+      { source: "/leadership-meet-our-pastors/", destination: "/leadership", permanent: true },
+      { source: "/online-connect-to-our-services", destination: "/online", permanent: true },
+      { source: "/online-connect-to-our-services/", destination: "/online", permanent: true },
+    ];
+  },
+
   async rewrites() {
     return {
       beforeFiles: [
