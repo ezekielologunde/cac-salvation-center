@@ -246,8 +246,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
               <Search size={16} strokeWidth={2} />
             </button>
             <Link
-              href={isLive ? LIVE_URL : '/online'}
-              {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              href="/online"
               onClick={() => haptic('medium')}
               className="press"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: isLive ? 'var(--red)' : (dark ? 'var(--red)' : 'var(--ink)'), color: 'var(--cream)', fontWeight: 700, fontSize: 14, padding: '10px 18px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', boxShadow: isLive ? '0 8px 24px rgba(214,40,40,.5)' : 'none' }}
@@ -346,8 +345,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 32 }}>
             <Link
-              href={isLive ? LIVE_URL : '/online'}
-              {...(isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              href="/online"
               onClick={() => { haptic('medium'); setOpen(false); }}
               className="press"
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'var(--red)', color: '#fff', fontWeight: 700, fontSize: 17, padding: '18px 24px', borderRadius: 999, textDecoration: 'none', boxShadow: '0 14px 30px rgba(214,40,40,.4)' }}>

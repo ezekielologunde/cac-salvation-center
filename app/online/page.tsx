@@ -9,9 +9,9 @@ import { Video } from "lucide-react";
 const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
 
 const platforms = [
+  { name: "Zoom", desc: "Our online room for every service", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
   { name: "YouTube", desc: "Live every Sunday & replays", href: "https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA" },
   { name: "Facebook", desc: "Stream + community discussion", href: "https://www.facebook.com/CacSalvationCenterBaltimore" },
-  { name: "Zoom", desc: "Our online room for every service", href: "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09" },
   { name: "Spotify", desc: "Hope for Today — weekly podcast", href: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw" },
   { name: "Apple Podcasts", desc: "Subscribe for auto-downloads", href: "https://podcasts.apple.com/search?term=CAC+Salvation+Center" },
 ];

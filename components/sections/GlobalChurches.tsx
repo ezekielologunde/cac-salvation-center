@@ -41,6 +41,7 @@ function WorldMap() {
   useEffect(() => {
     if (!ref.current) return;
     let map: any = null;
+    let cancelled = false;
 
     (async () => {
       if (!document.getElementById('lf-css')) {
@@ -59,7 +60,7 @@ function WorldMap() {
         document.head.appendChild(s);
       });
 
-      if (!ref.current) return;
+      if (!ref.current || cancelled) return;
 
       map = L.map(ref.current, {
         center: [20, -18],
@@ -107,7 +108,7 @@ function WorldMap() {
       });
     })();
 
-    return () => { map?.remove(); };
+    return () => { cancelled = true; map?.remove(); };
   }, []);
 
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />;
