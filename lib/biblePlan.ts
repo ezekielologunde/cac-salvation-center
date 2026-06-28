@@ -59,4 +59,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Song of Solomon 7–8; Psalm 127; 2 Thessalonians 2",
     thu: "1 Kings 5; 2 Chronicles 2; 2 Thessalonians 3",
   },
+  {
+    week: 26,
+    theme: "One Fold, One Shepherd — John 10:16",
+    sun: "1 Kings 6; 2 Chronicles 3; 1 Timothy 1",
+    mon: "1 Kings 7; 2 Chronicles 4; Psalm 44; 1 Timothy 2",
+    tue: "1 Kings 8; Psalm 30; 1 Timothy 3",
+    wed: "2 Chronicles 5–7; Psalm 121; 1 Timothy 4",
+    thu: "1 Kings 9; 2 Chronicles 8; 1 Timothy 5",
+  },
 ];
