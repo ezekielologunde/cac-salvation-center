@@ -93,7 +93,7 @@ export default function BiblePlanPage() {
           </Reveal>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 22 }}>
-            {bibleReadingPlan.map((w, i) => (
+            {[...bibleReadingPlan].sort((a, b) => b.week - a.week).map((w, i) => (
               <Reveal key={w.week} delay={i * 70}>
                 <article className="card-lift" style={{ height: "100%", background: "var(--paper)", borderRadius: 22, border: "1px solid var(--line)", boxShadow: "0 14px 34px rgba(27,19,14,.08)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                   {/* Header strip */}
