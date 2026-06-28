@@ -15,7 +15,7 @@ export const FRIDAY_REFLECTION =
  *  More weeks are added as they come in from the pulpit. */
 export const bibleReadingPlan: BibleReadingWeek[] = [
   {
-    week: 1,
+    week: 21,
     theme: "2 Samuel → Romans 1–4",
     sun: "2 Samuel 13–14; Acts 28",
     mon: "2 Samuel 15–17; Psalms 3, 63; Romans 1",
@@ -24,7 +24,7 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     thu: "2 Samuel 24; 1 Chronicles 21; Romans 4",
   },
   {
-    week: 2,
+    week: 22,
     theme: "1 Chronicles & 1 Kings → Romans 5–9",
     sun: "1 Chronicles 22–25; Psalm 78; Romans 5",
     mon: "1 Kings 1; 1 Chronicles 26–28; Romans 6",
@@ -33,7 +33,7 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     thu: "1 Kings 4; Proverbs 1–2; Psalm 43; Romans 9",
   },
   {
-    week: 3,
+    week: 23,
     theme: "Proverbs 3–15 → Romans 10–14",
     sun: "Proverbs 3–5; Romans 10",
     mon: "Proverbs 6–7; Psalm 7; Romans 11",
@@ -42,7 +42,7 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     thu: "Proverbs 14–15; Romans 14",
   },
   {
-    week: 4,
+    week: 24,
     theme: "Proverbs 16–28 → Romans 15–16, 1 Thess. 1–3",
     sun: "Proverbs 16–18; Romans 15",
     mon: "Proverbs 19–21; Psalm 40; Romans 16",
@@ -51,7 +51,7 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     thu: "Proverbs 26–28; 1 Thessalonians 3",
   },
   {
-    week: 5,
+    week: 25,
     theme: "Proverbs 29–31 & Song of Solomon → 1 & 2 Thess.",
     sun: "Proverbs 29–31; 1 Thessalonians 4",
     mon: "Song of Solomon 1–3; Psalm 72; 1 Thessalonians 5",
