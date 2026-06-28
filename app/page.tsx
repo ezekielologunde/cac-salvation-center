@@ -1,3 +1,7 @@
+// Cache the homepage for 60 s — eliminates cold-start DB round-trips that
+// push server response past 1000 ms. Announcements refresh within a minute.
+export const revalidate = 60;
+
 import dynamic from "next/dynamic";
 import { Nav } from "@/components/navigation/Nav";
 import { Hero } from "@/components/sections/Hero";
