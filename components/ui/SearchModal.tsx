@@ -1,8 +1,11 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, X, ArrowRight } from 'lucide-react';
+import { Search, X, ArrowRight, Globe, ExternalLink } from 'lucide-react';
 import { SEARCH_INDEX, type SearchItem } from '@/lib/search-index';
+import { SITE, SITE_URL } from '@/lib/site';
+
+const SITE_HOST = new URL(SITE_URL).host;
 
 const TAG_COLOR: Record<string, string> = {
   Page: 'var(--ink-soft)',
@@ -18,14 +21,29 @@ function runSearch(q: string): SearchItem[] {
   const words = q.toLowerCase().split(/\s+/).filter(Boolean);
   return SEARCH_INDEX
     .map(item => {
-      const hay = `${item.title} ${item.desc} ${item.keywords ?? ''}`.toLowerCase();
-      const s = words.reduce((acc, w) => acc + (hay.includes(w) ? 1 : 0), 0);
+      const title = item.title.toLowerCase();
+      const desc = item.desc.toLowerCase();
+      const keywords = (item.keywords ?? '').toLowerCase();
+      const s = words.reduce((acc, w) => {
+        if (title.includes(w)) return acc + 4;
+        if (desc.includes(w)) return acc + 2;
+        if (keywords.includes(w)) return acc + 1;
+        return acc;
+      }, 0);
       return { item, s };
     })
     .filter(r => r.s > 0)
     .sort((a, b) => b.s - a.s)
     .slice(0, 8)
     .map(r => r.item);
+}
+
+function googleSiteUrl(q: string) {
+  return `https://www.google.com/search?q=${encodeURIComponent(`site:${SITE_HOST} ${q}`)}`;
+}
+
+function googleWebUrl(q: string) {
+  return `https://www.google.com/search?q=${encodeURIComponent(`${SITE.shortName} ${q}`)}`;
 }
 
 export function SearchModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -169,8 +187,57 @@ export function SearchModal({ open, onClose }: { open: boolean; onClose: () => v
 
         {/* No results */}
         {query.length > 0 && results.length === 0 && (
-          <div style={{ padding: '28px 20px', textAlign: 'center', color: 'var(--ink-soft)', fontSize: 14 }}>
-            No results for &ldquo;{query}&rdquo;
+          <div style={{ padding: '28px 20px 8px', textAlign: 'center', color: 'var(--ink-soft)', fontSize: 14 }}>
+            No results for &ldquo;{query}&rdquo; on the site
+          </div>
+        )}
+
+        {/* Google — site-specific + web results for the same query */}
+        {query.trim().length > 0 && (
+          <div style={{ padding: '12px 18px 16px', borderTop: '1px solid var(--line)' }}>
+            <span style={{
+              fontSize: 11, fontWeight: 700, letterSpacing: '1.5px',
+              textTransform: 'uppercase', color: 'var(--ink-soft)',
+              display: 'block', marginBottom: 8,
+            }}>Search Google</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <a
+                href={googleSiteUrl(query)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '10px 14px', borderRadius: 12,
+                  textDecoration: 'none',
+                  background: 'var(--cream-2)', border: '1px solid var(--line)',
+                }}
+              >
+                <Globe size={15} color="var(--ink-soft)" strokeWidth={2} aria-hidden style={{ flexShrink: 0 }} />
+                <span style={{ flex: 1, fontSize: 13.5, fontWeight: 600, color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  On cacsalvationcenter.org — &ldquo;{query}&rdquo;
+                </span>
+                <ExternalLink size={13} color="var(--ink-soft)" strokeWidth={2.5} aria-hidden style={{ flexShrink: 0 }} />
+              </a>
+              <a
+                href={googleWebUrl(query)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '10px 14px', borderRadius: 12,
+                  textDecoration: 'none',
+                  background: 'var(--cream-2)', border: '1px solid var(--line)',
+                }}
+              >
+                <Globe size={15} color="var(--ink-soft)" strokeWidth={2} aria-hidden style={{ flexShrink: 0 }} />
+                <span style={{ flex: 1, fontSize: 13.5, fontWeight: 600, color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  Across the web — &ldquo;{SITE.shortName} {query}&rdquo;
+                </span>
+                <ExternalLink size={13} color="var(--ink-soft)" strokeWidth={2.5} aria-hidden style={{ flexShrink: 0 }} />
+              </a>
+            </div>
           </div>
         )}
 
