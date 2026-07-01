@@ -63,7 +63,7 @@ export function InstagramFeed() {
               style={{ position: "relative", display: "block", borderRadius: 14, overflow: "hidden", aspectRatio: "1 / 1", background: "var(--cream-2)" }}>
               <Image
                 src={p.image} alt={p.caption || "Instagram post"}
-                fill sizes="(max-width:640px) 45vw, 20vw"
+                fill sizes="(max-width:640px) 45vw, 20vw" unoptimized
                 className="gallery-img" style={{ objectFit: "cover" }}
               />
               <span className="gallery-scrim"

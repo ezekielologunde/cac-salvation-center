@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { haptic } from "@/lib/haptics";
+import { cloudinaryLoader } from "@/lib/cloudinary-loader";
 
 const STATIC_PHOTOS = [
   { src: "/images/congregation.jpg", alt: "Congregation in colorful African attire worshipping together", id: "s1" },
@@ -92,7 +93,7 @@ export function Gallery() {
             style={{ position: "relative", border: "none", padding: 0, cursor: "pointer", borderRadius: 18, overflow: "hidden", aspectRatio: "4 / 3", background: "var(--cream-2)" }}
           >
             <Image
-              src={p.src} alt={p.alt} fill
+              src={p.src} alt={p.alt} fill loader={cloudinaryLoader}
               sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
               className="gallery-img" style={{ objectFit: "cover" }}
             />
@@ -129,7 +130,7 @@ export function Gallery() {
               onClick={(e) => e.stopPropagation()}
               style={{ position: "relative", width: "min(1100px,92vw)", height: "min(82vh,760px)", borderRadius: 16, overflow: "hidden", boxShadow: "0 40px 90px rgba(0,0,0,.6)" }}
             >
-              <Image src={photos[open].src} alt={photos[open].alt} fill sizes="92vw" style={{ objectFit: "contain" }} />
+              <Image src={photos[open].src} alt={photos[open].alt} fill loader={cloudinaryLoader} sizes="92vw" style={{ objectFit: "contain" }} />
             </motion.div>
             <div style={{ position: "absolute", bottom: 22, left: 0, right: 0, textAlign: "center", color: "rgba(255,255,255,.8)", fontSize: 14, padding: "0 24px" }}>
               {photos[open].alt} · {open + 1} / {photos.length}
