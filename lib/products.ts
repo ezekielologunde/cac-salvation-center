@@ -37,8 +37,6 @@ export const PRODUCTS: StoreProduct[] = [
     orderMethod: "stripe",
     accent: "linear-gradient(135deg,#1B130E,#3A2518)",
     variants: { label: "Size", options: ["S", "M", "L", "XL", "2XL", "3XL"] },
-    image: "https://images.unsplash.com/photo-1548958070-784df64f9c99?auto=format&fit=crop&w=600&q=80",
-    imageAlt: "Person wearing a black hoodie",
   },
   {
     id: "tshirt",
@@ -70,8 +68,6 @@ export const PRODUCTS: StoreProduct[] = [
     priceCents: 1600,
     orderMethod: "stripe",
     accent: "linear-gradient(135deg,#6B4226,#9E5C32)",
-    image: "https://images.unsplash.com/photo-1542957057-debadce4ce81?auto=format&fit=crop&w=600&q=80",
-    imageAlt: "Beige canvas tote bag on a bench",
   },
   {
     id: "mug",
@@ -82,8 +78,6 @@ export const PRODUCTS: StoreProduct[] = [
     priceCents: 1400,
     orderMethod: "stripe",
     accent: "linear-gradient(135deg,#E8A33D,#C87E20)",
-    image: "https://images.unsplash.com/photo-1604882355447-02f728a295a2?auto=format&fit=crop&w=600&q=80",
-    imageAlt: "Person holding a warm ceramic mug with morning coffee",
   },
 
   // ── BIBLES & BOOKS ───────────────────────────────────────────────────────
@@ -98,8 +92,6 @@ export const PRODUCTS: StoreProduct[] = [
     externalLink: "https://www.amazon.com/s?k=KJV+giant+print+reference+Bible+leather",
     externalLabel: "View on Amazon",
     accent: "linear-gradient(135deg,#1B130E,#9E1B1B)",
-    image: "https://images.unsplash.com/photo-1634398141430-149bcb32b15c?auto=format&fit=crop&w=600&q=80",
-    imageAlt: "Open Bible in candlelight showing Psalm 118",
   },
   {
     id: "niv-study",
@@ -111,8 +103,6 @@ export const PRODUCTS: StoreProduct[] = [
     externalLink: "https://www.amazon.com/s?k=NIV+Study+Bible+hardcover",
     externalLabel: "View on Amazon",
     accent: "linear-gradient(135deg,#D62828,#9E1B1B)",
-    image: "https://images.unsplash.com/photo-1759333344343-d34779c0e2ac?auto=format&fit=crop&w=600&q=80",
-    imageAlt: "Close-up of open Bible showing the Book of Genesis",
   },
   {
     id: "childrens-bible",
