@@ -200,23 +200,31 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
                     </svg>
                   </Link>
                   {isOpen && (
+                    // Outer wrapper is positioned flush to the trigger (top: 100%) and
+                    // uses paddingTop as a transparent "bridge" so the cursor never
+                    // crosses a dead zone on its way to the panel — which would fire
+                    // mouseleave and collapse the menu before a click could land.
                     <div style={{
-                      position: 'absolute', top: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
-                      background: dark ? 'rgba(18,20,26,.97)' : 'var(--paper)',
-                      borderRadius: 16, padding: 8,
-                      boxShadow: '0 20px 50px rgba(27,19,14,.16)',
-                      border: `1px solid ${dark ? 'rgba(255,255,255,.1)' : 'var(--line)'}`,
-                      minWidth: 200, zIndex: 10,
+                      position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                      paddingTop: 8, zIndex: 10,
                     }}>
-                      {item.dropdown.map(d => (
-                        <Link key={d.href} href={d.href} style={{ display: 'block', padding: '10px 14px', borderRadius: 10, textDecoration: 'none', transition: 'background .15s' }}
-                          onMouseEnter={e => (e.currentTarget.style.background = dark ? 'rgba(255,255,255,.06)' : 'var(--cream-2)')}
-                          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                        >
-                          <div style={{ fontWeight: 700, fontSize: 14, color: dark ? 'var(--cream)' : 'var(--ink)' }}>{d.label}</div>
-                          <div style={{ fontSize: 12, color: dark ? 'rgba(255,247,239,.5)' : 'var(--ink-soft)', marginTop: 2 }}>{d.desc}</div>
-                        </Link>
-                      ))}
+                      <div style={{
+                        background: dark ? 'rgba(18,20,26,.97)' : 'var(--paper)',
+                        borderRadius: 16, padding: 8,
+                        boxShadow: '0 20px 50px rgba(27,19,14,.16)',
+                        border: `1px solid ${dark ? 'rgba(255,255,255,.1)' : 'var(--line)'}`,
+                        minWidth: 200,
+                      }}>
+                        {item.dropdown.map(d => (
+                          <Link key={d.href} href={d.href} style={{ display: 'block', padding: '10px 14px', borderRadius: 10, textDecoration: 'none', transition: 'background .15s' }}
+                            onMouseEnter={e => (e.currentTarget.style.background = dark ? 'rgba(255,255,255,.06)' : 'var(--cream-2)')}
+                            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                          >
+                            <div style={{ fontWeight: 700, fontSize: 14, color: dark ? 'var(--cream)' : 'var(--ink)' }}>{d.label}</div>
+                            <div style={{ fontSize: 12, color: dark ? 'rgba(255,247,239,.5)' : 'var(--ink-soft)', marginTop: 2 }}>{d.desc}</div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
