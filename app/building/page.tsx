@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { Building2, HandCoins, Hammer, HeartHandshake, ArrowRight, Phone } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "Building Project — CAC Salvation Center",
@@ -88,6 +89,61 @@ export default function BuildingPage() {
             </p>
             <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)", marginTop: 22 }}>Psalm 127:1</p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* The vision — render, walkthrough video & floor plan */}
+      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 34, textAlign: "center" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>The Vision</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,4.5vw,56px)", letterSpacing: "-1.2px", color: "var(--ink)", margin: "12px 0 0", lineHeight: 1 }}>
+              See the house God is building.
+            </h2>
+            <p style={{ fontSize: "clamp(15px,1.7vw,18px)", color: "var(--ink-soft)", lineHeight: 1.7, maxWidth: 620, margin: "16px auto 0" }}>
+              The architect&apos;s rendering and walkthrough of the new Christ Apostolic Church &mdash; a 357-seat sanctuary and a 450-seat banquet hall in Baltimore County, Maryland.
+            </p>
+          </Reveal>
+
+          {/* Exterior rendering */}
+          <Reveal>
+            <div style={{ position: "relative", aspectRatio: "2560 / 1099", borderRadius: 24, overflow: "hidden", border: "1px solid var(--line)", boxShadow: "0 24px 60px rgba(27,19,14,.14)", marginBottom: 20 }}>
+              <Image
+                src="/images/building-render.jpg"
+                alt="Architect's 3D rendering of the new Christ Apostolic Church — gold roofs, glass frontage and a standing cross"
+                fill priority
+                sizes="(max-width: 1140px) 100vw, 1100px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </Reveal>
+
+          {/* Walkthrough video + floor plan */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
+            <Reveal>
+              <div style={{ position: "relative", aspectRatio: "16 / 9", borderRadius: 20, overflow: "hidden", border: "1px solid var(--line)", boxShadow: "0 16px 40px rgba(27,19,14,.12)", background: "var(--ink)" }}>
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/YwI_LqP1zpo?rel=0"
+                  title="Walkthrough of the new Christ Apostolic Church building"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                />
+              </div>
+            </Reveal>
+            <Reveal delay={90}>
+              <div style={{ position: "relative", aspectRatio: "16 / 9", borderRadius: 20, overflow: "hidden", border: "1px solid var(--line)", boxShadow: "0 16px 40px rgba(27,19,14,.12)", background: "var(--paper)" }}>
+                <Image
+                  src="/images/building-floorplan.jpg"
+                  alt="Architect's first-floor plan showing a 357-seat sanctuary and a 450-seat banquet hall"
+                  fill
+                  sizes="(max-width: 1140px) 100vw, 540px"
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
