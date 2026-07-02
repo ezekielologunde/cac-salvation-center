@@ -1,6 +1,7 @@
 ﻿import { createServiceClient } from "@/lib/supabase/server";
 import { archiveContact, unarchiveContact } from "./actions";
 import ActionButton from "@/components/admin/ActionButton";
+import ForwardToStaff from "@/components/admin/ForwardToStaff";
 
 type ContactRow = {
   id: string;
@@ -44,7 +45,7 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
             <span style={{ fontSize: 12, color: "var(--ink-soft)" }}>{date}</span>
           </div>
         </div>
-        <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+        <div style={{ display: "flex", gap: 8, flexShrink: 0, flexWrap: "wrap", justifyContent: "flex-end" }}>
           <a
             href={`mailto:${item.email}?subject=Re: ${encodeURIComponent(item.subject ?? "Your message to CAC Salvation Center")}`}
             style={{
@@ -61,6 +62,10 @@ function ContactCard({ item, archived }: { item: ContactRow; archived: boolean }
           >
             Reply
           </a>
+          <ForwardToStaff
+            subject={`Fwd: ${item.subject ?? "Contact form message"} — from ${item.name}`}
+            body={`Forwarding a message from the CAC Salvation Center contact form.\n\nFrom: ${item.name} <${item.email}>\nDate: ${date}\nSubject: ${item.subject ?? "(no subject)"}\n\n${item.message}`}
+          />
           <form action={archived ? unarchiveContact.bind(null, item.id) : archiveContact.bind(null, item.id)}>
             <ActionButton style={{
               background: "transparent",

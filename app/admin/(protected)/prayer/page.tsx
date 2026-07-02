@@ -1,6 +1,7 @@
 ﻿import { createServiceClient } from "@/lib/supabase/server";
 import { archivePrayer, unarchivePrayer } from "./actions";
 import ActionButton from "@/components/admin/ActionButton";
+import ForwardToStaff from "@/components/admin/ForwardToStaff";
 
 type PrayerRow = {
   id: string;
@@ -45,20 +46,26 @@ function PrayerCard({ item, archived }: { item: PrayerRow; archived: boolean }) 
             <span style={{ fontSize: 12, color: "var(--ink-soft)" }}>{date}</span>
           </div>
         </div>
-        <form action={archived ? unarchivePrayer.bind(null, item.id) : archivePrayer.bind(null, item.id)}>
-          <ActionButton style={{
-            background: "transparent",
-            color: "var(--ink-soft)",
-            border: "1px solid rgba(27,19,14,0.15)",
-            borderRadius: 6,
-            padding: "5px 12px",
-            fontSize: 12,
-            fontWeight: 600,
-            whiteSpace: "nowrap",
-          }}>
-            {archived ? "Unarchive" : "Archive"}
-          </ActionButton>
-        </form>
+        <div style={{ display: "flex", gap: 8, flexShrink: 0, flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <ForwardToStaff
+            subject={`Fwd: Prayer request${item.urgent ? " (URGENT)" : ""}`}
+            body={`Forwarding a prayer request from the CAC Salvation Center website.\n\nFrom: ${item.name ?? "Anonymous"}${item.email ? ` <${item.email}>` : ""}\nDate: ${date}${item.urgent ? "\nMarked URGENT" : ""}\n\n${item.request}`}
+          />
+          <form action={archived ? unarchivePrayer.bind(null, item.id) : archivePrayer.bind(null, item.id)}>
+            <ActionButton style={{
+              background: "transparent",
+              color: "var(--ink-soft)",
+              border: "1px solid rgba(27,19,14,0.15)",
+              borderRadius: 6,
+              padding: "5px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+            }}>
+              {archived ? "Unarchive" : "Archive"}
+            </ActionButton>
+          </form>
+        </div>
       </div>
       <p style={{ fontSize: 14, color: "rgba(0,0,0,0.7)", margin: 0, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
         {item.request}
