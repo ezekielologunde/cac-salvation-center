@@ -32,11 +32,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/admin", "/admin/", "/store/success",
-          // This site has never run WordPress. These paths are legacy/scanner
-          // noise (bots probe every domain for WP) that 404 correctly —
-          // disallowing them stops the repeat crawl attempts Search Console
-          // keeps flagging under "Page indexing / Not found (404)".
+          // This domain ran WordPress before this Next.js rebuild. These paths
+          // are leftovers Google still remembers crawling (theme assets,
+          // uploads, category archives) that now 404 correctly — disallowing
+          // them stops the repeat crawl attempts Search Console keeps
+          // flagging under "Page indexing / Not found (404)".
           "/wp-content/", "/wp-admin/", "/wp-includes/", "/wp-json/", "/xmlrpc.php",
+          "/category/",
         ],
       },
       { userAgent: AI_BOTS, allow: "/" },
