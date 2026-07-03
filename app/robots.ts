@@ -30,7 +30,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/admin/", "/store/success"],
+        disallow: [
+          "/admin", "/admin/", "/store/success",
+          // This site has never run WordPress. These paths are legacy/scanner
+          // noise (bots probe every domain for WP) that 404 correctly —
+          // disallowing them stops the repeat crawl attempts Search Console
+          // keeps flagging under "Page indexing / Not found (404)".
+          "/wp-content/", "/wp-admin/", "/wp-includes/", "/wp-json/", "/xmlrpc.php",
+        ],
       },
       { userAgent: AI_BOTS, allow: "/" },
       // Google Ads' landing-page crawler ignores the "*" group, so it must be
