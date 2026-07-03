@@ -21,9 +21,10 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const [slide, setSlide] = useState(false);
   const [dbBar, setDbBar] = useState(false);
 
-  if (pathname.startsWith('/admin')) return null;
-
   useEffect(() => {
+    // Overlays never appear in the admin area
+    if (pathname.startsWith('/admin')) return;
+
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     // 1a. DB banner announcement — takes priority over CACNA bar
@@ -55,6 +56,8 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
     }
 
     return () => timers.forEach(clearTimeout);
+    // Run once on mount; pathname/bannerAnn are captured intentionally.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function dismissBar() {
@@ -73,6 +76,9 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
     setToast(false);
     sessionStorage.setItem('live-toast-seen', '1');
   }
+
+  // All hooks run above this line — safe to bail out of rendering here.
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <>

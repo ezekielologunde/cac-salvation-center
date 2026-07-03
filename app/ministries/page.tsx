@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
+import Image from "next/image";
 import { Music, HeartHandshake, Sparkles, Baby, HandHeart, Video, Users, Heart, Wrench, Globe } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -80,7 +81,7 @@ export default function MinistriesPage() {
                   </span>
                   {m.image ? (
                     <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", padding: "20px 28px" }}>
-                      <img src={m.image} alt={m.alt ?? m.name} style={{ maxHeight: 130, maxWidth: "100%", objectFit: "contain" }} />
+                      <Image src={m.image} alt={m.alt ?? m.name} width={960} height={720} style={{ maxHeight: 130, width: "auto", height: "auto", maxWidth: "100%", objectFit: "contain" }} />
                     </div>
                   ) : (
                     <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>

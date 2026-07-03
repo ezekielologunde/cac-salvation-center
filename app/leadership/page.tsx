@@ -15,7 +15,7 @@ const featured = {
   partner: "Evang. Mrs Victoria Ilufoye",
   title: "Baltimore DCC Superintendent · First Lady",
   bio: "Pastor Dr. Hezekiah O. Ilufoye carries the vision of CAC Salvation Centre Ilorin — established in Nigeria on July 6, 1997 — into the Baltimore-Maryland District Coordinating Council, planted in 2002. Together with the First Lady, Evang. Mrs Victoria Ilufoye, he leads the family with a clear call to preach the whole Gospel, raise God's ambassadors, and steward the multi-generational mission of the Christ Apostolic Church.",
-  image: "/images/pastor-couple.png",
+  image: "/images/pastor-couple.jpg",
 };
 
 const team: { name: string; title: string; bio: string; image?: string }[] = [

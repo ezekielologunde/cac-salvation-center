@@ -113,9 +113,9 @@ export async function markShipped(
 
   const { error: updateError } = await supabase
     .from("orders")
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .update({
       status: "shipped",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tracking_number: (trackingNumber || null) as any,
       shipped_at: new Date().toISOString(),
     } as any)

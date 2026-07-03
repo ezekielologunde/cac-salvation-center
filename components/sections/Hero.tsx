@@ -130,7 +130,7 @@ export function Hero() {
         {showVideo && (
           <iframe
             src="https://www.youtube.com/embed/RX1NjOYtDxo?autoplay=1&mute=1&loop=1&playlist=RX1NjOYtDxo&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0"
-            title=""
+            title="CAC Salvation Center worship service background video"
             allow="autoplay; encrypted-media"
             aria-hidden="true"
             tabIndex={-1}

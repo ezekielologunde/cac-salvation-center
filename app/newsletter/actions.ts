@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
+import { headers } from "next/headers";
+import { rateLimit } from "@/lib/rateLimit";
 
 export type SubscribeState = { ok: boolean; message: string } | null;
 
@@ -54,6 +56,11 @@ export async function subscribeAction(
   _prev: SubscribeState,
   formData: FormData,
 ): Promise<SubscribeState> {
+  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anon";
+  if (!rateLimit(ip, 5, 60_000)) {
+    return { ok: false, message: "Too many requests. Please try again in a minute." };
+  }
+
   const email = (formData.get("email") as string | null)?.trim().toLowerCase() ?? "";
   const name = (formData.get("name") as string | null)?.trim() || null;
 

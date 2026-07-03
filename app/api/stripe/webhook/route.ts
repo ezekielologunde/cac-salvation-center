@@ -3,8 +3,12 @@ import { Resend } from "resend";
 import { headers } from "next/headers";
 import { createServiceClient } from "@/lib/supabase/server";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!.trim(), { apiVersion: "2024-06-20" as any });
+function getStripe(): Stripe | null {
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  if (!key) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return new Stripe(key, { apiVersion: "2024-06-20" as any });
+}
 
 const FROM = "CAC Salvation Center <noreply@cacsalvationcenter.org>";
 const STAFF_EMAIL = "info@cacsalvationcenter.org";
@@ -464,6 +468,11 @@ export async function POST(req: Request) {
 
   if (!sig || !process.env.STRIPE_WEBHOOK_SECRET) {
     return Response.json({ error: "Missing signature or webhook secret" }, { status: 400 });
+  }
+
+  const stripe = getStripe();
+  if (!stripe) {
+    return Response.json({ error: "Stripe is not configured" }, { status: 503 });
   }
 
   let event: Stripe.Event;

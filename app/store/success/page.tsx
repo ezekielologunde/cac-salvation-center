@@ -8,9 +8,9 @@ import { createServiceClient } from "@/lib/supabase/server";
 export const metadata = {
   title: "Order Confirmed — CAC Salvation Center Store",
   description: "Thank you for your order from the Salvation Center Store.",
+  robots: { index: false, follow: false },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function getSession(sessionId: string): Promise<Stripe.Checkout.Session | null> {
   const key = process.env.STRIPE_SECRET_KEY?.trim();
   if (!key || !sessionId) return null;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const NAV = [
   {

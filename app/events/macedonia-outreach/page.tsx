@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Heart, BookOpen, Package, ExternalLink, MapPin, Users } from "lucide-react";
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
@@ -135,7 +136,7 @@ export default function MacedoniaPage() {
               style={{ width: "clamp(200px,26vw,320px)", height: "clamp(200px,26vw,320px)", borderRadius: "50%", background: "rgba(255,255,255,.08)", display: "grid", placeItems: "center", border: "2px solid rgba(255,255,255,.14)", padding: "10%" }}
               aria-hidden
             >
-              <img src="/images/macedonia-logo.png" alt="" style={{ width: "100%", objectFit: "contain" }} />
+              <Image src="/images/macedonia-logo.png" alt="" width={960} height={720} style={{ width: "100%", height: "auto", objectFit: "contain" }} />
             </div>
           </Reveal>
         </div>

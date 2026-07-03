@@ -7,8 +7,6 @@ import { Search } from 'lucide-react';
 import { haptic } from '@/lib/haptics';
 import { SearchModal } from '@/components/ui/SearchModal';
 
-const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
-
 interface NavItem {
   label: string;
   href?: string;

@@ -6,7 +6,7 @@ import { POSTS, type BlogPost } from "@/lib/blog";
 import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
-import { Clock, Calendar, MapPin, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
+import { Clock, Calendar, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
 
 export const revalidate = 3600;
 
