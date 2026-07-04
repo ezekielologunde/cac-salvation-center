@@ -190,7 +190,7 @@ export default function IlorinPage() {
             <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>Since July 6, 1997</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.4vw,56px)", letterSpacing: "-1.4px", color: c.ink, margin: "12px 0 16px", lineHeight: 0.98 }}>The District Headquarters.</h2>
             <p style={{ fontSize: 17, color: c.inkSoft, lineHeight: 1.8, margin: 0 }}>
-              Raised in Ilorin under Pastor Dr. H.O. Ilufoye, the Salvation Centre is the headquarters from which the family has multiplied — including the Baltimore-Maryland District Coordinating Council in the United States, planted in 2002, and sister assemblies across two continents.
+              Raised in Ilorin under <a href="https://www.cacsalvationcenter.org/leadership" style={{ color: c.green, fontWeight: 700, textDecoration: "underline", textUnderlineOffset: 3, textDecorationColor: "rgba(14,122,67,.45)" }}>Pastor Dr. H.O. Ilufoye</a>, the Salvation Centre is the headquarters from which the family has multiplied — including the Baltimore-Maryland District Coordinating Council in the United States, planted in 2002, and sister assemblies across two continents.
             </p>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
