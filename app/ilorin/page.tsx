@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
-import { YoutubeIcon, FacebookIcon, InstagramIcon } from "@/components/ui/SocialIcons";
-import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music } from "lucide-react";
+import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
+import { DailyWord } from "@/components/sections/DailyWord";
+import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock } from "lucide-react";
 
 export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
@@ -35,6 +36,7 @@ const SPOTIFY = "https://open.spotify.com/show/2VBBGHUo6nMITGmGGrEUoM";
 const APPLE_PODCASTS = "https://podcasts.apple.com/search?term=CAC+Salvation+Centre+Ilorin";
 const AUDIOMACK = "https://audiomack.com/search?q=RT+Owoseni+CAC+Salvation";
 const FB = "https://www.facebook.com/cacsalvationcentre";
+const TIKTOK = "https://www.tiktok.com/@cacsalvationdistrict";
 const EMAIL = "cacsalvationcentreilorin@gmail.com";
 
 const connect = [
@@ -44,6 +46,7 @@ const connect = [
   { label: "Audiomack", desc: "Sermons, prayers & Total Restoration", href: AUDIOMACK, icon: <Music size={22} strokeWidth={2} /> },
   { label: "Facebook", desc: "Ministry updates & live events", href: FB, icon: <FacebookIcon /> },
   { label: "Instagram", desc: "Visual excerpts & announcements", href: "https://www.instagram.com/cacsalvationcentreilorin/", icon: <InstagramIcon /> },
+  { label: "TikTok", desc: "Short clips & highlights from the District", href: TIKTOK, icon: <TikTokIcon /> },
   { label: "Email", desc: EMAIL, href: `mailto:${EMAIL}`, icon: <Mail size={22} strokeWidth={2} /> },
 ];
 
@@ -53,9 +56,60 @@ const markers = [
   { k: "2002", t: "The family went out", d: "From Ilorin, the Baltimore-Maryland DCC was planted in the U.S. — one fold across two continents." },
 ];
 
+const schedule = [
+  { day: "Sunday", services: [
+    { name: "First Service", time: "7:00 – 9:00 AM" },
+    { name: "Second Service", time: "9:00 AM – 12:00 PM" },
+  ] },
+  { day: "Monday", services: [{ name: "Morning Dew", time: "6:00 – 7:00 AM" }] },
+  { day: "Tuesday", services: [{ name: "Bible Study", time: "5:00 – 7:00 PM" }] },
+  { day: "Wednesday", services: [{ name: "Revival Hour", time: "5:00 – 7:00 PM" }] },
+  { day: "Friday", services: [{ name: "Youth Connect Fellowship", time: "5:00 – 7:00 PM" }] },
+];
+
+// Structured data for the Ilorin HQ — lets Google show service times, address & founding.
+const ilorinJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Church",
+  "@id": "https://ilorin.cacsalvationcenter.org/#church",
+  name: "Christ Apostolic Church Salvation Centre, Ilorin",
+  alternateName: "C.A.C Salvation Centre Ilorin",
+  url: "https://ilorin.cacsalvationcenter.org",
+  email: EMAIL,
+  foundingDate: "1997-07-06",
+  description:
+    "The District Headquarters of the Christ Apostolic Church Salvation Centre — Ilorin, Kwara State, Nigeria. Worship, teaching and prayer at Fate-Tanke Road, Oko Erin.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Fate-Tanke Road & Abdullahi Mohammed Street, Oko Erin",
+    addressLocality: "Ilorin",
+    addressRegion: "Kwara",
+    postalCode: "240102",
+    addressCountry: "NG",
+  },
+  areaServed: ["Ilorin", "Kwara State", "Nigeria"],
+  knowsLanguage: ["en", "yo"],
+  hasMap: MAPS_LINK,
+  employee: { "@type": "Person", name: "Pastor R.T. Owoseni", jobTitle: "District Superintendent" },
+  parentOrganization: { "@type": "Church", name: "CAC Salvation Center — Baltimore", url: "https://www.cacsalvationcenter.org" },
+  sameAs: [YT, FB, "https://www.instagram.com/cacsalvationcentreilorin/", TIKTOK, SPOTIFY],
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "07:00", closes: "09:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "09:00", closes: "12:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Monday", opens: "06:00", closes: "07:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Tuesday", opens: "17:00", closes: "19:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "17:00", closes: "19:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "17:00", closes: "19:00" },
+  ],
+};
+
 export default function IlorinPage() {
   return (
     <main style={{ background: c.paper, color: c.ink, fontFamily: "var(--font-body)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ilorinJsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* Header */}
       <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(6,49,31,.92)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", padding: "13px clamp(18px,4vw,40px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
@@ -197,6 +251,41 @@ export default function IlorinPage() {
         </div>
       </section>
 
+      {/* Today's Word — a daily blessing from Pastor Owoseni */}
+      <DailyWord />
+
+      {/* Service times */}
+      <section style={{ background: c.cream, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 44 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>Weekly Rhythm</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Service times.</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: 18 }}>
+            {schedule.map((d, i) => (
+              <Reveal key={d.day} delay={i * 70}>
+                <div style={{ height: "100%", background: c.paper, border: `1px solid ${c.line}`, borderRadius: 22, padding: "26px 24px" }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: c.green, marginBottom: 18 }}>{d.day}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                    {d.services.map((s) => (
+                      <div key={s.name}>
+                        <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, color: c.ink, letterSpacing: "-.2px", lineHeight: 1.2 }}>{s.name}</div>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, color: c.inkSoft, fontWeight: 600, marginTop: 5 }}>
+                          <Clock size={13} strokeWidth={2.2} color={c.greenBright} aria-hidden /> {s.time}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={160} style={{ textAlign: "center", marginTop: 30 }}>
+            <p style={{ fontSize: 14.5, color: c.inkSoft, margin: 0 }}>All times West Africa Time (WAT) · Everyone is welcome.</p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Visit */}
       <section id="visit" style={{ background: c.paper, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "center" }}>
@@ -270,6 +359,7 @@ export default function IlorinPage() {
                 <a href={APPLE_PODCASTS} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Apple Podcasts</a>
                 <a href={AUDIOMACK} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Audiomack</a>
                 <a href={FB} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>Facebook</a>
+                <a href={TIKTOK} target="_blank" rel="noopener noreferrer" style={{ color: c.onDeep, textDecoration: "none" }}>TikTok</a>
                 <a href={`mailto:${EMAIL}`} style={{ color: c.onDeep, textDecoration: "none", wordBreak: "break-word" }}>{EMAIL}</a>
               </div>
             </div>
