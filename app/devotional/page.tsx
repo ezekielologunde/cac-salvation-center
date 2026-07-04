@@ -38,6 +38,26 @@ const confession: { kind: "verse" | "say"; ref?: string; text: string }[] = [
   { kind: "say", text: "Surely goodness and mercy shall follow me all the days of my life, and I shall dwell in the house of the LORD forever." },
 ];
 
+const children = [
+  {
+    affirmation: "I am forgiven",
+    ref: "Ephesians 1:6-8",
+    text: "So we praise God for the glorious grace he has poured out on us who belong to his dear Son. He is so rich in kindness and grace that he purchased our freedom with the blood of his Son and forgave our sins. He has showered his kindness on us, along with all wisdom and understanding.",
+    accent: "linear-gradient(140deg,#F15F22,#D62828)",
+  },
+  {
+    affirmation: "I am reconciled with God",
+    ref: "2 Corinthians 5:18-19",
+    text: "All this is from God, who reconciled us to himself through Christ and gave us the ministry of reconciliation: that God was reconciling the world to himself in Christ, not counting people's sins against them. And he has committed to us the message of reconciliation.",
+    accent: "linear-gradient(140deg,#E8A33D,#F15F22)",
+  },
+];
+
+const memoryVerse = {
+  text: "Therefore, whoever takes the lowly position of this child is the greatest in the kingdom of heaven.",
+  ref: "Matthew 18:4",
+};
+
 export default function DevotionalPage() {
   return (
     <main>
@@ -114,6 +134,47 @@ export default function DevotionalPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* For the children */}
+      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 40 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--flame)" }}>For the children</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: "12px 0 0", lineHeight: 1 }}>I am His.</h2>
+            <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "12px auto 0", maxWidth: 520 }}>
+              Truths for our little ones to say out loud and carry in their hearts.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 20 }}>
+            {children.map((c, i) => (
+              <Reveal key={c.affirmation} delay={i * 90}>
+                <article style={{ height: "100%", background: "var(--paper)", borderRadius: 24, overflow: "hidden", border: "1px solid var(--line)", boxShadow: "0 12px 30px rgba(27,19,14,.07)", display: "flex", flexDirection: "column" }}>
+                  <div style={{ background: c.accent, padding: "26px 28px" }}>
+                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,.8)", marginBottom: 6 }}>Say it out loud</div>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3vw,32px)", letterSpacing: "-.5px", color: "#fff", lineHeight: 1.05 }}>{c.affirmation}.</div>
+                  </div>
+                  <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
+                    <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.75, margin: "0 0 16px", flex: 1 }}>{c.text}</p>
+                    <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)" }}>{c.ref}</div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={160} style={{ marginTop: 24 }}>
+            <div style={{ background: "linear-gradient(140deg,#1C3A2A,#2E6040)", borderRadius: 24, padding: "clamp(28px,4vw,40px)", textAlign: "center", position: "relative", overflow: "hidden" }}>
+              <div aria-hidden style={{ position: "absolute", top: -40, right: -40, width: 180, height: 180, background: "radial-gradient(circle,rgba(232,163,61,.22),transparent 70%)", pointerEvents: "none" }} />
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>This week&apos;s memory verse</span>
+                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2.4vw,26px)", color: "#fff", lineHeight: 1.5, letterSpacing: "-.3px", margin: "16px auto 0", maxWidth: 720, textWrap: "balance" }}>
+                  &ldquo;{memoryVerse.text}&rdquo;
+                </p>
+                <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".5px", color: "var(--gold)", marginTop: 16 }}>{memoryVerse.ref}</div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

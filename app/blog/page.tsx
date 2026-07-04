@@ -301,6 +301,9 @@ export default async function BlogPage() {
   const dynamicPosts = (dbRows ?? []).map(dbPostToBlogPost);
   const [featured, ...rest] = POSTS;
   const allArticles = [...rest, ...dynamicPosts];
+  const byDateDesc = (a: BlogPost, b: BlogPost) => (a.dateIso < b.dateIso ? 1 : a.dateIso > b.dateIso ? -1 : 0);
+  const heraldArticles = allArticles.filter((p) => p.category !== "Devotional").sort(byDateDesc);
+  const devotionalArticles = allArticles.filter((p) => p.category === "Devotional").sort(byDateDesc);
   const dateStr = new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 
   return (
@@ -357,31 +360,52 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Article grid */}
-      <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <Reveal style={{ marginBottom: 32 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12, marginBottom: 0 }}>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
-                More from the family
-              </span>
-              <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+      {/* The Herald — news, events & reflections */}
+      {heraldArticles.length > 0 && (
+        <section style={{ background: "var(--cream-2)", padding: "clamp(40px,5vw,72px) clamp(20px,5vw,64px) clamp(20px,3vw,32px)" }}>
+          <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+            <Reveal style={{ marginBottom: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12 }}>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
+                  The Herald
+                </span>
+                <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+              </div>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 22 }}>
+              {heraldArticles.map((p, i) => (
+                <Reveal key={p.slug} delay={(i % 6) * 70}>
+                  <ArticleCard post={p} />
+                </Reveal>
+              ))}
             </div>
-          </Reveal>
-          <div style={{
-            marginTop: 28,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
-            gap: 22,
-          }}>
-            {allArticles.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 80}>
-                <ArticleCard post={p} />
-              </Reveal>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Devotionals */}
+      {devotionalArticles.length > 0 && (
+        <section style={{ background: "var(--cream-2)", padding: "clamp(24px,4vw,40px) clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
+          <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+            <Reveal style={{ marginBottom: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12 }}>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
+                  Devotionals
+                </span>
+                <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+                <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--ink-soft)" }}>{devotionalArticles.length} entries</span>
+              </div>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 22 }}>
+              {devotionalArticles.map((p, i) => (
+                <Reveal key={p.slug} delay={(i % 9) * 55}>
+                  <ArticleCard post={p} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CACNA CTA */}
       <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(56px,7vw,90px)" }}>
