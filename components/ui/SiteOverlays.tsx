@@ -18,7 +18,9 @@ function isSundayService() {
 export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const pathname = usePathname();
   const [bar, setBar] = useState(false);
-  const [barEvent, setBarEvent] = useState<ChurchEvent | null>(null);
+  const [barEvents, setBarEvents] = useState<ChurchEvent[]>([]);
+  const [barIndex, setBarIndex] = useState(0);
+  const [barPaused, setBarPaused] = useState(false);
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
   const [dbBar, setDbBar] = useState(false);
@@ -34,12 +36,14 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
       setDbBar(true);
       document.documentElement.style.setProperty('--bar-h', '44px');
     } else {
-      // 1b. Next upcoming event with a detail page. splitByDate drops past
-      // events, so the bar advances on its own (CACNA → 24th Anniversary → …)
-      // with no manual expiry date to maintain.
-      const next = splitByDate(specialEvents).upcoming.find((e) => e.href);
-      if (next && !localStorage.getItem(`ann-${next.id}`)) {
-        setBarEvent(next);
+      // 1b. Up to 3 upcoming events with a detail page, rotated in the bar.
+      // splitByDate drops past events, so the set advances on its own with no
+      // manual expiry date to maintain.
+      const events = splitByDate(specialEvents).upcoming
+        .filter((e) => e.href && !localStorage.getItem(`ann-${e.id}`))
+        .slice(0, 3);
+      if (events.length) {
+        setBarEvents(events);
         setBar(true);
         document.documentElement.style.setProperty('--bar-h', '44px');
       }
@@ -64,9 +68,20 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Rotate through the events every 6s — paused on hover/focus, and never
+  // auto-advances for visitors who prefer reduced motion.
+  useEffect(() => {
+    if (barEvents.length < 2 || barPaused) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      setBarIndex((i) => (i + 1) % barEvents.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [barEvents.length, barPaused]);
+
   function dismissBar() {
     setBar(false);
-    if (barEvent) localStorage.setItem(`ann-${barEvent.id}`, '1');
+    barEvents.forEach((e) => localStorage.setItem(`ann-${e.id}`, '1'));
     document.documentElement.style.setProperty('--bar-h', '0px');
   }
 
@@ -80,6 +95,8 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
     setToast(false);
     sessionStorage.setItem('live-toast-seen', '1');
   }
+
+  const currentBarEvent = barEvents.length ? barEvents[barIndex % barEvents.length] : null;
 
   // All hooks run above this line — safe to bail out of rendering here.
   if (pathname.startsWith('/admin')) return null;
@@ -118,10 +135,14 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
         </div>
       )}
 
-      {/* ── 1b. Next-event announcement bar (auto-updating) ─────────── */}
-      {bar && barEvent && (
+      {/* ── 1b. Upcoming-events announcement bar (auto-rotating) ─────── */}
+      {bar && currentBarEvent && (
         <div
           role="banner"
+          onMouseEnter={() => setBarPaused(true)}
+          onMouseLeave={() => setBarPaused(false)}
+          onFocus={() => setBarPaused(true)}
+          onBlur={() => setBarPaused(false)}
           style={{
             position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
             background: '#1B130E', height: 44,
@@ -130,15 +151,17 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           }}
         >
           <div aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: '#E8A33D', flexShrink: 0 }} />
-          <span style={{ color: 'rgba(255,247,239,.9)', fontSize: 13, fontWeight: 600, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {barEvent.navLabel ?? barEvent.title} · {barEvent.dateLabel}
-          </span>
-          <Link
-            href={barEvent.href!}
-            style={{ color: '#E8A33D', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}
-          >
-            Learn more →
-          </Link>
+          <div key={currentBarEvent.id} style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0, animation: 'barFade .5s ease' }}>
+            <span style={{ color: 'rgba(255,247,239,.9)', fontSize: 13, fontWeight: 600, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {currentBarEvent.navLabel ?? currentBarEvent.title} · {currentBarEvent.dateLabel}
+            </span>
+            <Link
+              href={currentBarEvent.href!}
+              style={{ color: '#E8A33D', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}
+            >
+              Learn more →
+            </Link>
+          </div>
           <button
             onClick={dismissBar}
             aria-label="Dismiss announcement"
