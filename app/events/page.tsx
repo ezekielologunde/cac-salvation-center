@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { CalendarPlus, Download } from "lucide-react";
-import { specialEvents, weeklyServices, monthlyServices, googleCalUrl, icsDataUri, isEventPast, type ChurchEvent } from "@/lib/events";
+import { specialEvents, weeklyServices, monthlyServices, googleCalUrl, icsDataUri, splitByDate, type ChurchEvent } from "@/lib/events";
 import { SITE, SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -99,8 +99,7 @@ export default async function EventsPage() {
 
   const dynamicEvents = (dbRows ?? []).map(dbEventToChurchEvent);
   const allSpecialEvents = [...specialEvents, ...dynamicEvents];
-  const upcoming = allSpecialEvents.filter(ev => !isEventPast(ev));
-  const past = allSpecialEvents.filter(ev => isEventPast(ev));
+  const { upcoming, past } = splitByDate(allSpecialEvents);
 
   const eventsJsonLd = upcoming.length > 0 ? {
     "@context": "https://schema.org",

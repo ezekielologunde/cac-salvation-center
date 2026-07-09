@@ -35,6 +35,23 @@ export function isEventPast(ev: ChurchEvent): boolean {
   return Date.now() > Date.UTC(y, mo, d, h + offset, mi);
 }
 
+/**
+ * Single source of truth for ordering one-off events. Splits a list into
+ * upcoming (soonest first) and past (most recently concluded first).
+ * `startLocal` is a zero-padded YYYYMMDDTHHMMSS string, so a plain string
+ * comparison sorts chronologically. Recurring services are never "past" —
+ * pass only one-off `specialEvents` (and DB events) here.
+ */
+export function splitByDate(events: ChurchEvent[]): { upcoming: ChurchEvent[]; past: ChurchEvent[] } {
+  const upcoming = events
+    .filter((e) => !isEventPast(e))
+    .sort((a, b) => a.startLocal.localeCompare(b.startLocal));
+  const past = events
+    .filter((e) => isEventPast(e))
+    .sort((a, b) => b.startLocal.localeCompare(a.startLocal));
+  return { upcoming, past };
+}
+
 export const specialEvents: ChurchEvent[] = [
   {
     id: "good-women-anniversary-2026",

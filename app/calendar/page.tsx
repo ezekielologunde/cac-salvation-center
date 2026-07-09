@@ -1,8 +1,9 @@
 import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
+import Link from "next/link";
 import { CalendarPlus, Download, Sun, Moon, Sparkles, Flame } from "lucide-react";
-import { specialEvents, weeklyServices, monthlyServices, annualMoments, googleCalUrl, icsDataUri, type ChurchEvent } from "@/lib/events";
+import { specialEvents, weeklyServices, monthlyServices, annualMoments, googleCalUrl, icsDataUri, splitByDate, type ChurchEvent } from "@/lib/events";
 
 export const metadata = {
   title: "Calendar — CAC Salvation Center",
@@ -35,6 +36,7 @@ function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }
 }
 
 export default function CalendarPage() {
+  const { upcoming: upcomingSpecial } = splitByDate(specialEvents);
   return (
     <main>
       <Nav heroDark />
@@ -92,8 +94,15 @@ export default function CalendarPage() {
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Coming Up</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1px", color: "var(--cream)", margin: "12px 0 0" }}>Special gatherings</h2>
           </Reveal>
+          {upcomingSpecial.length === 0 ? (
+            <Reveal>
+              <p style={{ fontSize: 16, color: "rgba(255,247,239,.6)", lineHeight: 1.7 }}>
+                No special events on the calendar right now — check back soon, or <Link href="/events" style={{ color: "var(--gold)", fontWeight: 700, textDecoration: "none" }}>browse past gatherings</Link>.
+              </p>
+            </Reveal>
+          ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {specialEvents.map((ev, i) => (
+            {upcomingSpecial.map((ev, i) => (
               <Reveal key={ev.id} delay={i * 90}>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(20px,3vw,36px)", alignItems: "center", background: "rgba(255,247,239,.05)", borderRadius: 24, padding: "clamp(22px,3vw,32px)", border: "1px solid rgba(255,247,239,.1)" }}>
                   <div style={{ flexShrink: 0, width: 104, height: 104, borderRadius: 20, background: "linear-gradient(150deg,var(--flame),var(--red))", color: "#fff", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", lineHeight: 1, boxShadow: "0 14px 30px rgba(214,40,40,.3)" }}>
@@ -105,11 +114,17 @@ export default function CalendarPage() {
                     <div style={{ fontSize: 14, fontWeight: 700, color: "var(--gold)", marginBottom: 10 }}>{ev.dateLabel} · {ev.timeLabel}</div>
                     <p style={{ fontSize: 15.5, color: "rgba(255,247,239,.7)", lineHeight: 1.65, margin: "0 0 18px" }}>{ev.desc}</p>
                     <AddToCalendar ev={ev} dark />
+                    {ev.href && (
+                      <Link href={ev.href} className="press" style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 16, fontSize: 14, fontWeight: 700, color: "var(--gold)", textDecoration: "none" }}>
+                        See full details <span aria-hidden style={{ fontSize: 16 }}>→</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
+          )}
         </div>
       </section>
 
