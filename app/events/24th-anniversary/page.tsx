@@ -6,7 +6,7 @@ import Link from "next/link";
 import {
   ArrowLeft, MapPin, CalendarDays, Clock, Navigation,
   UtensilsCrossed, Music, Drama, Film, Gamepad2, HeartHandshake, Gift, Baby,
-  CalendarPlus, Download,
+  CalendarPlus, Download, Video,
 } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { SITE, SITE_URL } from "@/lib/site";
@@ -47,7 +47,8 @@ const lineup = [
 const details = [
   { icon: CalendarDays, label: "Dates", detail: "Wednesday July 22 – Sunday July 26, 2026" },
   { icon: Clock, label: "Times", detail: "Weeknight services 7:00 PM ET · Grand finale Sunday 10:30 AM ET" },
-  { icon: MapPin, label: "Venue", detail: `${SITE.shortName}, ${fullAddress}` },
+  { icon: MapPin, label: "Venue", detail: `Church Auditorium — ${fullAddress}` },
+  { icon: Video, label: "Can't make it?", detail: "Every service also streams live on Zoom and online." },
 ];
 
 export default function AnniversaryPage() {
@@ -60,10 +61,13 @@ export default function AnniversaryPage() {
     startDate: "2026-07-22T19:00:00-04:00",
     endDate: "2026-07-26T14:00:00-04:00",
     eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
     image: `${SITE_URL}/images/congregation.jpg`,
     url: `${SITE_URL}/events/24th-anniversary`,
-    location: { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } },
+    location: [
+      { "@type": "Place", name: `${SITE.name} — Church Auditorium`, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } },
+      { "@type": "VirtualLocation", url: `${SITE_URL}/online` },
+    ],
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
   };
