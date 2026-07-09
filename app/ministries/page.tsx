@@ -26,7 +26,7 @@ type Ministry = {
 };
 
 const ministries: Ministry[] = [
-  { name: "Worship & Choir", desc: "Spirit-filled praise that leads the whole house into God's presence every Sunday.", icon: Music, gradient: "linear-gradient(140deg,var(--red),var(--flame))", href: "/choir", cta: "Meet the choir" },
+  { name: "Worship & Choir", desc: "Spirit-filled praise that leads the whole house into God's presence every Sunday.", icon: Music, gradient: "linear-gradient(140deg,var(--red),var(--flame))", href: "/contact", cta: "Join the choir" },
   { name: "Women's Fellowship", desc: "Sister Fellowship (Blessed Sisters, Unity Sisters, Glorious Sisters) and more — all women of the Salvation Center growing together in faith, prayer, and service.", icon: HeartHandshake, gradient: "linear-gradient(140deg,var(--flame),var(--gold))", href: "/contact", cta: "Connect with the sisters" },
   { name: "Youth & Young Adults", desc: "Raising the next generation as bold, grounded ambassadors of Christ.", icon: Sparkles, gradient: "linear-gradient(140deg,var(--red-deep),var(--red))", href: "/contact", cta: "Get involved" },
   { name: "Children's Ministry", desc: "A safe, joyful place for kids to meet Jesus. Sunday School begins at 9:25 AM.", icon: Baby, gradient: "linear-gradient(140deg,var(--flame),var(--red))", href: "/visit", cta: "Plan a visit" },
