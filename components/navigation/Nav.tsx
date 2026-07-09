@@ -19,22 +19,31 @@ const navItems: NavItem[] = [
     href: '/about',
     dropdown: [
       { href: '/leadership', label: 'Leadership', desc: 'Meet our five pastors' },
-      { href: '/ilorin', label: 'Ilorin', desc: 'Our parent assembly in Nigeria' },
       { href: '/ministries', label: 'Ministries', desc: 'Find your place to serve' },
-      { href: '/testimonies', label: 'Testimonies', desc: 'Stories of what God has done' },
-      { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
+      { href: '/choir', label: 'Choir', desc: 'Our worship & music ministry' },
+      { href: '/salvationcity', label: 'Salvation City', desc: 'Our Rosedale, MD assembly' },
+      { href: '/ilorin', label: 'Ilorin', desc: 'Our parent assembly in Nigeria' },
     ],
   },
   {
-    label: 'Grow',
+    label: 'Watch & Grow',
     href: '/online',
     dropdown: [
       { href: '/online', label: 'Watch Online', desc: 'Live & on-demand services' },
-      { href: '/salvationcity', label: 'Salvation City', desc: 'Our Rosedale, MD assembly' },
       { href: '/devotional', label: 'Devotional', desc: 'Daily Word & podcast' },
       { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
+    ],
+  },
+  {
+    label: 'Events',
+    href: '/events',
+    dropdown: [
+      { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
+      { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
+      { href: '/events/cacna-2026', label: 'CACNA 2026', desc: 'National convention · July 13–18, PA' },
+      { href: '/events/24th-anniversary', label: '24th Anniversary', desc: 'Make a Joyful Noise · July 22–26' },
     ],
   },
   {
@@ -54,21 +63,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: 'Calendar',
-    href: '/calendar',
-    dropdown: [
-      { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
-      { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
-      { href: '/events/cacna-2026', label: 'CACNA 2026', desc: 'National convention · July 13–18, Blue Ridge Summit PA' },
-      { href: '/events/good-women-anniversary', label: 'Good Women Anniversary', desc: 'Annual celebration of womanhood in faith' },
-      { href: '/events/pilgrimage-2026', label: 'Holy Land Pilgrimage', desc: 'Nov 2–12, 2026 · Israel & Egypt · JFK' },
-    ],
-  },
-  {
     label: 'Resources',
     href: '/blog',
     dropdown: [
       { href: '/blog', label: 'Blog & News', desc: 'Stories from the family' },
+      { href: '/testimonies', label: 'Testimonies', desc: 'Stories of what God has done' },
+      { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
       { href: '/store', label: 'Store', desc: 'Apparel, Bibles, music & prints' },
     ],
   },
