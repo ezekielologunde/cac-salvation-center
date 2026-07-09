@@ -20,7 +20,7 @@ function toIso(s: string): string {
 
 function evPlace(id: string) {
   if (id === "cacna-convention-2026")
-    return { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", addressLocality: "Blue Ridge Summit", addressRegion: "PA", addressCountry: "US" } };
+    return { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", streetAddress: "14051 Stahley Rd", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } };
   if (id === "holy-land-pilgrimage-2026")
     return { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } };
   return { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } };

@@ -3,7 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
-import { MapPin, CalendarDays, Car, Package, Clock, Users, Heart, ArrowLeft } from "lucide-react";
+import { MapPin, CalendarDays, Car, Package, Clock, Users, Heart, ArrowLeft, Phone, Ticket, Sparkles } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { CalendarPlus, Download } from "lucide-react";
 import { SITE, SITE_URL } from "@/lib/site";
@@ -13,18 +13,43 @@ export const revalidate = 3600;
 export const metadata = {
   title: "CACNA 2026 Annual Convention — CAC Salvation Center",
   description:
-    "Join CAC Salvation Center at the 2026 CACNA National Convention — July 13–18 at CAC Village, Blue Ridge Summit, PA. Six days of worship, the Word, and the whole CAC family in one place.",
+    "Join CAC Salvation Center at the 2026 CACNA National Convention — July 13–18 at CAC Village, Blue Ridge Summit, PA. Theme: “The Bible: God’s Message to Man.” Six days of worship, the Word, and the whole CAC family in one place.",
   alternates: { canonical: "/events/cacna-2026" },
 };
 
 const ev = specialEvents.find((e) => e.id === "cacna-convention-2026")!;
 const CACNA_REG = "https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/";
 
+const THEME = "The Bible: God’s Message to Man";
+
 const sessions = [
-  { day: "Monday 13", label: "Opening Night", desc: "The convention begins at 6:00 PM with an opening worship service. The whole assembly gathers for the first time." },
-  { day: "Tue–Thu", label: "Morning & Evening Sessions", desc: "Two full sessions daily. Morning sessions typically 9:00 AM–1:00 PM; evening sessions 6:00 PM–10:00 PM." },
-  { day: "Friday 17", label: "Youth Service", desc: "A dedicated evening service for young people — worship, ministry, and space for the next generation to encounter God." },
-  { day: "Saturday 18", label: "Closing Night", desc: "The convention closes with a final worship service and communion. The family departs refreshed and rooted." },
+  { day: "Mon · Jul 13", label: "Registration & Ministers' Prayers", desc: "The convention opens as families arrive and register, and the ministers gather to pray over the week ahead." },
+  { day: "Tue · Jul 14", label: "Ministers' Conference", desc: "A dedicated day for the clergy — teaching, fellowship, and business among the ministers of the region." },
+  { day: "Wed · Jul 15", label: "Departmental Day", desc: "CACMA, Ministers' Wives, Good Women, Youth & Young Adults, and Children each gather for their own sessions." },
+  { day: "Thu · Jul 16", label: "Picnic, Games & Worship Night", desc: "Picnic, games & sports, Sunday School, and the Business Group by day — a combined worship night to follow." },
+  { day: "Fri · Jul 17", label: "Convention Day & Empowerment Night", desc: "The main convention day program, closing with an empowerment night for the whole family." },
+  { day: "Sat · Jul 18", label: "Holy Communion & Departure", desc: "The convention closes with a Holy Communion service before the family departs, refreshed and rooted." },
+];
+
+const fees = [
+  { tier: "Adults", age: "Age 30 & above", free: false, rows: [
+    { when: "Oct 1 – Jan 31, 2026", price: "$125" },
+    { when: "Feb 1 – Apr 30, 2026", price: "$150" },
+    { when: "May 1 – Jul 10, 2026", price: "$200" },
+    { when: "At the Convention Ground", price: "$250" },
+  ] },
+  { tier: "Young Adults", age: "Age 20 – 29", free: false, rows: [
+    { when: "Oct 1 – Jan 31, 2026", price: "$100" },
+    { when: "Feb 1 – Apr 30, 2026", price: "$125" },
+    { when: "May 1 – Jul 10, 2026", price: "$150" },
+    { when: "At the Convention Ground", price: "$150" },
+  ] },
+  { tier: "Children", age: "Age 1 – 19", free: true, rows: [] },
+];
+
+const contacts = [
+  { name: "Dr. David Adenodi", role: "Chairman", phone: "301 440 7033", tel: "+13014407033" },
+  { name: "Dr. Timothy Famojuro", role: "Secretary", phone: "917 709 1892", tel: "+19177091892" },
 ];
 
 const packList = [
@@ -37,10 +62,10 @@ const packList = [
 ];
 
 const logistics = [
-  { icon: MapPin, label: "Location", detail: "CAC Village, Blue Ridge Summit, PA 17214" },
+  { icon: MapPin, label: "Location", detail: "CAC Village, 14051 Stahley Rd, Blue Ridge Summit, PA 17214" },
   { icon: Car, label: "Driving from Randallstown", detail: "Approx. 2 hours via I-70 W · Carpooling will be coordinated from the church" },
   { icon: CalendarDays, label: "Dates", detail: "Monday July 13 – Saturday July 18, 2026" },
-  { icon: Clock, label: "Check-in", detail: "July 13 from 2:00 PM · Opening service at 6:00 PM" },
+  { icon: Clock, label: "Registration", detail: "Opens Monday July 13 · Ministers' prayers the same day" },
 ];
 
 export default function CACNA2026Page() {
@@ -56,7 +81,7 @@ export default function CACNA2026Page() {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     image: `${SITE_URL}/images/congregation.jpg`,
     url: `${SITE_URL}/events/cacna-2026`,
-    location: { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } },
+    location: { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", streetAddress: "14051 Stahley Rd", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } },
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
     offers: { "@type": "Offer", url: CACNA_REG, availability: "https://schema.org/InStock" },
   };
@@ -102,6 +127,16 @@ export default function CACNA2026Page() {
               National Convention
             </RevealText>
           </h1>
+
+          <Reveal delay={160}>
+            <div style={{ display: "inline-flex", alignItems: "flex-start", gap: 12, marginBottom: 22, padding: "14px 20px", borderRadius: 16, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", maxWidth: 620 }}>
+              <Sparkles size={20} strokeWidth={2} color="var(--gold)" aria-hidden style={{ flexShrink: 0, marginTop: 3 }} />
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 4 }}>Convention Theme</div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(18px,2.6vw,26px)", color: "#fff", lineHeight: 1.15, letterSpacing: "-.3px" }}>&ldquo;{THEME}&rdquo;</div>
+              </div>
+            </div>
+          </Reveal>
 
           <Reveal delay={200}>
             <p style={{ fontSize: "clamp(16px,2vw,20px)", color: "rgba(255,247,239,.72)", lineHeight: 1.7, maxWidth: 620, margin: "0 0 44px", textWrap: "pretty" }}>
@@ -191,7 +226,7 @@ export default function CACNA2026Page() {
           </div>
           <Reveal delay={400}>
             <p style={{ fontSize: 14, color: "rgba(255,247,239,.45)", marginTop: 22, lineHeight: 1.6 }}>
-              Schedule is subject to change. Full session details will be released by CACNA closer to the date. Follow <strong style={{ color: "rgba(255,247,239,.7)" }}>@cacnaconvention</strong> for live updates.
+              Every night is a <strong style={{ color: "rgba(255,247,239,.7)" }}>combined revival for all</strong>, with <strong style={{ color: "rgba(255,247,239,.7)" }}>free food for all</strong>. Schedule is subject to change — follow <strong style={{ color: "rgba(255,247,239,.7)" }}>@CACNA Latunde Region</strong> or cacnaconvention.org for updates.
             </p>
           </Reveal>
         </div>
@@ -246,6 +281,68 @@ export default function CACNA2026Page() {
         </div>
       </section>
 
+      {/* Registration fees + contacts */}
+      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)", marginBottom: 16 }}>
+              <Ticket size={16} strokeWidth={2.5} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--flame)" }} aria-hidden />
+              Registration
+            </div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,4vw,48px)", letterSpacing: "-.8px", color: "var(--ink)", margin: 0 }}>Fees by age group</h2>
+          </Reveal>
+          <Reveal delay={80} style={{ marginBottom: 36 }}>
+            <p style={{ fontSize: 15, color: "var(--ink-soft)", lineHeight: 1.7, maxWidth: 620 }}>Rates rise as the convention approaches, so register early — children attend completely free.</p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: 18 }}>
+            {fees.map((f, i) => (
+              <Reveal key={f.tier} delay={i * 90}>
+                <div style={{ height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 20, padding: "26px 24px", boxShadow: "0 10px 26px rgba(27,19,14,.06)", display: "flex", flexDirection: "column" }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--ink)", letterSpacing: "-.3px" }}>{f.tier}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--red)", marginTop: 4, marginBottom: 18 }}>{f.age}</div>
+                  {f.free ? (
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1, minHeight: 120 }}>
+                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 46, color: "var(--flame)", lineHeight: 1 }}>FREE</div>
+                      <div style={{ fontSize: 13.5, color: "var(--ink-soft)", marginTop: 8, lineHeight: 1.5 }}>All children are welcome at no cost.</div>
+                    </div>
+                  ) : (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+                      {f.rows.map((r, j) => (
+                        <div key={j} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, paddingBottom: 10, borderBottom: j < f.rows.length - 1 ? "1px solid var(--line)" : "none" }}>
+                          <span style={{ fontSize: 13, color: "var(--ink-soft)", lineHeight: 1.4 }}>{r.when}</span>
+                          <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, color: "var(--ink)", fontVariantNumeric: "tabular-nums" }}>{r.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: 16 }}>
+              {contacts.map((c) => (
+                <a key={c.name} href={`tel:${c.tel}`} className="press" style={{ display: "flex", gap: 14, alignItems: "center", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 16, padding: "18px 20px", textDecoration: "none", boxShadow: "0 6px 16px rgba(27,19,14,.05)" }}>
+                  <div style={{ flexShrink: 0, display: "grid", placeItems: "center", width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg,var(--flame),var(--red))" }}>
+                    <Phone size={18} color="#fff" strokeWidth={2} aria-hidden />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: 15, color: "var(--ink)" }}>{c.name}</div>
+                    <div style={{ fontSize: 13, color: "var(--ink-soft)" }}>{c.role} · {c.phone}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={280}>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)", marginTop: 20, lineHeight: 1.6, textAlign: "center" }}>
+              <strong style={{ color: "var(--ink)" }}>Book your hotel early.</strong> For further information, contact the Chairman or Secretary above.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Registration CTA */}
       {!isPast && (
       <section style={{ background: "var(--ink)", padding: "clamp(60px,8vw,100px) clamp(20px,5vw,64px)" }}>
@@ -253,10 +350,10 @@ export default function CACNA2026Page() {
           <Reveal>
             <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 20 }}>Secure your spot</div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(34px,5.5vw,72px)", letterSpacing: "-1.5px", color: "#fff", margin: "0 0 22px", lineHeight: 0.95 }}>
-              Register before beds fill.
+              Register before rates rise.
             </h2>
             <p style={{ fontSize: "clamp(15px,1.8vw,18px)", color: "rgba(255,247,239,.68)", lineHeight: 1.72, marginBottom: 40, textWrap: "pretty" }}>
-              Village accommodation is allocated first-come. Online registration is open now. Spots for the Salvation Center family will not last.
+              Registration is open online now, and the price goes up as the convention draws near. Register early to pay less — and remember to book your hotel ahead of time.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
               <a href={CACNA_REG} target="_blank" rel="noopener noreferrer" className="btn-sheen press" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "var(--gold)", color: "var(--ink)", fontWeight: 800, fontSize: 17, padding: "18px 36px", borderRadius: 999, textDecoration: "none", boxShadow: "0 20px 50px rgba(232,163,61,.35)" }}>
