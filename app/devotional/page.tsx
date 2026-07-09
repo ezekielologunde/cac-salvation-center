@@ -54,8 +54,8 @@ const children = [
 ];
 
 const memoryVerse = {
-  text: "Therefore, whoever takes the lowly position of this child is the greatest in the kingdom of heaven.",
-  ref: "Matthew 18:4",
+  text: "“I am the Alpha and the Omega, the Beginning and the End,” says the Lord, “who is and who was and who is to come, the Almighty.”",
+  ref: "Revelation 1:8",
 };
 
 export default function DevotionalPage() {
