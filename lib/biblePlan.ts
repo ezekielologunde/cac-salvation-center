@@ -68,4 +68,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "2 Chronicles 5–7; Psalm 121; 1 Timothy 4",
     thu: "1 Kings 9; 2 Chronicles 8; 1 Timothy 5",
   },
+  {
+    week: 27,
+    theme: "Ecclesiastes → 1 & 2 Timothy",
+    sun: "1 Kings 10–11; 2 Chronicles 9; 1 Timothy 6",
+    mon: "Ecclesiastes 1–3; Psalm 45; 2 Timothy 1",
+    tue: "Ecclesiastes 4–6; Psalm 125; 2 Timothy 2",
+    wed: "Ecclesiastes 7–9; Psalm 46; 2 Timothy 3",
+    thu: "Ecclesiastes 10–12; 2 Timothy 4",
+  },
 ];
