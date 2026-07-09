@@ -222,6 +222,7 @@ export function Hero() {
             textWrap: "balance",
           }}
         >
+          <span className="sr-only">Christ Apostolic Church Salvation Center — a Nigerian church in Randallstown, Maryland. </span>
           <AnimLetters key={`l1-${lang}`}>{t.line1}</AnimLetters>
           <br />
           <RevealText
