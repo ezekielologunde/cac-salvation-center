@@ -19,6 +19,8 @@ export interface ChurchEvent {
   recurMonthly?: string;
   /** Optional dedicated detail page for a featured event. */
   href?: string;
+  /** Short label for the nav dropdown (falls back to title). */
+  navLabel?: string;
 }
 
 /**
@@ -59,7 +61,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "The Baltimore DCC Good Women mark their annual anniversary — theme: “Who Are You: Mother or Murderer?” (1 Kings 3:16–27). Guest ministers Evang. Mrs Bisi Benson and Evang. Mrs Buky Awosanya, with the BDCC Good Women leadership.",
     dateLabel: "June 28, 2026", timeLabel: "11:00 AM ET", month: "JUN", day: "28",
     startLocal: "20260628T110000", endLocal: "20260628T133000",
-    href: "/events/good-women-anniversary",
+    href: "/events/good-women-anniversary", navLabel: "Good Women Anniversary",
   },
   {
     id: "cacna-convention-2026",
@@ -67,7 +69,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "Christ Apostolic Church North America Annual Convention — theme “The Bible: God’s Message to Man.” Six days of worship, teaching, and family at CAC Village, 14051 Stahley Rd, Blue Ridge Summit, PA.",
     dateLabel: "July 13–18, 2026", timeLabel: "All week", month: "JUL", day: "13",
     startLocal: "20260713T180000", endLocal: "20260718T220000",
-    href: "/events/cacna-2026",
+    href: "/events/cacna-2026", navLabel: "CACNA 2026",
   },
   {
     id: "church-anniversary-2026",
@@ -75,7 +77,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "A full week celebrating 24 years of God’s faithfulness to CAC Salvation Center — theme: “Make a Joyful Noise to the Lord” (Psalm 95:1). Nightly celebration services Wednesday–Saturday, building to the Sunday Grand Finale Star Event: lunch with the Center, power music ministration, youth playlets, movie time, exciting games, and much more.",
     dateLabel: "July 22–26, 2026", timeLabel: "Grand finale Sun · 10:30 AM ET", month: "JUL", day: "22",
     startLocal: "20260722T190000", endLocal: "20260726T140000",
-    href: "/events/24th-anniversary",
+    href: "/events/24th-anniversary", navLabel: "24th Anniversary",
   },
   {
     id: "choir-anniversary-2026",
@@ -97,7 +99,7 @@ export const specialEvents: ChurchEvent[] = [
     desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, November 2–12, 2026. Package includes round-trip flights from JFK, 8 nights accommodation (7 in Israel + 1 in St. Catherine, Egypt), daily meals, private guide, group coach, and Pilgrimage Certificate. Price $4,795 · $500 deposit to register · $2,000 second payment due Oct 31. Contact: info@cacnapilgrimage.org | @cacnapilgrimage",
     dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
     startLocal: "20261102T060000", endLocal: "20261112T230000",
-    href: "/events/pilgrimage-2026",
+    href: "/events/pilgrimage-2026", navLabel: "Holy Land Pilgrimage",
   },
 ];
 
