@@ -40,6 +40,7 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/salvationcity", priority: 0.8 },
   { path: "/events", priority: 0.7 },
   { path: "/events/good-women-anniversary", priority: 0.65 },
+  { path: "/events/24th-anniversary", priority: 0.75 },
   { path: "/events/cacna-2026", priority: 0.75 },
   { path: "/events/macedonia-outreach", priority: 0.7 },
   { path: "/calendar", priority: 0.8 },

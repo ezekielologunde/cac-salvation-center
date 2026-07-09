@@ -53,6 +53,14 @@ export const specialEvents: ChurchEvent[] = [
     href: "/events/cacna-2026",
   },
   {
+    id: "church-anniversary-2026",
+    title: "24th Church Anniversary — Make a Joyful Noise",
+    desc: "A full week celebrating 24 years of God’s faithfulness to CAC Salvation Center — theme: “Make a Joyful Noise to the Lord” (Psalm 95:1). Nightly celebration services Wednesday–Saturday, building to the Sunday Grand Finale Star Event: lunch with the Center, power music ministration, youth playlets, movie time, exciting games, and much more.",
+    dateLabel: "July 22–26, 2026", timeLabel: "Grand finale Sun · 10:30 AM ET", month: "JUL", day: "22",
+    startLocal: "20260722T190000", endLocal: "20260726T140000",
+    href: "/events/24th-anniversary",
+  },
+  {
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
     desc: "A special Sunday of praise and thanksgiving celebrating our worship ministry.",
