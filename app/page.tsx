@@ -10,7 +10,6 @@ import { createServiceClient } from "@/lib/supabase/server";
 // Below-fold sections split into separate JS chunks — browser parses them
 // incrementally instead of one blocking task, cutting TBT significantly.
 const Watchword     = dynamic(() => import("@/components/sections/Watchword").then(m => ({ default: m.Watchword })));
-const WhoWeAre      = dynamic(() => import("@/components/sections/WhoWeAre").then(m => ({ default: m.WhoWeAre })));
 const Testimonials  = dynamic(() => import("@/components/sections/Testimonials").then(m => ({ default: m.Testimonials })));
 const PastorWelcome = dynamic(() => import("@/components/sections/PastorWelcome").then(m => ({ default: m.PastorWelcome })));
 const WhatToExpect  = dynamic(() => import("@/components/sections/WhatToExpect").then(m => ({ default: m.WhatToExpect })));
@@ -18,7 +17,6 @@ const Impact        = dynamic(() => import("@/components/sections/Impact").then(
 const GrowResources = dynamic(() => import("@/components/sections/Youth").then(m => ({ default: m.Youth })));
 const Events        = dynamic(() => import("@/components/sections/Events").then(m => ({ default: m.Events })));
 const GlobalChurches = dynamic(() => import("@/components/sections/GlobalChurches").then(m => ({ default: m.GlobalChurches })));
-const Reviews       = dynamic(() => import("@/components/sections/Reviews").then(m => ({ default: m.Reviews })));
 const PlanVisit     = dynamic(() => import("@/components/sections/PlanVisit").then(m => ({ default: m.PlanVisit })));
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed").then(m => ({ default: m.InstagramFeed })));
 const FooterExperience = dynamic(() => import("@/components/sections/FooterExperience").then(m => ({ default: m.FooterExperience })));
@@ -100,7 +98,6 @@ export default async function Home() {
       ))}
       <Hero />
       <Watchword />
-      <WhoWeAre />
       <Testimonials />
       <PastorWelcome />
       <WhatToExpect />
@@ -108,7 +105,6 @@ export default async function Home() {
       <GrowResources />
       <Events />
       <GlobalChurches />
-      <Reviews />
       <PlanVisit />
       <InstagramFeed />
       <FooterExperience />
