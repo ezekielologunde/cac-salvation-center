@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft, MapPin, CalendarDays, Clock, Navigation,
   UtensilsCrossed, Music, Drama, Film, Gamepad2, HeartHandshake, Gift, Baby,
@@ -18,6 +19,12 @@ export const metadata = {
   description:
     "Celebrate 24 years of God's faithfulness at CAC Salvation Center — a full week, July 22–26, 2026, on the theme “Make a Joyful Noise to the Lord” (Psalm 95:1). Grand finale Star Event on Sunday July 26: lunch, power music, youth playlets, movie time, games, and more.",
   alternates: { canonical: "/events/24th-anniversary" },
+  openGraph: {
+    title: "24th Church Anniversary — Make a Joyful Noise",
+    description:
+      "A full week celebrating 24 years of God's faithfulness at CAC Salvation Center — July 22–26, 2026. Theme: “Make a Joyful Noise to the Lord” (Psalm 95:1).",
+    images: [{ url: "/images/24th-anniversary-flyer.png", width: 1123, height: 794, alt: "24th Church Anniversary — Make a Joyful Noise" }],
+  },
 };
 
 const ev = specialEvents.find((e) => e.id === "church-anniversary-2026")!;
@@ -62,7 +69,7 @@ export default function AnniversaryPage() {
     endDate: "2026-07-26T14:00:00-04:00",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
-    image: `${SITE_URL}/images/congregation.jpg`,
+    image: `${SITE_URL}/images/24th-anniversary-flyer.png`,
     url: `${SITE_URL}/events/24th-anniversary`,
     location: [
       { "@type": "Place", name: `${SITE.name} — Church Auditorium`, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } },
@@ -234,6 +241,37 @@ export default function AnniversaryPage() {
             <p style={{ fontFamily: "var(--font-display)", fontStyle: "italic", textAlign: "center", color: "var(--red)", fontSize: "clamp(15px,2vw,19px)", marginTop: 32 }}>
               …and so much more, all to the glory of God. Everyone is welcome!
             </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* The flyer */}
+      <section style={{ background: "var(--ink)", padding: "0 clamp(20px,5vw,64px) clamp(56px,7vw,90px)" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 26 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>Spread the word</div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,4vw,44px)", letterSpacing: "-.8px", color: "var(--cream)", margin: 0 }}>The flyer</h2>
+          </Reveal>
+          <Reveal>
+            <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,.5)", border: "1px solid rgba(255,247,239,.08)" }}>
+              <Image
+                src="/images/24th-anniversary-flyer.png"
+                alt="24th Church Anniversary official flyer — Make a Joyful Noise, July 22–26, 2026"
+                width={1123}
+                height={794}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={120} style={{ textAlign: "center", marginTop: 22 }}>
+            <a
+              href="/images/24th-anniversary-flyer.png"
+              download="cac-24th-anniversary-flyer.png"
+              className="press"
+              style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(255,247,239,.08)", color: "var(--cream)", fontWeight: 700, fontSize: 15, padding: "14px 26px", borderRadius: 999, textDecoration: "none", border: "1px solid rgba(255,247,239,.2)" }}
+            >
+              <Download size={16} strokeWidth={2} aria-hidden /> Download the flyer
+            </a>
           </Reveal>
         </div>
       </section>

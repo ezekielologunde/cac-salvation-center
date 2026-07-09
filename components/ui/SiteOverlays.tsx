@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Heart } from 'lucide-react';
+import { specialEvents, splitByDate, type ChurchEvent } from '@/lib/events';
 
 const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
 
@@ -17,6 +18,7 @@ function isSundayService() {
 export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const pathname = usePathname();
   const [bar, setBar] = useState(false);
+  const [barEvent, setBarEvent] = useState<ChurchEvent | null>(null);
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
   const [dbBar, setDbBar] = useState(false);
@@ -32,10 +34,12 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
       setDbBar(true);
       document.documentElement.style.setProperty('--bar-h', '44px');
     } else {
-      // 1b. CACNA announcement bar — persists until dismissed
-      // July 18 22:00 EDT = July 19 02:00 UTC — bar auto-expires after the event
-      const CACNA_END = Date.UTC(2026, 6, 19, 2, 0);
-      if (Date.now() < CACNA_END && !localStorage.getItem('ann-cacna2026')) {
+      // 1b. Next upcoming event with a detail page. splitByDate drops past
+      // events, so the bar advances on its own (CACNA → 24th Anniversary → …)
+      // with no manual expiry date to maintain.
+      const next = splitByDate(specialEvents).upcoming.find((e) => e.href);
+      if (next && !localStorage.getItem(`ann-${next.id}`)) {
+        setBarEvent(next);
         setBar(true);
         document.documentElement.style.setProperty('--bar-h', '44px');
       }
@@ -62,7 +66,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
 
   function dismissBar() {
     setBar(false);
-    localStorage.setItem('ann-cacna2026', '1');
+    if (barEvent) localStorage.setItem(`ann-${barEvent.id}`, '1');
     document.documentElement.style.setProperty('--bar-h', '0px');
   }
 
@@ -114,8 +118,8 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
         </div>
       )}
 
-      {/* ── 1b. CACNA announcement bar ──────────────────────────── */}
-      {bar && (
+      {/* ── 1b. Next-event announcement bar (auto-updating) ─────────── */}
+      {bar && barEvent && (
         <div
           role="banner"
           style={{
@@ -127,10 +131,10 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
         >
           <div aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: '#E8A33D', flexShrink: 0 }} />
           <span style={{ color: 'rgba(255,247,239,.9)', fontSize: 13, fontWeight: 600, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            CACNA 2026 · July 13–18 · Blue Ridge Summit, PA
+            {barEvent.navLabel ?? barEvent.title} · {barEvent.dateLabel}
           </span>
           <Link
-            href="/events/cacna-2026"
+            href={barEvent.href!}
             style={{ color: '#E8A33D', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}
           >
             Learn more →
