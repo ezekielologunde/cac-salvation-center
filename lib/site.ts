@@ -1,3 +1,5 @@
+import { googleReviews, REVIEW_AVERAGE, REVIEW_COUNT } from "@/lib/reviews";
+
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalvationcenter.org";
 
 export const SITE = {
@@ -42,6 +44,7 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/events/good-women-anniversary", priority: 0.65 },
   { path: "/events/24th-anniversary", priority: 0.75 },
   { path: "/events/cacna-2026", priority: 0.75 },
+  { path: "/events/pilgrimage-2026", priority: 0.7 },
   { path: "/events/macedonia-outreach", priority: 0.7 },
   { path: "/calendar", priority: 0.8 },
   { path: "/testimonies", priority: 0.7 },
@@ -78,6 +81,7 @@ export function churchJsonLd() {
         knowsLanguage: ["en", "yo"],
         areaServed: ["Randallstown", "Baltimore", "Maryland", "United States"],
         hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`,
+        geo: { "@type": "GeoCoordinates", latitude: 39.37797, longitude: -76.8505 },
         address: {
           "@type": "PostalAddress",
           streetAddress: SITE.address.street,
@@ -100,6 +104,13 @@ export function churchJsonLd() {
           { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "19:00", closes: "20:30" },
           { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "19:00", closes: "20:30" },
         ],
+        aggregateRating: { "@type": "AggregateRating", ratingValue: String(REVIEW_AVERAGE), reviewCount: String(REVIEW_COUNT), bestRating: "5", worstRating: "1" },
+        review: googleReviews.map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.name },
+          reviewRating: { "@type": "Rating", ratingValue: String(r.rating), bestRating: "5", worstRating: "1" },
+          reviewBody: r.quote,
+        })),
       },
       {
         "@type": "WebSite",
@@ -112,5 +123,19 @@ export function churchJsonLd() {
         inLanguage: "en-US",
       },
     ],
+  };
+}
+
+/** BreadcrumbList JSON-LD for a deep page — pass the trail from Home to current. */
+export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.name,
+      item: `${SITE_URL}${t.path === "/" ? "" : t.path}`,
+    })),
   };
 }

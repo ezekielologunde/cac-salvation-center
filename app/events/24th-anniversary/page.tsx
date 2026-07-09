@@ -10,7 +10,7 @@ import {
   CalendarPlus, Download, Video,
 } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
-import { SITE, SITE_URL } from "@/lib/site";
+import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -82,6 +82,7 @@ export default function AnniversaryPage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Events", path: "/events" }, { name: ev.navLabel ?? ev.title, path: "/events/24th-anniversary" }])).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
 
       {isPast && (

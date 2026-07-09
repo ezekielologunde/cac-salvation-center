@@ -8,6 +8,7 @@ import { MapPin, Phone, Monitor } from "lucide-react";
 export const metadata = {
   title: "Salvation — CAC Salvation Center",
   description: "Take the first step toward eternal life. Accept Jesus Christ as your Lord and Saviour today.",
+  alternates: { canonical: "/salvation" },
 };
 
 const steps = [

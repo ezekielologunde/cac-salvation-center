@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CalendarPlus, Download, MapPin, Clock, BookOpen } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
-import { SITE, SITE_URL } from "@/lib/site";
+import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -95,6 +95,7 @@ export default function GoodWomenAnniversaryPage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Events", path: "/events" }, { name: ev.navLabel ?? ev.title, path: "/events/good-women-anniversary" }])).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
       {isPast && (
         <div role="status" style={{ background: '#2c2825', padding: '13px clamp(20px,5vw,64px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, fontWeight: 600, color: 'rgba(255,247,239,.7)' }}>

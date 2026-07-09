@@ -26,15 +26,17 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "CAC Salvation Center — Church in Randallstown, MD",
-  description: "Spirit-filled Sunday worship at 10:30 AM ET · Randallstown, MD · streaming live on YouTube, Facebook & Zoom. Christ Apostolic Church — real community, real faith.",
+  title: "CAC Salvation Center — Nigerian Christ Apostolic Church in Randallstown, MD",
+  description: "Spirit-filled Sunday worship at 10:30 AM ET in Randallstown, MD — streaming live on YouTube, Facebook & Zoom. A Nigerian Christ Apostolic Church (CAC) family, with Yoruba worship. Real community, real faith.",
   keywords: [
-    "CAC Salvation Center", "Christ Apostolic Church", "church in Randallstown MD",
-    "Baltimore church", "Sunday service", "online church", "Yoruba church Maryland",
-    "prayer line", "Pastor H.O. Ilufoye",
+    "CAC Salvation Center", "Christ Apostolic Church", "Nigerian church Baltimore",
+    "Nigerian church near me", "Yoruba church Maryland", "Aladura church USA",
+    "church in Randallstown MD", "Baltimore church", "CAC Maryland",
+    "Sunday service", "online church", "prayer line", "Pastor H.O. Ilufoye",
   ],
   applicationName: SITE.shortName,
   alternates: { canonical: "/" },
+  icons: { icon: "/images/logo.png", shortcut: "/images/logo.png", apple: "/images/logo.png" },
   openGraph: {
     type: "website",
     siteName: SITE.name,

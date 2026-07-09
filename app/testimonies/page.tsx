@@ -4,6 +4,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { TestimonyForm } from "@/components/sections/TestimonyForm";
 import { Quote, Sparkles } from "lucide-react";
+import { googleReviews } from "@/lib/reviews";
 
 export const metadata = {
   title: "Testimonies — CAC Salvation Center",
@@ -59,54 +60,6 @@ const tagColor: Record<string, string> = {
   Restoration: "linear-gradient(135deg,#F15F22,#E8A33D)",
   Testimony: "linear-gradient(135deg,#D62828,#F15F22)",
 };
-
-const googleReviews = [
-  {
-    name: "Paul Sunmbola",
-    isLocalGuide: true,
-    quote: "Have you being in the community or new, and need a place where you can call home? This is the place to be. Spirit filled and offers opportunity for growth. Wonderful Sunday School sessions and Great service experiences. Join us as we worship the Lord, you will be glad you did. God bless you.",
-  },
-  {
-    name: "Tolu (PTM)",
-    isLocalGuide: false,
-    quote: "This District Cordinating Council of the Christ Apostolic Church is a place where you want to worship. The pastor, his family, and congregation are honest, faithful, loving, and amazing. They preach the word of God, pray fervently and more.",
-  },
-  {
-    name: "Riss",
-    isLocalGuide: false,
-    quote: "Great church, great service. All pastors are great and Bible centered. This is a church that really support and stand with one through the bad and good times. They exhibits the through love of Jesus Christ.",
-  },
-  {
-    name: "Ifemi Mercy",
-    isLocalGuide: false,
-    quote: "More than love it / A family church to attend.",
-  },
-  {
-    name: "T",
-    isLocalGuide: true,
-    quote: "Loved the entire service, nice place to worship.",
-  },
-  {
-    name: "Abiodun Adegoroye",
-    isLocalGuide: false,
-    quote: "A great place to worship God and fellowship.",
-  },
-  {
-    name: "Wole Toye",
-    isLocalGuide: false,
-    quote: "The challenges event hall is good.",
-  },
-  {
-    name: "Ademola Adesina",
-    isLocalGuide: true,
-    quote: "A living church of the Lord where prayers are answered.",
-  },
-  {
-    name: "Alex Owanikin",
-    isLocalGuide: false,
-    quote: "Beautiful and Rewarding.",
-  },
-];
 
 export default async function TestimoniesPage() {
   const service = createServiceClient();

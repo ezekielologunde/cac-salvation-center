@@ -26,6 +26,7 @@ const schedule = [
 export const metadata = {
   title: "Watch Online — CAC Salvation Center",
   description: "Join CAC Salvation Center live or on demand — every Sunday 10:30 AM ET. Stream on YouTube, Facebook, and podcast.",
+  alternates: { canonical: "/online" },
 };
 
 export default async function OnlinePage() {
