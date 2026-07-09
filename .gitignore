@@ -60,3 +60,7 @@ Gallery/
 next-env.d.ts
 
 .vercel
+
+# local tooling artifacts — never commit
+.claude/
+supabase/.temp/
