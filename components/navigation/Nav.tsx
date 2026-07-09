@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { haptic } from '@/lib/haptics';
 import { SearchModal } from '@/components/ui/SearchModal';
-import { specialEvents, splitByDate } from '@/lib/events';
 
 interface NavItem {
   label: string;
@@ -39,8 +38,6 @@ const navItems: NavItem[] = [
   {
     label: 'Events',
     href: '/events',
-    // The two hub links are static; the current featured events are appended
-    // client-side (see `featured` below) so they never go stale between deploys.
     dropdown: [
       { href: '/events', label: 'Upcoming Events', desc: 'Special gatherings & anniversaries' },
       { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
@@ -90,9 +87,6 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
-  // Current featured events for the "Events" menu — resolved on the client so
-  // they stay accurate as events pass, without waiting for a redeploy.
-  const [featured, setFeatured] = useState<{ href: string; label: string; desc: string }[]>([]);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -116,16 +110,6 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   }, [dark, open]);
 
   useEffect(() => { setOpen(false); setOpenMobileSection(null); }, [pathname]);
-
-  // Pull the next 1–2 upcoming events that have a detail page (soonest first).
-  useEffect(() => {
-    setFeatured(
-      splitByDate(specialEvents).upcoming
-        .filter((e) => e.href)
-        .slice(0, 2)
-        .map((e) => ({ href: e.href!, label: e.navLabel ?? e.title, desc: e.dateLabel }))
-    );
-  }, []);
 
   // Light up "Watch Live" during the Sunday service window (≈9 AM–1 PM ET).
   useEffect(() => {
@@ -164,15 +148,6 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
   const barInk = lightBar ? 'var(--cream)' : 'var(--ink)';
   const barAccent = lightBar ? 'var(--gold)' : 'var(--red)';
 
-  // Inject the client-resolved featured events into the Events menu.
-  const resolvedNavItems = featured.length
-    ? navItems.map((item) =>
-        item.label === 'Events'
-          ? { ...item, dropdown: [...(item.dropdown ?? []), ...featured] }
-          : item
-      )
-    : navItems;
-
   return (
     <>
       <nav
@@ -195,7 +170,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
 
         {/* Desktop nav */}
         <div className="nav-desktop" style={{ alignItems: 'center', gap: 2 }}>
-          {resolvedNavItems.map((item) => {
+          {navItems.map((item) => {
             const active = pathname === item.href || (item.dropdown?.some(d => pathname === d.href));
             const isOpen = openDropdown === item.label;
 
@@ -320,7 +295,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
           overflowY: 'auto',
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            {resolvedNavItems.map((item) => {
+            {navItems.map((item) => {
               const active = pathname === item.href || (item.dropdown?.some(d => pathname === d.href));
               const mobileOpen = openMobileSection === item.label;
 
