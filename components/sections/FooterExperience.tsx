@@ -16,24 +16,29 @@ const socials = [
 ];
 
 const quickLinks = [
+  // Who We Are
   ['/about', 'Who We Are'],
   ['/leadership', 'Leadership'],
   ['/ministries', 'Ministries'],
+  // Watch & Grow
   ['/online', 'Watch Online'],
   ['/devotional', 'Devotional'],
+  ['/bible-plan', 'Bible Reading Plan'],
   ['/prayer', 'Prayer'],
   ['/salvation', 'Salvation'],
-  ['/bible-plan', 'Bible Reading Plan'],
-  ['/giving', 'Giving'],
-  ['/building', 'Building Project'],
-  ['/blog', 'Blog & News'],
-  ['/store', 'Store'],
+  ['/testimonies', 'Testimonies'],
+  // Events
   ['/events', 'Events'],
   ['/calendar', 'Calendar'],
+  // Visit & Give
+  ['/visit', 'Plan a Visit'],
+  ['/giving', 'Giving'],
+  ['/building', 'Building Project'],
+  // Resources
+  ['/blog', 'Blog & News'],
   ['/gallery', 'Gallery'],
-  ['/testimonies', 'Testimonies'],
   ['/venue', 'Venue Hire'],
-  ['/visit', 'Visit Us'],
+  ['/store', 'Store'],
   ['/contact', 'Contact'],
 ] as const;
 

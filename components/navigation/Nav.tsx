@@ -33,6 +33,7 @@ const navItems: NavItem[] = [
       { href: '/bible-plan', label: 'Bible Reading Plan', desc: 'Hope for Today — weekly readings' },
       { href: '/prayer', label: 'Prayer', desc: 'Submit a prayer request' },
       { href: '/salvation', label: 'Salvation', desc: 'Accept Christ today' },
+      { href: '/testimonies', label: 'Testimonies', desc: 'Stories of what God has done' },
     ],
   },
   {
@@ -43,14 +44,7 @@ const navItems: NavItem[] = [
       { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
     ],
   },
-  {
-    label: 'Visit',
-    href: '/visit',
-    dropdown: [
-      { href: '/visit', label: 'Plan a Visit', desc: 'Service times, directions & what to expect' },
-      { href: '/venue', label: 'Venue Hire', desc: 'Book our hall & parking for your event' },
-    ],
-  },
+  { label: 'Visit', href: '/visit' },
   {
     label: 'Give',
     href: '/giving',
@@ -64,8 +58,8 @@ const navItems: NavItem[] = [
     href: '/blog',
     dropdown: [
       { href: '/blog', label: 'Blog & News', desc: 'Stories from the family' },
-      { href: '/testimonies', label: 'Testimonies', desc: 'Stories of what God has done' },
       { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
+      { href: '/venue', label: 'Venue Hire', desc: 'Book our hall & parking for your event' },
       { href: '/store', label: 'Store', desc: 'Apparel, Bibles, music & prints' },
     ],
   },
