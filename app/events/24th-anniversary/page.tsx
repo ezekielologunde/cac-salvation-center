@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowLeft, MapPin, CalendarDays, Clock, Navigation,
-  UtensilsCrossed, Music, Drama, Film, Gamepad2, HeartHandshake, Gift, Baby,
+  UtensilsCrossed, Music, Drama, Film, Gamepad2, Mic2,
   CalendarPlus, Download, Video,
 } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
@@ -17,13 +17,13 @@ export const revalidate = 3600;
 export const metadata = {
   title: "24th Church Anniversary — Make a Joyful Noise | CAC Salvation Center",
   description:
-    "Celebrate 24 years of God's faithfulness at CAC Salvation Center — a full week, July 22–26, 2026, on the theme “Make a Joyful Noise to the Lord” (Psalm 95:1). Grand finale Star Event on Sunday July 26: lunch, power music, youth playlets, movie time, games, and more.",
+    "Celebrate 24 years of God's faithfulness at CAC Salvation Center — July 24–26, 2026 (Fri–Sun), theme “Make a Joyful Noise to the Lord” (Psalm 95:1). Friday revival on Zoom, a Saturday Star Event (movie, games, lunch), and the Sunday Thanksgiving Service.",
   alternates: { canonical: "/events/24th-anniversary" },
   openGraph: {
     title: "24th Church Anniversary — Make a Joyful Noise",
     description:
-      "A full week celebrating 24 years of God's faithfulness at CAC Salvation Center — July 22–26, 2026. Theme: “Make a Joyful Noise to the Lord” (Psalm 95:1).",
-    images: [{ url: "/images/24th-anniversary-flyer.png", width: 1123, height: 794, alt: "24th Church Anniversary — Make a Joyful Noise" }],
+      "Three days celebrating 24 years of God's faithfulness at CAC Salvation Center — July 24–26, 2026. Theme: “Make a Joyful Noise to the Lord” (Psalm 95:1).",
+    images: [{ url: "/images/24th-anniversary-flyer.png", width: 1536, height: 1024, alt: "24th Church Anniversary — Make a Joyful Noise, July 24–26, 2026" }],
   },
 };
 
@@ -33,29 +33,31 @@ const fullAddress = `${SITE.address.street}, ${SITE.address.city}, ${SITE.addres
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
 
 const week = [
-  { day: "Wed", date: "Jul 22", label: "Opening Celebration", time: "7:00 PM ET", desc: "The week begins — worship, thanksgiving, and the Word as we open 24 years of grace." },
-  { day: "Thu", date: "Jul 23", label: "Revival Night", time: "7:00 PM ET", desc: "An evening set apart to seek the Lord together and stir the fire afresh." },
-  { day: "Fri", date: "Jul 24", label: "Praise Night", time: "7:00 PM ET", desc: "Loud, joyful, unashamed praise — making a joyful noise unto the Lord." },
-  { day: "Sat", date: "Jul 25", label: "Family & Youth Day", time: "Afternoon", desc: "A day for the whole household — the next generation leads and everyone joins in." },
-  { day: "Sun", date: "Jul 26", label: "Grand Finale · Star Event", time: "10:30 AM ET", desc: "The crowning celebration — the main anniversary service, then our all-out Star Event.", star: true },
+  { day: "Fri", date: "Jul 24", label: "Revival Night — on Zoom", time: "7:00 PM ET", items: ["Prayer & Praise", "Word Ministration", "Revival", "Special Blessings"] },
+  { day: "Sat", date: "Jul 25", label: "Star Event — Family Day", time: "11:00 AM ET", badge: "Star Event", highlight: true, items: ["Movie Time", "Exciting Games", "Lunch with the Salvation Center"] },
+  { day: "Sun", date: "Jul 26", label: "Grand Finale — Thanksgiving Service", time: "10:30 AM ET", badge: "Grand Finale", highlight: true, items: ["Anointed Word", "Powerful Worship", "Youth Playlet", "Special Choir", "Word of Salvation"] },
 ];
 
 const lineup = [
   { icon: UtensilsCrossed, t: "Lunch with the Salvation Center", s: "Break bread together as one family." },
-  { icon: Music, t: "Power Music Ministration", s: "Live praise & worship to lift the roof." },
-  { icon: Drama, t: "Youth Playlets", s: "Drama and testimony from our young ones." },
   { icon: Film, t: "Movie Time", s: "A family screening for all ages." },
   { icon: Gamepad2, t: "Exciting Games", s: "Fun and friendly competition for everyone." },
-  { icon: HeartHandshake, t: "Anniversary Thanksgiving", s: "24 years of His mercy — returning all the glory to God." },
-  { icon: Gift, t: "Testimonies & Gifts", s: "Stories of His goodness and tokens of appreciation." },
-  { icon: Baby, t: "Children's Corner", s: "Games, treats, and fun for the little ones." },
+  { icon: Mic2, t: "Power Music Ministration", s: "Live praise & worship to lift the roof." },
+  { icon: Drama, t: "Youth Playlet", s: "Drama and testimony from our young ones." },
+  { icon: Music, t: "Special Choir", s: "Voices raised in a joyful noise to the Lord." },
+];
+
+const ministers = [
+  { name: "Pastor Dr. H.O. Ilufoye", role: "BDCC Superintendent" },
+  { name: "Pastor S.O. Oladele", role: "C.A.C. President" },
+  { name: "Pastor Dr. T.O.A. Agbeja", role: "Latunde Regional Superintendent" },
 ];
 
 const details = [
-  { icon: CalendarDays, label: "Dates", detail: "Wednesday July 22 – Sunday July 26, 2026" },
-  { icon: Clock, label: "Times", detail: "Weeknight services 7:00 PM ET · Grand finale Sunday 10:30 AM ET" },
+  { icon: CalendarDays, label: "Dates", detail: "Friday July 24 – Sunday July 26, 2026" },
+  { icon: Clock, label: "Times", detail: "Fri 7:00 PM (Zoom) · Sat 11:00 AM · Sun 10:30 AM ET" },
   { icon: MapPin, label: "Venue", detail: `Church Auditorium — ${fullAddress}` },
-  { icon: Video, label: "Can't make it?", detail: "Every service also streams live on Zoom and online." },
+  { icon: Video, label: "Friday is on Zoom", detail: "The Friday revival streams live on Zoom and online — join from anywhere." },
 ];
 
 export default function AnniversaryPage() {
@@ -65,7 +67,7 @@ export default function AnniversaryPage() {
     "@type": "Event",
     name: ev.title,
     description: ev.desc,
-    startDate: "2026-07-22T19:00:00-04:00",
+    startDate: "2026-07-24T19:00:00-04:00",
     endDate: "2026-07-26T14:00:00-04:00",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
@@ -135,8 +137,8 @@ export default function AnniversaryPage() {
           </Reveal>
 
           <Reveal delay={280}>
-            <p style={{ fontSize: "clamp(16px,2vw,20px)", color: "rgba(255,247,239,.74)", lineHeight: 1.7, maxWidth: 600, margin: "12px auto 40px", textWrap: "pretty" }}>
-              A full week of celebration — <strong style={{ color: "var(--cream)" }}>July 22–26, 2026</strong> — marking 24 years of God&apos;s faithfulness, and building to a Grand Finale Star Event you will not want to miss.
+            <p style={{ fontSize: "clamp(16px,2vw,20px)", color: "rgba(255,247,239,.74)", lineHeight: 1.7, maxWidth: 620, margin: "12px auto 40px", textWrap: "pretty" }}>
+              Three days of celebration — <strong style={{ color: "var(--cream)" }}>July 24–26, 2026</strong> — marking 24 years of God&apos;s faithfulness: a Friday revival on Zoom, a Saturday Star Event, and the Sunday Thanksgiving Service.
             </p>
           </Reveal>
 
@@ -176,28 +178,34 @@ export default function AnniversaryPage() {
         </div>
       </section>
 
-      {/* A week of celebration */}
+      {/* Three days of celebration */}
       <section style={{ background: "var(--ink)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <Reveal style={{ marginBottom: 40 }}>
-            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 12 }}>Wednesday to Sunday</div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,50px)", letterSpacing: "-.8px", color: "var(--cream)", margin: 0 }}>A week of celebration.</h2>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 12 }}>Friday to Sunday</div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,50px)", letterSpacing: "-.8px", color: "var(--cream)", margin: 0 }}>Three days of celebration.</h2>
           </Reveal>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {week.map((d, i) => (
               <Reveal key={i} delay={i * 70}>
-                <div style={{ display: "flex", gap: "clamp(16px,3vw,32px)", alignItems: "flex-start", background: d.star ? "linear-gradient(120deg,rgba(232,163,61,.16),rgba(214,40,40,.10))" : "rgba(255,247,239,.05)", border: d.star ? "1px solid rgba(232,163,61,.4)" : "1px solid rgba(255,247,239,.1)", borderRadius: 20, padding: "clamp(20px,3vw,28px)" }}>
+                <div style={{ display: "flex", gap: "clamp(16px,3vw,32px)", alignItems: "flex-start", background: d.highlight ? "linear-gradient(120deg,rgba(232,163,61,.16),rgba(214,40,40,.10))" : "rgba(255,247,239,.05)", border: d.highlight ? "1px solid rgba(232,163,61,.4)" : "1px solid rgba(255,247,239,.1)", borderRadius: 20, padding: "clamp(20px,3vw,28px)" }}>
                   <div style={{ flexShrink: 0, minWidth: 82, textAlign: "center" }}>
                     <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,247,239,.55)" }}>{d.day}</div>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: d.star ? "var(--gold)" : "var(--cream)", lineHeight: 1.2 }}>{d.date}</div>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: d.highlight ? "var(--gold)" : "var(--cream)", lineHeight: 1.2 }}>{d.date}</div>
                   </div>
-                  <div style={{ minWidth: 0 }}>
+                  <div style={{ minWidth: 0, flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
                       <span style={{ fontWeight: 800, fontSize: 18, color: "var(--cream)" }}>{d.label}</span>
-                      {d.star && <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", background: "var(--gold)", color: "var(--ink)", padding: "3px 9px", borderRadius: 999 }}>Star Event</span>}
+                      {d.badge && <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", background: "var(--gold)", color: "var(--ink)", padding: "3px 9px", borderRadius: 999 }}>{d.badge}</span>}
                     </div>
-                    <div style={{ fontWeight: 700, fontSize: 14, color: "var(--gold)", marginBottom: 8 }}>{d.time}</div>
-                    <div style={{ fontSize: 14.5, color: "rgba(255,247,239,.62)", lineHeight: 1.68 }}>{d.desc}</div>
+                    <div style={{ fontWeight: 700, fontSize: 14, color: "var(--gold)", marginBottom: 12 }}>{d.time}</div>
+                    <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexWrap: "wrap", gap: "8px 18px" }}>
+                      {d.items.map((it) => (
+                        <li key={it} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14.5, color: "rgba(255,247,239,.7)" }}>
+                          <span aria-hidden style={{ flexShrink: 0, width: 5, height: 5, borderRadius: "50%", background: "var(--gold)" }} />{it}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </Reveal>
@@ -205,7 +213,7 @@ export default function AnniversaryPage() {
           </div>
           <Reveal delay={420}>
             <p style={{ fontSize: 14, color: "rgba(255,247,239,.45)", marginTop: 22, lineHeight: 1.6 }}>
-              Nightly themes and guest ministers are announced from the pulpit as the week draws near. Every service also streams live — <Link href="/online" style={{ color: "rgba(255,247,239,.75)", fontWeight: 700, textDecoration: "none" }}>watch online</Link>.
+              The Friday revival streams live on Zoom — <Link href="/online" style={{ color: "rgba(255,247,239,.75)", fontWeight: 700, textDecoration: "none" }}>join online</Link> from anywhere. All are welcome.
             </p>
           </Reveal>
         </div>
@@ -215,12 +223,12 @@ export default function AnniversaryPage() {
       <section style={{ background: "var(--cream-2)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <Reveal style={{ marginBottom: 12, textAlign: "center" }}>
-            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)", marginBottom: 14 }}>Sunday, July 26 · Grand Finale</div>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)", marginBottom: 14 }}>Star Event · Saturday &amp; the weekend</div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4.5vw,54px)", letterSpacing: "-.8px", color: "var(--ink)", margin: 0, lineHeight: 1.02 }}>The Star Event line-up</h2>
           </Reveal>
           <Reveal delay={80} style={{ textAlign: "center", marginBottom: 40 }}>
             <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.7, maxWidth: 560, margin: "0 auto" }}>
-              After the anniversary service, the whole family stays for an afternoon of food, worship, and fun.
+              Movie time, games, lunch, and power-packed music — a joyful, Spirit-filled weekend for the whole family.
             </p>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 16 }}>
@@ -240,15 +248,38 @@ export default function AnniversaryPage() {
           </div>
           <Reveal delay={200}>
             <p style={{ fontFamily: "var(--font-display)", fontStyle: "italic", textAlign: "center", color: "var(--red)", fontSize: "clamp(15px,2vw,19px)", marginTop: 32 }}>
-              …and so much more, all to the glory of God. Everyone is welcome!
+              …and many more, all to the glory of God. Everyone is welcome!
             </p>
           </Reveal>
         </div>
       </section>
 
+      {/* Ministering */}
+      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)", marginBottom: 14 }}>Ministering the Word</div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,4vw,48px)", letterSpacing: "-.8px", color: "var(--ink)", margin: 0 }}>Our guest ministers</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: 18 }}>
+            {ministers.map((m, i) => (
+              <Reveal key={m.name} delay={i * 90}>
+                <div style={{ height: "100%", textAlign: "center", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 20, padding: "30px 24px", boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
+                  <div aria-hidden style={{ margin: "0 auto 16px", width: 60, height: 60, borderRadius: "50%", display: "grid", placeItems: "center", background: "linear-gradient(140deg,var(--gold),var(--flame))", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22 }}>
+                    {m.name.replace(/^Pastor(\sDr\.)?\s/, "").charAt(0)}
+                  </div>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, letterSpacing: "-.3px", color: "var(--ink)", lineHeight: 1.2 }}>{m.name}</div>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, color: "var(--red)", marginTop: 6 }}>{m.role}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* The flyer */}
-      <section style={{ background: "var(--ink)", padding: "0 clamp(20px,5vw,64px) clamp(56px,7vw,90px)" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+      <section style={{ background: "var(--ink)", padding: "clamp(56px,7vw,90px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 26 }}>
             <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>Spread the word</div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,4vw,44px)", letterSpacing: "-.8px", color: "var(--cream)", margin: 0 }}>The flyer</h2>
@@ -257,9 +288,9 @@ export default function AnniversaryPage() {
             <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,.5)", border: "1px solid rgba(255,247,239,.08)" }}>
               <Image
                 src="/images/24th-anniversary-flyer.png"
-                alt="24th Church Anniversary official flyer — Make a Joyful Noise, July 22–26, 2026"
-                width={1123}
-                height={794}
+                alt="24th Church Anniversary official flyer — Make a Joyful Noise to the Lord, July 24–26, 2026"
+                width={1536}
+                height={1024}
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
             </div>
