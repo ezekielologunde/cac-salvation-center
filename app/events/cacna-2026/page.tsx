@@ -6,7 +6,7 @@ import Link from "next/link";
 import { MapPin, CalendarDays, Car, Package, Clock, Users, Heart, ArrowLeft, Phone, Ticket, Sparkles } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { CalendarPlus, Download } from "lucide-react";
-import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
+import { SITE, SITE_URL, CACNA_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -174,7 +174,7 @@ export default function CACNA2026Page() {
               </h2>
               <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.78, margin: "0 0 20px" }}>
                 The{" "}
-                <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church North America</a>{" "}
+                <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church North America</a>{" "}
                 National Convention brings together the entire CAC family across the United States and Canada for one week at CAC Village — a dedicated conference and retreat center in the mountains of southern Pennsylvania.
               </p>
               <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.78, margin: 0 }}>

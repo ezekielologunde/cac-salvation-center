@@ -2,6 +2,11 @@ import { googleReviews, REVIEW_AVERAGE, REVIEW_COUNT } from "@/lib/reviews";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalvationcenter.org";
 
+/** Wider CAC family — external sites. CACNA is on a temporary Vercel URL for now;
+ *  when its real domain is live, change it here and every link updates at once. */
+export const CACNA_URL = "https://cacnorthamerica.vercel.app";
+export const CAC_WORLDWIDE_URL = "https://cacworld.org";
+
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
   shortName: "CAC Salvation Center",

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { haptic } from '@/lib/haptics';
 import { SearchModal } from '@/components/ui/SearchModal';
+import { CACNA_URL } from '@/lib/site';
 
 interface NavItem {
   label: string;
@@ -22,7 +23,7 @@ const navItems: NavItem[] = [
       { href: '/ministries', label: 'Ministries', desc: 'Find your place to serve' },
       { href: '/salvationcity', label: 'Salvation City', desc: 'Our Rosedale, MD assembly' },
       { href: '/ilorin', label: 'Ilorin', desc: 'Our parent assembly in Nigeria' },
-      { href: 'https://cacnorthamerica.vercel.app', label: 'CAC North America', desc: 'Our national body — CACNA' },
+      { href: CACNA_URL, label: 'CAC North America', desc: 'Our national body — CACNA' },
     ],
   },
   {

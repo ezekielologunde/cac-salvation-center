@@ -5,7 +5,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
 import { MapPin, Flame, Waves, Landmark, Eye, ArrowLeft, CalendarPlus, Download, Phone, Mail, CreditCard } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
-import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
+import { SITE, SITE_URL, CACNA_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -102,7 +102,7 @@ export default function PilgrimagePage() {
 
           <Reveal>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>
-              <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}>Christ Apostolic Church North America</a> · Latunde Region Pilgrimage
+              <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}>Christ Apostolic Church North America</a> · Latunde Region Pilgrimage
             </div>
           </Reveal>
 

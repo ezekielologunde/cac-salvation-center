@@ -6,6 +6,7 @@ import { Church, HeartHandshake, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { CACNA_URL, CAC_WORLDWIDE_URL } from "@/lib/site";
 
 const values = [
   { icon: Church, title: "Sound doctrine", desc: "Preaching the whole counsel of God, faithfully and without compromise." },
@@ -140,9 +141,9 @@ export default function AboutPage() {
             </p>
             <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.75 }}>
               Part of the worldwide{" "}
-              <a href="https://cacworld.org" target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church</a>{" "}
+              <a href={CAC_WORLDWIDE_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church</a>{" "}
               — one of Africa&apos;s largest Pentecostal denominations — and its North American body,{" "}
-              <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>CAC North America (CACNA)</a>.
+              <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>CAC North America (CACNA)</a>.
               Our mission is raising generations of believers liberated through the light of God&apos;s Word and prayer, in Maryland and beyond.
             </p>
           </Reveal>
