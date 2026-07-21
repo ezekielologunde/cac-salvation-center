@@ -1,10 +1,9 @@
 ﻿"use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { loginAction } from "./actions";
-import { createClient } from "@/lib/supabase/client";
 
 const orbs = [
   { cx: "10%",  cy: "20%", r: 320, delay: 0 },
@@ -25,18 +24,6 @@ export default function AdminLogin() {
 
   const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const unauthorized = urlParams?.get("error") === "unauthorized";
-
-  const [resetMsg, setResetMsg] = useState<string | null>(null);
-  const [resetSending, setResetSending] = useState(false);
-
-  async function handleForgot() {
-    const email = (document.querySelector('input[name="email"]') as HTMLInputElement | null)?.value?.trim();
-    if (!email) { setResetMsg("Enter your email above first, then tap “Forgot password?”"); return; }
-    setResetSending(true); setResetMsg(null);
-    const { error } = await createClient().auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/admin/reset` });
-    setResetSending(false);
-    setResetMsg(error ? "Couldn't send the reset email — please try again." : `Check ${email} for a password-reset link.`);
-  }
 
   return (
     <div style={{
@@ -261,17 +248,6 @@ export default function AdminLogin() {
             </motion.button>
           </motion.div>
 
-          <div style={{ textAlign: "center", marginTop: 18 }}>
-            <button
-              type="button"
-              onClick={handleForgot}
-              disabled={resetSending}
-              style={{ background: "none", border: "none", color: "var(--red)", fontSize: 13, fontWeight: 600, cursor: resetSending ? "default" : "pointer", fontFamily: "inherit", textDecoration: "underline", opacity: resetSending ? 0.6 : 1 }}
-            >
-              {resetSending ? "Sending…" : "Forgot password?"}
-            </button>
-            {resetMsg && <p style={{ fontSize: 13, color: "var(--ink)", opacity: 0.7, margin: "10px 0 0", lineHeight: 1.5 }}>{resetMsg}</p>}
-          </div>
         </form>
       </motion.div>
     </div>
