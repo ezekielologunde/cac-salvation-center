@@ -6,6 +6,7 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalv
  *  when its real domain is live, change it here and every link updates at once. */
 export const CACNA_URL = "https://cacnorthamerica.vercel.app";
 export const CAC_WORLDWIDE_URL = "https://cacworld.org";
+export const CAC_CONVENTION_URL = "https://cacnaconvention.org";
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",

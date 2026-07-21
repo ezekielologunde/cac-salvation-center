@@ -7,6 +7,7 @@ import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
 import { Clock, Calendar, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
+import { CACNA_URL, CAC_WORLDWIDE_URL, CAC_CONVENTION_URL } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -41,6 +42,13 @@ export const metadata = {
 
 const WHATSAPP_SHARE = (title: string, slug: string) =>
   `https://wa.me/?text=${encodeURIComponent(`${title} — https://www.cacsalvationcenter.org/blog/${slug}`)}`;
+
+// The wider Christ Apostolic Church family — news & media beyond our walls.
+const familyLinks = [
+  { tag: "North America", title: "CAC North America", desc: "News, media, and events from Christ Apostolic Church North America (CACNA).", href: CACNA_URL },
+  { tag: "Convention", title: "CACNA Convention", desc: "The annual national convention — registration, schedule, and updates.", href: CAC_CONVENTION_URL },
+  { tag: "Worldwide", title: "CAC Worldwide", desc: "The global Christ Apostolic Church — our mother body, headquartered in Nigeria.", href: CAC_WORLDWIDE_URL },
+];
 
 function CategoryBadge({ label, color }: { label: string; color: string }) {
   return (
@@ -437,6 +445,33 @@ export default async function BlogPage() {
             </a>
           </div>
         </Reveal>
+      </section>
+
+      {/* From the CAC family — news & media across the wider church */}
+      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(60px,8vw,100px)" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 28 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
+                From the CAC Family
+              </span>
+              <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--ink-soft)" }}>News beyond our walls</span>
+            </div>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: 20 }}>
+            {familyLinks.map((l, i) => (
+              <Reveal key={l.href} delay={i * 80}>
+                <a href={l.href} target="_blank" rel="noopener noreferrer" className="card-lift" style={{ display: "flex", flexDirection: "column", height: "100%", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 22, padding: "26px 24px", textDecoration: "none", boxShadow: "0 10px 26px rgba(27,19,14,.06)" }}>
+                  <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--red)", marginBottom: 12 }}>{l.tag}</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", letterSpacing: "-.3px", marginBottom: 8 }}>{l.title}</div>
+                  <p style={{ fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.6, margin: "0 0 16px", flex: 1 }}>{l.desc}</p>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--red)" }}>Visit site ↗</span>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       <FooterExperience />
