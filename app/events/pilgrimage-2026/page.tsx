@@ -102,7 +102,7 @@ export default function PilgrimagePage() {
 
           <Reveal>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 14 }}>
-              Christ Apostolic Church North America · Latunde Region Pilgrimage
+              <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}>Christ Apostolic Church North America</a> · Latunde Region Pilgrimage
             </div>
           </Reveal>
 

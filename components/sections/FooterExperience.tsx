@@ -134,6 +134,8 @@ export function FooterExperience() {
         <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '20px 0 28px', fontSize: 12.5, color: 'rgba(255,247,239,.3)' }}>
           <span>© 2026 Christ Apostolic Church Salvation Center · Baltimore DCC · Registered 501(c)(3) nonprofit — donations are tax-deductible</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 20px' }}>
+            <a href="https://cacworld.org" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Worldwide</a>
+            <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC North America</a>
             <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Kingdom Embassy</a>
             <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Palace of Peace</a>
             <Link href="/ilorin" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Ilorin HQ</Link>

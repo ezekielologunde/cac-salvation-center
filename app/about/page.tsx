@@ -139,7 +139,11 @@ export default function AboutPage() {
               Founded in Baltimore in 2002, CAC Salvation Center grew from the vision of its parent assembly — C.A.C Salvation Centre, Ilorin, Nigeria — established on July 6, 1997, under Pastor Dr. H.O. Ilufoye.
             </p>
             <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.75 }}>
-              Part of the Christ Apostolic Church — one of Africa&apos;s largest Pentecostal denominations — our mission is raising generations of believers liberated through the light of God&apos;s Word and prayer, in Maryland and beyond.
+              Part of the worldwide{" "}
+              <a href="https://cacworld.org" target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church</a>{" "}
+              — one of Africa&apos;s largest Pentecostal denominations — and its North American body,{" "}
+              <a href="https://cacnorthamerica.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>CAC North America (CACNA)</a>.
+              Our mission is raising generations of believers liberated through the light of God&apos;s Word and prayer, in Maryland and beyond.
             </p>
           </Reveal>
         </div>
