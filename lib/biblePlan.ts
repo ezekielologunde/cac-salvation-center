@@ -86,4 +86,22 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "2 Chronicles 15–16; 1 Kings 16; Philemon",
     thu: "1 Kings 17–18; Psalm 119; Jude",
   },
+  {
+    week: 29,
+    theme: "1 & 2 Kings → Matthew 1–5",
+    sun: "1 Kings 19–21; 2 Chronicles 17; Psalm 129; Matthew 1",
+    mon: "1 Kings 22; 2 Chronicles 18; Matthew 2",
+    tue: "2 Chronicles 19–20; 2 Kings 1; Psalm 20; Matthew 3",
+    wed: "2 Kings 2–3; Psalm 48; Matthew 4",
+    thu: "2 Kings 4–6; Matthew 5",
+  },
+  {
+    week: 30,
+    theme: "2 Kings & Joel → Matthew 6–10",
+    sun: "2 Kings 7–8; 2 Chronicles 21; Matthew 6",
+    mon: "2 Kings 9–10; Psalm 49; Matthew 7",
+    tue: "2 Chronicles 22–23; 2 Kings 11; Psalm 131; Matthew 8",
+    wed: "2 Chronicles 24; 2 Kings 12; Psalm 50; Matthew 9",
+    thu: "Joel; Matthew 10",
+  },
 ];
