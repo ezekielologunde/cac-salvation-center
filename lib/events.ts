@@ -83,8 +83,8 @@ export const specialEvents: ChurchEvent[] = [
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
     desc: "A special Sunday of praise and thanksgiving celebrating our worship ministry.",
-    dateLabel: "September 3, 2026", timeLabel: "10:30 AM ET", month: "SEP", day: "03",
-    startLocal: "20260903T103000", endLocal: "20260903T123000",
+    dateLabel: "September 6, 2026", timeLabel: "10:30 AM ET", month: "SEP", day: "06",
+    startLocal: "20260906T103000", endLocal: "20260906T123000",
   },
   {
     id: "dcc-anniversary-2026",
