@@ -147,6 +147,13 @@ export const monthlyServices: ChurchEvent[] = [
     recurMonthly: "3FR",
   },
   {
+    id: "monthly-fasting-prayer",
+    title: "3 Days Monthly Fasting & Prayer",
+    desc: "A monthly reset for the whole house — three days of fasting and prayer. Daily 5:00–5:30 AM and 3:00–4:00 PM on the conference line, with a 7:00 PM Zoom service the first two nights, closing into the Crossover Service. This month's theme: “Lord deliver me from the evil spirit of unforgiveness” (Matthew 6:12). Conference Line: 857-216-6700, code 531312 · Zoom ID: 846 3538 8414, passcode 351844.",
+    dateLabel: "Last 3 days of every month", timeLabel: "5:00–5:30 AM & 3:00–4:00 PM ET",
+    startLocal: "20260729T050000", endLocal: "20260731T220000",
+  },
+  {
     id: "crossover-service",
     title: "Cross Over Service",
     desc: "Crossing into the new month with the family — a late-night service of thanksgiving, prayer, and prophecy.",
