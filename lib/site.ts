@@ -2,11 +2,16 @@ import { googleReviews, REVIEW_AVERAGE, REVIEW_COUNT } from "@/lib/reviews";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalvationcenter.org";
 
-/** Wider CAC family — external sites. CACNA is on a temporary Vercel URL for now;
- *  when its real domain is live, change it here and every link updates at once. */
+/** Wider CAC family — real external sites this church belongs to (CACNA is
+ *  the regional body; this assembly's own Superintendent, Pastor Dr.
+ *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). Point
+ *  directly at each site's actual live deployment rather than a
+ *  cacsalvationcenter.org subdomain, since neither CACNA nor the Convention
+ *  site's custom domain is set up yet (cacnorthamerica.com and
+ *  cacnaconvention.org both currently serve unrelated older builds). */
 export const CACNA_URL = "https://cacnorthamerica.vercel.app";
 export const CAC_WORLDWIDE_URL = "https://cacworld.org";
-export const CAC_CONVENTION_URL = "https://cacnaconvention.org";
+export const CAC_CONVENTION_URL = "https://cacna-convention.vercel.app";
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
