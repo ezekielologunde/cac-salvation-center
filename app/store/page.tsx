@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { ShoppingBag, Shield, Heart, Package } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
-import { StoreProducts } from "@/components/store/StoreProducts";
+import { StoreProducts, type Product } from "@/components/store/StoreProducts";
 
 export const metadata = {
   title: "Store — CAC Salvation Center",
@@ -21,13 +21,22 @@ const trust = [
 
 
 export default async function StorePage() {
-  const service = createServiceClient();
-  const { data: products } = await service
-    .from("products")
-    .select("*")
-    .eq("published", true)
-    .order("sort_order")
-    .order("created_at", { ascending: false });
+  // Non-fatal if Supabase is unavailable (e.g. Preview deployments without
+  // production DB credentials) — falls back to an empty store, same as
+  // app/sitemap.ts does for its own Supabase call.
+  let products: Product[] = [];
+  try {
+    const service = createServiceClient();
+    const { data } = await service
+      .from("products")
+      .select("*")
+      .eq("published", true)
+      .order("sort_order")
+      .order("created_at", { ascending: false });
+    products = data ?? [];
+  } catch {
+    // Fall through with an empty store
+  }
 
   return (
     <main>

@@ -296,17 +296,26 @@ function HallRentalAdWidget() {
 }
 
 export default async function BlogPage() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-  const { data: dbRows } = await supabase
-    .from("blog_posts")
-    .select("id, title, slug, excerpt, body, published_at, created_at")
-    .eq("published", true)
-    .order("published_at", { ascending: false });
+  // Non-fatal if Supabase is unavailable (e.g. Preview deployments without
+  // production DB credentials) — falls back to the static posts below,
+  // same as app/sitemap.ts does.
+  let dbRows: DbBlogRow[] = [];
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, body, published_at, created_at")
+      .eq("published", true)
+      .order("published_at", { ascending: false });
+    dbRows = data ?? [];
+  } catch {
+    // Fall through to the static-only blog
+  }
 
-  const dynamicPosts = (dbRows ?? []).map(dbPostToBlogPost);
+  const dynamicPosts = dbRows.map(dbPostToBlogPost);
   const [featured, ...rest] = POSTS;
   const allArticles = [...rest, ...dynamicPosts];
   const byDateDesc = (a: BlogPost, b: BlogPost) => (a.dateIso < b.dateIso ? 1 : a.dateIso > b.dateIso ? -1 : 0);

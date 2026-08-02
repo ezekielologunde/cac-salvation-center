@@ -62,14 +62,23 @@ const tagColor: Record<string, string> = {
 };
 
 export default async function TestimoniesPage() {
-  const service = createServiceClient();
-  const { data: dbRows } = await service
-    .from("testimonies")
-    .select("id, name, content")
-    .eq("approved", true)
-    .order("created_at", { ascending: false });
+  // Non-fatal if Supabase is unavailable (e.g. Preview deployments without
+  // production DB credentials) — falls back to the static stories below,
+  // same as app/sitemap.ts does for its own Supabase call.
+  let dbRows: { id: string; name: string; content: string }[] = [];
+  try {
+    const service = createServiceClient();
+    const { data } = await service
+      .from("testimonies")
+      .select("id, name, content")
+      .eq("approved", true)
+      .order("created_at", { ascending: false });
+    dbRows = data ?? [];
+  } catch {
+    // Fall through to the static-only testimonies
+  }
 
-  const dynamicStories = (dbRows ?? []).map((t: { id: string; name: string; content: string }) => ({
+  const dynamicStories = dbRows.map((t) => ({
     name: t.name,
     where: "Congregation",
     quote: t.content,

@@ -49,14 +49,23 @@ const faqJsonLd = {
 };
 
 export default async function Home() {
-  const service = createServiceClient();
-  const { data: announcements } = await service
-    .from("announcements")
-    .select("id, title, body, cta_text, cta_url, bg_color, text_color")
-    .eq("active", true)
-    .or("expires_at.is.null,expires_at.gt." + new Date().toISOString())
-    .in("placement", ["homepage", "both"])
-    .order("sort_order");
+  // Non-fatal if Supabase is unavailable (e.g. Preview deployments without
+  // production DB credentials) — falls back to no announcements, same as
+  // app/sitemap.ts does for its own Supabase call.
+  let announcements: { id: string; title: string; body: string | null; cta_text: string | null; cta_url: string | null; bg_color: string; text_color: string }[] = [];
+  try {
+    const service = createServiceClient();
+    const { data } = await service
+      .from("announcements")
+      .select("id, title, body, cta_text, cta_url, bg_color, text_color")
+      .eq("active", true)
+      .or("expires_at.is.null,expires_at.gt." + new Date().toISOString())
+      .in("placement", ["homepage", "both"])
+      .order("sort_order");
+    announcements = data ?? [];
+  } catch {
+    // Fall through with no announcements
+  }
 
   return (
     <main>

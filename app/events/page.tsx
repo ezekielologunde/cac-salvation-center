@@ -88,16 +88,25 @@ function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }
 }
 
 export default async function EventsPage() {
-  const { data: dbRows } = await createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-    .from("events")
-    .select("id, title, description, event_date, end_date, location, event_url")
-    .eq("published", true)
-    .order("event_date");
+  // Non-fatal if Supabase is unavailable (e.g. Preview deployments without
+  // production DB credentials) — falls back to the static events below,
+  // same as app/sitemap.ts does.
+  let dbRows: DbEventRow[] = [];
+  try {
+    const { data } = await createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+      .from("events")
+      .select("id, title, description, event_date, end_date, location, event_url")
+      .eq("published", true)
+      .order("event_date");
+    dbRows = data ?? [];
+  } catch {
+    // Fall through to the static-only events list
+  }
 
-  const dynamicEvents = (dbRows ?? []).map(dbEventToChurchEvent);
+  const dynamicEvents = dbRows.map(dbEventToChurchEvent);
   const allSpecialEvents = [...specialEvents, ...dynamicEvents];
   const { upcoming, past } = splitByDate(allSpecialEvents);
 

@@ -25,15 +25,23 @@ function cloudinaryPhoto(id: string) {
 }
 
 export async function GET() {
-  // Fetch DB-managed images first
-  const service = createServiceClient();
-  const { data: dbImages } = await service
-    .from("gallery_images")
-    .select("id, cloudinary_public_id, caption, alt_text, category")
-    .eq("published", true)
-    .order("sort_order");
+  // Fetch DB-managed images first. Non-fatal if Supabase is unavailable
+  // (e.g. Preview deployments without production DB credentials) — falls
+  // back to the static gallery below, same as app/sitemap.ts does.
+  let dbImages: { cloudinary_public_id: string }[] = [];
+  try {
+    const service = createServiceClient();
+    const { data } = await service
+      .from("gallery_images")
+      .select("id, cloudinary_public_id, caption, alt_text, category")
+      .eq("published", true)
+      .order("sort_order");
+    dbImages = data ?? [];
+  } catch {
+    // Fall through to the static-only gallery
+  }
 
-  const dbPhotos = (dbImages ?? []).map((img) => cloudinaryPhoto(img.cloudinary_public_id));
+  const dbPhotos = dbImages.map((img) => cloudinaryPhoto(img.cloudinary_public_id));
 
   // Static JSON fallback (deduplicate IDs already in DB)
   const dbIds = new Set((dbImages ?? []).map((img) => img.cloudinary_public_id));

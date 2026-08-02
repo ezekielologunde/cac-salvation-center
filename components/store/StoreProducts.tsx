@@ -5,7 +5,7 @@ import { ShoppingBag, Shirt, BookOpen, Music2, Printer, Mail, ExternalLink } fro
 import { AddToCartButton } from "@/components/store/AddToCartButton";
 import { Reveal } from "@/components/ui/Reveal";
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   category: string;
