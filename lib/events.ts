@@ -80,6 +80,27 @@ export const specialEvents: ChurchEvent[] = [
     href: "/events/24th-anniversary", navLabel: "24th Anniversary",
   },
   {
+    id: "youth-cookout-2026",
+    title: "Youth Cookout",
+    desc: "A day of food, fellowship, and fun for the Baltimore DCC youth — games, grilling, and community all afternoon.",
+    dateLabel: "August 15, 2026", timeLabel: "All Day", month: "AUG", day: "15",
+    startLocal: "20260815T120000", endLocal: "20260815T180000",
+  },
+  {
+    id: "youth-anniversary-2026",
+    title: "Youth Anniversary",
+    desc: "The youth mark their annual anniversary with a special Sunday service — worship, testimony, and the Word from and for the next generation.",
+    dateLabel: "August 16, 2026", timeLabel: "10:30 AM ET", month: "AUG", day: "16",
+    startLocal: "20260816T103000", endLocal: "20260816T123000",
+  },
+  {
+    id: "youth-graduation-2026",
+    title: "Youth Graduation Sunday",
+    desc: "Celebrating our graduates — from high school to college and beyond — with special recognition during Sunday service.",
+    dateLabel: "August 23, 2026", timeLabel: "10:30 AM ET", month: "AUG", day: "23",
+    startLocal: "20260823T103000", endLocal: "20260823T123000",
+  },
+  {
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
     desc: "A special Sunday of praise and thanksgiving celebrating our worship ministry.",

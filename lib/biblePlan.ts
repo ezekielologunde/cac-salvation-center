@@ -104,4 +104,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "2 Chronicles 24; 2 Kings 12; Psalm 50; Matthew 9",
     thu: "Joel; Matthew 10",
   },
+  {
+    week: 31,
+    theme: "Jonah & Amos → Matthew 11–15",
+    sun: "Jonah; Matthew 11",
+    mon: "2 Kings 13–14; 2 Chronicles 25; Psalm 53; Matthew 12",
+    tue: "Amos 1–3; Matthew 13",
+    wed: "Amos 4–6; Psalm 55; Matthew 14",
+    thu: "Amos 7–9; Matthew 15",
+  },
 ];
