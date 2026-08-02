@@ -43,6 +43,13 @@ const nextConfig: NextConfig = {
           { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
         ],
       },
+      {
+        // Defense-in-depth: robots.txt disallows /admin from being crawled at
+        // all, but this header stops it from being indexed even if a URL is
+        // ever discovered another way (e.g. linked externally).
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
     ];
   },
 

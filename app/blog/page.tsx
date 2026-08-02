@@ -7,7 +7,7 @@ import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
 import Link from "next/link";
 import { Clock, Calendar, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
-import { CACNA_URL, CAC_WORLDWIDE_URL, CAC_CONVENTION_URL } from "@/lib/site";
+import { CACNA_URL, CAC_WORLDWIDE_URL, CAC_CONVENTION_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -316,6 +316,7 @@ export default async function BlogPage() {
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }])).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
 
       {/* Masthead */}

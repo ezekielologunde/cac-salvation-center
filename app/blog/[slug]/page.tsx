@@ -9,7 +9,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { POSTS, getPost } from "@/lib/blog";
 import type { BlogPost } from "@/lib/blog";
-import { SITE_URL } from "@/lib/site";
+import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
 
 function makePublicClient() {
   return createClient(
@@ -339,8 +339,28 @@ export default async function BlogSlugPage({
   const shareText = encodeURIComponent(`${post.title} — ${shareUrl}`);
   const whatsappUrl = `https://wa.me/?text=${shareText}`;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.dateIso,
+    dateModified: post.dateIso,
+    image: `${SITE_URL}/images/congregation.jpg`,
+    url: shareUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": shareUrl },
+    author: { "@type": "Organization", name: SITE.name, url: SITE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/images/logo.png` },
+    },
+  };
+
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }])).replace(/</g, "\\u003c") }} />
       <Nav heroDark />
 
       {/* Hero */}
