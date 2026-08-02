@@ -4,12 +4,29 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Building2, Car, Users, Calendar, PartyPopper, Briefcase, Mail, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Venue Hire — CAC Salvation Center",
+  title: "Hall Rental in Randallstown, MD — CAC Salvation Center",
   description:
-    "Book the CAC Salvation Center hall and parking lots for your event, conference, birthday, or community gathering in Randallstown, MD. Contact us to check availability.",
+    "Rent our hall and on-site parking lot in Randallstown, MD for weddings, birthdays, conferences, and community events. Flexible seating, air-conditioned, audio-visual ready. Contact us for pricing and availability.",
   alternates: { canonical: "/venue" },
+};
+
+const venueJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Hall & Event Space Rental",
+  name: "Hall & Parking Lot Rental — CAC Salvation Center",
+  description:
+    "Rent our hall and on-site parking lots for weddings, birthdays, conferences, seminars, and community events in Randallstown, MD.",
+  provider: { "@type": "Church", name: SITE.name, url: SITE_URL },
+  areaServed: ["Randallstown", "Baltimore", "Maryland"],
+  url: `${SITE_URL}/venue`,
+  offers: [
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Main Hall Rental", description: "A spacious, air-conditioned hall for worship services, conferences, seminars, weddings, and large celebrations." } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Parking Lot Rental", description: "On-site parking lots available for rent alongside or independent of the hall." } },
+  ],
 };
 
 const SPACES = [
@@ -37,6 +54,8 @@ const USES = [
 export default function VenuePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(venueJsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Hall Rental", path: "/venue" }])).replace(/</g, "\\u003c") }} />
       <Nav />
 
       {/* Hero */}
@@ -49,7 +68,7 @@ export default function VenuePage() {
         <div style={{ maxWidth: 820, margin: "0 auto", position: "relative", zIndex: 2 }}>
           <Reveal>
             <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>
-              Space for Rent
+              Hall Rental &middot; Randallstown, MD
             </span>
           </Reveal>
           <Reveal delay={80}>
@@ -58,13 +77,13 @@ export default function VenuePage() {
               fontSize: "clamp(46px,7vw,96px)", letterSpacing: "-0.025em",
               color: "#fff", margin: "16px 0 20px", lineHeight: 0.94,
             }}>
-              Host your event<br />
-              <span style={{ color: "var(--gold)" }}>at Salvation Center.</span>
+              Rent our hall<br />
+              <span style={{ color: "var(--gold)" }}>for your next event.</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
             <p style={{ fontSize: "clamp(16px,1.8vw,20px)", color: "rgba(255,247,239,.78)", lineHeight: 1.65, maxWidth: 600, marginBottom: 36 }}>
-              Our hall and parking lots are available for events of all kinds — conferences, birthdays, community gatherings, and more — right in Randallstown, MD.
+              Our hall and parking lots are available to rent for weddings, birthdays, conferences, seminars, and community gatherings — right in Randallstown, MD.
             </p>
           </Reveal>
           <Reveal delay={220}>

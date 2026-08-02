@@ -46,7 +46,6 @@ const navItems: NavItem[] = [
       { href: '/calendar', label: 'Full Calendar', desc: 'Weekly, monthly & annual rhythm' },
     ],
   },
-  { label: 'Visit', href: '/visit' },
   {
     label: 'Give',
     href: '/giving',
@@ -61,11 +60,11 @@ const navItems: NavItem[] = [
     dropdown: [
       { href: '/blog', label: 'Blog & News', desc: 'Stories from the family' },
       { href: '/gallery', label: 'Gallery', desc: 'Moments from our church family' },
-      { href: '/venue', label: 'Venue Hire', desc: 'Book our hall & parking for your event' },
+      { href: '/venue', label: 'Hall Rental', desc: 'Book our hall & parking for your event' },
       { href: '/store', label: 'Store', desc: 'Apparel, Bibles, music & prints' },
+      { href: '/contact', label: 'Contact', desc: 'Get in touch — we respond within a day' },
     ],
   },
-  { label: 'Contact', href: '/contact' },
 ];
 
 interface NavProps {
@@ -234,7 +233,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             );
           })}
 
-          {/* Search + Watch Live group */}
+          {/* Search + Plan a Visit + Watch Live group */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 8 }}>
             <button
               onClick={() => setSearchOpen(true)}
@@ -244,6 +243,12 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
             >
               <Search size={16} strokeWidth={2} />
             </button>
+            <Link
+              href="/visit"
+              style={{ display: 'inline-flex', alignItems: 'center', fontWeight: 700, fontSize: 14, padding: '10px 16px', borderRadius: 999, textDecoration: 'none', whiteSpace: 'nowrap', border: `1.5px solid ${lightBar ? 'rgba(255,247,239,.35)' : 'var(--line)'}`, color: barInk, transition: 'color .4s, border-color .4s' }}
+            >
+              Plan a Visit
+            </Link>
             <Link
               href="/online"
               onClick={() => haptic('medium')}

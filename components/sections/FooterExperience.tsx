@@ -38,7 +38,7 @@ const quickLinks = [
   // Resources
   ['/blog', 'Blog & News'],
   ['/gallery', 'Gallery'],
-  ['/venue', 'Venue Hire'],
+  ['/venue', 'Hall Rental'],
   ['/store', 'Store'],
   ['/contact', 'Contact'],
 ] as const;
