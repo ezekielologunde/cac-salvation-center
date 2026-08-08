@@ -76,7 +76,7 @@ export function churchJsonLd() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Church",
+        "@type": ["Church", "LocalBusiness"],
         "@id": churchId,
         name: SITE.name,
         alternateName: SITE.shortName,
