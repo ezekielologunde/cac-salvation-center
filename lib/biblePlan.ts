@@ -113,4 +113,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Amos 4–6; Psalm 55; Matthew 14",
     thu: "Amos 7–9; Matthew 15",
   },
+  {
+    week: 32,
+    theme: "Hosea → Matthew 16–20",
+    sun: "Hosea 1–3; Matthew 16",
+    mon: "Hosea 4–6; Psalm 58; Matthew 17",
+    tue: "Hosea 7–10; Matthew 18",
+    wed: "Hosea 11–13; Matthew 19",
+    thu: "Hosea 14; 2 Chronicles 26–27; Psalm 61; Matthew 20",
+  },
 ];
