@@ -3,6 +3,7 @@ import { Nav } from "@/components/navigation/Nav";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
+import { WeekAccordion } from "@/components/bible-plan/WeekAccordion";
 import { bibleReadingPlan, FRIDAY_REFLECTION } from "@/lib/biblePlan";
 import { SITE } from "@/lib/site";
 
@@ -12,18 +13,6 @@ export const metadata = {
     "Hope for Today — a weekly Bible reading plan from CAC Salvation Center. Sunday through Thursday readings, with Friday set aside to reflect on how God's Word has spoken to you this week.",
   alternates: { canonical: "/bible-plan" },
 };
-
-const DAYS: { key: keyof (typeof bibleReadingPlan)[number]; label: string }[] = [
-  { key: "sun", label: "Sunday" },
-  { key: "mon", label: "Monday" },
-  { key: "tue", label: "Tuesday" },
-  { key: "wed", label: "Wednesday" },
-  { key: "thu", label: "Thursday" },
-];
-
-function pad(n: number) {
-  return n < 10 ? `0${n}` : `${n}`;
-}
 
 export default function BiblePlanPage() {
   const addressLine = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
@@ -78,66 +67,35 @@ export default function BiblePlanPage() {
         </div>
       </section>
 
-      {/* Week cards */}
-      <section style={{ background: "var(--cream)", padding: "clamp(56px,7vw,96px) clamp(20px,5vw,64px)" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <Reveal style={{ marginBottom: 40 }}>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-0.02em", color: "var(--ink)", margin: 0 }}>
+      {/* Weeks — mobile-first accordion, one week open at a time */}
+      <section style={{ background: "var(--cream)", padding: "clamp(40px,6vw,80px) clamp(16px,5vw,64px)" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 24 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px,3.6vw,42px)", letterSpacing: "-0.02em", color: "var(--ink)", margin: 0 }}>
                 The weeks
               </h2>
               <span style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-soft)" }}>
                 {bibleReadingPlan.length} of 52 released
               </span>
             </div>
+            <p style={{ fontSize: 14, color: "var(--ink-soft)", margin: "8px 0 0" }}>
+              Tap a week to open it — the newest is open below.
+            </p>
           </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 22 }}>
-            {[...bibleReadingPlan].sort((a, b) => b.week - a.week).map((w, i) => (
-              <Reveal key={w.week} delay={i * 70}>
-                <article className="card-lift" style={{ height: "100%", background: "var(--paper)", borderRadius: 22, border: "1px solid var(--line)", boxShadow: "0 14px 34px rgba(27,19,14,.08)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                  {/* Header strip */}
-                  <header style={{ padding: "22px 26px 18px", borderBottom: "1px solid var(--line)", background: "linear-gradient(180deg,rgba(232,163,61,.06),transparent)" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                      <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>
-                        Week {pad(w.week)}
-                      </span>
-                      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: "var(--ink-soft)" }}>
-                        Sun · Thu
-                      </span>
-                    </div>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, letterSpacing: "-.3px", color: "var(--ink)", margin: "10px 0 0", lineHeight: 1.2 }}>
-                      {w.theme}
-                    </h3>
-                  </header>
-
-                  {/* Day list */}
-                  <ol style={{ listStyle: "none", padding: "8px 0", margin: 0, flex: 1 }}>
-                    {DAYS.map(({ key, label }) => (
-                      <li key={key} style={{ display: "grid", gridTemplateColumns: "82px 1fr", gap: 12, padding: "12px 26px", borderBottom: "1px solid rgba(27,19,14,.05)" }}>
-                        <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--flame)", paddingTop: 2 }}>{label}</span>
-                        <span style={{ fontSize: 14.5, color: "var(--ink)", lineHeight: 1.6 }}>{w[key]}</span>
-                      </li>
-                    ))}
-                  </ol>
-
-                  {/* Friday band */}
-                  <footer style={{ padding: "18px 26px 22px", background: "var(--cream-2)", borderTop: "1px solid var(--line)" }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "82px 1fr", gap: 12 }}>
-                      <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--red-deep)", paddingTop: 2 }}>Friday</span>
-                      <span style={{ fontSize: 13.5, color: "var(--ink-soft)", lineHeight: 1.65, fontStyle: "italic" }}>{FRIDAY_REFLECTION}</span>
-                    </div>
-                  </footer>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={80}>
+            <WeekAccordion
+              weeks={[...bibleReadingPlan].sort((a, b) => b.week - a.week)}
+              fridayReflection={FRIDAY_REFLECTION}
+            />
+          </Reveal>
 
           {/* More coming */}
-          <Reveal delay={bibleReadingPlan.length * 70 + 60} style={{ marginTop: 44 }}>
-            <div style={{ textAlign: "center", padding: "30px 24px", border: "1.5px dashed var(--line)", borderRadius: 22, background: "var(--paper)" }}>
+          <Reveal delay={160} style={{ marginTop: 28 }}>
+            <div style={{ textAlign: "center", padding: "26px 22px", border: "1.5px dashed var(--line)", borderRadius: 18, background: "var(--paper)" }}>
               <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>Still to come</span>
-              <p style={{ fontSize: 15.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "10px auto 0", maxWidth: 520 }}>
+              <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "10px auto 0", maxWidth: 480 }}>
                 The rest of the year's readings are released as we walk through them as a family. New weeks land here as they come from the pulpit.
               </p>
             </div>
