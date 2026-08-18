@@ -4,6 +4,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
 import { headers } from "next/headers";
 import { rateLimit } from "@/lib/rateLimit";
+import { SITE_URL } from "@/lib/site";
 
 export type SubscribeState = { ok: boolean; message: string } | null;
 
@@ -22,7 +23,8 @@ function welcomeHtml(name: string | null): string {
 <html>
 <body style="margin:0;padding:0;background:#F9F8F6;font-family:Georgia,serif">
   <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(27,19,14,.10)">
-    <div style="background:#1B130E;padding:36px 40px;text-align:center">
+    <div style="background:#1B130E;padding:32px 40px 36px;text-align:center">
+      <img src="${SITE_URL}/images/logo.png" width="64" height="64" alt="Christ Apostolic Church Salvation Center" style="display:block;margin:0 auto 14px;border-radius:50%;width:64px;height:64px">
       <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,247,239,.45)">CAC SALVATION CENTER</p>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.1">You're in the family.</h1>
     </div>
