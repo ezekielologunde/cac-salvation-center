@@ -6,7 +6,7 @@ import { rateLimit } from "@/lib/rateLimit";
 const FROM = "CAC Salvation Center <noreply@cacsalvationcenter.org>";
 const TO   = "info@cacsalvationcenter.org";
 
-const ALLOWED_FORM_PREFIXES = ["Prayer request", "Testimony", "Contact —", "Contact Form"];
+const ALLOWED_FORM_PREFIXES = ["Prayer request", "Testimony", "Contact —", "Contact Form", "Connect Card"];
 const MAX_FIELD_LENGTH = 10_000;
 const MAX_FIELDS = 20;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -52,6 +52,20 @@ async function saveToSupabase(formName: string, fields: Record<string, string>):
       email: fields["Email"] || fields.email || "",
       subject: fields["Subject"] || fields.subject || null,
       message: fields["Message"] || fields.message || "",
+    });
+  } else if (formName === "Connect Card") {
+    await supabase.from("connect_cards").insert({
+      first_name: fields["First Name"] || "Unknown",
+      last_name: fields["Last Name"] || null,
+      email: fields["Email"] || "",
+      phone: fields["Phone"] || null,
+      visit_type: fields["Visit Type"] || null,
+      address: fields["Address"] || null,
+      city: fields["City/Town"] || null,
+      state: fields["State/Province"] || null,
+      zip: fields["Zip/Post Code"] || null,
+      country: fields["Country"] || null,
+      groups: fields["Groups"] || null,
     });
   }
 }

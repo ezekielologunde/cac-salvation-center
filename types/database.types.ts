@@ -83,9 +83,12 @@ export type Database = {
           created_at: string
           excerpt: string | null
           id: string
+          preacher: string | null
           published: boolean
           published_at: string | null
+          pull_quotes: Json | null
           slug: string
+          source_video_id: string | null
           title: string
           updated_at: string
         }
@@ -94,9 +97,12 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
+          preacher?: string | null
           published?: boolean
           published_at?: string | null
+          pull_quotes?: Json | null
           slug: string
+          source_video_id?: string | null
           title: string
           updated_at?: string
         }
@@ -105,11 +111,65 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
+          preacher?: string | null
           published?: boolean
           published_at?: string | null
+          pull_quotes?: Json | null
           slug?: string
+          source_video_id?: string | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      connect_cards: {
+        Row: {
+          address: string | null
+          archived: boolean
+          city: string | null
+          country: string | null
+          created_at: string
+          email: string
+          first_name: string
+          groups: string | null
+          id: string
+          last_name: string | null
+          phone: string | null
+          state: string | null
+          visit_type: string | null
+          zip: string | null
+        }
+        Insert: {
+          address?: string | null
+          archived?: boolean
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email: string
+          first_name: string
+          groups?: string | null
+          id?: string
+          last_name?: string | null
+          phone?: string | null
+          state?: string | null
+          visit_type?: string | null
+          zip?: string | null
+        }
+        Update: {
+          address?: string | null
+          archived?: boolean
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string
+          first_name?: string
+          groups?: string | null
+          id?: string
+          last_name?: string | null
+          phone?: string | null
+          state?: string | null
+          visit_type?: string | null
+          zip?: string | null
         }
         Relationships: []
       }
