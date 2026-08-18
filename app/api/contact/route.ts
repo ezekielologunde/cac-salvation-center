@@ -31,6 +31,55 @@ function buildHtml(rows: [string, string][]): string {
 </body></html>`;
 }
 
+function connectCardAckHtml(firstName: string, visitType: string): string {
+  const greeting = firstName ? `Hi ${escapeHtml(firstName)},` : "Hi there,";
+  const personalLine =
+    visitType === "New member"
+      ? "We're so glad you're ready to join the family — someone from our team will personally reach out to walk you through next steps."
+      : visitType === "Returning visitor"
+      ? "So good to have you with us again — we can't wait to see you this Sunday."
+      : "We can't wait to meet you in person — thank you for letting us know you're here.";
+
+  return `<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#F9F8F6;font-family:Georgia,serif">
+  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(27,19,14,.10)">
+    <div style="background:#1B130E;padding:36px 40px;text-align:center">
+      <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,247,239,.45)">CAC SALVATION CENTER</p>
+      <h1 style="margin:0;font-size:32px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.15">Great to connect with you.</h1>
+    </div>
+    <div style="padding:40px">
+      <p style="font-size:17px;color:#1B130E;line-height:1.75;margin:0 0 18px">${greeting}</p>
+      <p style="font-size:16px;color:#1B130E;line-height:1.75;margin:0 0 36px">${personalLine}</p>
+      <div style="text-align:center;margin-bottom:36px">
+        <a href="https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD+21133" style="display:inline-block;background:#D62828;color:#fff;font-weight:700;font-size:15px;padding:15px 36px;border-radius:999px;text-decoration:none;box-shadow:0 8px 20px rgba(214,40,40,.30)">
+          Get Directions →
+        </a>
+      </div>
+      <div style="background:#F9F8F6;border-radius:12px;padding:24px;margin-bottom:32px">
+        <p style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D62828;margin:0 0 12px">Sunday Service</p>
+        <p style="font-size:14px;color:#1B130E;line-height:1.8;margin:0">
+          🙏 <strong>Sunday School</strong> — 9:25 AM ET<br>
+          🎶 <strong>Worship Service</strong> — 10:30 AM ET<br>
+          📍 10710 Marriottsville Rd, Randallstown, MD 21133
+        </p>
+      </div>
+      <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 8px">
+        Questions before Sunday? Reach us on WhatsApp at
+        <a href="https://wa.me/14432726794" style="color:#25D366;font-weight:700;text-decoration:none">+1 (443) 272-6794</a>
+        or call <a href="tel:+14432726794" style="color:#D62828;text-decoration:none">(443) 272-6794</a>.
+      </p>
+      <hr style="border:none;border-top:1px solid rgba(27,19,14,.08);margin:24px 0">
+      <p style="font-size:12px;color:rgba(27,19,14,.4);line-height:1.7;margin:0">
+        You're receiving this because you filled out a Connect Card at
+        <a href="https://www.cacsalvationcenter.org" style="color:#D62828;text-decoration:none">cacsalvationcenter.org</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
 async function saveToSupabase(formName: string, fields: Record<string, string>): Promise<void> {
   const supabase = await createServiceClient();
 
@@ -139,6 +188,18 @@ export async function POST(req: Request) {
       console.error("[contact] Resend error:", error);
       return NextResponse.json({ method: "mailto" });
     }
+
+    // Connect Card gets a submitter-facing acknowledgement too — fire-and-forget,
+    // never blocks the response or the staff notification above.
+    if (formName === "Connect Card" && replyTo) {
+      resend.emails.send({
+        from: FROM,
+        to: replyTo,
+        subject: "Great to connect with you — CAC Salvation Center",
+        html: connectCardAckHtml(fields["First Name"] || "", fields["Visit Type"] || ""),
+      }).catch((e) => console.error("[contact] Connect Card ack email failed:", e));
+    }
+
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[contact] send failed:", err);
