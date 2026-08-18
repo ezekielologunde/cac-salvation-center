@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
 import { headers } from "next/headers";
 import { rateLimit } from "@/lib/rateLimit";
@@ -68,7 +68,7 @@ export async function subscribeAction(
     return { ok: false, message: "Please enter a valid email address." };
   }
 
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { error } = await supabase
     .from("newsletter_subscribers")
     .upsert({ email, name, active: true, source: "website" }, { onConflict: "email" });

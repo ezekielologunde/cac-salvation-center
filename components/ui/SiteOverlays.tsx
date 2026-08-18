@@ -24,6 +24,35 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
   const [dbBar, setDbBar] = useState(false);
+  const [nearFooter, setNearFooter] = useState(false);
+
+  // The prayer slide-in is fixed bottom-right and, left unchecked, sits on top
+  // of the footer's newsletter form and links whenever a visitor scrolls down.
+  // Hide it once the footer reaches the lower part of the viewport rather than
+  // leaving it blocking clicks there for the rest of the session.
+  useEffect(() => {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    let throttleId: ReturnType<typeof setTimeout> | null = null;
+    function check() {
+      throttleId = null;
+      const rect = footer!.getBoundingClientRect();
+      setNearFooter(rect.top < window.innerHeight * 0.6);
+    }
+    function onScroll() {
+      if (throttleId) return;
+      throttleId = setTimeout(check, 100);
+    }
+
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
 
   useEffect(() => {
     // Overlays never appear in the admin area
@@ -208,7 +237,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
       )}
 
       {/* ── 3. Prayer request slide-in ───────────────────────────── */}
-      {slide && (
+      {slide && !nearFooter && (
         <div
           role="complementary"
           aria-label="Prayer request"
