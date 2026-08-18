@@ -7,8 +7,17 @@ import { rateLimit } from "@/lib/rateLimit";
 
 export type SubscribeState = { ok: boolean; message: string } | null;
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 function welcomeHtml(name: string | null): string {
-  const greeting = name ? `Hi ${name},` : "Hi there,";
+  const greeting = name ? `Hi ${escapeHtml(name)},` : "Hi there,";
   return `<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:0;background:#F9F8F6;font-family:Georgia,serif">
@@ -56,15 +65,21 @@ export async function subscribeAction(
   _prev: SubscribeState,
   formData: FormData,
 ): Promise<SubscribeState> {
+  // Honeypot — invisible to real visitors, bots fill every field they can find.
+  // Report success without touching the database so bots don't learn to skip it.
+  if ((formData.get("website") as string | null)?.trim()) {
+    return { ok: true, message: "You're in! Welcome to the family." };
+  }
+
   const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anon";
   if (!rateLimit(ip, 5, 60_000)) {
     return { ok: false, message: "Too many requests. Please try again in a minute." };
   }
 
   const email = (formData.get("email") as string | null)?.trim().toLowerCase() ?? "";
-  const name = (formData.get("name") as string | null)?.trim() || null;
+  const name = (formData.get("name") as string | null)?.trim().slice(0, 100) || null;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     return { ok: false, message: "Please enter a valid email address." };
   }
 
