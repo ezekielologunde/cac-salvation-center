@@ -28,8 +28,16 @@ function evPlace(id: string) {
 
 function evOffers(id: string) {
   if (id === "holy-land-pilgrimage-2026")
-    return { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026` };
-  return { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" };
+    return { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026`, validFrom: "2026-01-01T00:00:00-05:00" };
+  return { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events`, validFrom: "2026-01-01T00:00:00-05:00" };
+}
+
+function evPerformer(id: string) {
+  if (id === "choir-anniversary-2026")
+    return { "@type": "PerformingGroup", name: "CAC Salvation Center Choir" };
+  if (id === "holy-land-pilgrimage-2026")
+    return { "@type": "Organization", name: "Christ Apostolic Church North America" };
+  return { "@type": "Organization", name: SITE.name };
 }
 
 type DbEventRow = {
@@ -124,6 +132,7 @@ export default async function EventsPage() {
       url: ev.href ? `${SITE_URL}${ev.href}` : `${SITE_URL}/events`,
       location: evPlace(ev.id),
       organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
+      performer: evPerformer(ev.id),
       offers: evOffers(ev.id),
     })),
   } : null;

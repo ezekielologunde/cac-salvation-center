@@ -83,7 +83,16 @@ export default function CACNA2026Page() {
     url: `${SITE_URL}/events/cacna-2026`,
     location: { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", streetAddress: "14051 Stahley Rd", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } },
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
-    offers: { "@type": "Offer", url: CACNA_REG, availability: "https://schema.org/InStock" },
+    performer: { "@type": "Organization", name: "Christ Apostolic Church North America" },
+    offers: {
+      "@type": "Offer",
+      url: CACNA_REG,
+      availability: "https://schema.org/InStock",
+      price: "100",
+      priceCurrency: "USD",
+      validFrom: "2025-10-01T00:00:00-04:00",
+      priceSpecification: { "@type": "PriceSpecification", minPrice: "100", maxPrice: "250", priceCurrency: "USD" },
+    },
   };
   return (
     <main>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSermons, getLiveStream, formatSermonDate } from "@/lib/sermons";
 import { Video } from "lucide-react";
+import { SITE, SITE_URL } from "@/lib/site";
 
 const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
 
@@ -32,8 +33,32 @@ export const metadata = {
 export default async function OnlinePage() {
   const [live, pastSermons] = await Promise.all([getLiveStream(), getSermons(9)]);
   const featured = live ?? pastSermons[0];
+
+  const videoJsonLd = featured ? {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: featured.title,
+    description: `${featured.title} — CAC Salvation Center. Watch live or on demand; we stream every Sunday at 10:30 AM ET.`,
+    thumbnailUrl: [`https://img.youtube.com/vi/${featured.id}/hqdefault.jpg`],
+    uploadDate: featured.published || new Date().toISOString(),
+    embedUrl: `https://www.youtube.com/embed/${featured.id}`,
+    contentUrl: `https://www.youtube.com/watch?v=${featured.id}`,
+    isFamilyFriendly: true,
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/images/logo.png` },
+    },
+  } : null;
+
   return (
     <main style={{ background: "#0C0E13", minHeight: "100vh" }}>
+      {videoJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd).replace(/</g, "\\u003c") }}
+        />
+      )}
       <Nav dark />
 
       {/* Hero */}

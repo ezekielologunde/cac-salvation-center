@@ -78,7 +78,12 @@ export default function AnniversaryPage() {
       { "@type": "VirtualLocation", url: `${SITE_URL}/online` },
     ],
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
+    performer: [
+      { "@type": "Person", name: "Pastor Dr. H.O. Ilufoye" },
+      { "@type": "Person", name: "Pastor S.O. Oladele" },
+      { "@type": "Person", name: "Pastor Dr. T.O.A. Agbeja" },
+    ],
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/24th-anniversary`, validFrom: "2026-01-01T00:00:00-05:00" },
   };
 
   return (

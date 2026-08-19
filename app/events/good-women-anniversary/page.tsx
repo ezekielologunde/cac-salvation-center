@@ -90,7 +90,11 @@ export default function GoodWomenAnniversaryPage() {
     url: `${SITE_URL}/events/good-women-anniversary`,
     location: { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } },
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
+    performer: [
+      { "@type": "Person", name: "Evang. Mrs Bisi Benson" },
+      { "@type": "Person", name: "Evang. Mrs Buky Awosanya" },
+    ],
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/good-women-anniversary`, validFrom: "2026-01-01T00:00:00-05:00" },
   };
   return (
     <main>

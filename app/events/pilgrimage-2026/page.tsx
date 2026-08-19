@@ -74,7 +74,8 @@ export default function PilgrimagePage() {
     url: `${SITE_URL}/events/pilgrimage-2026`,
     location: { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } },
     organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
-    offers: { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026` },
+    performer: { "@type": "Organization", name: "Christ Apostolic Church North America" },
+    offers: { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026`, validFrom: "2026-01-01T00:00:00-05:00" },
   };
   return (
     <main>
