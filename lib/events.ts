@@ -101,6 +101,14 @@ export const specialEvents: ChurchEvent[] = [
     startLocal: "20260823T103000", endLocal: "20260823T123000",
   },
   {
+    id: "salvation-city-anniversary-2026",
+    title: "Salvation City First Anniversary",
+    desc: "Celebrating one year of CAC Salvation City in Rosedale, MD — with Evang. Dr. Mike T. Fapohunda (Host/Minister in Charge), Pastor Dr. H.O. Ilufoye (Speaker, BDCC Superintendent & Chief Host), and Pastor S.O. Oladele (President, CAC Nigeria & Overseas). Please be our guest.",
+    dateLabel: "August 30, 2026", timeLabel: "10:00 AM ET", month: "AUG", day: "30",
+    startLocal: "20260830T100000", endLocal: "20260830T123000",
+    href: "/salvationcity", navLabel: "Salvation City Anniversary",
+  },
+  {
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
     desc: "A special Sunday of praise and thanksgiving celebrating our worship ministry.",
