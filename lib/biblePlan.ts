@@ -131,4 +131,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Micah 1–4; Psalm 10; Matthew 24",
     thu: "Micah 5–7; Matthew 25",
   },
+  {
+    week: 34,
+    theme: "Isaiah → Matthew 26–28, 1 Corinthians 1–2",
+    sun: "Isaiah 7–10; Psalm 22; Matthew 26",
+    mon: "Isaiah 11–13; Psalm 118; Matthew 27",
+    tue: "Isaiah 14–16; Matthew 28",
+    wed: "Isaiah 17–19; Psalm 62; 1 Corinthians 1",
+    thu: "Isaiah 20–22; 1 Corinthians 2",
+  },
 ];
