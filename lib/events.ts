@@ -123,6 +123,14 @@ export const specialEvents: ChurchEvent[] = [
     startLocal: "20261001T103000", endLocal: "20261001T123000",
   },
   {
+    id: "cacna-50th-anniversary-2026",
+    title: "CACNA 50th Anniversary Celebration",
+    desc: "Celebrating 50 years of Christ Apostolic Church in North America — a golden jubilee gathering of the whole CACNA family at CAC Village. RSVP so organizers can plan for you.",
+    dateLabel: "October 10, 2026", timeLabel: "11:00 AM ET", month: "OCT", day: "10",
+    startLocal: "20261010T110000", endLocal: "20261010T140000",
+    href: "/events/cacna-50th-anniversary", navLabel: "CACNA 50th Anniversary",
+  },
+  {
     id: "holy-land-pilgrimage-2026",
     title: "Holy Land Pilgrimage 2026",
     desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, November 2–12, 2026. Package includes round-trip flights from JFK, 8 nights accommodation (7 in Israel + 1 in St. Catherine, Egypt), daily meals, private guide, group coach, and Pilgrimage Certificate. Price $4,795 · $500 deposit to register · $2,000 second payment due Oct 31. Contact: info@cacnapilgrimage.org | @cacnapilgrimage",
