@@ -66,6 +66,7 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/events/24th-anniversary", priority: 0.75 },
   { path: "/events/cacna-2026", priority: 0.75 },
   { path: "/events/pilgrimage-2026", priority: 0.7 },
+  { path: "/events/september-2026-fasting-prayer", priority: 0.65 },
   { path: "/events/macedonia-outreach", priority: 0.7 },
   { path: "/calendar", priority: 0.8 },
   { path: "/testimonies", priority: 0.7 },
