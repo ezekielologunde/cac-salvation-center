@@ -7,9 +7,9 @@ import type { Metadata } from "next";
 import { SITE, SITE_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Hall Rental in Randallstown, MD — CAC Salvation Center",
+  title: "Hall Rental in Randallstown, MD (Baltimore Area) — CAC Salvation Center",
   description:
-    "Rent our hall and on-site parking lot in Randallstown, MD for weddings, birthdays, conferences, and community events. Flexible seating, air-conditioned, audio-visual ready. Contact us for pricing and availability.",
+    "Rent our hall and on-site parking lot near Baltimore in Randallstown, MD for weddings, birthdays, conferences, and community events. Flexible seating, air-conditioned, audio-visual ready. Contact us for pricing and availability.",
   alternates: { canonical: "/venue" },
 };
 

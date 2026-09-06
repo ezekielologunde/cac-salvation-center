@@ -1,7 +1,11 @@
 /** Curated Google reviews for CAC Salvation Center.
  *  Single source of truth — used by /testimonies, the homepage reviews
  *  section, and the aggregateRating/review JSON-LD in lib/site.ts.
- *  Each is a real 5-star Google review. */
+ *  Each quote below is a real 5-star Google review, shown as a sample —
+ *  but REVIEW_AVERAGE/REVIEW_COUNT below are pinned to the actual public
+ *  Google Business Profile total (checked 2026-09-06: 4.9★, 16 reviews),
+ *  not just this curated subset, so the schema.org aggregateRating stays
+ *  truthful and doesn't drift from what searchers see on Google itself. */
 export interface GoogleReview {
   name: string;
   isLocalGuide?: boolean;
@@ -21,6 +25,7 @@ export const googleReviews: GoogleReview[] = [
   { name: "Alex Owanikin", rating: 5, quote: "Beautiful and Rewarding." },
 ];
 
-/** Aggregate over the curated set above — matches what is shown on-site. */
-export const REVIEW_AVERAGE = 5;
-export const REVIEW_COUNT = googleReviews.length;
+/** Pinned to the real, public Google Business Profile total — update these
+ *  two numbers whenever you check the live listing again. */
+export const REVIEW_AVERAGE = 4.9;
+export const REVIEW_COUNT = 16;
