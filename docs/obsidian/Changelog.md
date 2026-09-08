@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-09-07
+last_updated: 2026-09-08
 tags: [project/cac-salvation-center]
 ---
 
@@ -76,3 +76,6 @@ Condensed from `git log` (reconstructed from full history after unshallowing the
   - Same file: a plain-text "follow ... or cacnaconvention.org for updates" sentence in the (unconditionally-rendered) schedule section, stale now that the schedule can't change anymore. Removed.
   - The parallel dead link in the CACNA repo itself (`lib/conventions.ts`'s 2026 entry, feeding the identically-named `/events/cacna-2026` page on that site) is fixed in [ezekielologunde/cacnorthamerica#33](https://github.com/ezekielologunde/cacnorthamerica/pull/33).
 - Still open, needs a Search Console action rather than a code change: the real `sitemap.xml` was never submitted there — only a dead `wp-sitemap.xml` from 2023 is registered. See [[Tasks]].
+
+## Fix site-wide preload wasting LCP budget on every non-homepage page (2026-09-08)
+Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Accessibility, SEO all 93-100%) with Largest Contentful Paint at 2.6s, just past Google's 2.5s "good" threshold. Investigated via the browser's own network/DOM inspection on `/blog`: the page has no `<img>` on it at all, yet a `<link rel="preload" as="image">` for a ~200KB YouTube maxres thumbnail (`img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg`) was firing anyway. That preload lived in the *root* `app/layout.tsx`, so every page inherited it, competing for network priority with each page's own actual LCP element, even though the image is only ever used by `components/sections/Hero.tsx`, which only `app/page.tsx` (the homepage) renders. Moved the preload out of the shared layout and into `app/page.tsx`'s own JSX — Next.js hoists a `<link>` rendered in a page into that route's `<head>` specifically, so now only the homepage (which actually needs it) pays for it. Verified: `/blog` and `/about` no longer reference `maxresdefault` at all; the homepage still preloads it correctly.
