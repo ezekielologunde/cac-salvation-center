@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-08-22
+last_updated: 2026-09-07
 tags: [project/cac-salvation-center]
 ---
 
@@ -57,3 +57,11 @@ Condensed from `git log` (reconstructed from full history after unshallowing the
 - `5534408`, `045d64c`, `3e5e8fd` SEO fixes (Search Console warnings, venue page targeting).
 - `b1c441e`, `7e56109`, `829b45d` Bible plan weeks 31–32 added, redesigned as mobile-first accordion.
 - `6677735` Bible plan: Week 33 added (most recent commit as of this audit).
+
+## Search Console indexing fixes (2026-09-07)
+- Sitemap: `/salvationcity` and `/ilorin` were listed under `www` while their pages declare the `city.` / `ilorin.` subdomains as canonical, which Search Console reported as "Alternate page with proper canonical tag". `ROUTES` in `lib/site.ts` now carries an optional `url` override and the sitemap lists the canonical subdomain URLs; the two pages and the sitemap share the new `CITY_URL` / `ILORIN_URL` constants. See [[Decisions]].
+- Sitemap: added the missing `/events/cacna-50th-anniversary` page (the page existed, the `ROUTES` entry did not).
+- Redirects: `/choir` (page removed 2026-07-09 in `5a09ecc`, still indexed by Google) now 308s to `/ministries` instead of returning 404.
+- Canonical hygiene: the root layout no longer sets `alternates.canonical: "/"`. Next.js metadata inheritance applied it to every page without its own canonical (`/store/success`, `/admin/login`, the 404 page), marking them as duplicates of the homepage. The homepage now sets it in `app/page.tsx`.
+- Investigated and intentionally left alone: "Page with redirect" entries are the expected http→https, apex→www, trailing-slash and legacy-WordPress-slug 308s; "Blocked due to access forbidden (403)" is the Vercel Firewall deny rule on WordPress paths (`X-Vercel-Mitigated: deny`); "Blocked by robots.txt" is `/admin` or `/store/success` by design. Follow-ups in [[Tasks]].
+- `CACNA_URL` in `lib/site.ts` now points at `https://cacna.cacsalvationcenter.org` (live on the CACNA Vercel project since early September) instead of `cacnorthamerica.vercel.app`, so every CACNA link on this site sends Google to the subdomain that should be indexed.

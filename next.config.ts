@@ -59,6 +59,9 @@ const nextConfig: NextConfig = {
       { source: "/leadership-meet-our-pastors/", destination: "/leadership", permanent: true },
       { source: "/online-connect-to-our-services", destination: "/online", permanent: true },
       { source: "/online-connect-to-our-services/", destination: "/online", permanent: true },
+      // /choir was removed on 2026-07-09 (commit 5a09ecc) but Google still
+      // has it indexed; send it to the ministries page, where the choir lives now.
+      { source: "/choir", destination: "/ministries", permanent: true },
     ];
   },
 

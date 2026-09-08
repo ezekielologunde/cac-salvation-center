@@ -24,6 +24,7 @@ const WEEKLY = new Set([
   "/events",
   "/events/good-women-anniversary",
   "/events/cacna-2026",
+  "/events/cacna-50th-anniversary",
   "/calendar",
   "/devotional",
   "/bible-plan",
@@ -33,8 +34,11 @@ const WEEKLY = new Set([
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
-  const staticRoutes: MetadataRoute.Sitemap = ROUTES.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path === "/" ? "" : path}`,
+  const staticRoutes: MetadataRoute.Sitemap = ROUTES.map(({ path, priority, url }) => ({
+    // Micro-sites are canonical on their subdomain; list that URL, not the
+    // www path. Cross-host entries are valid here because every subdomain
+    // serves this same robots.txt, which points at this sitemap.
+    url: url ?? `${SITE_URL}${path === "/" ? "" : path}`,
     lastModified: EVENT_LAST_MODIFIED.get(path) ?? lastModified,
     changeFrequency: WEEKLY.has(path) ? "weekly" : "monthly",
     priority,

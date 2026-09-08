@@ -2,10 +2,15 @@
 // push server response past 1000 ms. Announcements refresh within a minute.
 export const revalidate = 60;
 
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Nav } from "@/components/navigation/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { createServiceClient } from "@/lib/supabase/server";
+
+// Title/description/OG come from the root layout; only the canonical is
+// page-specific (see the note in app/layout.tsx).
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Below-fold sections split into separate JS chunks — browser parses them
 // incrementally instead of one blocking task, cutting TBT significantly.
