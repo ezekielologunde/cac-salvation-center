@@ -440,18 +440,24 @@ export default async function BlogPage() {
             <div aria-hidden style={{ position: "absolute", top: -80, right: -60, width: 320, height: 280, background: "radial-gradient(circle,rgba(232,163,61,.3),transparent 65%)", pointerEvents: "none" }} />
             <div style={{ flex: "1 1 320px", position: "relative", zIndex: 2 }}>
               <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,247,239,.8)", marginBottom: 10 }}>
-                Registration open
+                CAC family
               </div>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", letterSpacing: "-.6px", color: "#fff", margin: "0 0 8px", lineHeight: 1.05 }}>
-                Register for CACNA 2026
+                CACNA National Convention
               </h2>
               <p style={{ fontSize: 15, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>
-                July 13–18 at CAC Village, Blue Ridge Summit, PA.
+                Every summer at CAC Village, Blue Ridge Summit, PA — the whole CACNA family in one place.
               </p>
             </div>
-            <a href="https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/" target="_blank" rel="noopener noreferrer" className="btn-sheen press"
+            {/* This unconditionally-shown banner previously hardcoded a link
+                to cacnaconvention.org for the 2026 convention specifically --
+                that domain is dead (confirmed 403 "Access forbidden!" with a
+                normal browser UA, 2026-09-07) and the copy went stale the
+                moment that convention ended. CAC_CONVENTION_URL points at
+                CACNA's own calendar, so this stays correct every year. */}
+            <a href={CAC_CONVENTION_URL} target="_blank" rel="noopener noreferrer" className="btn-sheen press"
               style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 15, padding: "14px 28px", borderRadius: 999, textDecoration: "none" }}>
-              Register Now →
+              View Convention Calendar →
             </a>
           </div>
         </Reveal>

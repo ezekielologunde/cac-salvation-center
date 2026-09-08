@@ -13,11 +13,16 @@ export const CITY_URL = "https://city.cacsalvationcenter.org";
  *  the regional body; this assembly's own Superintendent, Pastor Dr.
  *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). CACNA now
  *  lives on its own subdomain of this domain (wired to the cacnorthamerica
- *  Vercel project, 2026-09). The Convention site's custom domain is still not
- *  set up, so it points at that project's live Vercel deployment. */
+ *  Vercel project, 2026-09). */
 export const CACNA_URL = "https://cacna.cacsalvationcenter.org";
 export const CAC_WORLDWIDE_URL = "https://cacworld.org";
-export const CAC_CONVENTION_URL = "https://cacna-convention.vercel.app";
+// The standalone Convention project (cacna-convention.vercel.app) 404s as of
+// 2026-09-07 — its content was merged into the CACNA site (per that repo's
+// own Changelog/Decisions), which has no single evergreen "/convention" URL,
+// only per-year event pages (e.g. /events/cacna-2026, .../cacna-2027) that
+// go stale every year. Point at CACNA's calendar instead, which always shows
+// whichever convention is current or next.
+export const CAC_CONVENTION_URL = `${CACNA_URL}/en/calendar`;
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",

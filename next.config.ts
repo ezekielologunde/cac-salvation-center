@@ -62,6 +62,34 @@ const nextConfig: NextConfig = {
       // /choir was removed on 2026-07-09 (commit 5a09ecc) but Google still
       // has it indexed; send it to the ministries page, where the choir lives now.
       { source: "/choir", destination: "/ministries", permanent: true },
+      // city./ilorin./blog.cacsalvationcenter.org only rewrite their OWN
+      // root ("/") to a dedicated page or section (see rewrites() below);
+      // every other path just serves whatever page exists at that path in
+      // this same shared app, e.g. city.cacsalvationcenter.org/about is a
+      // byte-for-byte duplicate of /about on www with no rewrite or redirect
+      // of its own, relying on that page's canonical tag alone (see
+      // Decisions.md, "Micro-site subdomains are canonical"). Redirect those
+      // non-root paths to www outright instead, so Search Console doesn't
+      // pick up three more hosts' worth of the same site to crawl. Root is
+      // untouched so the existing rewrite below still applies to it.
+      {
+        source: "/:path((?!api/|_next/).+)",
+        has: [{ type: "host" as const, value: "city.cacsalvationcenter.org" }],
+        destination: "https://www.cacsalvationcenter.org/:path",
+        permanent: true,
+      },
+      {
+        source: "/:path((?!api/|_next/).+)",
+        has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
+        destination: "https://www.cacsalvationcenter.org/:path",
+        permanent: true,
+      },
+      {
+        source: "/:path((?!api/|_next/).+)",
+        has: [{ type: "host" as const, value: "blog.cacsalvationcenter.org" }],
+        destination: "https://www.cacsalvationcenter.org/:path",
+        permanent: true,
+      },
     ];
   },
 
