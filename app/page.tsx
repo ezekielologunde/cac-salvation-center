@@ -74,6 +74,12 @@ export default async function Home() {
 
   return (
     <main>
+      {/* Preloads the Hero background below so the browser fetches it before
+       *  CSS is parsed. Next.js hoists a <link> rendered anywhere in a page
+       *  into that route's own <head> — scoped to the homepage only, unlike
+       *  a preload in the root layout, which every other page would inherit
+       *  and pay for without ever using this image. */}
+      <link rel="preload" as="image" href="https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}

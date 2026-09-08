@@ -88,8 +88,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preconnect" href="https://img.youtube.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://unpkg.com" />
-        {/* Preload hero background so the browser fetches it before CSS is parsed */}
-        <link rel="preload" as="image" href="https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg" />
+        {/* The homepage hero background preload used to live here, but this
+         *  layout wraps every route, so every non-homepage page was
+         *  preloading a ~200KB YouTube thumbnail it never renders — wasted
+         *  bandwidth competing with each page's own LCP element for network
+         *  priority. Moved into app/page.tsx, which Next.js hoists into just
+         *  that route's <head>. */}
       </head>
       <body>
         <script
