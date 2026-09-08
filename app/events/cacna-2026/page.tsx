@@ -6,7 +6,7 @@ import Link from "next/link";
 import { MapPin, CalendarDays, Car, Package, Clock, Users, Heart, ArrowLeft, Phone, Ticket, Sparkles } from "lucide-react";
 import { specialEvents, googleCalUrl, icsDataUri, isEventPast } from "@/lib/events";
 import { CalendarPlus, Download } from "lucide-react";
-import { SITE, SITE_URL, CACNA_URL, breadcrumbJsonLd } from "@/lib/site";
+import { SITE, SITE_URL, CACNA_URL, CAC_CONVENTION_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -18,7 +18,14 @@ export const metadata = {
 };
 
 const ev = specialEvents.find((e) => e.id === "cacna-convention-2026")!;
-const CACNA_REG = "https://cacnaconvention.org/2026-cacna-national-convention-registration-credit-debit-card/";
+// cacnaconvention.org (the vendor page CACNA used for 2026 registration)
+// is dead as of 2026-09-07 ("Access forbidden!", confirmed with a normal
+// browser UA, not just bots) -- and this convention has already happened
+// besides, so there's nothing to register for. Point at CACNA's own
+// calendar instead: the two CTA buttons below are already hidden once
+// isPast is true, and this keeps the JSON-LD offer below from citing a
+// dead URL rather than pointing it at nothing.
+const CACNA_REG = CAC_CONVENTION_URL;
 
 const THEME = "The Bible: God’s Message to Man";
 
@@ -238,7 +245,7 @@ export default function CACNA2026Page() {
           </div>
           <Reveal delay={400}>
             <p style={{ fontSize: 14, color: "rgba(255,247,239,.45)", marginTop: 22, lineHeight: 1.6 }}>
-              Every night is a <strong style={{ color: "rgba(255,247,239,.7)" }}>combined revival for all</strong>, with <strong style={{ color: "rgba(255,247,239,.7)" }}>free food for all</strong>. Schedule is subject to change — follow <strong style={{ color: "rgba(255,247,239,.7)" }}>@CACNA Latunde Region</strong> or cacnaconvention.org for updates.
+              Every night was a <strong style={{ color: "rgba(255,247,239,.7)" }}>combined revival for all</strong>, with <strong style={{ color: "rgba(255,247,239,.7)" }}>free food for all</strong>.
             </p>
           </Reveal>
         </div>

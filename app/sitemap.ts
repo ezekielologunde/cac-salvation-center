@@ -17,6 +17,15 @@ const EVENT_LAST_MODIFIED = new Map(
   specialEvents.filter((e) => e.href).map((e) => [e.href!, eventDate(e.startLocal)])
 );
 
+/** Never advertise a lastModified in the future: for an upcoming event,
+ *  EVENT_LAST_MODIFIED holds the event's own date (in the future relative
+ *  to "now"), not a real edit timestamp. Google treats an implausible
+ *  lastmod as untrustworthy and may distrust the rest of the sitemap, so
+ *  clamp every date to build time. */
+function clampToNow(d: Date, now: Date): Date {
+  return d.getTime() > now.getTime() ? now : d;
+}
+
 /** Pages whose content turns over often enough to hint "weekly"; the rest are "monthly". */
 const WEEKLY = new Set([
   "/",
@@ -24,6 +33,7 @@ const WEEKLY = new Set([
   "/events",
   "/events/good-women-anniversary",
   "/events/cacna-2026",
+  "/events/cacna-50th-anniversary",
   "/calendar",
   "/devotional",
   "/bible-plan",
@@ -33,9 +43,14 @@ const WEEKLY = new Set([
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
-  const staticRoutes: MetadataRoute.Sitemap = ROUTES.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path === "/" ? "" : path}`,
-    lastModified: EVENT_LAST_MODIFIED.get(path) ?? lastModified,
+  const staticRoutes: MetadataRoute.Sitemap = ROUTES.map(({ path, priority, url }) => ({
+    // Micro-sites are canonical on their subdomain; list that URL, not the
+    // www path. Cross-host entries are valid here because every subdomain
+    // serves this same robots.txt, which points at this sitemap.
+    url: url ?? `${SITE_URL}${path === "/" ? "" : path}`,
+    lastModified: EVENT_LAST_MODIFIED.has(path)
+      ? clampToNow(EVENT_LAST_MODIFIED.get(path)!, lastModified)
+      : lastModified,
     changeFrequency: WEEKLY.has(path) ? "weekly" : "monthly",
     priority,
   }));

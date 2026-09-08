@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: decisions
 status: active
-last_updated: 2026-08-22
+last_updated: 2026-09-07
 tags: [project/cac-salvation-center]
 ---
 
@@ -32,7 +32,13 @@ Gallery and Instagram-sourced images are served via Cloudinary with a custom `ne
 The planned pipeline (see [[Architecture]], [[Tasks]]) is explicitly designed to publish generated articles with zero human approval step — a deliberate product decision recorded in the design spec's Goals section, accepting the trade-off in exchange for not needing anyone to manually review weekly.
 
 ## CAC family cross-linking
-The site deliberately cross-links to the wider Christ Apostolic Church network (CACNA, CAC Worldwide, CAC Convention) via centralized URL constants in `lib/site.ts` rather than hardcoding links per-page (commit `e4c5a70`), and points at each affiliate's real current deployment URL rather than an aspirational subdomain, with a code comment explaining why (their custom domains aren't live yet).
+The site deliberately cross-links to the wider Christ Apostolic Church network (CACNA, CAC Worldwide, CAC Convention) via centralized URL constants in `lib/site.ts` rather than hardcoding links per-page (commit `e4c5a70`), and points at each affiliate's real current URL rather than an aspirational one. CACNA moved to `https://cacna.cacsalvationcenter.org` on 2026-09-07 once that subdomain was wired to the CACNA Vercel project; the Convention site still points at its Vercel deployment because its custom domain is not live.
 
 ## No automated test suite (yet)
 The sermon-to-blog plan explicitly notes: "This repo has no automated tests today — only `tsc --noEmit` and manual/browser verification," and only introduces Vitest scoped to that one feature's pure logic. Current state of the repo as a whole should be assumed untested beyond type-checking and manual QA.
+
+## Micro-site subdomains are canonical (Ilorin, Salvation City)
+`ilorin.cacsalvationcenter.org` and `city.cacsalvationcenter.org` are rewritten, not redirected, to `/ilorin` and `/salvationcity` so the address bar keeps the subdomain (commits `f17176c`, `840416c`), and each page declares the subdomain as its canonical URL. Consequence: the `www` paths are non-canonical alternates, so the sitemap must list the subdomain URLs instead (the `url` override on `ROUTES` entries, using `ILORIN_URL` / `CITY_URL` from `lib/site.ts`). Cross-host sitemap entries are valid because every subdomain serves the same `robots.txt`, which points at the `www` sitemap (the sitemaps.org cross-submission rule). `blog.cacsalvationcenter.org` is the opposite: it canonicalizes to `www/blog`. The subdomains also serve every other route as a duplicate (e.g. `city.cacsalvationcenter.org/about`), relying on canonical tags alone; see [[Tasks]].
+
+## No canonical in the root layout
+`app/layout.tsx` deliberately does not set `alternates.canonical`. Next.js metadata inheritance applies a root-layout canonical to every page that does not override it, which silently declared `/store/success`, `/admin/login` and the 404 page to be duplicates of the homepage (found while working through the Search Console report, 2026-09-07). Every indexable page sets its own canonical; the homepage sets `/` in `app/page.tsx`.

@@ -4,12 +4,13 @@ import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
 import { DailyWord } from "@/components/sections/DailyWord";
 import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock } from "lucide-react";
+import { ILORIN_URL } from "@/lib/site";
 
 export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
   description:
     "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.",
-  alternates: { canonical: "https://ilorin.cacsalvationcenter.org" },
+  alternates: { canonical: ILORIN_URL },
 };
 
 // Distinct green identity for the Ilorin HQ micro-site (separate from the main red theme).

@@ -2,12 +2,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { FacebookIcon } from "@/components/ui/SocialIcons";
 import { MapPin, Phone, Mail, Navigation, ArrowUpRight, Video } from "lucide-react";
+import { CITY_URL } from "@/lib/site";
 
 export const metadata = {
   title: "CAC Salvation City — Rosedale, MD",
   description:
     "Spirit-filled worship in Rosedale, MD. Sunday services at 8330 Pulaski Hwy Suite F, Rosedale MD 21237. Part of the Christ Apostolic Church family — all are welcome.",
-  alternates: { canonical: "https://city.cacsalvationcenter.org" },
+  alternates: { canonical: CITY_URL },
 };
 
 const c = {

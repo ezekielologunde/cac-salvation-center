@@ -2,16 +2,27 @@ import { googleReviews, REVIEW_AVERAGE, REVIEW_COUNT } from "@/lib/reviews";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cacsalvationcenter.org";
 
+/** Micro-sites that live on their own subdomains. Vercel rewrites each
+ *  subdomain root to its page (next.config.ts) and the subdomain is the
+ *  canonical URL for that page, so the sitemap entry and the page canonical
+ *  must both use these. See Decisions.md ("Micro-site subdomains are canonical"). */
+export const ILORIN_URL = "https://ilorin.cacsalvationcenter.org";
+export const CITY_URL = "https://city.cacsalvationcenter.org";
+
 /** Wider CAC family — real external sites this church belongs to (CACNA is
  *  the regional body; this assembly's own Superintendent, Pastor Dr.
- *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). Point
- *  directly at each site's actual live deployment rather than a
- *  cacsalvationcenter.org subdomain, since neither CACNA nor the Convention
- *  site's custom domain is set up yet (cacnorthamerica.com and
- *  cacnaconvention.org both currently serve unrelated older builds). */
-export const CACNA_URL = "https://cacnorthamerica.vercel.app";
+ *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). CACNA now
+ *  lives on its own subdomain of this domain (wired to the cacnorthamerica
+ *  Vercel project, 2026-09). */
+export const CACNA_URL = "https://cacna.cacsalvationcenter.org";
 export const CAC_WORLDWIDE_URL = "https://cacworld.org";
-export const CAC_CONVENTION_URL = "https://cacna-convention.vercel.app";
+// The standalone Convention project (cacna-convention.vercel.app) 404s as of
+// 2026-09-07 — its content was merged into the CACNA site (per that repo's
+// own Changelog/Decisions), which has no single evergreen "/convention" URL,
+// only per-year event pages (e.g. /events/cacna-2026, .../cacna-2027) that
+// go stale every year. Point at CACNA's calendar instead, which always shows
+// whichever convention is current or next.
+export const CAC_CONVENTION_URL = `${CACNA_URL}/en/calendar`;
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
@@ -36,8 +47,9 @@ export const SITE = {
   ],
 } as const;
 
-/** Public routes for the sitemap (path, priority). */
-export const ROUTES: { path: string; priority: number }[] = [
+/** Public routes for the sitemap (path, priority). `url` overrides the
+ *  sitemap URL when the page is canonical on a subdomain. */
+export const ROUTES: { path: string; priority: number; url?: string }[] = [
   { path: "/", priority: 1 },
   { path: "/about", priority: 0.8 },
   { path: "/leadership", priority: 0.7 },
@@ -49,16 +61,17 @@ export const ROUTES: { path: string; priority: number }[] = [
   { path: "/devotional", priority: 0.7 },
   { path: "/bible-plan", priority: 0.7 },
   { path: "/salvation", priority: 0.8 },
-  { path: "/salvationcity", priority: 0.8 },
+  { path: "/salvationcity", priority: 0.8, url: CITY_URL },
   { path: "/events", priority: 0.7 },
   { path: "/events/good-women-anniversary", priority: 0.65 },
   { path: "/events/24th-anniversary", priority: 0.75 },
   { path: "/events/cacna-2026", priority: 0.75 },
+  { path: "/events/cacna-50th-anniversary", priority: 0.75 },
   { path: "/events/pilgrimage-2026", priority: 0.7 },
   { path: "/events/macedonia-outreach", priority: 0.7 },
   { path: "/calendar", priority: 0.8 },
   { path: "/testimonies", priority: 0.7 },
-  { path: "/ilorin", priority: 0.6 },
+  { path: "/ilorin", priority: 0.6, url: ILORIN_URL },
   { path: "/blog", priority: 0.6 },
   { path: "/store", priority: 0.5 },
   { path: "/gallery", priority: 0.6 },

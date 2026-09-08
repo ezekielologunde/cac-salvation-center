@@ -35,7 +35,9 @@ export const metadata: Metadata = {
     "Sunday service", "online church", "prayer line", "Pastor H.O. Ilufoye",
   ],
   applicationName: SITE.shortName,
-  alternates: { canonical: "/" },
+  // No `alternates.canonical` here: a root-layout canonical is inherited by
+  // every page that does not set its own, silently marking such pages as
+  // duplicates of the homepage. The homepage sets its own in app/page.tsx.
   icons: { icon: "/images/logo.png", shortcut: "/images/logo.png", apple: "/images/logo.png" },
   openGraph: {
     type: "website",
