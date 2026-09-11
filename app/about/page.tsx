@@ -45,8 +45,8 @@ function HomeCard({ h }: { h: Home }) {
 }
 
 export const metadata = {
-  title: "About Us — CAC Salvation Center | Randallstown, MD",
-  description: "Spirit-filled Christ Apostolic Church in Randallstown, MD — founded on prayer, the Word, and authentic community. Meet our pastors and discover our story.",
+  title: "About Us — CAC Salvation Center | Baltimore, MD Area",
+  description: "Spirit-filled Christ Apostolic Church serving the Baltimore area from Randallstown, MD — founded on prayer, the Word, and authentic community. Meet our pastors and discover our story.",
   alternates: { canonical: "/about" },
 };
 

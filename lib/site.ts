@@ -27,9 +27,20 @@ export const CAC_CONVENTION_URL = `${CACNA_URL}/en/calendar`;
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
   shortName: "CAC Salvation Center",
+  /** Known-by names people actually search — helps Google match and
+   *  disambiguate this specific congregation from other, unrelated CAC
+   *  assemblies in the Baltimore area (e.g. CAC Powerhouse, the Park Ave
+   *  congregation) that share the generic "Christ Apostolic Church" name. */
+  alternateNames: [
+    "CAC Salvation Center",
+    "Christ Apostolic Church, Salvation Center",
+    "Christ Apostolic Church Salvation Center Baltimore",
+    "CAC Randallstown",
+    "CAC Baltimore-Maryland DCC",
+  ],
   url: SITE_URL,
   description:
-    "Real worship, real community — preaching the whole Gospel in a clear and undiluted manner. Join us Sundays at 10:30 AM ET in Randallstown, MD, and online.",
+    "Real worship, real community — preaching the whole Gospel in a clear and undiluted manner. Join us Sundays at 10:30 AM ET, serving the Baltimore area from Randallstown, MD, and online.",
   telephone: "+1-443-272-6794",
   email: "info@cacsalvationcenter.org",
   address: {
@@ -68,6 +79,7 @@ export const ROUTES: { path: string; priority: number; url?: string }[] = [
   { path: "/events/cacna-2026", priority: 0.75 },
   { path: "/events/cacna-50th-anniversary", priority: 0.75 },
   { path: "/events/pilgrimage-2026", priority: 0.7 },
+  { path: "/events/september-2026-fasting-prayer", priority: 0.65 },
   { path: "/events/macedonia-outreach", priority: 0.7 },
   { path: "/calendar", priority: 0.8 },
   { path: "/testimonies", priority: 0.7 },
@@ -92,7 +104,7 @@ export function churchJsonLd() {
         "@type": ["Church", "LocalBusiness"],
         "@id": churchId,
         name: SITE.name,
-        alternateName: SITE.shortName,
+        alternateName: SITE.alternateNames,
         url: SITE_URL,
         logo: `${SITE_URL}/images/logo.png`,
         image: `${SITE_URL}/images/congregation.jpg`,
@@ -102,7 +114,8 @@ export function churchJsonLd() {
         priceRange: "Free",
         isAccessibleForFree: true,
         knowsLanguage: ["en", "yo"],
-        areaServed: ["Randallstown", "Baltimore", "Maryland", "United States"],
+        knowsAbout: ["Christianity", "Pentecostalism", "Yoruba culture", "Nigerian diaspora community", "Prayer and fasting"],
+        areaServed: ["Baltimore", "Randallstown", "Maryland", "United States"],
         hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`,
         geo: { "@type": "GeoCoordinates", latitude: 39.37797, longitude: -76.8505 },
         address: {
@@ -140,7 +153,7 @@ export function churchJsonLd() {
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
         name: SITE.name,
-        alternateName: SITE.shortName,
+        alternateName: SITE.alternateNames,
         description: SITE.description,
         publisher: { "@id": churchId },
         inLanguage: "en-US",

@@ -12,7 +12,7 @@ export function PlanVisit() {
             There&apos;s a seat with your name on it.
           </h2>
           <p style={{ fontSize: 16, lineHeight: 1.7, opacity: .8, maxWidth: 440 }}>
-            Salvation Center — Baltimore DCC. Join us in person this Sunday; come as you are.
+            Salvation Center — Baltimore DCC, meeting in Randallstown, MD, minutes from Baltimore. Join us in person this Sunday; come as you are.
           </p>
           <div style={{ marginTop: 30, display: 'flex', flexDirection: 'column', gap: 14, fontSize: 15.5 }}>
             {[

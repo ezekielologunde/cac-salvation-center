@@ -109,6 +109,14 @@ export const specialEvents: ChurchEvent[] = [
     href: "/salvationcity", navLabel: "Salvation City Anniversary",
   },
   {
+    id: "september-2026-fasting-prayer",
+    title: "September 2026 Prayer & Fasting",
+    desc: "CACNA Men Association, Latunde Region's biannual fasting and prayer program — theme “Breaking Every Limitations” (Isaiah 45:2–3). Featuring Pastor S.O. Oladele (President, CAC Nigeria & Overseas), Pastor Dr. Tunde Asokeji, Pastor Dr. T.A.O. Agbeja, Pastor Dr. A. Dada, Evang. Mrs. Bolanle Mustapha, and Pastor Z.O. Oloba. Join by Zoom, ID 843 0862 4690, passcode 866356.",
+    dateLabel: "September 4–5, 2026", timeLabel: "Fri 7–10 PM · Sat 7–10 AM & 7–10 PM ET", month: "SEP", day: "04",
+    startLocal: "20260904T190000", endLocal: "20260905T220000",
+    href: "/events/september-2026-fasting-prayer", navLabel: "September Prayer & Fasting",
+  },
+  {
     id: "choir-anniversary-2026",
     title: "Choir Anniversary",
     desc: "A special Sunday of praise and thanksgiving celebrating our worship ministry.",

@@ -23,7 +23,14 @@ function evPlace(id: string) {
     return { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", streetAddress: "14051 Stahley Rd", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } };
   if (id === "holy-land-pilgrimage-2026")
     return { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } };
+  if (id === "september-2026-fasting-prayer")
+    return { "@type": "VirtualLocation", url: "https://zoom.us/j/84308624690" };
   return { "@type": "Place", name: SITE.name, address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country } };
+}
+
+function evAttendanceMode(id: string) {
+  if (id === "september-2026-fasting-prayer") return "https://schema.org/OnlineEventAttendanceMode";
+  return "https://schema.org/OfflineEventAttendanceMode";
 }
 
 function evOffers(id: string) {
@@ -37,6 +44,8 @@ function evPerformer(id: string) {
     return { "@type": "PerformingGroup", name: "CAC Salvation Center Choir" };
   if (id === "holy-land-pilgrimage-2026")
     return { "@type": "Organization", name: "Christ Apostolic Church North America" };
+  if (id === "september-2026-fasting-prayer")
+    return { "@type": "Organization", name: "CACNA Men Association, Latunde Region" };
   return { "@type": "Organization", name: SITE.name };
 }
 
@@ -127,8 +136,8 @@ export default async function EventsPage() {
       startDate: toIso(ev.startLocal),
       endDate: toIso(ev.endLocal),
       eventStatus: "https://schema.org/EventScheduled",
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      image: `${SITE_URL}/images/congregation.jpg`,
+      eventAttendanceMode: evAttendanceMode(ev.id),
+      image: ev.id === "september-2026-fasting-prayer" ? `${SITE_URL}/images/september-2026-fasting-prayer.jpg` : `${SITE_URL}/images/congregation.jpg`,
       url: ev.href ? `${SITE_URL}${ev.href}` : `${SITE_URL}/events`,
       location: evPlace(ev.id),
       organizer: { "@type": "Church", name: SITE.name, url: SITE_URL },
