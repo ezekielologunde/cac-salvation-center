@@ -95,7 +95,7 @@ export default function CACNA50thAnniversaryPage() {
             <div style={{ display: "inline-flex", alignItems: "flex-start", gap: 12, marginBottom: 22, padding: "14px 20px", borderRadius: 16, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", maxWidth: 620 }}>
               <Sparkles size={20} strokeWidth={2} color="var(--gold)" aria-hidden style={{ flexShrink: 0, marginTop: 3 }} />
               <div>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 4 }}>A Golden Jubilee</div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: "var(--gold)", marginBottom: 4 }}>A Golden Jubilee — North &amp; South America, Latunde Region</div>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(18px,2.6vw,26px)", color: "#fff", lineHeight: 1.15, letterSpacing: "-.3px" }}>50 Years of Christ Apostolic Church in North America</div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function CACNA50thAnniversaryPage() {
               <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.78, margin: "0 0 20px" }}>
                 The{" "}
                 <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--red)", fontWeight: 600, textDecoration: "none" }}>Christ Apostolic Church North America</a>{" "}
-                family gathers at CAC Village to mark 50 years of the CAC witness across the United States and Canada — a milestone worth every mile traveled.
+                family gathers at CAC Village to mark 50 years of the CAC witness across North and South America (CAC Latunde Region) — a milestone worth every mile traveled.
               </p>
               <p style={{ fontSize: 16, color: "var(--ink-soft)", lineHeight: 1.78, margin: 0 }}>
                 CAC Salvation Center is proud to be part of this story, and we&apos;re coordinating attendance from Randallstown. If you&apos;re planning to go, RSVP below so the organizers can prepare properly for everyone attending.
