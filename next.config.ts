@@ -72,20 +72,25 @@ const nextConfig: NextConfig = {
       // non-root paths to www outright instead, so Search Console doesn't
       // pick up three more hosts' worth of the same site to crawl. Root is
       // untouched so the existing rewrite below still applies to it.
+      // The path must also exclude anything with a file extension (images/,
+      // videos/, fonts, favicon.ico, etc.) — those are static assets served
+      // identically on every host, and redirecting them to www turns them
+      // cross-origin, which the img-src/connect-src 'self' CSP then blocks
+      // outright (this is why the Ilorin logo and photos stopped rendering).
       {
-        source: "/:path((?!api/|_next/).+)",
+        source: "/:path((?!api/|_next/)(?!.*\\.[a-zA-Z0-9]+$).+)",
         has: [{ type: "host" as const, value: "city.cacsalvationcenter.org" }],
         destination: "https://www.cacsalvationcenter.org/:path",
         permanent: true,
       },
       {
-        source: "/:path((?!api/|_next/).+)",
+        source: "/:path((?!api/|_next/)(?!.*\\.[a-zA-Z0-9]+$).+)",
         has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
         destination: "https://www.cacsalvationcenter.org/:path",
         permanent: true,
       },
       {
-        source: "/:path((?!api/|_next/).+)",
+        source: "/:path((?!api/|_next/)(?!.*\\.[a-zA-Z0-9]+$).+)",
         has: [{ type: "host" as const, value: "blog.cacsalvationcenter.org" }],
         destination: "https://www.cacsalvationcenter.org/:path",
         permanent: true,
