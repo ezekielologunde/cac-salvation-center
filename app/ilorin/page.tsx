@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
 import { DailyWord } from "@/components/sections/DailyWord";
-import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock } from "lucide-react";
+import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen } from "lucide-react";
 import { ILORIN_URL } from "@/lib/site";
+import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
 
 export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
@@ -122,6 +124,9 @@ export default function IlorinPage() {
             </div>
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Link href="/ilorin/blog" style={{ fontSize: 13.5, fontWeight: 700, color: c.onDeep, textDecoration: "none" }}>
+              Messages
+            </Link>
             <a href="#visit" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "#fff", background: c.green, padding: "9px 16px", borderRadius: 999, textDecoration: "none" }}>
               <Navigation size={14} strokeWidth={2.4} aria-hidden /> Visit
             </a>
@@ -254,6 +259,39 @@ export default function IlorinPage() {
 
       {/* Today's Word — a daily blessing from Pastor Owoseni */}
       <DailyWord />
+
+      {/* Latest Messages */}
+      <section style={{ background: c.paper, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 36, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+            <div>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>
+                <BookOpen size={14} strokeWidth={2.5} aria-hidden /> Sunday Messages
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Latest messages.</h2>
+            </div>
+            <Link href="/ilorin/blog" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 700, color: c.green, textDecoration: "none" }}>
+              View all messages <ArrowUpRight size={15} strokeWidth={2.4} aria-hidden />
+            </Link>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {ILORIN_SERMONS_BY_DATE_DESC.slice(0, 3).map((sermon, i) => (
+              <Reveal key={sermon.slug} delay={i * 80}>
+                <Link
+                  href={`/ilorin/blog/${sermon.slug}`}
+                  className="card-lift"
+                  style={{ display: "block", height: "100%", background: c.cream, border: `1px solid ${c.line}`, borderRadius: 22, padding: "26px 24px", textDecoration: "none" }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 700, color: c.inkSoft, marginBottom: 10 }}>{sermon.date}</div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, color: c.ink, letterSpacing: "-.3px", margin: "0 0 8px", lineHeight: 1.2 }}>{sermon.topic}</h3>
+                  <p style={{ fontSize: 13.5, color: c.inkSoft, lineHeight: 1.6, margin: "0 0 16px" }}>{sermon.texts}</p>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: c.green }}>Read →</span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Service times */}
       <section style={{ background: c.cream, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
