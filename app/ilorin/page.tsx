@@ -141,7 +141,7 @@ export default function IlorinPage() {
         <HeroSlider photos={HERO_PHOTOS} />
         <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(170deg, rgba(6,49,31,.92) 0%, rgba(6,49,31,.72) 45%, rgba(9,74,45,.6) 100%)`, pointerEvents: "none" }} />
         <div style={{ maxWidth: 940, margin: "0 auto", position: "relative", zIndex: 2, textAlign: "center" }}>
-          <Reveal>
+          <Reveal immediate>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", padding: "7px 16px", borderRadius: 999 }}>
               <MapPin size={14} strokeWidth={2.5} aria-hidden /> Ilorin · Kwara State · Nigeria
             </span>
@@ -151,17 +151,17 @@ export default function IlorinPage() {
             <br />
             <RevealText immediate delay={0.15} style={{ color: c.greenBright }}>Ilorin.</RevealText>
           </h1>
-          <Reveal delay={320}>
+          <Reveal immediate delay={320}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginTop: 22, fontSize: 12.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: c.gold, flexWrap: "wrap", justifyContent: "center" }}>
               <span style={{ width: 30, height: 1, background: "rgba(232,163,61,.5)" }} aria-hidden /> One Fold, One Shepherd · John 10:16 <span style={{ width: 30, height: 1, background: "rgba(232,163,61,.5)" }} aria-hidden />
             </div>
           </Reveal>
-          <Reveal delay={380}>
+          <Reveal immediate delay={380}>
             <p style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontStyle: "italic", fontSize: "clamp(16px,1.9vw,21px)", color: c.onDeep, lineHeight: 1.6, maxWidth: 660, margin: "24px auto 0", textWrap: "pretty" }}>
               &ldquo;We stand as part of the vast body of Christ across the globe — fulfilling the Great Commission, building every believer to be God&apos;s ambassadors here on earth.&rdquo;
             </p>
           </Reveal>
-          <Reveal delay={460}>
+          <Reveal immediate delay={460}>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 13, marginTop: 36 }}>
               <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: c.greenBright, color: c.deep, fontWeight: 800, fontSize: 16, padding: "16px 28px", borderRadius: 999, textDecoration: "none", boxShadow: "0 16px 36px rgba(43,182,115,.3)" }}>
                 <Navigation size={18} strokeWidth={2.3} aria-hidden /> Get Directions

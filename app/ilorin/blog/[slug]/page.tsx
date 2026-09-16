@@ -86,27 +86,27 @@ export default async function IlorinSermonPage({
       <section style={{ background: `linear-gradient(170deg, ${c.deep} 0%, #094a2d 100%)`, color: "#fff", padding: "clamp(48px,7vw,84px) clamp(20px,5vw,64px) clamp(56px,7vw,88px)", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{ position: "absolute", top: -150, right: -120, width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle, rgba(43,182,115,.26), transparent 62%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 780, margin: "0 auto", position: "relative", zIndex: 2 }}>
-          <Reveal>
+          <Reveal immediate>
             <Link href="/ilorin/blog" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: c.onDeep, textDecoration: "none", marginBottom: 26 }}>
               <ArrowLeft size={14} strokeWidth={2.5} aria-hidden /> All messages
             </Link>
           </Reveal>
           {sermon.theme && (
-            <Reveal delay={40}>
+            <Reveal immediate delay={40}>
               <span style={{ display: "inline-block", fontSize: 11, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase", color: c.gold, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", borderRadius: 999, padding: "6px 14px", marginBottom: 18 }}>
                 {sermon.theme}
               </span>
             </Reveal>
           )}
-          <Reveal delay={90}>
+          <Reveal immediate delay={90}>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,5vw,54px)", letterSpacing: "-.03em", lineHeight: 1.04, margin: "0 0 18px" }}>
               {sermon.topic}
             </h1>
           </Reveal>
-          <Reveal delay={140}>
+          <Reveal immediate delay={140}>
             <p style={{ fontSize: 16, fontWeight: 700, color: c.greenBright, margin: "0 0 22px" }}>{sermon.texts}</p>
           </Reveal>
-          <Reveal delay={180}>
+          <Reveal immediate delay={180}>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20, marginBottom: (sermon.podcastUrl || sermon.applePodcastUrl) ? 22 : 0 }}>
               <span style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>{sermon.minister}</span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: c.onDeep, fontWeight: 600 }}>
@@ -115,7 +115,7 @@ export default async function IlorinSermonPage({
             </div>
           </Reveal>
           {(sermon.podcastUrl || sermon.applePodcastUrl) && (
-            <Reveal delay={220}>
+            <Reveal immediate delay={220}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                 {sermon.podcastUrl && (
                   <a
