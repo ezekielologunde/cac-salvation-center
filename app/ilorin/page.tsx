@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
 import { DailyWord } from "@/components/sections/DailyWord";
-import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock } from "lucide-react";
+import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen } from "lucide-react";
 import { ILORIN_URL } from "@/lib/site";
+import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
 
 export const metadata = {
   title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
@@ -28,6 +30,24 @@ const c = {
   onDeep: "rgba(238,245,238,.74)",
   onDeepLine: "rgba(238,245,238,.16)",
 };
+
+// Hero background: a slow Ken-Burns crossfade through real photos — the
+// building shot is from the church's own Facebook page, the rest are full-
+// resolution event photography (resized to 2560px wide / re-compressed for
+// web here; originals are much larger) rather than a static gradient. Pure
+// CSS (no scroll-linked JS parallax) so it stays cheap and doesn't fight
+// mobile Safari's background-attachment quirks.
+const HERO_PHOTOS = [
+  { src: "/images/ilorin-building.jpg", alt: "The C.A.C Salvation Centre building at Fate-Tanke Road, Ilorin" },
+  { src: "/images/ilorin-worship-leader.jpg", alt: "A worship leader ministering on the altar" },
+  { src: "/images/ilorin-choir-colorful.jpg", alt: "The choir singing during a service" },
+  { src: "/images/ilorin-dance-ministration.jpg", alt: "A dance ministration during a service" },
+  { src: "/images/ilorin-25th-anniversary.jpg", alt: "The congregation celebrating the church's 25th anniversary" },
+  { src: "/images/ilorin-choir-green.jpg", alt: "The choir ministering in green robes" },
+  { src: "/images/ilorin-prayer-closeup.jpg", alt: "Members of the congregation in prayer" },
+];
+const HERO_SLIDE_SECONDS = 4.5;
+const HERO_CYCLE_SECONDS = HERO_PHOTOS.length * HERO_SLIDE_SECONDS;
 
 const ADDRESS = "Fate-Tanke Road & Abdullahi Mohammed Street, Oko Erin, Ilorin, Kwara State, Nigeria — 240102";
 const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent("C.A.C Salvation Centre, Fate-Tanke Road, Oko Erin, Ilorin, Kwara, Nigeria")}&z=15&output=embed`;
@@ -112,7 +132,7 @@ export default function IlorinPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ilorinJsonLd).replace(/</g, "\\u003c") }}
       />
       {/* Header */}
-      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(6,49,31,.92)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>
+      <header style={{ position: "sticky", top: "var(--bar-h, 0px)", zIndex: 50, background: "rgba(6,49,31,.92)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", padding: "13px clamp(18px,4vw,40px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
           <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <Image src="/images/logo.png" alt="C.A.C Salvation Centre" width={36} height={36} style={{ borderRadius: 9, objectFit: "cover", flexShrink: 0 }} />
@@ -122,6 +142,9 @@ export default function IlorinPage() {
             </div>
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Link href="/ilorin/blog" style={{ fontSize: 13.5, fontWeight: 700, color: c.onDeep, textDecoration: "none" }}>
+              Messages
+            </Link>
             <a href="#visit" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13.5, fontWeight: 700, color: "#fff", background: c.green, padding: "9px 16px", borderRadius: 999, textDecoration: "none" }}>
               <Navigation size={14} strokeWidth={2.4} aria-hidden /> Visit
             </a>
@@ -133,9 +156,46 @@ export default function IlorinPage() {
       </header>
 
       {/* Hero */}
-      <section id="top" style={{ background: `linear-gradient(170deg, ${c.deep} 0%, #094a2d 100%)`, color: "#fff", padding: "clamp(64px,9vw,118px) clamp(20px,5vw,64px) clamp(72px,10vw,128px)", position: "relative", overflow: "hidden" }}>
-        <div aria-hidden style={{ position: "absolute", top: -150, right: -120, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(43,182,115,.28), transparent 62%)", pointerEvents: "none" }} />
-        <div aria-hidden style={{ position: "absolute", bottom: -190, left: -150, width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle, rgba(232,163,61,.16), transparent 60%)", pointerEvents: "none" }} />
+      <section id="top" style={{ color: "#fff", padding: "clamp(64px,9vw,118px) clamp(20px,5vw,64px) clamp(72px,10vw,128px)", position: "relative", overflow: "hidden" }}>
+        {(() => {
+          const slot = 100 / HERO_PHOTOS.length;
+          const fadeIn = 1;
+          const holdEnd = Math.max(fadeIn + 1, slot - 1.5);
+          return (
+            <style>{`
+              @keyframes ilorinHeroKenBurns {
+                0% { opacity: 0; transform: scale(1); }
+                ${fadeIn}% { opacity: 1; transform: scale(1); }
+                ${holdEnd}% { opacity: 1; transform: scale(1.08); }
+                ${slot}% { opacity: 0; transform: scale(1.08); }
+                100% { opacity: 0; transform: scale(1); }
+              }
+              .ilorin-hero-bg {
+                animation: ilorinHeroKenBurns ${HERO_CYCLE_SECONDS}s infinite;
+                animation-fill-mode: backwards;
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .ilorin-hero-bg { animation: none !important; opacity: 0 !important; transform: none !important; }
+                .ilorin-hero-bg:first-child { opacity: 1 !important; }
+              }
+            `}</style>
+          );
+        })()}
+        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          {HERO_PHOTOS.map((photo, i) => (
+            <Image
+              key={photo.src}
+              src={photo.src}
+              alt=""
+              fill
+              priority={i === 0}
+              className="ilorin-hero-bg"
+              style={{ objectFit: "cover", animationDelay: `${i * HERO_SLIDE_SECONDS}s` }}
+              sizes="100vw"
+            />
+          ))}
+        </div>
+        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(170deg, rgba(6,49,31,.92) 0%, rgba(6,49,31,.72) 45%, rgba(9,74,45,.6) 100%)` }} />
         <div style={{ maxWidth: 940, margin: "0 auto", position: "relative", zIndex: 2, textAlign: "center" }}>
           <Reveal>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", padding: "7px 16px", borderRadius: 999 }}>
@@ -255,6 +315,65 @@ export default function IlorinPage() {
       {/* Today's Word — a daily blessing from Pastor Owoseni */}
       <DailyWord />
 
+      {/* Latest Messages */}
+      <section style={{ background: c.paper, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 36, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+            <div>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>
+                <BookOpen size={14} strokeWidth={2.5} aria-hidden /> Sunday Messages
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Latest messages.</h2>
+            </div>
+            <Link href="/ilorin/blog" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 700, color: c.green, textDecoration: "none" }}>
+              View all messages <ArrowUpRight size={15} strokeWidth={2.4} aria-hidden />
+            </Link>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {ILORIN_SERMONS_BY_DATE_DESC.slice(0, 3).map((sermon, i) => (
+              <Reveal key={sermon.slug} delay={i * 80}>
+                <Link
+                  href={`/ilorin/blog/${sermon.slug}`}
+                  className="card-lift"
+                  style={{ display: "block", height: "100%", background: c.cream, border: `1px solid ${c.line}`, borderRadius: 22, padding: "26px 24px", textDecoration: "none" }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 700, color: c.inkSoft, marginBottom: 10 }}>{sermon.date}</div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 19, color: c.ink, letterSpacing: "-.3px", margin: "0 0 8px", lineHeight: 1.2 }}>{sermon.topic}</h3>
+                  <p style={{ fontSize: 13.5, color: c.inkSoft, lineHeight: 1.6, margin: "0 0 16px" }}>{sermon.texts}</p>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: c.green }}>Read →</span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Life at the Centre */}
+      <section style={{ background: c.cream2, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>Sunday at the Centre</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Life at the Centre.</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {[
+              { src: "/images/ilorin-pastor-preaching.jpg", alt: "Pastor R.T. Owoseni ministering during a Sunday service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-choir.jpg", alt: "The choir singing during a service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-worship-1.jpg", alt: "A member of the congregation worshipping with raised hands at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-congregation-worship.jpg", alt: "A member of the congregation worshipping during a service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-worship-2.jpg", alt: "A member of the congregation singing during worship at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-service.jpg", alt: "Ministers on the altar during a service at C.A.C Salvation Centre, Ilorin" },
+            ].map((img, i) => (
+              <Reveal key={img.src} delay={(i % 6) * 70}>
+                <div style={{ position: "relative", height: "clamp(280px,32vw,360px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                  <Image src={img.src} alt={img.alt} fill style={{ objectFit: "cover" }} sizes="(max-width: 700px) 100vw, 360px" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Service times */}
       <section style={{ background: c.cream, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
@@ -302,8 +421,13 @@ export default function IlorinPage() {
             </a>
           </Reveal>
           <Reveal delay={120}>
-            <div style={{ height: "clamp(280px,34vw,380px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
-              <iframe title="Map to C.A.C Salvation Centre, Ilorin" src={MAPS_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ width: "100%", height: "100%", border: 0, display: "block" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ position: "relative", height: "clamp(160px,20vw,220px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                <Image src="/images/ilorin-building.jpg" alt="C.A.C Salvation Centre, Ilorin — the church building at Fate-Tanke Road" fill style={{ objectFit: "cover" }} sizes="(max-width: 700px) 100vw, 500px" />
+              </div>
+              <div style={{ height: "clamp(220px,26vw,300px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                <iframe title="Map to C.A.C Salvation Centre, Ilorin" src={MAPS_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ width: "100%", height: "100%", border: 0, display: "block" }} />
+              </div>
             </div>
           </Reveal>
         </div>
