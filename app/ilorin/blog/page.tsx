@@ -43,7 +43,7 @@ function SermonCard({ sermon, delay }: { sermon: (typeof ILORIN_SERMONS_BY_DATE_
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${c.line}`, paddingTop: 14, marginTop: "auto", gap: 10 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12.5, fontWeight: 700, color: c.inkSoft }}>
             {sermon.minister}
-            {sermon.podcastUrl && <Headphones size={13} strokeWidth={2.3} color="#1DB954" aria-label="Available on Spotify" />}
+            {(sermon.podcastUrl || sermon.applePodcastUrl) && <Headphones size={13} strokeWidth={2.3} color={c.green} aria-label="Listen online" />}
           </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: c.green, flexShrink: 0 }}>Read →</span>
         </div>
@@ -57,7 +57,7 @@ export default function IlorinBlogPage() {
 
   return (
     <main style={{ background: c.paper, color: c.ink, fontFamily: "var(--font-body)" }}>
-      <IlorinHeader />
+      <IlorinHeader variant="blog" />
 
       {/* Hero */}
       <section style={{ background: `linear-gradient(170deg, ${c.deep} 0%, #094a2d 100%)`, color: "#fff", padding: "clamp(56px,8vw,96px) clamp(20px,5vw,64px) clamp(60px,8vw,96px)", position: "relative", overflow: "hidden" }}>
@@ -92,7 +92,7 @@ export default function IlorinBlogPage() {
         </div>
       </section>
 
-      <IlorinFooter />
+      <IlorinFooter variant="blog" />
     </main>
   );
 }

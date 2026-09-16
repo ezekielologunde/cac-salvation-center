@@ -80,7 +80,7 @@ export default async function IlorinSermonPage({
   return (
     <main style={{ background: c.paper, color: c.ink, fontFamily: "var(--font-body)" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <IlorinHeader />
+      <IlorinHeader variant="blog" />
 
       {/* Hero */}
       <section style={{ background: `linear-gradient(170deg, ${c.deep} 0%, #094a2d 100%)`, color: "#fff", padding: "clamp(48px,7vw,84px) clamp(20px,5vw,64px) clamp(56px,7vw,88px)", position: "relative", overflow: "hidden" }}>
@@ -107,23 +107,37 @@ export default async function IlorinSermonPage({
             <p style={{ fontSize: 16, fontWeight: 700, color: c.greenBright, margin: "0 0 22px" }}>{sermon.texts}</p>
           </Reveal>
           <Reveal delay={180}>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20, marginBottom: sermon.podcastUrl ? 22 : 0 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20, marginBottom: (sermon.podcastUrl || sermon.applePodcastUrl) ? 22 : 0 }}>
               <span style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>{sermon.minister}</span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: c.onDeep, fontWeight: 600 }}>
                 <Calendar size={13} strokeWidth={2.5} aria-hidden /> {sermon.date}
               </span>
             </div>
           </Reveal>
-          {sermon.podcastUrl && (
+          {(sermon.podcastUrl || sermon.applePodcastUrl) && (
             <Reveal delay={220}>
-              <a
-                href={sermon.podcastUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#1DB954", color: "#fff", fontWeight: 700, fontSize: 14.5, padding: "12px 22px", borderRadius: 999, textDecoration: "none" }}
-              >
-                <Headphones size={16} strokeWidth={2.3} aria-hidden /> Listen to this message on Spotify
-              </a>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {sermon.podcastUrl && (
+                  <a
+                    href={sermon.podcastUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#1DB954", color: "#fff", fontWeight: 700, fontSize: 14.5, padding: "12px 22px", borderRadius: 999, textDecoration: "none" }}
+                  >
+                    <Headphones size={16} strokeWidth={2.3} aria-hidden /> Listen on Spotify
+                  </a>
+                )}
+                {sermon.applePodcastUrl && (
+                  <a
+                    href={sermon.applePodcastUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#9B4DC7", color: "#fff", fontWeight: 700, fontSize: 14.5, padding: "12px 22px", borderRadius: 999, textDecoration: "none" }}
+                  >
+                    <Headphones size={16} strokeWidth={2.3} aria-hidden /> Listen on Apple Podcasts
+                  </a>
+                )}
+              </div>
             </Reveal>
           )}
         </div>
@@ -184,7 +198,10 @@ export default async function IlorinSermonPage({
               {others.map((s, i) => (
                 <Reveal key={s.slug} delay={i * 70}>
                   <Link href={`/ilorin/blog/${s.slug}`} className="card-lift" style={{ display: "block", height: "100%", background: c.cream, border: `1px solid ${c.line}`, borderRadius: 18, padding: "20px 22px", textDecoration: "none" }}>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: c.inkSoft, marginBottom: 8 }}>{s.date}</div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+                      <span style={{ fontSize: 11.5, fontWeight: 700, color: c.inkSoft }}>{s.date}</span>
+                      {(s.podcastUrl || s.applePodcastUrl) && <Headphones size={12} strokeWidth={2.3} color={c.green} aria-label="Listen online" />}
+                    </div>
                     <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 16.5, color: c.ink, lineHeight: 1.25, marginBottom: 10 }}>{s.topic}</div>
                     <span style={{ fontSize: 12.5, fontWeight: 700, color: c.green }}>Read →</span>
                   </Link>
@@ -195,7 +212,7 @@ export default async function IlorinSermonPage({
         </section>
       )}
 
-      <IlorinFooter />
+      <IlorinFooter variant="blog" />
     </main>
   );
 }
