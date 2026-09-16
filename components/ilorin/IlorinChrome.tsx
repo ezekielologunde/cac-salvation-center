@@ -26,7 +26,7 @@ export function IlorinHeader() {
   return (
     <header
       style={{
-        position: "sticky", top: 0, zIndex: 50,
+        position: "sticky", top: "var(--bar-h, 0px)", zIndex: 50,
         background: "rgba(6,49,31,.92)", backdropFilter: "blur(10px)",
         borderBottom: `1px solid ${c.onDeepLine}`,
       }}
