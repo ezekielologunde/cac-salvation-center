@@ -2,6 +2,14 @@
 // Centre, Ilorin — transcribed from the district's WhatsApp broadcast notes. One
 // entry per week (skips weeks with no note posted to the group); minor spelling/
 // punctuation clean-up only, content is otherwise verbatim.
+//
+// podcastUrl: matched by hand against Pastor Owoseni's Spotify podcast
+// (open.spotify.com/show/2VBBGHUo6nMITGmGGrEUoM) — episode descriptions there
+// reuse the same MINISTER/TOPIC/TEXT/NOTES text, or the scripture references
+// match exactly, so only set this when that overlap confirmed the episode is
+// the same message (uploaded days-to-weeks after the WhatsApp note, hence the
+// date drift). The show is Pastor Owoseni's own, so guest-minister messages
+// and a few of his own with no confirmed match are left unset — don't guess.
 
 export interface IlorinSermon {
   slug: string;
@@ -13,6 +21,7 @@ export interface IlorinSermon {
   texts: string;
   excerpt: string;
   body: string[];
+  podcastUrl?: string;
 }
 
 export const ILORIN_SERMONS: IlorinSermon[] = [
@@ -23,6 +32,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Your Benefits as a Sheep Under a Shepherd",
     texts: "Psalms 23:1–6; Psalm 32:8",
+    podcastUrl: "https://open.spotify.com/episode/4Wi7JFFDpYwtXifTCAqwSM",
     excerpt: "God expects us to see ourselves as sheep under Him, not goats. Being a sheep has many benefits that cannot be exhausted.",
     body: [
       "God expects us to see ourselves as sheep under Him, not goats. Being a sheep has many benefits that cannot be exhausted.",
@@ -40,6 +50,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Your Benefits as a Sheep Under a Shepherd",
     texts: "Psalm 23:5",
+    podcastUrl: "https://open.spotify.com/episode/6IhroSNM2CzTY7WtePTlYv",
     excerpt: "One of the benefits of being a sheep under a Shepherd is ENVIABLE PROVISION. When God speaks, He does not speak to only a particular set of people;…",
     body: [
       "One of the benefits of being a sheep under a Shepherd is ENVIABLE PROVISION. When God speaks, He does not speak to only a particular set of people; the Word of God is for everyone. The Word of God you believe is the one that will work for you (John 1:4). We are meant to act as sheep, not goats. As a sheep, what God expects you to do is to FOLLOW. God deserves to be feared. Following God might seem foolish, but it is the best thing to do.",
@@ -52,6 +63,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Why Thanksgiving?",
     texts: "Malachi 2:1; Luke 17:13–19",
+    podcastUrl: "https://open.spotify.com/episode/62X00xs2s2AIxL2bnxcwEJ",
     excerpt: "There is always a reason for everything God says in His Word. That reason is the key behind the fulfilment of that Word.",
     body: [
       "There is always a reason for everything God says in His Word. That reason is the key behind the fulfilment of that Word.",
@@ -68,6 +80,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Growing in Favour",
     texts: "Luke 2:52, 1 Corinthians 15:58",
+    podcastUrl: "https://open.spotify.com/episode/0H3WNyTfk7sGX7VnFh2lgW",
     excerpt: "GROWTH is an evidence of life; where there's no life, DEATH will set in.",
     body: [
       "GROWTH is an evidence of life; where there's no life, DEATH will set in.",
@@ -108,6 +121,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Jesus Our Burden Bearer",
     texts: "Isaiah 53:3–5; Psalm 103:14–15; Ecclesiastes 10:15; Proverbs 18:10; Psalm 55:22; 1 Peter 5:7",
+    podcastUrl: "https://open.spotify.com/episode/3Km5PczTsRQH3WCYSwF9Om",
     excerpt: "One of the benefits of redemption is that Christ is our Burden Bearer — and what you know about Jesus determines what you receive from Him.",
     body: [
       "One of the benefits of redemption is that Christ is our Burden Bearer — and what you know about Jesus determines what you receive from Him. Many Christians relate to God only as their Savior and stop there, without realizing He is also the One who carries what they were never meant to carry alone. The work of Jesus goes far beyond rescuing us from hell; it reaches into the daily weight of living.",
@@ -154,6 +168,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Power to Move Forward",
     texts: "Exodus 14:14–18",
+    podcastUrl: "https://open.spotify.com/episode/3zFDWHiAimfqLCynbevlq4",
     excerpt: "One of the favours we must enjoy as children of God is the power to move forward.",
     body: [
       "One of the favours we must enjoy as children of God is the power to move forward.",
@@ -174,6 +189,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Tied Down for His Glory",
     texts: "Mark 11:2, 8; Daniel 2:21; Psalm 31:15",
+    podcastUrl: "https://open.spotify.com/episode/5mKMPPzDQjEPqMcQf5oDkY",
     excerpt: "God has a reason for everything He does.",
     body: [
       "God has a reason for everything He does.",
@@ -191,6 +207,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Resurrection Power",
     texts: "Matthew 28:2-7, Romans 8:11",
+    podcastUrl: "https://open.spotify.com/episode/10roEqjP5eAdX2Cr0rRmzg",
     excerpt: "There are many powers on earth, but the only power that has challenged and defeated the power of death is the Resurrection Power.",
     body: [
       "There are many powers on earth, but the only power that has challenged and defeated the power of death is the Resurrection Power.",
@@ -247,6 +264,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Understanding the God of Favour",
     texts: "Genesis 37",
+    podcastUrl: "https://open.spotify.com/episode/700kNebQgwGrCoq5mE6i3h",
     excerpt: "If you do not understand God, you may walk away from the very favour He has for you. Joseph is proof of what patience looks like on the other side of that understanding.",
     body: [
       "If you do not understand God, you may walk away from the very favour He has for you. Understanding positions you to receive it — and no matter what you are going through right now, His favour is still available. You only need to understand Him, and position yourself to receive it.",
@@ -278,6 +296,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     theme: "Gates of Favour",
     topic: "Gate of Faith",
     texts: "Hebrews 11:1–6",
+    podcastUrl: "https://open.spotify.com/episode/0gkrE1ClrsvUrruZVM1GiM",
     excerpt: "Faith is the currency of Heaven; without it, you can't make any transactions with Heaven.",
     body: [
       "Faith is the currency of Heaven; without it, you can't make any transactions with Heaven.",
@@ -296,6 +315,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     theme: "Gates of Favour",
     topic: "Thanking God by Faith",
     texts: "2 Chronicles 20:1–6",
+    podcastUrl: "https://open.spotify.com/episode/0up83JZUoGrDhuqyLEn426",
     excerpt: "There are many ways in which we can relate with God, and one of them is through thanksgiving.",
     body: [
       "There are many ways in which we can relate with God, and one of them is through thanksgiving.",
@@ -314,6 +334,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     theme: "Gates of Favour",
     topic: "Growing in Faith",
     texts: "Matthew 14:24–32; Hebrews 11:33",
+    podcastUrl: "https://open.spotify.com/episode/5woQm4NCKPJvnCrJ340hX3",
     excerpt: "Faith is like a seed (a spiritual seed). For a seed to grow, it must be nurtured.",
     body: [
       "Faith is like a seed (a spiritual seed). For a seed to grow, it must be nurtured.",
@@ -333,6 +354,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Obtaining God's Promises by Faith",
     texts: "Hebrews 11:33",
+    podcastUrl: "https://open.spotify.com/episode/5Fhlc8OAUBo3lgpM5QkIgq",
     excerpt: "Whatever affects your faith affects your relationship with God.",
     body: [
       "Whatever affects your faith affects your relationship with God.",
@@ -367,6 +389,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Attracting Great Mercy",
     texts: "Luke 1:57–58",
+    podcastUrl: "https://open.spotify.com/episode/0jHY9hoAM8bkw4NdXWKYxD",
     excerpt: "God can show an individual great mercy without the individual's input.",
     body: [
       "God can show an individual great mercy without the individual's input.",
@@ -399,6 +422,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Confronting Your Giants",
     texts: "1 Samuel 17:41; James 4:7; Psalm 18:32",
+    podcastUrl: "https://open.spotify.com/episode/68vQ1zxIMWc5zzQwpVvDbG",
     excerpt: "A giant can be seen as a spiritual terrorist sent by the devil to harass and torment the people of God. But giants are meant to be confronted, not endured.",
     body: [
       "A giant can be seen as a spiritual terrorist sent by the devil to harass and torment the people of God. Giants are real — and it helps to remember that, like Goliath, they are from the lineage of men. Whatever towers over your life right now is not beyond the reach of God.",
@@ -427,6 +451,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "The Unchanging God",
     texts: "Jeremiah 31:3",
+    podcastUrl: "https://open.spotify.com/episode/5qTbD7IAv0o3zJ6K3FRUfg",
     excerpt: "God is unchanging in His love — and that unchanging nature is one of the things that sets Him apart from man.",
     body: [
       "God is unchanging in His love — and that unchanging nature is one of the things that sets Him apart from man. People shift with circumstance; God does not.",
@@ -441,6 +466,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     minister: "Pastor R.T. Owoseni",
     topic: "Dealing with Anger",
     texts: "Ecclesiastes 7:9; Proverbs 14:17, 29; 1 Samuel 9:18",
+    podcastUrl: "https://open.spotify.com/episode/05sccGbnpxx4N4okmm6nvo",
     excerpt: "Anger is an emotion. God placed anger in man to show displeasure toward the things of the devil.",
     body: [
       "Anger is an emotion. God placed anger in man to show displeasure toward the things of the devil.",

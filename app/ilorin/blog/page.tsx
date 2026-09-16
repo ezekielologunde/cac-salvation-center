@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, BookOpen } from "lucide-react";
+import { Calendar, BookOpen, Headphones } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { IlorinHeader, IlorinFooter, ilorinColors as c } from "@/components/ilorin/IlorinChrome";
 import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
@@ -40,9 +40,12 @@ function SermonCard({ sermon, delay }: { sermon: (typeof ILORIN_SERMONS_BY_DATE_
         <p style={{ fontSize: 14.5, color: c.inkSoft, lineHeight: 1.68, margin: "0 0 20px", flex: 1 }}>
           {sermon.excerpt}
         </p>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${c.line}`, paddingTop: 14, marginTop: "auto" }}>
-          <span style={{ fontSize: 12.5, fontWeight: 700, color: c.inkSoft }}>{sermon.minister}</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: c.green }}>Read →</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${c.line}`, paddingTop: 14, marginTop: "auto", gap: 10 }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12.5, fontWeight: 700, color: c.inkSoft }}>
+            {sermon.minister}
+            {sermon.podcastUrl && <Headphones size={13} strokeWidth={2.3} color="#1DB954" aria-label="Available on Spotify" />}
+          </span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: c.green, flexShrink: 0 }}>Read →</span>
         </div>
       </Link>
     </Reveal>

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar, BookOpen, Share2 } from "lucide-react";
+import { ArrowLeft, Calendar, BookOpen, Share2, Headphones } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { IlorinHeader, IlorinFooter, ilorinColors as c } from "@/components/ilorin/IlorinChrome";
 import { ILORIN_SERMONS, ILORIN_SERMONS_BY_DATE_DESC, getIlorinSermon } from "@/lib/ilorinSermons";
@@ -107,13 +107,25 @@ export default async function IlorinSermonPage({
             <p style={{ fontSize: 16, fontWeight: 700, color: c.greenBright, margin: "0 0 22px" }}>{sermon.texts}</p>
           </Reveal>
           <Reveal delay={180}>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20, marginBottom: sermon.podcastUrl ? 22 : 0 }}>
               <span style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>{sermon.minister}</span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: c.onDeep, fontWeight: 600 }}>
                 <Calendar size={13} strokeWidth={2.5} aria-hidden /> {sermon.date}
               </span>
             </div>
           </Reveal>
+          {sermon.podcastUrl && (
+            <Reveal delay={220}>
+              <a
+                href={sermon.podcastUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#1DB954", color: "#fff", fontWeight: 700, fontSize: 14.5, padding: "12px 22px", borderRadius: 999, textDecoration: "none" }}
+              >
+                <Headphones size={16} strokeWidth={2.3} aria-hidden /> Listen to this message on Spotify
+              </a>
+            </Reveal>
+          )}
         </div>
       </section>
 
