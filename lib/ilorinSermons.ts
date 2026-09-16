@@ -10,6 +10,12 @@
 // the same message (uploaded days-to-weeks after the WhatsApp note, hence the
 // date drift). The show is Pastor Owoseni's own, so guest-minister messages
 // and a few of his own with no confirmed match are left unset — don't guess.
+//
+// applePodcastUrl: same show, same method, matched independently against
+// Pastor Owoseni's Apple Podcasts feed ("CAC Salvation Centre - Ilorin",
+// podcasts.apple.com/us/podcast/id1872275390). Apple and Spotify don't always
+// carry the same episodes, so the two fields aren't set on exactly the same
+// entries.
 
 export interface IlorinSermon {
   slug: string;
@@ -22,6 +28,7 @@ export interface IlorinSermon {
   excerpt: string;
   body: string[];
   podcastUrl?: string;
+  applePodcastUrl?: string;
 }
 
 export const ILORIN_SERMONS: IlorinSermon[] = [
@@ -33,6 +40,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Your Benefits as a Sheep Under a Shepherd",
     texts: "Psalms 23:1–6; Psalm 32:8",
     podcastUrl: "https://open.spotify.com/episode/4Wi7JFFDpYwtXifTCAqwSM",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/benefits-of-a-sheep-under-a-shepherd-part-2/id1872275390?i=1000746793950",
     excerpt: "God expects us to see ourselves as sheep under Him, not goats. Being a sheep has many benefits that cannot be exhausted.",
     body: [
       "God expects us to see ourselves as sheep under Him, not goats. Being a sheep has many benefits that cannot be exhausted.",
@@ -51,6 +59,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Your Benefits as a Sheep Under a Shepherd",
     texts: "Psalm 23:5",
     podcastUrl: "https://open.spotify.com/episode/6IhroSNM2CzTY7WtePTlYv",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/benefits-as-a-sheep-under-a-shepherd-part-3/id1872275390?i=1000746794028",
     excerpt: "One of the benefits of being a sheep under a Shepherd is ENVIABLE PROVISION. When God speaks, He does not speak to only a particular set of people;…",
     body: [
       "One of the benefits of being a sheep under a Shepherd is ENVIABLE PROVISION. When God speaks, He does not speak to only a particular set of people; the Word of God is for everyone. The Word of God you believe is the one that will work for you (John 1:4). We are meant to act as sheep, not goats. As a sheep, what God expects you to do is to FOLLOW. God deserves to be feared. Following God might seem foolish, but it is the best thing to do.",
@@ -64,6 +73,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Why Thanksgiving?",
     texts: "Malachi 2:1; Luke 17:13–19",
     podcastUrl: "https://open.spotify.com/episode/62X00xs2s2AIxL2bnxcwEJ",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/why-thanksgiving/id1872275390?i=1000747733124",
     excerpt: "There is always a reason for everything God says in His Word. That reason is the key behind the fulfilment of that Word.",
     body: [
       "There is always a reason for everything God says in His Word. That reason is the key behind the fulfilment of that Word.",
@@ -81,6 +91,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Growing in Favour",
     texts: "Luke 2:52, 1 Corinthians 15:58",
     podcastUrl: "https://open.spotify.com/episode/0H3WNyTfk7sGX7VnFh2lgW",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/growing-in-favour/id1872275390?i=1000748780121",
     excerpt: "GROWTH is an evidence of life; where there's no life, DEATH will set in.",
     body: [
       "GROWTH is an evidence of life; where there's no life, DEATH will set in.",
@@ -122,6 +133,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Jesus Our Burden Bearer",
     texts: "Isaiah 53:3–5; Psalm 103:14–15; Ecclesiastes 10:15; Proverbs 18:10; Psalm 55:22; 1 Peter 5:7",
     podcastUrl: "https://open.spotify.com/episode/3Km5PczTsRQH3WCYSwF9Om",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/jesus-our-burden-bearer-1/id1872275390?i=1000752320746",
     excerpt: "One of the benefits of redemption is that Christ is our Burden Bearer — and what you know about Jesus determines what you receive from Him.",
     body: [
       "One of the benefits of redemption is that Christ is our Burden Bearer — and what you know about Jesus determines what you receive from Him. Many Christians relate to God only as their Savior and stop there, without realizing He is also the One who carries what they were never meant to carry alone. The work of Jesus goes far beyond rescuing us from hell; it reaches into the daily weight of living.",
@@ -169,6 +181,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Power to Move Forward",
     texts: "Exodus 14:14–18",
     podcastUrl: "https://open.spotify.com/episode/3zFDWHiAimfqLCynbevlq4",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/power-to-move-forward/id1872275390?i=1000756582150",
     excerpt: "One of the favours we must enjoy as children of God is the power to move forward.",
     body: [
       "One of the favours we must enjoy as children of God is the power to move forward.",
@@ -190,6 +203,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Tied Down for His Glory",
     texts: "Mark 11:2, 8; Daniel 2:21; Psalm 31:15",
     podcastUrl: "https://open.spotify.com/episode/5mKMPPzDQjEPqMcQf5oDkY",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/tied-down-for-his-glory/id1872275390?i=1000758116101",
     excerpt: "God has a reason for everything He does.",
     body: [
       "God has a reason for everything He does.",
@@ -208,6 +222,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Resurrection Power",
     texts: "Matthew 28:2-7, Romans 8:11",
     podcastUrl: "https://open.spotify.com/episode/10roEqjP5eAdX2Cr0rRmzg",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/resurrection-power/id1872275390?i=1000759379788",
     excerpt: "There are many powers on earth, but the only power that has challenged and defeated the power of death is the Resurrection Power.",
     body: [
       "There are many powers on earth, but the only power that has challenged and defeated the power of death is the Resurrection Power.",
@@ -265,6 +280,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Understanding the God of Favour",
     texts: "Genesis 37",
     podcastUrl: "https://open.spotify.com/episode/700kNebQgwGrCoq5mE6i3h",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/understanding-the-god-of-favour/id1872275390?i=1000767078390",
     excerpt: "If you do not understand God, you may walk away from the very favour He has for you. Joseph is proof of what patience looks like on the other side of that understanding.",
     body: [
       "If you do not understand God, you may walk away from the very favour He has for you. Understanding positions you to receive it — and no matter what you are going through right now, His favour is still available. You only need to understand Him, and position yourself to receive it.",
@@ -297,6 +313,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Gate of Faith",
     texts: "Hebrews 11:1–6",
     podcastUrl: "https://open.spotify.com/episode/0gkrE1ClrsvUrruZVM1GiM",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/gates-of-favour-by-faith-pt1/id1872275390?i=1000769413063",
     excerpt: "Faith is the currency of Heaven; without it, you can't make any transactions with Heaven.",
     body: [
       "Faith is the currency of Heaven; without it, you can't make any transactions with Heaven.",
@@ -316,6 +333,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Thanking God by Faith",
     texts: "2 Chronicles 20:1–6",
     podcastUrl: "https://open.spotify.com/episode/0up83JZUoGrDhuqyLEn426",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/thanking-god-by-faith/id1872275390?i=1000770511099",
     excerpt: "There are many ways in which we can relate with God, and one of them is through thanksgiving.",
     body: [
       "There are many ways in which we can relate with God, and one of them is through thanksgiving.",
@@ -335,6 +353,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Growing in Faith",
     texts: "Matthew 14:24–32; Hebrews 11:33",
     podcastUrl: "https://open.spotify.com/episode/5woQm4NCKPJvnCrJ340hX3",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/growing-in-faith/id1872275390?i=1000771596766",
     excerpt: "Faith is like a seed (a spiritual seed). For a seed to grow, it must be nurtured.",
     body: [
       "Faith is like a seed (a spiritual seed). For a seed to grow, it must be nurtured.",
@@ -355,6 +374,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Obtaining God's Promises by Faith",
     texts: "Hebrews 11:33",
     podcastUrl: "https://open.spotify.com/episode/5Fhlc8OAUBo3lgpM5QkIgq",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/obtaining-gods-promises-by-faith/id1872275390?i=1000773608866",
     excerpt: "Whatever affects your faith affects your relationship with God.",
     body: [
       "Whatever affects your faith affects your relationship with God.",
@@ -390,6 +410,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Attracting Great Mercy",
     texts: "Luke 1:57–58",
     podcastUrl: "https://open.spotify.com/episode/0jHY9hoAM8bkw4NdXWKYxD",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/attracting-great-mercy-pt2/id1872275390?i=1000775555791",
     excerpt: "God can show an individual great mercy without the individual's input.",
     body: [
       "God can show an individual great mercy without the individual's input.",
@@ -423,6 +444,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Confronting Your Giants",
     texts: "1 Samuel 17:41; James 4:7; Psalm 18:32",
     podcastUrl: "https://open.spotify.com/episode/68vQ1zxIMWc5zzQwpVvDbG",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/confronting-your-giants/id1872275390?i=1000785631238",
     excerpt: "A giant can be seen as a spiritual terrorist sent by the devil to harass and torment the people of God. But giants are meant to be confronted, not endured.",
     body: [
       "A giant can be seen as a spiritual terrorist sent by the devil to harass and torment the people of God. Giants are real — and it helps to remember that, like Goliath, they are from the lineage of men. Whatever towers over your life right now is not beyond the reach of God.",
@@ -467,6 +489,7 @@ export const ILORIN_SERMONS: IlorinSermon[] = [
     topic: "Dealing with Anger",
     texts: "Ecclesiastes 7:9; Proverbs 14:17, 29; 1 Samuel 9:18",
     podcastUrl: "https://open.spotify.com/episode/05sccGbnpxx4N4okmm6nvo",
+    applePodcastUrl: "https://podcasts.apple.com/us/podcast/dealing-with-anger/id1872275390?i=1000788179855",
     excerpt: "Anger is an emotion. God placed anger in man to show displeasure toward the things of the devil.",
     body: [
       "Anger is an emotion. God placed anger in man to show displeasure toward the things of the devil.",
