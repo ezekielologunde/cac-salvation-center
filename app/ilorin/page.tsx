@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
 import { DailyWord } from "@/components/sections/DailyWord";
+import { HeroSlider } from "@/components/ilorin/HeroSlider";
 import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen } from "lucide-react";
 import { ILORIN_URL } from "@/lib/site";
 import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
@@ -31,12 +32,10 @@ const c = {
   onDeepLine: "rgba(238,245,238,.16)",
 };
 
-// Hero background: a slow Ken-Burns crossfade through real photos — the
-// building shot is from the church's own Facebook page, the rest are full-
-// resolution event photography (resized to 2560px wide / re-compressed for
-// web here; originals are much larger) rather than a static gradient. Pure
-// CSS (no scroll-linked JS parallax) so it stays cheap and doesn't fight
-// mobile Safari's background-attachment quirks.
+// Hero background: an interactive slider (HeroSlider, dots + arrows +
+// autoplay) through real photos — the building shot is from the church's own
+// Facebook page, the rest are full-resolution event photography (resized to
+// 2560px wide / re-compressed for web here; originals are much larger).
 const HERO_PHOTOS = [
   { src: "/images/ilorin-building.jpg", alt: "The C.A.C Salvation Centre building at Fate-Tanke Road, Ilorin" },
   { src: "/images/ilorin-worship-leader.jpg", alt: "A worship leader ministering on the altar" },
@@ -46,8 +45,6 @@ const HERO_PHOTOS = [
   { src: "/images/ilorin-choir-green.jpg", alt: "The choir ministering in green robes" },
   { src: "/images/ilorin-prayer-closeup.jpg", alt: "Members of the congregation in prayer" },
 ];
-const HERO_SLIDE_SECONDS = 4.5;
-const HERO_CYCLE_SECONDS = HERO_PHOTOS.length * HERO_SLIDE_SECONDS;
 
 const ADDRESS = "Fate-Tanke Road & Abdullahi Mohammed Street, Oko Erin, Ilorin, Kwara State, Nigeria — 240102";
 const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent("C.A.C Salvation Centre, Fate-Tanke Road, Oko Erin, Ilorin, Kwara, Nigeria")}&z=15&output=embed`;
@@ -157,45 +154,8 @@ export default function IlorinPage() {
 
       {/* Hero */}
       <section id="top" style={{ color: "#fff", padding: "clamp(64px,9vw,118px) clamp(20px,5vw,64px) clamp(72px,10vw,128px)", position: "relative", overflow: "hidden" }}>
-        {(() => {
-          const slot = 100 / HERO_PHOTOS.length;
-          const fadeIn = 1;
-          const holdEnd = Math.max(fadeIn + 1, slot - 1.5);
-          return (
-            <style>{`
-              @keyframes ilorinHeroKenBurns {
-                0% { opacity: 0; transform: scale(1); }
-                ${fadeIn}% { opacity: 1; transform: scale(1); }
-                ${holdEnd}% { opacity: 1; transform: scale(1.08); }
-                ${slot}% { opacity: 0; transform: scale(1.08); }
-                100% { opacity: 0; transform: scale(1); }
-              }
-              .ilorin-hero-bg {
-                animation: ilorinHeroKenBurns ${HERO_CYCLE_SECONDS}s infinite;
-                animation-fill-mode: backwards;
-              }
-              @media (prefers-reduced-motion: reduce) {
-                .ilorin-hero-bg { animation: none !important; opacity: 0 !important; transform: none !important; }
-                .ilorin-hero-bg:first-child { opacity: 1 !important; }
-              }
-            `}</style>
-          );
-        })()}
-        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          {HERO_PHOTOS.map((photo, i) => (
-            <Image
-              key={photo.src}
-              src={photo.src}
-              alt=""
-              fill
-              priority={i === 0}
-              className="ilorin-hero-bg"
-              style={{ objectFit: "cover", animationDelay: `${i * HERO_SLIDE_SECONDS}s` }}
-              sizes="100vw"
-            />
-          ))}
-        </div>
-        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(170deg, rgba(6,49,31,.92) 0%, rgba(6,49,31,.72) 45%, rgba(9,74,45,.6) 100%)` }} />
+        <HeroSlider photos={HERO_PHOTOS} />
+        <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(170deg, rgba(6,49,31,.92) 0%, rgba(6,49,31,.72) 45%, rgba(9,74,45,.6) 100%)`, pointerEvents: "none" }} />
         <div style={{ maxWidth: 940, margin: "0 auto", position: "relative", zIndex: 2, textAlign: "center" }}>
           <Reveal>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", padding: "7px 16px", borderRadius: 999 }}>
