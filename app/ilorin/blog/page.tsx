@@ -63,17 +63,17 @@ export default function IlorinBlogPage() {
       <section style={{ background: `linear-gradient(170deg, ${c.deep} 0%, #094a2d 100%)`, color: "#fff", padding: "clamp(56px,8vw,96px) clamp(20px,5vw,64px) clamp(60px,8vw,96px)", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{ position: "absolute", top: -150, right: -120, width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle, rgba(43,182,115,.26), transparent 62%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 860, margin: "0 auto", position: "relative", zIndex: 2, textAlign: "center" }}>
-          <Reveal>
+          <Reveal immediate>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.gold, background: "rgba(232,163,61,.1)", border: "1px solid rgba(232,163,61,.3)", padding: "7px 16px", borderRadius: 999 }}>
               <BookOpen size={14} strokeWidth={2.5} aria-hidden /> Sunday Messages
             </span>
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal immediate delay={80}>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,6vw,64px)", letterSpacing: "-.03em", lineHeight: 1.02, margin: "22px 0 0" }}>
               Messages from Ilorin.
             </h1>
           </Reveal>
-          <Reveal delay={140}>
+          <Reveal immediate delay={140}>
             <p style={{ fontSize: "clamp(15px,1.7vw,18px)", color: c.onDeep, lineHeight: 1.7, maxWidth: 620, margin: "20px auto 0" }}>
               The topic, scripture, and notes from each Sunday message at C.A.C Salvation Centre, Ilorin — ministered by Pastor R.T. Owoseni and guest ministers. {sermons.length} messages and counting.
             </p>
