@@ -293,6 +293,32 @@ export default function IlorinPage() {
         </div>
       </section>
 
+      {/* Life at the Centre */}
+      <section style={{ background: c.cream2, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 36 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: c.green }}>Sunday at the Centre</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.6vw,46px)", letterSpacing: "-1px", color: c.ink, margin: "12px 0 0", lineHeight: 1 }}>Life at the Centre.</h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 18 }}>
+            {[
+              { src: "/images/ilorin-pastor-preaching.jpg", alt: "Pastor R.T. Owoseni ministering during a Sunday service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-choir.jpg", alt: "The choir singing during a service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-worship-1.jpg", alt: "A member of the congregation worshipping with raised hands at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-congregation-worship.jpg", alt: "A member of the congregation worshipping during a service at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-worship-2.jpg", alt: "A member of the congregation singing during worship at C.A.C Salvation Centre, Ilorin" },
+              { src: "/images/ilorin-service.jpg", alt: "Ministers on the altar during a service at C.A.C Salvation Centre, Ilorin" },
+            ].map((img, i) => (
+              <Reveal key={img.src} delay={(i % 6) * 70}>
+                <div style={{ position: "relative", height: "clamp(280px,32vw,360px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                  <Image src={img.src} alt={img.alt} fill style={{ objectFit: "cover" }} sizes="(max-width: 700px) 100vw, 360px" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Service times */}
       <section style={{ background: c.cream, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
@@ -340,8 +366,13 @@ export default function IlorinPage() {
             </a>
           </Reveal>
           <Reveal delay={120}>
-            <div style={{ height: "clamp(280px,34vw,380px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
-              <iframe title="Map to C.A.C Salvation Centre, Ilorin" src={MAPS_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ width: "100%", height: "100%", border: 0, display: "block" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ position: "relative", height: "clamp(160px,20vw,220px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                <Image src="/images/ilorin-building.jpg" alt="C.A.C Salvation Centre, Ilorin — the church building at Fate-Tanke Road" fill style={{ objectFit: "cover" }} sizes="(max-width: 700px) 100vw, 500px" />
+              </div>
+              <div style={{ height: "clamp(220px,26vw,300px)", borderRadius: 24, overflow: "hidden", border: `1px solid ${c.line}`, boxShadow: "0 18px 40px rgba(8,40,24,.12)" }}>
+                <iframe title="Map to C.A.C Salvation Centre, Ilorin" src={MAPS_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ width: "100%", height: "100%", border: 0, display: "block" }} />
+              </div>
             </div>
           </Reveal>
         </div>
