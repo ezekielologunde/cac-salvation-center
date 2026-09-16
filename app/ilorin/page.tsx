@@ -31,18 +31,20 @@ const c = {
   onDeepLine: "rgba(238,245,238,.16)",
 };
 
-// Hero background: a slow Ken-Burns crossfade through real photos from the
-// church's own Facebook page (see git history for provenance) rather than a
-// static gradient. Pure CSS (no scroll-linked JS parallax) so it stays cheap
-// and doesn't fight mobile Safari's background-attachment quirks.
+// Hero background: a slow Ken-Burns crossfade through real photos — the
+// building shot is from the church's own Facebook page, the rest are full-
+// resolution event photography (resized to 2560px wide / re-compressed for
+// web here; originals are much larger) rather than a static gradient. Pure
+// CSS (no scroll-linked JS parallax) so it stays cheap and doesn't fight
+// mobile Safari's background-attachment quirks.
 const HERO_PHOTOS = [
   { src: "/images/ilorin-building.jpg", alt: "The C.A.C Salvation Centre building at Fate-Tanke Road, Ilorin" },
-  { src: "/images/ilorin-pastor-preaching.jpg", alt: "Pastor R.T. Owoseni ministering during a service" },
-  { src: "/images/ilorin-choir.jpg", alt: "The choir singing during a service" },
-  { src: "/images/ilorin-worship-1.jpg", alt: "A member of the congregation worshipping with raised hands" },
-  { src: "/images/ilorin-congregation-worship.jpg", alt: "A member of the congregation worshipping" },
-  { src: "/images/ilorin-worship-2.jpg", alt: "A member of the congregation singing during worship" },
-  { src: "/images/ilorin-service.jpg", alt: "Ministers on the altar during a service" },
+  { src: "/images/ilorin-worship-leader.jpg", alt: "A worship leader ministering on the altar" },
+  { src: "/images/ilorin-choir-colorful.jpg", alt: "The choir singing during a service" },
+  { src: "/images/ilorin-dance-ministration.jpg", alt: "A dance ministration during a service" },
+  { src: "/images/ilorin-25th-anniversary.jpg", alt: "The congregation celebrating the church's 25th anniversary" },
+  { src: "/images/ilorin-choir-green.jpg", alt: "The choir ministering in green robes" },
+  { src: "/images/ilorin-prayer-closeup.jpg", alt: "Members of the congregation in prayer" },
 ];
 const HERO_SLIDE_SECONDS = 4.5;
 const HERO_CYCLE_SECONDS = HERO_PHOTOS.length * HERO_SLIDE_SECONDS;
@@ -168,7 +170,10 @@ export default function IlorinPage() {
                 ${slot}% { opacity: 0; transform: scale(1.08); }
                 100% { opacity: 0; transform: scale(1); }
               }
-              .ilorin-hero-bg { animation: ilorinHeroKenBurns ${HERO_CYCLE_SECONDS}s infinite; }
+              .ilorin-hero-bg {
+                animation: ilorinHeroKenBurns ${HERO_CYCLE_SECONDS}s infinite;
+                animation-fill-mode: backwards;
+              }
               @media (prefers-reduced-motion: reduce) {
                 .ilorin-hero-bg { animation: none !important; opacity: 0 !important; transform: none !important; }
                 .ilorin-hero-bg:first-child { opacity: 1 !important; }
