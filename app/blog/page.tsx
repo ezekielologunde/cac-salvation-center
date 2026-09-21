@@ -5,8 +5,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { POSTS, type BlogPost } from "@/lib/blog";
 import { specialEvents } from "@/lib/events";
 import { bibleReadingPlan } from "@/lib/biblePlan";
+import { ILORIN_SERMONS_BY_DATE_DESC, type IlorinSermon } from "@/lib/ilorinSermons";
+import { ilorinColors as ilorin } from "@/components/ilorin/colors";
 import Link from "next/link";
-import { Clock, Calendar, ShoppingBag, BookOpen, ArrowRight, Building2 } from "lucide-react";
+import { Clock, Calendar, ShoppingBag, BookOpen, ArrowRight, Building2, Headphones } from "lucide-react";
 import { CACNA_URL, CAC_WORLDWIDE_URL, CAC_CONVENTION_URL, breadcrumbJsonLd } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -98,6 +100,52 @@ function ArticleCard({ post }: { post: typeof POSTS[number] }) {
               Read →
             </Link>
           </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function IlorinMessageCard({ sermon }: { sermon: IlorinSermon }) {
+  const href = `/ilorin/blog/${sermon.slug}`;
+  const hasAudio = Boolean(sermon.podcastUrl || sermon.applePodcastUrl);
+  return (
+    <article className="card-lift" style={{
+      background: "var(--paper)", border: "1px solid var(--line)",
+      borderRadius: 22, overflow: "hidden", display: "flex",
+      flexDirection: "column", height: "100%",
+    }}>
+      <div style={{ height: 6, background: `linear-gradient(135deg,${ilorin.green},${ilorin.greenBright})`, flexShrink: 0 }} />
+      <div style={{ padding: "22px 24px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+          <CategoryBadge label="Ilorin Message" color={ilorin.green} />
+          <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 11.5, color: "var(--ink-soft)", fontWeight: 600 }}>
+            <Calendar size={12} strokeWidth={2.5} aria-hidden /> {sermon.date}
+          </span>
+        </div>
+        <h3 style={{
+          fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20,
+          letterSpacing: "-.4px", color: "var(--ink)", margin: "0 0 8px", lineHeight: 1.15,
+        }}>
+          <Link href={href} style={{ textDecoration: "none", color: "inherit" }}>
+            {sermon.topic}
+          </Link>
+        </h3>
+        <div style={{ fontSize: 13, fontWeight: 700, color: ilorin.green, marginBottom: 10 }}>{sermon.texts}</div>
+        <p style={{
+          fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.72, margin: "0 0 20px", flex: 1,
+          display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden",
+        }}>
+          {sermon.excerpt}
+        </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, borderTop: "1px solid var(--line)", paddingTop: 16, marginTop: "auto" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--ink-soft)", fontWeight: 700 }}>
+            {sermon.minister}
+            {hasAudio && <Headphones size={13} strokeWidth={2.3} color={ilorin.green} aria-label="Listen online" />}
+          </span>
+          <Link href={href} style={{ fontSize: 13, fontWeight: 700, color: ilorin.green, textDecoration: "none" }}>
+            Read →
+          </Link>
         </div>
       </div>
     </article>
@@ -374,6 +422,33 @@ export default async function BlogPage() {
             <Reveal delay={200}>
               <HallRentalAdWidget />
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* From Ilorin — latest Sunday messages from the District Headquarters */}
+      <section style={{ background: "var(--cream)", padding: "0 clamp(20px,5vw,64px) clamp(40px,5vw,72px)" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <Reveal style={{ marginBottom: 28 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid var(--ink)", paddingBottom: 12 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 13, letterSpacing: "3px", textTransform: "uppercase", color: "var(--ink)" }}>
+                From Ilorin
+              </span>
+              <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+              <Link href="/ilorin/blog" style={{ fontSize: 12.5, fontWeight: 700, color: ilorin.green, textDecoration: "none", whiteSpace: "nowrap" }}>
+                All {ILORIN_SERMONS_BY_DATE_DESC.length} messages →
+              </Link>
+            </div>
+            <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7, margin: "14px 0 0", maxWidth: 680 }}>
+              Sunday messages from Pastor R.T. Owoseni and guest ministers at our District Headquarters — C.A.C Salvation Centre, Ilorin, Nigeria.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 22 }}>
+            {ILORIN_SERMONS_BY_DATE_DESC.slice(0, 3).map((s, i) => (
+              <Reveal key={s.slug} delay={i * 70}>
+                <IlorinMessageCard sermon={s} />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

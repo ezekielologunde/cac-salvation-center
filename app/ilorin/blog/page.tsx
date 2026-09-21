@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Calendar, BookOpen, Headphones } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { IlorinHeader, IlorinFooter, ilorinColors as c } from "@/components/ilorin/IlorinChrome";
+import { IlorinHeader, IlorinFooter } from "@/components/ilorin/IlorinChrome";
+import { ilorinColors as c } from "@/components/ilorin/colors";
 import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
 
 export const metadata = {
