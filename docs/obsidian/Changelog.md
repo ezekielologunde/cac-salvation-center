@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-09-08
+last_updated: 2026-09-20
 tags: [project/cac-salvation-center]
 ---
 
@@ -79,3 +79,7 @@ Condensed from `git log` (reconstructed from full history after unshallowing the
 
 ## Fix site-wide preload wasting LCP budget on every non-homepage page (2026-09-08)
 Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Accessibility, SEO all 93-100%) with Largest Contentful Paint at 2.6s, just past Google's 2.5s "good" threshold. Investigated via the browser's own network/DOM inspection on `/blog`: the page has no `<img>` on it at all, yet a `<link rel="preload" as="image">` for a ~200KB YouTube maxres thumbnail (`img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg`) was firing anyway. That preload lived in the *root* `app/layout.tsx`, so every page inherited it, competing for network priority with each page's own actual LCP element, even though the image is only ever used by `components/sections/Hero.tsx`, which only `app/page.tsx` (the homepage) renders. Moved the preload out of the shared layout and into `app/page.tsx`'s own JSX — Next.js hoists a `<link>` rendered in a page into that route's `<head>` specifically, so now only the homepage (which actually needs it) pays for it. Verified: `/blog` and `/about` no longer reference `maxresdefault` at all; the homepage still preloads it correctly.
+
+## Ilorin Messages: fix white-on-white hero, feature messages on the main blog (2026-09-20)
+- **Bug fixed:** the Ilorin Messages pages (`app/ilorin/blog/page.tsx`, `app/ilorin/blog/[slug]/page.tsx`) rendered their white hero text on the pale page background, and the message cards lost their borders and green palette. Cause: both server components imported `ilorinColors` from `components/ilorin/IlorinChrome.tsx`, a `"use client"` file. A value exported from a client module reaches a server component as a client reference, not the value, so every palette key was `undefined` (the hero's CSS was literally `linear-gradient(170deg, undefined 0%, #094a2d 100%)` and was dropped by the browser). The palette now lives in `components/ilorin/colors.ts` (no directive), which `IlorinChrome.tsx`, both Messages pages, and the main blog import. `app/ilorin/page.tsx` was never affected because it defines its own local palette.
+- **Feature:** `/blog` (Salvation Herald) has a new "From Ilorin" section between the featured block and The Herald: the three latest messages from `ILORIN_SERMONS_BY_DATE_DESC` as green-accented cards (topic, scripture, excerpt, date, minister, audio icon when a podcast link exists) linking to `/ilorin/blog/<slug>`, plus an "All N messages" link to `/ilorin/blog`. Those pages are served on `www` (only the `ilorin.` subdomain root is rewritten, see [[Decisions]]), so the links are plain internal paths. The messages are not copied into `lib/blog.ts`, so the Ilorin pages stay the single canonical source. See [[Features]].

@@ -5,25 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Navigation, Menu, X } from "lucide-react";
 
-// Shared green identity for the Ilorin micro-site — kept in sync with the
-// palette defined inline in app/ilorin/page.tsx (that page predates this file
-// and isn't worth touching just to import a constant).
-export const ilorinColors = {
-  deep: "#06311F",
-  green: "#0E7A43",
-  greenBright: "#2BB673",
-  gold: "#E8A33D",
-  cream: "#EEF5EE",
-  cream2: "#E3EFE4",
-  paper: "#FFFFFF",
-  ink: "#0A2418",
-  inkSoft: "#46604F",
-  line: "rgba(8,40,24,.10)",
-  onDeep: "rgba(238,245,238,.74)",
-  onDeepLine: "rgba(238,245,238,.16)",
-};
-
-const c = ilorinColors;
+import { ilorinColors as c } from "./colors";
 
 const HOME_LINKS = [
   { href: "/ilorin#heritage", label: "Heritage" },

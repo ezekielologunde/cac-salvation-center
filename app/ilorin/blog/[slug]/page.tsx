@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Calendar, BookOpen, Share2, Headphones } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { IlorinHeader, IlorinFooter, ilorinColors as c } from "@/components/ilorin/IlorinChrome";
+import { IlorinHeader, IlorinFooter } from "@/components/ilorin/IlorinChrome";
+import { ilorinColors as c } from "@/components/ilorin/colors";
 import { ILORIN_SERMONS, ILORIN_SERMONS_BY_DATE_DESC, getIlorinSermon } from "@/lib/ilorinSermons";
 import { SITE_URL } from "@/lib/site";
 
