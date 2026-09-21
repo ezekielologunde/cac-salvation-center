@@ -206,7 +206,7 @@ function FeaturedCard({ post }: { post: typeof POSTS[number] }) {
 }
 
 function ScriptureWidget() {
-  const week = bibleReadingPlan[1];
+  const week = bibleReadingPlan.reduce((latest, w) => (w.week > latest.week ? w : latest));
   return (
     <aside style={{
       background: "var(--ink)", borderRadius: 20, padding: "24px 26px",
@@ -220,7 +220,7 @@ function ScriptureWidget() {
             This Week&apos;s Reading
           </span>
         </div>
-        <div style={{ fontSize: 12.5, fontWeight: 700, color: "rgba(255,247,239,.55)", marginBottom: 10 }}>Week 2 — {week.theme}</div>
+        <div style={{ fontSize: 12.5, fontWeight: 700, color: "rgba(255,247,239,.55)", marginBottom: 10 }}>Week {week.week} — {week.theme}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             ["Sun", week.sun], ["Mon", week.mon], ["Tue", week.tue],

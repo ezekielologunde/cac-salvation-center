@@ -151,4 +151,15 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "2 Kings 20; Isaiah 38–40; Psalm 68; 1 Corinthians 11",
     thu: "Isaiah 41–44; 1 Corinthians 12",
   },
+  // Week 37 is missing here -- not supplied when Week 38 was added
+  // (2026-09-20). Add it if the reading card for that week turns up.
+  {
+    week: 38,
+    theme: "Isaiah, 2 Kings & Nahum → 2 Corinthians 2–6",
+    sun: "Isaiah 64–66; 2 Corinthians 2",
+    mon: "2 Kings 21; 2 Chronicles 33; Psalm 71; 2 Corinthians 3",
+    tue: "Nahum; Psalm 149; 2 Corinthians 4",
+    wed: "2 Kings 22–23; Psalm 73; 2 Corinthians 5",
+    thu: "2 Chronicles 34–35; 2 Corinthians 6",
+  },
 ];
