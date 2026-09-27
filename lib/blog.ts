@@ -1104,6 +1104,49 @@ export const POSTS: BlogPost[] = [
       "Paul's words to the Corinthians are the New Testament echo of this whole chapter: **your body is the temple of the Holy Spirit; you are not your own; you were bought with a price** (1 Corinthians 6:19–20). Purity is not a rule kept for its own sake — it is the natural posture of someone who knows they belong to Someone else. And when we fail, the way back is never hiding. It is confession, restitution, and a return to the God who is faithful to forgive (1 Thessalonians 4:7; 1 Corinthians 4:2). **Let your yes be yes and your no be no — and where you have wronged someone, go and make it right.**",
     ],
   },
+  {
+    slug: "the-nazirite-vow-and-priestly-blessing",
+    title: "The Nazirite Vow and the Priestly Blessing",
+    excerpt:
+      "Lesson 30 of the CAC Unified Bible Study Manual, on Numbers 6 — what it means to be set apart for God, the cost of a vow taken seriously, and the blessing God wants His people to carry to others.",
+    date: "September 17, 2026",
+    dateIso: "2026-09-17",
+    category: "Reflection",
+    categoryColor: "#9E1B1B",
+    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
+    readTime: "3 min read",
+    body: [
+      '_"I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service."_ — Romans 12:1',
+      "Numbers 6 sets two pictures side by side: a man or woman choosing to be set apart for God, and God telling His priests how to bless everyone else. Lesson 30 of the Unified Bible Study Manual holds them together — **the Nazirite vow and the priestly blessing** — and the pairing is the point. A life given wholly to God is meant to end in blessing others.",
+      "**A Nazirite is someone set apart.** The word has nothing to do with Nazareth; it names a person who has taken an oath of separation to the Lord (v. 2). The vow carried visible marks. No wine, vinegar, or anything from the grape — not the juice, not the raisins (vv. 3–4). No razor on the head, the uncut hair a plain sign of dedication (v. 5). And no contact with a dead body, not even a parent's or a sibling's, so that the vow stayed unbroken (vv. 6–8). Samson is the best-known Nazirite in Scripture (Judges 13–16), and the study asks what his life teaches us.",
+      "**The vow was taken freely, and it was taken seriously.** Anyone could choose it, man or woman (v. 2), but no one could treat it lightly. If someone died suddenly beside a Nazirite and defiled them, the days already served were lost: the head was shaved, offerings were brought, and the vow began again (vv. 9–12). When the vow was finally complete, a ceremony of rededication and sacrifice marked the end (vv. 13–21). God wants those who dedicate themselves to count the cost first — and to finish what they started.",
+      "**Then comes the blessing.** God tells Moses to give Aaron and his sons these words for Israel: _\"The LORD bless thee, and keep thee: the LORD make his face shine upon thee, and be gracious unto thee: the LORD lift up his countenance upon thee, and give thee peace\"_ (vv. 24–26). He closes with a promise — they will put His name on His people, and He Himself will bless them (v. 27). The order matters. This blessing is not the priests' private favour to hand out. It is God's own desire for His people, delivered through those He has set apart to serve.",
+      "The study leaves us with questions to carry past this week. _What are the things hindering your dedication and consecration to God?_ _Given the state of the world today, how realistic is it to remain holy and separated?_ The lesson points back to Noah and his family, who lived set apart in a world that had lost its way (Genesis 6:13–22; 7:1), and asks the harder, more personal one: _how can God's Word help you keep your vow to follow Jesus in a corrupt world?_",
+      "We are not asked to let our hair grow or to stay out of the vineyard. But the call of Christ is no less total. It is a personal decision, not a forced obligation — _\"If any man will come after me, let him deny himself, and take up his cross, and follow me\"_ (Matthew 16:24). Paul carries the Nazirite's separation into ordinary life: present your bodies a living sacrifice, and be not conformed to this world (Romans 12:1–2). And Jesus says the Father is looking for worshippers who worship Him in spirit and truth (John 4:23–24). **Be set apart so that you can be a blessing: bless, and do not curse; keep clear of the world's contamination; and give God your best, without hesitation.**",
+    ],
+  },
+  {
+    slug: "offerings-from-the-tribal-leaders",
+    title: "Offerings from the Tribal Leaders",
+    excerpt:
+      "Study 31 of the CAC Unified Bible Study Manual, on Numbers 7 — twelve leaders, twelve days, and one identical offering: a lesson in unity, generosity, and leading by example.",
+    date: "September 26, 2026",
+    dateIso: "2026-09-26",
+    category: "Reflection",
+    categoryColor: "#9E1B1B",
+    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
+    readTime: "3 min read",
+    body: [
+      '_"Endeavouring to keep the unity of the Spirit in the bond of peace."_ — Ephesians 4:3',
+      "Numbers 7 is the longest chapter in the book, and on a first read it can look like the same paragraph copied twelve times. Study 31 of the Unified Bible Study Manual asks us to slow down and see why. The chapter follows the completion of the tabernacle and the ordination of the priests (Leviticus 8–10), and it records how Israel's leaders marked the moment: by giving. **The offerings of the tribal leaders are a lesson in unity, dedication, and worship.**",
+      "**Twelve leaders, twelve days, one offering.** Each tribe's leader brought his gift on his own day (v. 11), so the dedication of the altar unfolded across twelve days rather than in a single moment — a whole nation taking its turn at worship. And every leader brought the same: a silver plate and a silver bowl filled with fine flour and oil, a golden spoon of incense, and animals for the burnt, sin, and peace offerings (vv. 13–17). No tribe outdid another. No leader was honoured above his brother. The repetition is the message: at the altar of God, everyone gives the same, and every gift is counted.",
+      "**Unity that shows up in giving.** Paul tells the Ephesians to keep the unity of the Spirit (Ephesians 4:3), and here it is in practice: twelve tribes, each with its own identity, presenting one offering in the same spirit. The altar was dedicated through those gifts (vv. 84–88), and the chapter ends where dedication always should — with God speaking to Moses from above the mercy seat (v. 89). Paul's description of the church fits the scene: _\"we are labourers together with God\"_ (1 Corinthians 3:9).",
+      "**Generosity that meets real need.** Before the twelve days began, the leaders brought six covered wagons and twelve oxen, which Moses gave to the Levites according to the work each family carried (vv. 3–9). Worship in Numbers 7 is not only ceremony; it is also carts and oxen for the people doing the work. The same thread runs through the New Testament: offer your bodies as a living sacrifice (Romans 12:1), offer praise to God continually (Hebrews 13:15), and where you see a brother in need, do not close your heart to him (1 John 3:17–18).",
+      "**Leadership by example.** These were the heads of their tribes, and they were the first to give. The study draws the lesson plainly: true leadership leads by example, puts worship first, and shows devotion through actions and sacrifice. That cuts both ways. Those who lead are held to that standard, and those who follow are called to support and obey their leaders (Hebrews 13:17), as Israel followed Moses and the priests.",
+      "The study leaves us with questions worth sitting with. _How can you help promote unity and cooperation in your community, church, or workplace?_ _Who are you accountable to, and how can you meet your responsibilities?_ _How can you show generosity, obedience, and support for God's work?_ _How can you support and encourage your leaders in their roles?_ Its practical challenges are just as direct: set aside time each day to pray and worship, let go of grudges and forgive as God forgives you (Matthew 6:12; Ephesians 4:32), and give to those in need.",
+      "**Let your commitment to God be clear in everything you do — in what you give, how you lead, and how you stand together.** The tribal leaders showed that unity in offering reflects a life dedicated to God. May the Holy Spirit guide us to walk in that same obedience and faith.",
+    ],
+  },
 
 ];
 
