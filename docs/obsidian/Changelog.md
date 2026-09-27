@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-09-20
+last_updated: 2026-09-26
 tags: [project/cac-salvation-center]
 ---
 
@@ -87,3 +87,7 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 ## Bible plan: Week 38, and the blog's "This Week's Reading" box (2026-09-20)
 - Week 38 (Isaiah, 2 Kings & Nahum → 2 Corinthians 2–6) added to `lib/biblePlan.ts` from the weekly reading flyer, which spells Monday's last reading "2 Chor 3"; read as 2 Corinthians 3. Weeks 35 and 37 have still not been supplied and are absent from the plan.
 - **Bug fixed:** the "This Week's Reading" box on `/blog` (`ScriptureWidget` in `app/blog/page.tsx`) read `bibleReadingPlan[1]` and hardcoded the label "Week 2", so it showed Week 22's readings under the wrong number (the plan starts at Week 21). It now picks the highest-numbered week and labels it from the data, so it follows each newly added week without another edit.
+
+## Blog: Unified Bible Study Manual Lessons 30 and 31 (2026-09-26)
+- Two static posts appended to `POSTS` in `lib/blog.ts`, adapted from the church's weekly Unified Bible Study Manual handouts (same pattern as Lesson 29, "Purity and Restitution"): **The Nazirite Vow and the Priestly Blessing** (Lesson 30, Numbers 6) and **Offerings from the Tribal Leaders** (Study 31, Numbers 7). New posts go at the *end* of the array because `POSTS[0]` is the featured card on `/blog`; the blog's static params and `app/sitemap.ts` both read `POSTS`, so no other wiring was needed.
+- Editorial choices: Lesson 30's handout lists "no marriage with foreign women" among the Nazirite restrictions and calls the vow "not voluntary", but Numbers 6 contains neither (v. 2 says anyone may choose it), and the handout's own conclusion says the vow is for "those who choose". The post follows the chapter text. See [[Features]].
