@@ -73,8 +73,8 @@ function WorldMap() {
       });
 
       L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        { subdomains: 'abcd', maxZoom: 20, attribution: '© CARTO' }
+        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
       ).addTo(map);
 
       const dot = (color: string) => L.divIcon({
@@ -94,7 +94,7 @@ function WorldMap() {
         const cta = c.href
           ? `<a href="${c.href}" target="${c.external ? '_blank' : '_self'}" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:${c.color};text-decoration:none">${c.cta} →</a>`
           : '';
-        L.marker([c.lat, c.lng], { icon: dot(c.color) })
+        L.marker([c.lat, c.lng], { icon: dot(c.color), title: c.name, alt: c.name })
           .addTo(map)
           .bindPopup(
             `<div style="font-family:Georgia,serif;min-width:190px">
@@ -111,7 +111,7 @@ function WorldMap() {
     return () => { cancelled = true; map?.remove(); };
   }, []);
 
-  return <div ref={ref} style={{ width: '100%', height: '100%' }} />;
+  return <div ref={ref} aria-label="Church locations" style={{ width: '100%', height: '100%', zIndex: 0 }} />;
 }
 
 function ChurchCard({ c, accent }: { c: Church; accent: string }) {
@@ -163,7 +163,7 @@ export function GlobalChurches() {
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: NG_COLOR, flexShrink: 0, boxShadow: '0 0 0 2px rgba(183,121,31,.3)' }} />
                 <span style={{ fontWeight: 800, fontSize: 12.5, color: 'rgba(255,247,239,.85)' }}>Nigeria · 5 churches</span>
               </div>
-              <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,247,239,.4)', fontStyle: 'italic' }}>Click any pin · scroll to zoom</span>
+              <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,247,239,.4)', fontStyle: 'italic' }}>Click any pin · use + / − to zoom</span>
             </div>
             <div style={{ height: 420 }}>
               <WorldMap />
