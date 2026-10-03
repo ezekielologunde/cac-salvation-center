@@ -162,4 +162,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "2 Kings 22–23; Psalm 73; 2 Corinthians 5",
     thu: "2 Chronicles 34–35; 2 Corinthians 6",
   },
+  {
+    week: 39,
+    theme: "Habakkuk, Zephaniah & Jeremiah → 2 Corinthians 7–11",
+    sun: "Habakkuk; 2 Corinthians 7",
+    mon: "Zephaniah; Psalm 74; 2 Corinthians 8",
+    tue: "Jeremiah 1–4; Psalm 130; 2 Corinthians 9",
+    wed: "Jeremiah 5–7; Psalm 75; 2 Corinthians 10",
+    thu: "Jeremiah 8–10; 2 Corinthians 11",
+  },
 ];
