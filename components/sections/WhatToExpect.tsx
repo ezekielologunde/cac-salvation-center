@@ -1,3 +1,4 @@
+import styles from "./HomeSections.module.css";
 import { Reveal } from "@/components/ui/Reveal";
 
 const services = [
@@ -29,14 +30,14 @@ const services = [
 
 export function WhatToExpect() {
   return (
-    <section style={{ background: "var(--cream)", padding: "100px clamp(20px,5vw,64px)" }}>
+    <section className={styles.section} style={{ background: "var(--cream)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Reveal style={{ textAlign: "center", marginBottom: 16 }}>
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--red)" }}>
             How We Gather
           </span>
         </Reveal>
-        <Reveal delay={80} style={{ textAlign: "center", marginBottom: 60 }}>
+        <Reveal delay={80} className={styles.heading} style={{ textAlign: "center" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,5vw,68px)", letterSpacing: "-1.5px", color: "var(--ink)", margin: 0, lineHeight: .95 }}>
             Weekly Services
           </h2>
@@ -45,7 +46,7 @@ export function WhatToExpect() {
         <div className="r3" style={{ gap: 20 }}>
           {services.map((s, i) => (
             <Reveal key={s.name} delay={i * 100}>
-              <div style={{
+              <div className={styles.service} style={{
                 borderRadius: 24, padding: "36px 32px",
                 background: s.dark ? "var(--ink)" : "var(--paper)",
                 boxShadow: s.dark ? "0 24px 50px rgba(27,19,14,.28)" : "0 10px 26px rgba(27,19,14,.06)",
@@ -53,7 +54,7 @@ export function WhatToExpect() {
                 height: "100%",
               }}>
                 <div style={{
-                  display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24,
+                  display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 14,
                   background: s.dark ? "rgba(255,247,239,.1)" : "var(--cream-2)",
                   padding: "6px 14px", borderRadius: 999,
                 }}>
@@ -63,12 +64,12 @@ export function WhatToExpect() {
                   {s.name}
                 </h3>
                 <div style={{ fontWeight: 700, fontSize: 15, color: s.dark ? "var(--gold)" : "var(--red)", marginBottom: 18 }}>{s.time}</div>
-                <p style={{ fontSize: 15, color: s.dark ? "rgba(255,247,239,.65)" : "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: s.dark ? "rgba(255,247,239,.8)" : "var(--ink-soft)", lineHeight: 1.65, margin: 0 }}>
                   {s.desc}
                 </p>
-                <div style={{ marginTop: 28, display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.dark ? "var(--gold)" : "var(--red)", display: "inline-block" }} />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: s.dark ? "rgba(255,247,239,.5)" : "var(--ink-soft)" }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: s.dark ? "rgba(255,247,239,.8)" : "var(--ink-soft)" }}>
                     {s.mode}
                   </span>
                 </div>

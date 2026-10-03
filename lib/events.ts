@@ -7,6 +7,9 @@ export interface ChurchEvent {
   id: string;
   title: string;
   desc: string;
+  /** Brief homepage copy; full details remain in desc. */
+  summary?: string;
+  locationLabel?: string;
   dateLabel: string;
   timeLabel: string;
   month?: string;
@@ -132,6 +135,8 @@ export const specialEvents: ChurchEvent[] = [
   },
   {
     id: "cacna-50th-anniversary-2026",
+    summary: "Celebrate 50 years of CAC North America with the church family. RSVP on the event page.",
+    locationLabel: "CAC Village, Blue Ridge Summit, PA",
     title: "CACNA 50th Anniversary Celebration",
     desc: "Celebrating 50 years of Christ Apostolic Church in North America — a golden jubilee gathering of the whole CACNA family at CAC Village. RSVP so organizers can plan for you.",
     dateLabel: "October 10, 2026", timeLabel: "11:00 AM ET", month: "OCT", day: "10",
@@ -140,6 +145,8 @@ export const specialEvents: ChurchEvent[] = [
   },
   {
     id: "holy-land-pilgrimage-2026",
+    summary: "An 11-day pilgrimage with CACNA Latunde Region. View the itinerary, costs, and registration details.",
+    locationLabel: "Israel & Egypt",
     title: "Holy Land Pilgrimage 2026",
     desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, November 2–12, 2026. Package includes round-trip flights from JFK, 8 nights accommodation (7 in Israel + 1 in St. Catherine, Egypt), daily meals, private guide, group coach, and Pilgrimage Certificate. Price $4,795 · $500 deposit to register · $2,000 second payment due Oct 31. Contact: info@cacnapilgrimage.org | @cacnapilgrimage",
     dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
@@ -213,6 +220,9 @@ export interface AnnualMoment {
   title: string;
   when: string;
   desc: string;
+  /** Brief homepage copy; full details remain in desc. */
+  summary?: string;
+  locationLabel?: string;
 }
 
 export const annualMoments: AnnualMoment[] = [
