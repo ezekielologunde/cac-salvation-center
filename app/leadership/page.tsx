@@ -41,6 +41,7 @@ const team: { name: string; title: string; bio: string; image?: string }[] = [
     name: "Pastor Oyedeji Ojo",
     title: "Associate Pastor",
     bio: "An associate minister serving the Salvation Center family in worship, prayer, and pastoral care — helping every member grow in Christ and walk in their God-given purpose.",
+    image: "/images/pastor-ojo.webp",
   },
   {
     name: "Pastor Enoch Ilufoye",

@@ -94,4 +94,4 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 
 ## Leadership: Pastor Oyedeji Ojo added (2026-10-07)
 - Pastor Oyedeji Ojo added to the pastoral team: new entry in the `team` array in `app/leadership/page.tsx`, named in the team sentence on `app/about/page.tsx`, and added as a `Person` in the organization structured data in `lib/site.ts`. The leadership roster is hardcoded in these places (there is no CMS or database table for pastors), so a new pastor means editing all three.
-- Title ("Associate Pastor") and bio are placeholders modeled on the other associate pastors, and he has no photo yet, so the card shows initials. Replace with his actual details and add `/images/pastor-ojo.webp` when available. See [[Features]].
+- Photo added at `public/images/pastor-ojo.webp` (640px wide). Title ("Associate Pastor") and bio are placeholders modeled on the other associate pastors; replace with his actual details. See [[Features]].
