@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-09-26
+last_updated: 2026-10-07
 tags: [project/cac-salvation-center]
 ---
 
@@ -91,3 +91,7 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 ## Blog: Unified Bible Study Manual Lessons 30 and 31 (2026-09-26)
 - Two static posts appended to `POSTS` in `lib/blog.ts`, adapted from the church's weekly Unified Bible Study Manual handouts (same pattern as Lesson 29, "Purity and Restitution"): **The Nazirite Vow and the Priestly Blessing** (Lesson 30, Numbers 6) and **Offerings from the Tribal Leaders** (Study 31, Numbers 7). New posts go at the *end* of the array because `POSTS[0]` is the featured card on `/blog`; the blog's static params and `app/sitemap.ts` both read `POSTS`, so no other wiring was needed.
 - Editorial choices: Lesson 30's handout lists "no marriage with foreign women" among the Nazirite restrictions and calls the vow "not voluntary", but Numbers 6 contains neither (v. 2 says anyone may choose it), and the handout's own conclusion says the vow is for "those who choose". The post follows the chapter text. See [[Features]].
+
+## Leadership: Pastor Oyedeji Ojo added (2026-10-07)
+- Pastor Oyedeji Ojo added to the pastoral team: new entry in the `team` array in `app/leadership/page.tsx`, named in the team sentence on `app/about/page.tsx`, and added as a `Person` in the organization structured data in `lib/site.ts`. The leadership roster is hardcoded in these places (there is no CMS or database table for pastors), so a new pastor means editing all three.
+- Title ("Associate Pastor") and bio are placeholders modeled on the other associate pastors, and he has no photo yet, so the card shows initials. Replace with his actual details and add `/images/pastor-ojo.webp` when available. See [[Features]].
