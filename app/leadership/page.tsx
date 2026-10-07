@@ -38,6 +38,11 @@ const team: { name: string; title: string; bio: string; image?: string }[] = [
     image: "/images/pastor-eludoyin.webp",
   },
   {
+    name: "Pastor Oyedeji Ojo",
+    title: "Associate Pastor",
+    bio: "An associate minister serving the Salvation Center family in worship, prayer, and pastoral care — helping every member grow in Christ and walk in their God-given purpose.",
+  },
+  {
     name: "Pastor Enoch Ilufoye",
     title: "Assembly Pastor · CAC Kingdom Embassy",
     bio: "Leading the CAC Kingdom Embassy assembly within the Baltimore DCC family — a next-generation voice carrying the Gospel with clarity, conviction, and cultural intelligence.",

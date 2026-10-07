@@ -299,7 +299,7 @@ export default function AboutPage() {
                 Five pastors.<br />One family.<br />One Gospel.
               </h3>
               <p style={{ fontSize: 15.5, lineHeight: 1.7, opacity: .92, margin: "0 0 26px" }}>
-                Meet Pastor Felix Osunkiyesi (Curate), Pastor Alfred Aremo, Pastor Oludapo Eludoyin, and Pastor Enoch Ilufoye — the team shepherding the Salvation Center and its sister assemblies.
+                Meet Pastor Felix Osunkiyesi (Curate), Pastor Alfred Aremo, Pastor Oludapo Eludoyin, Pastor Oyedeji Ojo, and Pastor Enoch Ilufoye — the team shepherding the Salvation Center and its sister assemblies.
               </p>
               <Link href="/leadership" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 9, alignSelf: "flex-start", background: "var(--cream)", color: "var(--ink)", fontWeight: 700, fontSize: 15, padding: "14px 24px", borderRadius: 999, textDecoration: "none" }}>
                 Meet the full team →

@@ -133,6 +133,7 @@ export function churchJsonLd() {
           { "@type": "Person", name: "Pastor Felix Osunkiyesi", jobTitle: "Curate" },
           { "@type": "Person", name: "Pastor Alfred Aremo", jobTitle: "Associate Pastor" },
           { "@type": "Person", name: "Pastor Oludapo Eludoyin", jobTitle: "Associate Pastor" },
+          { "@type": "Person", name: "Pastor Oyedeji Ojo", jobTitle: "Associate Pastor" },
           { "@type": "Person", name: "Pastor Enoch Ilufoye", jobTitle: "Assembly Pastor, CAC Kingdom Embassy" },
         ],
         openingHoursSpecification: [
