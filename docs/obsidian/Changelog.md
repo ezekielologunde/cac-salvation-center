@@ -95,3 +95,7 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 ## Leadership: Pastor Oyedeji Ojo added (2026-10-07)
 - Pastor Oyedeji Ojo added to the pastoral team: new entry in the `team` array in `app/leadership/page.tsx`, named in the team sentence on `app/about/page.tsx`, and added as a `Person` in the organization structured data in `lib/site.ts`. The leadership roster is hardcoded in these places (there is no CMS or database table for pastors), so a new pastor means editing all three.
 - Photo added at `public/images/pastor-ojo.webp` (640px wide). Title ("Associate Pastor") and bio are placeholders modeled on the other associate pastors; replace with his actual details. See [[Features]].
+
+## Homepage: 25th anniversary "Save the Date" section (2026-10-17)
+- New `components/sections/Anniversary25.tsx`, rendered on the homepage right after `Watchword` (`app/page.tsx`, lazy-loaded like the other below-fold sections). Text-only for now: church logo, "Save the date · July 2027", a large gold "25", "Celebrating 25 years of CSC Salvation Center", the church address, "Exact date and details to be announced", and a link to `/events`.
+- No exact date or venue is confirmed yet; the address shown is the church's own. Once the poster image exists, add it to this section and update the date line. See [[Features]].
