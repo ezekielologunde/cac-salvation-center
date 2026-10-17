@@ -27,7 +27,7 @@ See [[Architecture]] for how these are implemented.
 - **Search**: in-site search modal (`components/ui/SearchModal.tsx`, `lib/search-index.ts`) with weighted relevance and links out to Google site/web search for anything not found locally.
 - **Analytics**: Vercel Analytics/Speed Insights + optional GA4/Google Ads/AdSense (env-gated).
 - **Instagram feed embed** on the homepage.
-- **25th anniversary "Save the Date"** homepage section (July 2027; date and venue still TBA; poster image pending). Text-only, in `components/sections/Anniversary25.tsx`.
+- **25th anniversary "Save the Date"** homepage section (July 2027; exact date still TBA) showing the anniversary poster (`public/images/25th-anniversary-poster.webp`) beside the details, in `components/sections/Anniversary25.tsx`.
 
 ## Partial / worth double-checking
 
