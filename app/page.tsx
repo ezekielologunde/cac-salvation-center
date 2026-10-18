@@ -15,6 +15,7 @@ export const metadata: Metadata = { alternates: { canonical: "/" } };
 // Below-fold sections split into separate JS chunks — browser parses them
 // incrementally instead of one blocking task, cutting TBT significantly.
 const Watchword     = dynamic(() => import("@/components/sections/Watchword").then(m => ({ default: m.Watchword })));
+const Anniversary25 = dynamic(() => import("@/components/sections/Anniversary25").then(m => ({ default: m.Anniversary25 })));
 const Testimonials  = dynamic(() => import("@/components/sections/Testimonials").then(m => ({ default: m.Testimonials })));
 const PastorWelcome = dynamic(() => import("@/components/sections/PastorWelcome").then(m => ({ default: m.PastorWelcome })));
 const WhatToExpect  = dynamic(() => import("@/components/sections/WhatToExpect").then(m => ({ default: m.WhatToExpect })));
@@ -118,6 +119,7 @@ export default async function Home() {
       ))}
       <Hero />
       <Watchword />
+      <Anniversary25 />
       <Testimonials />
       <PastorWelcome />
       <WhatToExpect />
