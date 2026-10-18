@@ -171,4 +171,24 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Jeremiah 5–7; Psalm 75; 2 Corinthians 10",
     thu: "Jeremiah 8–10; 2 Corinthians 11",
   },
+  // Week 40 is missing here -- not supplied when Week 41 was added
+  // (2026-10-18). Add it if the reading card for that week turns up.
+  {
+    week: 41,
+    theme: "Jeremiah → James 4–5, 1 Peter 1–3",
+    sun: "Jeremiah 27–29, 24; James 4",
+    mon: "Jeremiah 37, 21, 34; Psalm 79; James 5",
+    tue: "Jeremiah 30–33; 1 Peter 1",
+    wed: "Jeremiah 38–39, 52; 1 Peter 2–3",
+    thu: "2 Kings 24–25; 2 Chronicles 36; Psalm 126",
+  },
+  {
+    week: 42,
+    theme: "Lamentations, Obadiah & Jeremiah → 1–2 Peter",
+    sun: "Lamentations; 1 Peter 4",
+    mon: "Obadiah; Jeremiah 40–42; Psalms 137, 147; 1 Peter 4–5",
+    tue: "Jeremiah 43–44, 46; 2 Peter 1",
+    wed: "Jeremiah 47–49; Psalm 80; 2 Peter 2",
+    thu: "Jeremiah 50–51; 2 Peter 3",
+  },
 ];

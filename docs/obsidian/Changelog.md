@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-10-07
+last_updated: 2026-10-18
 tags: [project/cac-salvation-center]
 ---
 
@@ -95,3 +95,8 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 ## Leadership: Pastor Oyedeji Ojo added (2026-10-07)
 - Pastor Oyedeji Ojo added to the pastoral team: new entry in the `team` array in `app/leadership/page.tsx`, named in the team sentence on `app/about/page.tsx`, and added as a `Person` in the organization structured data in `lib/site.ts`. The leadership roster is hardcoded in these places (there is no CMS or database table for pastors), so a new pastor means editing all three.
 - Photo added at `public/images/pastor-ojo.webp` (640px wide). Title ("Associate Pastor") and bio are placeholders modeled on the other associate pastors; replace with his actual details. See [[Features]].
+
+## Bible plan Weeks 41 & 42, and Bible Study 33 post (2026-10-18)
+- Weeks 41 (Jeremiah → James 4–5, 1 Peter 1–3) and 42 (Lamentations, Obadiah & Jeremiah → 1–2 Peter) added to `lib/biblePlan.ts` from the weekly flyers. Weeks 35, 37 and 40 have not been supplied and remain absent. Week 42's Friday is a reflection prompt, covered by the shared `FRIDAY_REFLECTION`.
+- Flyer shorthand normalised: "Jere"/"Jer" → Jeremiah, "Lamentation" → Lamentations, "Jam" → James, "Pet" → Peter, "2King"/"2Chr" → 2 Kings/2 Chronicles, "Ps" → Psalm(s). Interpreted typos: Week 42 Monday's "1 P4-5" read as 1 Peter 4–5 (Sunday already reads 1 Peter 4, so the overlap is as printed); Week 41 Sunday "27-29,24" kept in flyer order. The "This Week's Reading" box on `/blog` now shows Week 42 automatically.
+- Static post **Consequences of Complaints** (Study 33, Numbers 10–11) appended to the end of `POSTS` in `lib/blog.ts`, adapted from the Unified Bible Study Manual handout. Where the handout summarises loosely (e.g. "God appointed 70 elders", "fire consumed part of the camp"), the post follows the chapter text of Numbers 10–11. See [[Features]].
