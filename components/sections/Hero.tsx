@@ -199,6 +199,22 @@ export function Hero() {
         }}
       >
         <Reveal from="scale">
+          <a href="#anniversary-25" className="press" style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            marginBottom: 14, padding: "8px 18px", borderRadius: 999,
+            background: "linear-gradient(100deg,rgba(255,226,166,.22),rgba(232,163,61,.22))",
+            border: "1px solid rgba(232,163,61,.7)",
+            boxShadow: "0 0 28px rgba(232,163,61,.25)",
+            color: "#FFE2A6", fontSize: 13, fontWeight: 800, letterSpacing: ".6px",
+            textDecoration: "none", backdropFilter: "blur(8px)",
+          }}>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 18, letterSpacing: "-.5px", color: "var(--gold)" }}>25</span>
+            Celebrating 25 years · July 2027
+            <span aria-hidden>→</span>
+          </a>
+        </Reveal>
+
+        <Reveal from="scale">
           <span style={{
             display: "inline-flex", alignItems: "center", gap: 10,
             background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.2)",
