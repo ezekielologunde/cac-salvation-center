@@ -6,6 +6,7 @@ import { MapPin, CalendarDays } from 'lucide-react';
 export function Anniversary25() {
   return (
     <section
+      id="anniversary-25"
       aria-labelledby="anniversary-25-heading"
       style={{
         position: 'relative',
