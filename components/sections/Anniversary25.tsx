@@ -40,7 +40,7 @@ export function Anniversary25() {
             25 years of God&apos;s faithfulness.
           </h2>
           <p style={{ fontSize: 16.5, lineHeight: 1.7, opacity: 0.8, maxWidth: 480, margin: 0 }}>
-            Twenty-five years of worship, prayer and faithful service at CSC Salvation Center. Join us as we give God thanks for all He has done and look ahead to what He will do next.
+            Twenty-five years of worship, prayer and faithful service at CAC Salvation Center. Join us as we give God thanks for all He has done and look ahead to what He will do next.
           </p>
           <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 14, fontSize: 15.5 }}>
             {[
