@@ -191,4 +191,22 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Jeremiah 47–49; Psalm 80; 2 Peter 2",
     thu: "Jeremiah 50–51; 2 Peter 3",
   },
+  {
+    week: 43,
+    theme: "Ezekiel 1–15 → John 1–5",
+    sun: "Ezekiel 1–3; John 1",
+    mon: "Ezekiel 4–6; Psalm 82; John 2",
+    tue: "Ezekiel 7–9; John 3",
+    wed: "Ezekiel 10–12; Psalm 83; John 4",
+    thu: "Ezekiel 13–15; Psalm 136; John 5",
+  },
+  {
+    week: 44,
+    theme: "Ezekiel 16–30 → John 6–10",
+    sun: "Ezekiel 16–18; John 6",
+    mon: "Ezekiel 19–21; Psalm 84; John 7",
+    tue: "Ezekiel 22–24; Psalm 134; John 8",
+    wed: "Ezekiel 25–27; Psalm 85; John 9",
+    thu: "Ezekiel 28–30; John 10",
+  },
 ];
