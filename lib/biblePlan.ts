@@ -209,4 +209,13 @@ export const bibleReadingPlan: BibleReadingWeek[] = [
     wed: "Ezekiel 25–27; Psalm 85; John 9",
     thu: "Ezekiel 28–30; John 10",
   },
+  {
+    week: 45,
+    theme: "Ezekiel 31–45 → John 11–15",
+    sun: "Ezekiel 31–33; John 11",
+    mon: "Ezekiel 34–36; Psalm 86; John 12",
+    tue: "Ezekiel 37–39; Psalm 87; John 13",
+    wed: "Ezekiel 40–42; John 14",
+    thu: "Ezekiel 43–45; Psalm 135; John 15",
+  },
 ];
