@@ -1,14 +1,36 @@
+import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { FacebookIcon } from "@/components/ui/SocialIcons";
 import { MapPin, Phone, Mail, Navigation, ArrowUpRight, Video } from "lucide-react";
 import { CITY_URL } from "@/lib/site";
 
-export const metadata = {
-  title: "CAC Salvation City — Rosedale, MD",
-  description:
-    "Spirit-filled worship in Rosedale, MD. Sunday services at 8330 Pulaski Hwy Suite F, Rosedale MD 21237. Part of the Christ Apostolic Church family — all are welcome.",
+const CITY_TITLE = "CAC Salvation City — Rosedale, MD";
+const CITY_DESCRIPTION =
+  "Spirit-filled worship in Rosedale, MD. Sunday services at 8330 Pulaski Hwy Suite F, Rosedale MD 21237. Part of the Christ Apostolic Church family — all are welcome.";
+
+// Own social-card tags: without them the page inherits the Randallstown
+// church's title, URL and photo from the root layout. No Salvation City photo
+// exists yet, so the card uses the shared logo.
+export const metadata: Metadata = {
+  title: CITY_TITLE,
+  description: CITY_DESCRIPTION,
   alternates: { canonical: CITY_URL },
+  openGraph: {
+    type: "website",
+    siteName: "CAC Salvation City",
+    title: CITY_TITLE,
+    description: CITY_DESCRIPTION,
+    url: CITY_URL,
+    locale: "en_US",
+    images: [{ url: `${CITY_URL}/images/logo.png`, alt: "Christ Apostolic Church Salvation City" }],
+  },
+  twitter: {
+    card: "summary",
+    title: CITY_TITLE,
+    description: CITY_DESCRIPTION,
+    images: [`${CITY_URL}/images/logo.png`],
+  },
 };
 
 const c = {
@@ -45,9 +67,38 @@ const connect = [
   { label: "Main Site", desc: "cacsalvationcenter.org", href: "https://www.cacsalvationcenter.org", icon: <ArrowUpRight size={22} strokeWidth={2} /> },
 ];
 
+// Salvation City's own entity: its address and contacts only. Reviews, rating
+// and opening hours are not claimed because none are shown on this page.
+const cityJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Church",
+  "@id": `${CITY_URL}/#church`,
+  name: "CAC Salvation City",
+  alternateName: "Christ Apostolic Church - Salvation City",
+  url: CITY_URL,
+  description: CITY_DESCRIPTION,
+  telephone: PHONE.replace(/\s/g, ""),
+  email: EMAIL,
+  hasMap: MAPS_LINK,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "8330 Pulaski Hwy Suite F",
+    addressLocality: "Rosedale",
+    addressRegion: "MD",
+    postalCode: "21237",
+    addressCountry: "US",
+  },
+  areaServed: ["Rosedale", "Baltimore County", "Maryland"],
+  sameAs: [FB],
+};
+
 export default function SalvationCityPage() {
   return (
     <main style={{ background: c.paper, color: c.ink, fontFamily: "var(--font-body)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(cityJsonLd).replace(/</g, "\\u003c") }}
+      />
 
       {/* ── Sticky header ────────────────────────────────── */}
       <header style={{ position: "sticky", top: 0, zIndex: 50, background: `rgba(26,12,4,.93)`, backdropFilter: "blur(10px)", borderBottom: `1px solid ${c.onDeepLine}` }}>

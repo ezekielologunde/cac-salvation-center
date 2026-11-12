@@ -1,4 +1,5 @@
 import { Nav } from "@/components/navigation/Nav";
+import { ChurchJsonLd } from "@/components/seo/ChurchJsonLd";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconBadge } from "@/components/ui/IconBadge";
@@ -53,6 +54,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main>
+      <ChurchJsonLd />
       <Nav />
 
       {/* Hero */}

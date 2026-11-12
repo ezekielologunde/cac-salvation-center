@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Nav } from "@/components/navigation/Nav";
+import { ChurchJsonLd } from "@/components/seo/ChurchJsonLd";
 import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconBadge } from "@/components/ui/IconBadge";
@@ -110,6 +111,7 @@ export default function VisitPage() {
 
   return (
     <main>
+      <ChurchJsonLd />
       <Nav />
 
       {/* Hero */}

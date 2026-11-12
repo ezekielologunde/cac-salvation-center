@@ -51,6 +51,40 @@ check("Ilorin JSON-LD links the show to Pastor Owoseni (@id)", /author: \{ "@id"
 check("footer links YYAM", /YYAM_URL/.test(read("components/sections/FooterExperience.tsx")));
 check("llms route uses the network section", /networkLlmsSection\(NETWORK, "salvation-center"\)/.test(read("app/llms.txt/route.ts")));
 
+// Micro-sites (Ilorin, Salvation City) must not inherit Randallstown's details.
+const layout = read("app/layout.tsx");
+check("root layout renders only the light WebSite graph", /websiteJsonLd\(\)/.test(layout) && !/churchJsonLd/.test(layout));
+const websiteFn = site.slice(site.indexOf("export function websiteJsonLd"), site.indexOf("export function breadcrumbJsonLd"));
+check("websiteJsonLd has no address, hours, rating or reviews",
+  websiteFn.length > 100 && !/address|telephone|aggregateRating|review|openingHours|employee/i.test(websiteFn.replace(/\/\*\*[\s\S]*?\*\//, "")));
+for (const p of ["app/page.tsx", "app/about/page.tsx", "app/visit/page.tsx", "app/contact/page.tsx"]) {
+  check(`${p} renders the full church graph`, /<ChurchJsonLd \/>/.test(read(p)));
+}
+check("ChurchJsonLd component renders churchJsonLd()", /churchJsonLd\(\)/.test(read("components/seo/ChurchJsonLd.tsx")));
+const city = read("app/salvationcity/page.tsx");
+check("Ilorin page has its own social card (own URL, not Randallstown's)",
+  /openGraph: \{[\s\S]*url: ILORIN_URL[\s\S]*twitter:/.test(ilorin) && !/congregation\.jpg/.test(ilorin));
+check("Salvation City page has its own social card", /openGraph: \{[\s\S]*url: CITY_URL[\s\S]*twitter:/.test(city) && !/congregation\.jpg/.test(city));
+check("Salvation City has its own Church JSON-LD with its Rosedale address",
+  /"@id": `\$\{CITY_URL\}\/#church`/.test(city) && /addressLocality: "Rosedale"/.test(city) && /21237/.test(city));
+check("Salvation City JSON-LD claims no reviews, rating or Randallstown address",
+  !/aggregateRating|Randallstown|Marriottsville/i.test(city.slice(city.indexOf("const cityJsonLd"), city.indexOf("export default function"))));
+const cfg = read("next.config.ts");
+check("llms.txt is rewritten per micro-site host",
+  /source: "\/llms\.txt",\s*has: \[\{ type: "host" as const, value: "city\.cacsalvationcenter\.org" \}\],\s*destination: "\/salvationcity\/llms\.txt"/.test(cfg) &&
+  /source: "\/llms\.txt",\s*has: \[\{ type: "host" as const, value: "ilorin\.cacsalvationcenter\.org" \}\],\s*destination: "\/ilorin\/llms\.txt"/.test(cfg));
+check("micro-site llms routes use the network section for their own id",
+  /networkLlmsSection\(NETWORK, "ilorin"\)/.test(read("app/ilorin/llms.txt/route.ts")) &&
+  /networkLlmsSection\(NETWORK, "city"\)/.test(read("app/salvationcity/llms.txt/route.ts")));
+for (const [id, self, others] of [
+  ["ilorin", "https://ilorin.cacsalvationcenter.org", ["https://cacna.org", "https://www.cacsalvationcenter.org", "https://city.cacsalvationcenter.org"]],
+  ["city", "https://city.cacsalvationcenter.org", ["https://cacna.org", "https://www.cacsalvationcenter.org", "https://ilorin.cacsalvationcenter.org"]],
+]) {
+  const s = networkLlmsSection(net, id);
+  const family = s.split("## People")[0]; // the People line may link a leader to this very site
+  check(`${id} llms.txt links the other family sites and not itself`, others.every((u) => family.includes(`](${u})`)) && !family.includes(`](${self})`));
+}
+
 const canonical = process.argv[2];
 if (canonical) {
   let theirs = null;

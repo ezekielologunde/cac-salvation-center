@@ -5,6 +5,7 @@ export const revalidate = 60;
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Nav } from "@/components/navigation/Nav";
+import { ChurchJsonLd } from "@/components/seo/ChurchJsonLd";
 import { Hero } from "@/components/sections/Hero";
 import { createServiceClient } from "@/lib/supabase/server";
 
@@ -75,6 +76,7 @@ export default async function Home() {
 
   return (
     <main>
+      <ChurchJsonLd />
       {/* Preloads the Hero background below so the browser fetches it before
        *  CSS is parsed. Next.js hoists a <link> rendered anywhere in a page
        *  into that route's own <head> — scoped to the homepage only, unlike
