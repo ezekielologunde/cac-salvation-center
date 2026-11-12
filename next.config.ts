@@ -116,6 +116,18 @@ const nextConfig: NextConfig = {
           has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
           destination: "/ilorin",
         },
+        // Each micro-site answers /llms.txt about itself, not about the
+        // Randallstown church (".txt" is exempt from the redirects above).
+        {
+          source: "/llms.txt",
+          has: [{ type: "host" as const, value: "city.cacsalvationcenter.org" }],
+          destination: "/salvationcity/llms.txt",
+        },
+        {
+          source: "/llms.txt",
+          has: [{ type: "host" as const, value: "ilorin.cacsalvationcenter.org" }],
+          destination: "/ilorin/llms.txt",
+        },
       ],
       afterFiles: [],
       fallback: [],

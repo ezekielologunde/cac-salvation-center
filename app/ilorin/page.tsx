@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,11 +11,31 @@ import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen
 import { ILORIN_URL } from "@/lib/site";
 import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
 
-export const metadata = {
-  title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
-  description:
-    "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.",
+const ILORIN_TITLE = "C.A.C Salvation Centre, Ilorin — District Headquarters";
+const ILORIN_DESCRIPTION =
+  "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.";
+
+// Own social-card tags: without them the page inherits the Randallstown
+// church's title, URL and photo from the root layout.
+export const metadata: Metadata = {
+  title: ILORIN_TITLE,
+  description: ILORIN_DESCRIPTION,
   alternates: { canonical: ILORIN_URL },
+  openGraph: {
+    type: "website",
+    siteName: "Christ Apostolic Church Salvation Centre, Ilorin",
+    title: ILORIN_TITLE,
+    description: ILORIN_DESCRIPTION,
+    url: ILORIN_URL,
+    locale: "en_NG",
+    images: [{ url: `${ILORIN_URL}/images/ilorin-congregation-worship.jpg`, width: 1200, height: 630, alt: "Worship at C.A.C Salvation Centre, Ilorin" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ILORIN_TITLE,
+    description: ILORIN_DESCRIPTION,
+    images: [`${ILORIN_URL}/images/ilorin-congregation-worship.jpg`],
+  },
 };
 
 // Distinct green identity for the Ilorin HQ micro-site (separate from the main red theme).
@@ -86,6 +107,19 @@ const schedule = [
   { day: "Friday", services: [{ name: "Youth Connect Fellowship", time: "5:00 – 7:00 PM" }] },
 ];
 
+const OWOSENI_ID = "https://ilorin.cacsalvationcenter.org/#owoseni";
+
+// Pastor Owoseni's Spotify show, linked to him as its author (lib/network.json).
+const ilorinPodcastJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "PodcastSeries",
+  "@id": "https://ilorin.cacsalvationcenter.org/#messages",
+  name: "Pastor Owoseni's messages",
+  url: SPOTIFY,
+  author: { "@id": OWOSENI_ID },
+  publisher: { "@id": "https://ilorin.cacsalvationcenter.org/#church" },
+};
+
 // Structured data for the Ilorin HQ — lets Google show service times, address & founding.
 const ilorinJsonLd = {
   "@context": "https://schema.org",
@@ -109,8 +143,13 @@ const ilorinJsonLd = {
   areaServed: ["Ilorin", "Kwara State", "Nigeria"],
   knowsLanguage: ["en", "yo"],
   hasMap: MAPS_LINK,
-  employee: { "@type": "Person", name: "Pastor R.T. Owoseni", jobTitle: "District Superintendent" },
-  parentOrganization: { "@type": "Church", name: "CAC Salvation Center — Baltimore", url: "https://www.cacsalvationcenter.org" },
+  employee: { "@type": "Person", "@id": OWOSENI_ID, name: "Pastor R.T. Owoseni", jobTitle: "District Superintendent", worksFor: { "@id": "https://ilorin.cacsalvationcenter.org/#church" } },
+  // Ilorin is the parent assembly (as lib/network.json and /llms.txt say); the
+  // Baltimore-area churches are its sub-organizations, not its parent.
+  subOrganization: [
+    { "@type": "Church", name: "CAC Salvation Center — Randallstown, MD", url: "https://www.cacsalvationcenter.org" },
+    { "@type": "Church", name: "CAC Salvation City — Rosedale, MD", url: "https://city.cacsalvationcenter.org" },
+  ],
   sameAs: [YT, FB, "https://www.instagram.com/cacsalvationcentreilorin/", TIKTOK, SPOTIFY],
   openingHoursSpecification: [
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "07:00", closes: "09:00" },
@@ -133,6 +172,10 @@ export default function IlorinPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ilorinJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ilorinPodcastJsonLd).replace(/</g, "\\u003c") }}
       />
       <IlorinHeader variant="home" />
 
