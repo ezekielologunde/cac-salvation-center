@@ -10,6 +10,13 @@ tags: [project/cac-salvation-center]
 
 Condensed from `git log` (reconstructed from full history after unshallowing the clone). See [[Project]] for current state.
 
+## 2026-11-11 — Ilorin and Salvation City stop inheriting Randallstown's SEO
+- Found by an SEO audit and confirmed against the live sites: every route shares the root layout, so the Ilorin and Salvation City micro-sites carried the Randallstown church's full JSON-LD (address, pastors, AggregateRating, ~10 reviews), its `/llms.txt`, and its title/URL/photo in link previews.
+- Root layout now renders only `websiteJsonLd()`; the full `churchJsonLd()` moved to `components/seo/ChurchJsonLd.tsx`, rendered on the home, about, visit and contact pages.
+- Ilorin and Salvation City pages have their own Open Graph/Twitter tags; Salvation City gets its own `Church` JSON-LD (Rosedale address and contacts, no reviews or rating).
+- `ilorin.` and `city.` answer `/llms.txt` about themselves (host rewrites in `next.config.ts`, routes `app/ilorin/llms.txt`, `app/salvationcity/llms.txt`).
+- Left as designed: the cross-host sitemap and the redirect of non-root micro-site paths to www (Decisions.md, "Micro-site subdomains are canonical").
+
 ## 2026-11-11 — CAC network SEO, step 2
 - Added `lib/network.json` (the shared CAC family data: cacna.org, yyam.cacna.org, this site, Ilorin HQ, Salvation City, cacworld.org) and `lib/network.ts`; `/llms.txt` now has a generated "The CAC family" section with people and podcasts.
 - `CACNA_URL` is now `https://cacna.org` (it pointed at the `cacna.cacsalvationcenter.org` redirect); the convention link drops the `/en` prefix; added `YYAM_URL` and a footer link to YYAM.

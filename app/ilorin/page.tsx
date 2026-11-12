@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,11 +11,31 @@ import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen
 import { ILORIN_URL } from "@/lib/site";
 import { ILORIN_SERMONS_BY_DATE_DESC } from "@/lib/ilorinSermons";
 
-export const metadata = {
-  title: "C.A.C Salvation Centre, Ilorin — District Headquarters",
-  description:
-    "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.",
+const ILORIN_TITLE = "C.A.C Salvation Centre, Ilorin — District Headquarters";
+const ILORIN_DESCRIPTION =
+  "Christ Apostolic Church Salvation Centre, Ilorin — the District Headquarters in Kwara State, Nigeria. One Fold, One Shepherd. Worship, watch, and connect with us at Fate-Tanke Road, Oko Erin.";
+
+// Own social-card tags: without them the page inherits the Randallstown
+// church's title, URL and photo from the root layout.
+export const metadata: Metadata = {
+  title: ILORIN_TITLE,
+  description: ILORIN_DESCRIPTION,
   alternates: { canonical: ILORIN_URL },
+  openGraph: {
+    type: "website",
+    siteName: "Christ Apostolic Church Salvation Centre, Ilorin",
+    title: ILORIN_TITLE,
+    description: ILORIN_DESCRIPTION,
+    url: ILORIN_URL,
+    locale: "en_NG",
+    images: [{ url: `${ILORIN_URL}/images/ilorin-congregation-worship.jpg`, width: 1200, height: 630, alt: "Worship at C.A.C Salvation Centre, Ilorin" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ILORIN_TITLE,
+    description: ILORIN_DESCRIPTION,
+    images: [`${ILORIN_URL}/images/ilorin-congregation-worship.jpg`],
+  },
 };
 
 // Distinct green identity for the Ilorin HQ micro-site (separate from the main red theme).

@@ -176,6 +176,31 @@ export function churchJsonLd() {
   };
 }
 
+/** Light site-wide graph for the root layout: the WebSite and its publisher
+ *  only. The address, hours, pastors, rating and reviews live in
+ *  churchJsonLd(), which is rendered just on the Randallstown pages (home,
+ *  about, visit, contact). Every route in this app, including the Ilorin and
+ *  Salvation City micro-sites, inherits the root layout, so putting the full
+ *  Randallstown church there made those sites claim its address and reviews. */
+export function websiteJsonLd() {
+  const churchId = `${SITE_URL}/#church`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE.name,
+        alternateName: SITE.alternateNames,
+        description: SITE.description,
+        publisher: { "@type": "Organization", "@id": churchId, name: SITE.name, url: SITE_URL, logo: `${SITE_URL}/images/logo.png` },
+        inLanguage: "en-US",
+      },
+    ],
+  };
+}
+
 /** BreadcrumbList JSON-LD for a deep page — pass the trail from Home to current. */
 export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
   return {

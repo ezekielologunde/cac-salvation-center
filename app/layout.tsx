@@ -3,7 +3,7 @@ import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { SITE, SITE_URL, churchJsonLd } from "@/lib/site";
+import { SITE, SITE_URL, websiteJsonLd } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleTags } from "@/components/analytics/GoogleTags";
@@ -101,7 +101,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           // Static, app-controlled data only. `<` is escaped so no value can
           // ever break out of the <script> element (JSON-LD hardening).
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(churchJsonLd()).replace(/</g, "\\u003c") }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()).replace(/</g, "\\u003c") }}
         />
         <SiteOverlays bannerAnn={bannerAnn} />
         <ScrollProgress />
