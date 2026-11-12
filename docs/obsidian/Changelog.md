@@ -10,6 +10,12 @@ tags: [project/cac-salvation-center]
 
 Condensed from `git log` (reconstructed from full history after unshallowing the clone). See [[Project]] for current state.
 
+## 2026-11-11 — CAC network SEO, step 2
+- Added `lib/network.json` (the shared CAC family data: cacna.org, yyam.cacna.org, this site, Ilorin HQ, Salvation City, cacworld.org) and `lib/network.ts`; `/llms.txt` now has a generated "The CAC family" section with people and podcasts.
+- `CACNA_URL` is now `https://cacna.org` (it pointed at the `cacna.cacsalvationcenter.org` redirect); the convention link drops the `/en` prefix; added `YYAM_URL` and a footer link to YYAM.
+- Church JSON-LD gains `parentOrganization` (Ilorin HQ), `memberOf` (CACNA) and a Hope for Today `PodcastSeries`. The Ilorin page's JSON-LD no longer names Baltimore as Ilorin's parent (it is the other way round); it lists the Baltimore churches as `subOrganization` and links Pastor Owoseni's Spotify show to him as its author.
+- `npm test` runs `scripts/check-network-seo.mjs`.
+
 ## Foundational build-out
 - Core public site pages, navigation, and information architecture established (home, about, ministries, events, visit, giving, store).
 - Admin panel scaffolded with Supabase auth: announcements, blog, events, gallery, orders, prayer, testimonies, newsletter, contact, connect cards, store products, admin user management.

@@ -1,4 +1,8 @@
-import { SITE, SITE_URL, CACNA_URL, CAC_CONVENTION_URL, CAC_WORLDWIDE_URL } from "@/lib/site";
+import { SITE, SITE_URL, CAC_CONVENTION_URL } from "@/lib/site";
+import { networkLlmsSection, type NetworkData } from "@/lib/network";
+import network from "@/lib/network.json";
+
+const NETWORK: NetworkData = network;
 import { specialEvents, splitByDate } from "@/lib/events";
 
 export const revalidate = 3600;
@@ -48,11 +52,11 @@ export async function GET() {
 - Location: 8330 Pulaski Hwy Suite F, Rosedale, MD 21237, USA
 - [Salvation City page](${SITE_URL}/salvationcity)
 
-## CAC family
-This assembly is a member church of Christ Apostolic Church North America (CACNA), the regional body governing CAC assemblies across the United States, Canada, and South America. This church's own Superintendent, Pastor Dr. Hezekiah O. Ilufoye, PhD, also serves as CACNA's Baltimore DCC Superintendent.
-- [CAC North America (CACNA)](${CACNA_URL}): the regional body — leadership, zones/DCCs, ministries, and the wider CAC North America family.
+${networkLlmsSection(NETWORK, "salvation-center")}
+
+## More about the family
+- This church's own Superintendent, Pastor Dr. Hezekiah O. Ilufoye, PhD, also serves as CACNA's Baltimore DCC Superintendent.
 - [CACNA Annual Convention](${CAC_CONVENTION_URL}): the yearly national gathering of every CACNA member church.
-- [CAC Worldwide](${CAC_WORLDWIDE_URL}): the global Christ Apostolic Church denomination, headquartered in Nigeria.
 
 ## Upcoming events
 ${upcomingLines || "- See " + SITE_URL + "/events for the current schedule."}

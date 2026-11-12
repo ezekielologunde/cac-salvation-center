@@ -11,18 +11,19 @@ export const CITY_URL = "https://city.cacsalvationcenter.org";
 
 /** Wider CAC family — real external sites this church belongs to (CACNA is
  *  the regional body; this assembly's own Superintendent, Pastor Dr.
- *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). CACNA now
- *  lives on its own subdomain of this domain (wired to the cacnorthamerica
- *  Vercel project, 2026-09). */
-export const CACNA_URL = "https://cacna.cacsalvationcenter.org";
+ *  Hezekiah O. Ilufoye, is CACNA's Baltimore DCC Superintendent). CACNA's
+ *  canonical host is cacna.org (the old cacna subdomain of this domain only
+ *  redirects there). The whole family is listed in lib/network.json. */
+export const CACNA_URL = "https://cacna.org";
 export const CAC_WORLDWIDE_URL = "https://cacworld.org";
+export const YYAM_URL = "https://yyam.cacna.org";
 // The standalone Convention project (cacna-convention.vercel.app) 404s as of
 // 2026-09-07 — its content was merged into the CACNA site (per that repo's
 // own Changelog/Decisions), which has no single evergreen "/convention" URL,
 // only per-year event pages (e.g. /events/cacna-2026, .../cacna-2027) that
 // go stale every year. Point at CACNA's calendar instead, which always shows
-// whichever convention is current or next.
-export const CAC_CONVENTION_URL = `${CACNA_URL}/en/calendar`;
+// whichever convention is current or next. (cacna.org has no /en prefix now.)
+export const CAC_CONVENTION_URL = `${CACNA_URL}/calendar`;
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
@@ -127,6 +128,10 @@ export function churchJsonLd() {
           addressCountry: SITE.address.country,
         },
         sameAs: SITE.sameAs,
+        // Family links (see lib/network.json): Ilorin HQ is the parent
+        // assembly, CACNA is the regional body this church belongs to.
+        parentOrganization: { "@type": "Church", "@id": `${ILORIN_URL}/#church`, name: "Christ Apostolic Church Salvation Centre, Ilorin", url: ILORIN_URL },
+        memberOf: { "@type": "Organization", name: "Christ Apostolic Church North America", url: CACNA_URL },
         founder: { "@type": "Person", name: "Pastor Dr. H.O. Ilufoye" },
         employee: [
           { "@type": "Person", name: "Pastor Dr. Hezekiah O. Ilufoye PhD", jobTitle: "Baltimore DCC Superintendent" },
@@ -156,6 +161,14 @@ export function churchJsonLd() {
         name: SITE.name,
         alternateName: SITE.alternateNames,
         description: SITE.description,
+        publisher: { "@id": churchId },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "PodcastSeries",
+        "@id": `${SITE_URL}/#hope-for-today`,
+        name: "Hope for Today",
+        url: "https://open.spotify.com/show/0wFUgSZq4CuVuM0M9gRFUw",
         publisher: { "@id": churchId },
         inLanguage: "en-US",
       },
