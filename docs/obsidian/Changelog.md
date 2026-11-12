@@ -2,7 +2,7 @@
 project: cac-salvation-center
 type: changelog
 status: active
-last_updated: 2026-10-18
+last_updated: 2026-11-08
 tags: [project/cac-salvation-center]
 ---
 
@@ -123,3 +123,10 @@ Bluehost's Lighthouse Insights flagged Performance at 82% (Best Practices, Acces
 
 ## Homepage hero: 25th anniversary pill (2026-10-18)
 - `components/sections/Hero.tsx` has a gold "25 · Celebrating 25 years · July 2027 →" pill above the "Sundays" badge. It links to `#anniversary-25`, the id now on the `Anniversary25` section, so it scrolls to the poster. Checked at desktop and 375px width (no horizontal overflow). Remove the pill once the anniversary has passed. See [[Features]].
+
+## Bible plan Weeks 43 & 44, and Bible Study 36 & 37 posts (2026-11-01)
+- Weeks 43 (Ezekiel 1–15 → John 1–5) and 44 (Ezekiel 16–30 → John 6–10) added to `lib/biblePlan.ts` from the weekly flyers. Week 39 was re-supplied and already matched the existing entry. Flyer typos normalised: "Eze" → Ezekiel, "Joh 8" → John 8, "PS134" → Psalm 134.
+- Static posts **Israel's Fear and Rebellion** (Study 36, Numbers 14) and **Offerings' Ordinance in Canaan and Korah's Rebellion** (Study 37, Numbers 15–16) appended to `POSTS` in `lib/blog.ts`, adapted from the Unified Bible Study Manual pages. Study 37's page-143 consequences text and the printed "Questions for Reflection" are paraphrased. See [[Features]].
+
+## Bible plan Week 45 (2026-11-08)
+- Week 45 (Ezekiel 31–45 → John 11–15) added to `lib/biblePlan.ts` from the weekly flyer; "Eze" normalised to Ezekiel, "Ps" to Psalm. Weeks 35, 37 and 40 are still absent. See [[Features]].
