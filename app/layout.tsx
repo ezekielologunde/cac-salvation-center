@@ -47,13 +47,11 @@ export const metadata: Metadata = {
     description: SITE.description,
     url: SITE_URL,
     locale: "en_US",
-    images: [{ url: "/images/congregation.jpg", width: 1200, height: 630, alt: "CAC Salvation Center congregation in worship" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "CAC Salvation Center — Welcome Home",
     description: SITE.description,
-    images: ["/images/congregation.jpg"],
   },
   verification: {
     // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to emit the Search
