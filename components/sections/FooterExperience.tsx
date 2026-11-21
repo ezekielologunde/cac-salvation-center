@@ -33,6 +33,7 @@ const quickLinks = [
   ['/calendar', 'Calendar'],
   // Visit & Give
   ['/visit', 'Plan a Visit'],
+  ['/faq', 'FAQ'],
   ['/giving', 'Giving'],
   ['/building', 'Building Project'],
   // Resources
