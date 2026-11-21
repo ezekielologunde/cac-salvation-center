@@ -19,7 +19,7 @@ function toIso(s: string): string {
 }
 
 function evPlace(id: string) {
-  if (id === "cacna-convention-2026")
+  if (id === "cacna-convention-2026" || id === "cacna-convention-2027")
     return { "@type": "Place", name: "CAC Village", address: { "@type": "PostalAddress", streetAddress: "14051 Stahley Rd", addressLocality: "Blue Ridge Summit", addressRegion: "PA", postalCode: "17214", addressCountry: "US" } };
   if (id === "holy-land-pilgrimage-2026")
     return { "@type": "Place", name: "Israel & Egypt (departing JFK)", address: { "@type": "PostalAddress", addressCountry: "IL" } };
@@ -34,15 +34,15 @@ function evAttendanceMode(id: string) {
 }
 
 function evOffers(id: string) {
-  if (id === "holy-land-pilgrimage-2026")
-    return { "@type": "Offer", price: "4795", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events/pilgrimage-2026`, validFrom: "2026-01-01T00:00:00-05:00" };
+  // 2027 fees are unconfirmed: publish no offer rather than a made-up price.
+  if (id === "cacna-convention-2027") return undefined;
   return { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/events`, validFrom: "2026-01-01T00:00:00-05:00" };
 }
 
 function evPerformer(id: string) {
   if (id === "choir-anniversary-2026")
     return { "@type": "PerformingGroup", name: "CAC Salvation Center Choir" };
-  if (id === "holy-land-pilgrimage-2026")
+  if (id === "holy-land-pilgrimage-2026" || id === "cacna-convention-2027")
     return { "@type": "Organization", name: "Christ Apostolic Church North America" };
   if (id === "september-2026-fasting-prayer")
     return { "@type": "Organization", name: "CACNA Men Association, Latunde Region" };
@@ -83,6 +83,7 @@ export const metadata = {
 };
 
 function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }) {
+  if (ev.datesTbc) return null;
   const ghost = dark
     ? { color: "var(--cream)", border: "1.5px solid rgba(255,247,239,.28)", background: "rgba(255,247,239,.06)" }
     : { color: "var(--ink)", border: "1.5px solid var(--line)", background: "var(--paper)" };
@@ -127,9 +128,12 @@ export default async function EventsPage() {
   const allSpecialEvents = [...specialEvents, ...dynamicEvents];
   const { upcoming, past } = splitByDate(allSpecialEvents);
 
-  const eventsJsonLd = upcoming.length > 0 ? {
+  // Events with unconfirmed dates (the postponed pilgrimage) stay out of the
+  // Event graph; their own page carries a Postponed Event instead.
+  const datedUpcoming = upcoming.filter((e) => !e.datesTbc);
+  const eventsJsonLd = datedUpcoming.length > 0 ? {
     "@context": "https://schema.org",
-    "@graph": upcoming.map((ev) => ({
+    "@graph": datedUpcoming.map((ev) => ({
       "@type": "Event",
       name: ev.title,
       description: ev.desc,

@@ -24,6 +24,9 @@ export interface ChurchEvent {
   href?: string;
   /** Short label for the nav dropdown (falls back to title). */
   navLabel?: string;
+  /** Exact dates not confirmed. startLocal/endLocal are then only a placeholder
+   *  window used for sorting; add-to-calendar buttons and JSON-LD are skipped. */
+  datesTbc?: boolean;
 }
 
 /**
@@ -73,6 +76,19 @@ export const specialEvents: ChurchEvent[] = [
     dateLabel: "July 13–18, 2026", timeLabel: "All week", month: "JUL", day: "13",
     startLocal: "20260713T180000", endLocal: "20260718T220000",
     href: "/events/cacna-2026", navLabel: "CACNA 2026",
+  },
+  {
+    // Facts from CACNA's own 2027 entry only. Fees and the daily programme are
+    // unconfirmed, so they live on cacna.org, not here. The times below are a
+    // whole-day window for the calendar, not a published schedule.
+    id: "cacna-convention-2027",
+    summary: "The 2027 CACNA National Convention at CAC Village. Full programme and fees are on cacna.org.",
+    locationLabel: "CAC Village, Blue Ridge Summit, PA",
+    title: "CACNA 2027 Annual Convention",
+    desc: "Christ Apostolic Church North America Annual Convention — theme “Lessons from Israel’s History.” Six days of worship, teaching, and family at CAC Village, 14051 Stahley Rd, Blue Ridge Summit, PA 17214. Full programme and fees on cacna.org.",
+    dateLabel: "July 12–17, 2027", timeLabel: "All week", month: "JUL", day: "12",
+    startLocal: "20270712T000000", endLocal: "20270717T235900",
+    href: "/events/cacna-2027", navLabel: "CACNA 2027",
   },
   {
     id: "church-anniversary-2026",
@@ -145,12 +161,13 @@ export const specialEvents: ChurchEvent[] = [
   },
   {
     id: "holy-land-pilgrimage-2026",
-    summary: "An 11-day pilgrimage with CACNA Latunde Region. View the itinerary, costs, and registration details.",
+    summary: "Postponed to May 2027. Exact dates and the final price are still to be confirmed.",
     locationLabel: "Israel & Egypt",
-    title: "Holy Land Pilgrimage 2026",
-    desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, November 2–12, 2026. Package includes round-trip flights from JFK, 8 nights accommodation (7 in Israel + 1 in St. Catherine, Egypt), daily meals, private guide, group coach, and Pilgrimage Certificate. Price $4,795 · $500 deposit to register · $2,000 second payment due Oct 31. Contact: info@cacnapilgrimage.org | @cacnapilgrimage",
-    dateLabel: "November 2–12, 2026", timeLabel: "Departing JFK", month: "NOV", day: "02",
-    startLocal: "20261102T060000", endLocal: "20261112T230000",
+    title: "Holy Land Pilgrimage — Postponed to May 2027",
+    desc: "CACNA Latunde Region Pilgrimage to Israel & Egypt, originally planned for November 2–12, 2026, has been postponed to sometime in May 2027. Exact dates and the final price are still to be confirmed. Contact: cacnapilgrimage@gmail.com | @cacnapilgrimage",
+    dateLabel: "May 2027", timeLabel: "Exact dates to be confirmed", month: "MAY", day: "TBC",
+    // Placeholder window (all of May 2027) for sorting only; see datesTbc.
+    startLocal: "20270501T000000", endLocal: "20270531T235900", datesTbc: true,
     href: "/events/pilgrimage-2026", navLabel: "Holy Land Pilgrimage",
   },
 ];

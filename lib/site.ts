@@ -24,6 +24,9 @@ export const YYAM_URL = "https://yyam.cacna.org";
 // go stale every year. Point at CACNA's calendar instead, which always shows
 // whichever convention is current or next. (cacna.org has no /en prefix now.)
 export const CAC_CONVENTION_URL = `${CACNA_URL}/calendar`;
+/** The 2027 convention's own pages on cacna.org (details, then registration). */
+export const CACNA_2027_URL = `${CACNA_URL}/events/cacna-2027`;
+export const CACNA_2027_REGISTER_URL = `${CACNA_URL}/events/cacna-2027/register`;
 
 export const SITE = {
   name: "Christ Apostolic Church Salvation Center",
@@ -78,6 +81,7 @@ export const ROUTES: { path: string; priority: number; url?: string }[] = [
   { path: "/events/good-women-anniversary", priority: 0.65 },
   { path: "/events/24th-anniversary", priority: 0.75 },
   { path: "/events/cacna-2026", priority: 0.75 },
+  { path: "/events/cacna-2027", priority: 0.8 },
   { path: "/events/cacna-50th-anniversary", priority: 0.75 },
   { path: "/events/pilgrimage-2026", priority: 0.7 },
   { path: "/events/september-2026-fasting-prayer", priority: 0.65 },

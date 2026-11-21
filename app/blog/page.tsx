@@ -521,19 +521,16 @@ export default async function BlogPage() {
                 CACNA National Convention
               </h2>
               <p style={{ fontSize: 15, color: "rgba(255,247,239,.82)", margin: 0, lineHeight: 1.6 }}>
-                Every summer at CAC Village, Blue Ridge Summit, PA — the whole CACNA family in one place.
+                Next up: July 12–17, 2027 at CAC Village, Blue Ridge Summit, PA — “Lessons from Israel’s History.” Full programme and fees are on cacna.org.
               </p>
             </div>
-            {/* This unconditionally-shown banner previously hardcoded a link
-                to cacnaconvention.org for the 2026 convention specifically --
-                that domain is dead (confirmed 403 "Access forbidden!" with a
-                normal browser UA, 2026-09-07) and the copy went stale the
-                moment that convention ended. CAC_CONVENTION_URL points at
-                CACNA's own calendar, so this stays correct every year. */}
-            <a href={CAC_CONVENTION_URL} target="_blank" rel="noopener noreferrer" className="btn-sheen press"
+            {/* Points at our own 2027 page (which links out to cacna.org for
+                programme, fees and registration). Previously linked to
+                cacnaconvention.org, which is dead. Update each year. */}
+            <Link href="/events/cacna-2027" className="btn-sheen press"
               style={{ position: "relative", zIndex: 2, flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 9, background: "#fff", color: "var(--red)", fontWeight: 800, fontSize: 15, padding: "14px 28px", borderRadius: 999, textDecoration: "none" }}>
-              View Convention Calendar →
-            </a>
+              CACNA 2027 details →
+            </Link>
           </div>
         </Reveal>
       </section>

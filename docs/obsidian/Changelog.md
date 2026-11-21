@@ -10,6 +10,11 @@ tags: [project/cac-salvation-center]
 
 Condensed from `git log` (reconstructed from full history after unshallowing the clone). See [[Project]] for current state.
 
+## 2026-11-21 — CACNA 2027 convention page; pilgrimage postponed
+- New `/events/cacna-2027` (+ `specialEvents` entry, sitemap, search index): July 12–17, 2027, CAC Village, theme "Lessons from Israel's History". Only facts from CACNA's own 2027 entry; fees and the daily programme are deliberately omitted (unconfirmed) and the page points to `CACNA_2027_URL` / `CACNA_2027_REGISTER_URL` on cacna.org. No Offer in JSON-LD for the same reason. No social-image pattern exists in the repo, so none added.
+- Holy Land Pilgrimage entry and `/events/pilgrimage-2026` rewritten to CACNA's wording: postponed to sometime in May 2027, dates and price to be confirmed, contact cacnapilgrimage@gmail.com. Price, deposit and payment details removed. New optional `ChurchEvent.datesTbc` hides add-to-calendar and keeps the event out of the `/events` JSON-LD graph (its start/end are a placeholder sort window only).
+- `/blog` convention banner and `llms.txt` now point at the 2027 page; `CAC_CONVENTION_URL` stays the evergreen cacna.org calendar. `/events/cacna-2026` stays as the archive. The 25th anniversary copy (July 2027, date to be announced) was not touched; the owner must confirm it.
+
 ## 2026-11-11 — Ilorin and Salvation City stop inheriting Randallstown's SEO
 - Found by an SEO audit and confirmed against the live sites: every route shares the root layout, so the Ilorin and Salvation City micro-sites carried the Randallstown church's full JSON-LD (address, pastors, AggregateRating, ~10 reviews), its `/llms.txt`, and its title/URL/photo in link previews.
 - Root layout now renders only `websiteJsonLd()`; the full `churchJsonLd()` moved to `components/seo/ChurchJsonLd.tsx`, rendered on the home, about, visit and contact pages.
