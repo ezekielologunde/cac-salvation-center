@@ -1,4 +1,4 @@
-import { SITE, SITE_URL, CAC_CONVENTION_URL } from "@/lib/site";
+import { SITE, SITE_URL, CAC_CONVENTION_URL, CACNA_2027_URL } from "@/lib/site";
 import { networkLlmsSection, type NetworkData } from "@/lib/network";
 import network from "@/lib/network.json";
 
@@ -56,7 +56,8 @@ ${networkLlmsSection(NETWORK, "salvation-center")}
 
 ## More about the family
 - This church's own Superintendent, Pastor Dr. Hezekiah O. Ilufoye, PhD, also serves as CACNA's Baltimore DCC Superintendent.
-- [CACNA Annual Convention](${CAC_CONVENTION_URL}): the yearly national gathering of every CACNA member church.
+- [CACNA 2027 Annual Convention](${SITE_URL}/events/cacna-2027): July 12–17, 2027 at CAC Village, Blue Ridge Summit, PA; theme “Lessons from Israel’s History.” Full programme, fees and registration: ${CACNA_2027_URL}
+- [CACNA calendar](${CAC_CONVENTION_URL}): the yearly national gathering of every CACNA member church, current and upcoming.
 
 ## Upcoming events
 ${upcomingLines || "- See " + SITE_URL + "/events for the current schedule."}

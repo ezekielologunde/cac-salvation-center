@@ -20,6 +20,7 @@ const dayPrograms = [
 ];
 
 function AddToCalendar({ ev, dark = false }: { ev: ChurchEvent; dark?: boolean }) {
+  if (ev.datesTbc) return null;
   const ghost = dark
     ? { color: "var(--cream)", border: "1.5px solid rgba(255,247,239,.28)", background: "rgba(255,247,239,.06)" }
     : { color: "var(--ink)", border: "1.5px solid var(--line)", background: "var(--paper)" };
