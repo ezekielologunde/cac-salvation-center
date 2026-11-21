@@ -224,6 +224,9 @@ export default async function OnlinePage() {
               </Reveal>
             ))}
           </div>
+          <p style={{ textAlign: "center", fontSize: 14.5, color: "rgba(255,255,255,.55)", margin: "28px 0 0" }}>
+            New here? Read our <Link href="/faq" style={{ color: "var(--gold)", fontWeight: 700, textDecoration: "none" }}>frequently asked questions →</Link>
+          </p>
         </div>
       </section>
 

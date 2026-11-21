@@ -24,6 +24,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: "Salvation", desc: "Accept Jesus Christ as Lord and Saviour today", href: "/salvation", tag: "Page", keywords: "salvation born again accept christ jesus gospel sinner forgiveness eternal life" },
   // Visit
   { title: "Visit Us", desc: "Sundays 10:30 AM · 10710 Marriottsville Rd, Randallstown MD", href: "/visit", tag: "Page", keywords: "visit directions sunday service address location randallstown maryland marriottsville" },
+  { title: "FAQ", desc: "Service times, watching online, Yoruba worship, giving, pastors and ministries", href: "/faq", tag: "Page", keywords: "faq questions answers frequently asked help service times parking online yoruba contact" },
   { title: "Venue Hire", desc: "Book our hall & parking for weddings, programs, and events", href: "/venue", tag: "Page", keywords: "venue hire rental hall parking book event wedding program space" },
   // Events & Calendar
   { title: "Calendar", desc: "Weekly, monthly, and annual church calendar", href: "/calendar", tag: "Page", keywords: "calendar schedule services rhythm annual monthly weekly" },

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { Nav } from "@/components/navigation/Nav";
 import { ChurchJsonLd } from "@/components/seo/ChurchJsonLd";
 import { FooterExperience } from "@/components/sections/FooterExperience";
@@ -95,7 +96,7 @@ export default function ContactPage() {
           </Reveal>
           <Reveal delay={160}>
             <p style={{ fontSize: "clamp(16px,1.8vw,19px)", color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 520, margin: "0 auto" }}>
-              Whether you&apos;re visiting for the first time or looking to connect more deeply — fill in the form below and we&apos;ll be in touch.
+              Whether you&apos;re visiting for the first time or looking to connect more deeply — fill in the form below and we&apos;ll be in touch. Looking for a quick answer first? Read our <Link href="/faq" style={{ color: "var(--red)", fontWeight: 700, textDecoration: "none" }}>FAQ</Link>.
             </p>
           </Reveal>
         </div>

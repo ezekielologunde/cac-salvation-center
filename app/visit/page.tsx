@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { Nav } from "@/components/navigation/Nav";
 import { ChurchJsonLd } from "@/components/seo/ChurchJsonLd";
 import { FooterExperience } from "@/components/sections/FooterExperience";
@@ -193,6 +194,7 @@ export default function VisitPage() {
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4vw,52px)", letterSpacing: "-1px", color: "var(--ink)", margin: 0 }}>FAQ</h2>
+            <p style={{ fontSize: 15, color: "var(--ink-soft)", margin: "14px 0 0" }}>More answers on our <Link href="/faq" style={{ color: "var(--red)", fontWeight: 700, textDecoration: "none" }}>full FAQ page →</Link></p>
           </Reveal>
           {faqs.map((faq, i) => (
             <Reveal key={i} delay={i * 50}>
