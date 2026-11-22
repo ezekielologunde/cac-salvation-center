@@ -18,7 +18,7 @@ export function Watchword() {
           <span style={{ width: 26, height: 1, background: "var(--line)" }} aria-hidden />
         </div>
         <div style={{ marginTop: 22 }}>
-          <Link href="/devotional" className="press" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14.5, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
+          <Link href="/devotional" className="press tap" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14.5, fontWeight: 700, color: "var(--red)", textDecoration: "none" }}>
             Read the daily devotional <span aria-hidden style={{ fontSize: 16 }}>→</span>
           </Link>
         </div>

@@ -225,6 +225,12 @@ html.lenis body { height: auto; }
   border-color: rgba(255,255,255,.18) !important;
 }
 
+/* ── Touch targets: 48px minimum (Android and WCAG guidance) ──
+   .tap centres a control's content in a 48px box; .tap-row does the same
+   for a text link that sits in a list, so the rows stay evenly spaced. */
+.tap { min-height: 48px; min-width: 48px; box-sizing: border-box; }
+.tap-row { display: flex; align-items: center; min-height: 48px; }
+
 /* ── Tactile press feedback (pairs with haptics) ── */
 .press {
   touch-action: manipulation; /* removes 300ms tap delay */

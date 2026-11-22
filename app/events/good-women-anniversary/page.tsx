@@ -113,7 +113,7 @@ export default function GoodWomenAnniversaryPage() {
         <div aria-hidden style={{ position: "absolute", top: -120, right: -80, width: 620, height: 480, background: "radial-gradient(circle,rgba(232,163,61,.22),transparent 65%)", pointerEvents: "none", animation: "gradient-drift 16s ease-in-out infinite" }} />
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
           <Reveal>
-            <Link href="/events" style={{ fontSize: 12.5, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none" }}>← All events</Link>
+            <Link href="/events" className="tap" style={{ display: "inline-flex", alignItems: "center", fontSize: 12.5, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none" }}>← All events</Link>
           </Reveal>
           <Reveal delay={60} style={{ marginTop: 18 }}>
             <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>2026 Good Women Anniversary · Baltimore DCC</span>

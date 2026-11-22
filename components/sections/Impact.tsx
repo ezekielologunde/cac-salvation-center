@@ -32,7 +32,7 @@ export function Impact() {
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,46px)", color: "#fff", letterSpacing: "-.5px", marginBottom: 6 }}>
               5:00 AM ET
             </div>
-            <a href="tel:+18572166700" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", color: "#FFD9A8", textDecoration: "none", marginBottom: 18 }}>
+            <a href="tel:+18572166700" className="tap" style={{ display: "block", paddingBlock: 8, fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,3vw,36px)", color: "#FFD9A8", textDecoration: "none", marginBottom: 18 }}>
               (857) 216-6700
             </a>
             <div style={{ fontSize: 14, color: "rgba(255,255,255,.65)", marginBottom: 24 }}>
