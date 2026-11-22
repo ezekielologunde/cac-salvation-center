@@ -1,12 +1,22 @@
 "use client";
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import { useRef, useState, useEffect, useSyncExternalStore } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { useCountdown } from "@/lib/useCountdown";
 import { haptic } from "@/lib/haptics";
+import { canLoadHeroVideo, COARSE_POINTER_QUERY, HERO_VIDEO_WIDTH_QUERY } from "@/lib/heroVideo";
+
+type NetworkInformationLike = { saveData?: boolean; effectiveType?: string };
+
+function subscribeHeroVideoQuery(onChange: () => void) {
+  const queries = [HERO_VIDEO_WIDTH_QUERY, COARSE_POINTER_QUERY].map((q) => window.matchMedia(q));
+  queries.forEach((mq) => mq.addEventListener("change", onChange));
+  return () => queries.forEach((mq) => mq.removeEventListener("change", onChange));
+}
 
 const HERO_T = {
   en: { badge: "SUNDAYS", line1: "Welcome", line2: "Home." },
@@ -62,20 +72,49 @@ export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
-  // Defer the YouTube player until the browser is idle so it never blocks
-  // initial load — the poster image shows instantly, then the video fades in.
-  // Reduced-motion users keep the still poster (no autoplaying video).
-  const [showVideo, setShowVideo] = useState(false);
+  // The self-hosted poster is the LCP element and is all most visitors get.
+  // The YouTube player (~1 MB of third-party JS and media) only loads on a
+  // wide screen without a touch-first pointer, with no reduced motion, no data saver and no
+  // slow connection, and only after window load plus idle, so it never
+  // competes with first paint. It then fades in over the poster.
+  const videoEligible = useSyncExternalStore(
+    subscribeHeroVideoQuery,
+    () => {
+      const conn = (navigator as Navigator & { connection?: NetworkInformationLike }).connection;
+      return canLoadHeroVideo({
+        wideViewport: window.matchMedia(HERO_VIDEO_WIDTH_QUERY).matches,
+        coarsePointer: window.matchMedia(COARSE_POINTER_QUERY).matches,
+        reducedMotion: !!reduce,
+        saveData: conn?.saveData,
+        effectiveType: conn?.effectiveType,
+      });
+    },
+    () => false, // server render: poster only
+  );
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoPaused, setVideoPaused] = useState(false);
   useEffect(() => {
-    if (reduce) return;
-    const start = () => setShowVideo(true);
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(start, { timeout: 2000 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const t = setTimeout(start, 800);
-    return () => clearTimeout(t);
-  }, [reduce]);
+    if (!videoEligible) return;
+
+    let idleId: number | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const start = () => setVideoReady(true);
+    const afterLoad = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(start, { timeout: 2000 });
+      } else {
+        timer = setTimeout(start, 800);
+      }
+    };
+    if (document.readyState === "complete") afterLoad();
+    else window.addEventListener("load", afterLoad, { once: true });
+    return () => {
+      window.removeEventListener("load", afterLoad);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timer !== undefined) clearTimeout(timer);
+    };
+  }, [videoEligible]);
+  const showVideo = videoEligible && videoReady && !videoPaused;
 
   // Bilingual hero greeting (English / Yorùbá). Scoped to the greeting;
   // persists per visit.
@@ -113,11 +152,19 @@ export function Hero() {
         padding: "140px clamp(20px,5vw,64px) 80px",
         overflow: "hidden",
         background: "#0d0a08",
-        backgroundImage: "url(https://img.youtube.com/vi/RX1NjOYtDxo/maxresdefault.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
+      {/* Self-hosted poster: the LCP element, preloaded on the homepage only
+       *  (Hero renders only there). The video, when allowed, covers it. */}
+      <Image
+        src="/images/congregation.jpg"
+        alt=""
+        fill
+        preload
+        sizes="100vw"
+        style={{ objectFit: "cover", objectPosition: "center", zIndex: 0 }}
+      />
+
       {/* YouTube background video — muted autoplay, scroll-linked parallax */}
       <motion.div
         style={{
@@ -341,6 +388,35 @@ export function Hero() {
           </div>
         </Reveal>
       </motion.div>
+
+      {/* Pause/Play for the looping background video (WCAG 2.2.2). Pausing
+       *  removes the player and leaves the still poster. */}
+      {videoEligible && (
+        <button
+          type="button"
+          onClick={() => setVideoPaused((p) => !p)}
+          aria-pressed={videoPaused}
+          className="press"
+          style={{
+            position: "absolute", bottom: 26, right: "clamp(20px,5vw,64px)", zIndex: 3,
+            minWidth: 48, minHeight: 48, padding: "0 16px",
+            display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+            borderRadius: 999, cursor: "pointer",
+            background: videoPaused ? "rgba(255,255,255,.9)" : "rgba(0,0,0,.45)",
+            color: videoPaused ? "var(--ink)" : "#fff",
+            border: "1.5px solid rgba(255,255,255,.5)",
+            fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 700,
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          {videoPaused ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+          )}
+          Pause video
+        </button>
+      )}
 
       {/* Scroll cue */}
       <motion.div

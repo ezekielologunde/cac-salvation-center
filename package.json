@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node scripts/check-network-seo.mjs"
+    "test": "node scripts/check-network-seo.mjs && node scripts/check-hero-video.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
