@@ -248,7 +248,7 @@ export function Hero() {
         <Reveal from="scale">
           <a href="#anniversary-25" className="press" style={{
             display: "inline-flex", alignItems: "center", gap: 10,
-            marginBottom: 14, padding: "8px 18px", borderRadius: 999,
+            marginBottom: 14, padding: "8px 18px", minHeight: 48, borderRadius: 999,
             background: "linear-gradient(100deg,rgba(255,226,166,.22),rgba(232,163,61,.22))",
             border: "1px solid rgba(232,163,61,.7)",
             boxShadow: "0 0 28px rgba(232,163,61,.25)",
@@ -310,7 +310,7 @@ export function Hero() {
               <button
                 key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
                 className="press"
-                style={{ padding: "7px 16px", borderRadius: 999, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "var(--font-body)", background: lang === l ? "#fff" : "transparent", color: lang === l ? "var(--ink)" : "rgba(255,255,255,.8)", transition: "background .2s, color .2s" }}
+                style={{ padding: "0 18px", minHeight: 48, borderRadius: 999, border: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, fontFamily: "var(--font-body)", background: lang === l ? "#fff" : "transparent", color: lang === l ? "var(--ink)" : "rgba(255,255,255,.8)", transition: "background .2s, color .2s" }}
               >
                 {l === "en" ? "English" : "Yorùbá"}
               </button>

@@ -15,9 +15,9 @@ function SubmitButton() {
       aria-label="Subscribe"
       style={{
         flexShrink: 0,
-        width: 40,
-        height: 40,
-        margin: 4,
+        width: 48,
+        height: 48,
+        margin: 2,
         borderRadius: "50%",
         background: pending ? "rgba(214,40,40,.5)" : "linear-gradient(135deg,#F15F22,#D62828)",
         color: "#fff",

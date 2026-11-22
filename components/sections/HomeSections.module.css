@@ -5,7 +5,7 @@
 .heading { margin-bottom: 40px; }
 .resource { height: 100%; gap: 24px; }
 .eventMeta { margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
-.action { min-height: 44px; }
+.action { min-height: 48px; }
 .resource:focus-visible, .action:focus-visible {
   outline: 3px solid var(--red);
   outline-offset: 5px;

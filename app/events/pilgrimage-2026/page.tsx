@@ -60,7 +60,7 @@ export default function PilgrimagePage() {
         <div aria-hidden style={{ position: "absolute", top: -100, right: -80, width: 640, height: 520, background: "radial-gradient(circle,rgba(232,163,61,.3),transparent 65%)", pointerEvents: "none", animation: "gradient-drift 20s ease-in-out infinite" }} />
         <div style={{ maxWidth: 960, margin: "0 auto", position: "relative", zIndex: 2 }}>
           <Reveal>
-            <Link href="/events" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none", marginBottom: 32 }}>
+            <Link href="/events" className="tap" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none", marginBottom: 12 }}>
               <ArrowLeft size={14} strokeWidth={2.5} aria-hidden /> All events
             </Link>
           </Reveal>

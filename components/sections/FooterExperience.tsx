@@ -74,7 +74,7 @@ export function FooterExperience() {
               {socials.map(s => (
                 <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer"
                   aria-label={s.title} onClick={() => haptic('selection')} className="press"
-                  style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(255,247,239,.07)', border: '1px solid rgba(255,247,239,.11)', display: 'grid', placeItems: 'center', textDecoration: 'none', color: 'rgba(255,247,239,.75)', flexShrink: 0 }}>
+                  style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(255,247,239,.07)', border: '1px solid rgba(255,247,239,.11)', display: 'grid', placeItems: 'center', textDecoration: 'none', color: 'rgba(255,247,239,.75)', flexShrink: 0 }}>
                   {s.icon}
                 </a>
               ))}
@@ -84,9 +84,9 @@ export function FooterExperience() {
           {/* Quick links */}
           <div>
             <div style={{ fontWeight: 800, fontSize: 12, textTransform: 'uppercase', letterSpacing: '1.8px', color: 'var(--gold)', marginBottom: 18 }}>Explore</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 20px', fontSize: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 20px', fontSize: 14 }}>
               {quickLinks.map(([href, label]) => (
-                <Link key={href} href={href}
+                <Link key={href} href={href} className="tap-row"
                   style={{ color: 'rgba(255,247,239,.6)', textDecoration: 'none' }}>{label}</Link>
               ))}
             </div>
@@ -101,16 +101,16 @@ export function FooterExperience() {
               <span>Friday · 7:00 PM ET (Yoruba)</span>
               <span>Prayer Line · 5:00 AM daily</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 11, fontSize: 14 }}>
-              <a href="tel:+14432726794" style={{ display: 'flex', alignItems: 'center', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, fontSize: 14 }}>
+              <a href="tel:+14432726794" className="tap" style={{ display: 'flex', alignItems: 'center', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none' }}>
                 <Phone size={14} strokeWidth={2} style={{ flexShrink: 0 }} aria-hidden /> (443) 272-6794
               </a>
-              <a href="mailto:info@cacsalvationcenter.org" style={{ display: 'flex', alignItems: 'center', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none', wordBreak: 'break-word' }}>
+              <a href="mailto:info@cacsalvationcenter.org" className="tap" style={{ display: 'flex', alignItems: 'center', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none', wordBreak: 'break-word' }}>
                 <Mail size={14} strokeWidth={2} style={{ flexShrink: 0 }} aria-hidden /> info@cacsalvationcenter.org
               </a>
-              <a href="https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD" target="_blank" rel="noopener noreferrer"
-                style={{ display: 'flex', alignItems: 'flex-start', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none' }}>
-                <MapPin size={14} strokeWidth={2} style={{ flexShrink: 0, marginTop: 2 }} aria-hidden />
+              <a href="https://maps.google.com/?q=10710+Marriottsville+Rd+Randallstown+MD" target="_blank" rel="noopener noreferrer" className="tap"
+                style={{ display: 'flex', alignItems: 'center', gap: 9, color: 'rgba(255,247,239,.6)', textDecoration: 'none' }}>
+                <MapPin size={14} strokeWidth={2} style={{ flexShrink: 0 }} aria-hidden />
                 10710 Marriottsville Rd,<br />Randallstown, MD 21133
               </a>
             </div>
@@ -135,14 +135,14 @@ export function FooterExperience() {
         {/* Bottom bar */}
         <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '20px 0 28px', fontSize: 12.5, color: 'rgba(255,247,239,.3)' }}>
           <span>© 2026 Christ Apostolic Church Salvation Center · Baltimore DCC · Registered 501(c)(3) nonprofit — donations are tax-deductible</span>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 20px' }}>
-            <a href={CAC_WORLDWIDE_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Worldwide</a>
-            <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC North America</a>
-            <a href={YYAM_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CACNA YYAM (youth)</a>
-            <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Kingdom Embassy</a>
-            <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Palace of Peace</a>
-            <Link href="/ilorin" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Ilorin HQ</Link>
-            <Link href="/salvationcity" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>Salvation City</Link>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0 20px' }}>
+            <a href={CAC_WORLDWIDE_URL} target="_blank" rel="noopener noreferrer" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Worldwide</a>
+            <a href={CACNA_URL} target="_blank" rel="noopener noreferrer" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC North America</a>
+            <a href={YYAM_URL} target="_blank" rel="noopener noreferrer" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CACNA YYAM (youth)</a>
+            <a href="https://cackingdomembassy.org" target="_blank" rel="noopener noreferrer" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Kingdom Embassy</a>
+            <a href="https://cacpalaceofpeace.org" target="_blank" rel="noopener noreferrer" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Palace of Peace</a>
+            <Link href="/ilorin" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>CAC Ilorin HQ</Link>
+            <Link href="/salvationcity" className="tap-row" style={{ color: 'rgba(255,247,239,.3)', textDecoration: 'none' }}>Salvation City</Link>
           </div>
         </div>
       </Reveal>

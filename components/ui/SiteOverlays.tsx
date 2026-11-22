@@ -63,7 +63,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
     // 1a. DB banner announcement — takes priority over CACNA bar
     if (bannerAnn && !localStorage.getItem(`ann-db-${bannerAnn.id}`)) {
       setDbBar(true);
-      document.documentElement.style.setProperty('--bar-h', '44px');
+      document.documentElement.style.setProperty('--bar-h', '48px');
     } else {
       // 1b. Up to 3 upcoming events with a detail page, rotated in the bar.
       // splitByDate drops past events, so the set advances on its own with no
@@ -74,7 +74,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
       if (events.length) {
         setBarEvents(events);
         setBar(true);
-        document.documentElement.style.setProperty('--bar-h', '44px');
+        document.documentElement.style.setProperty('--bar-h', '48px');
       }
     }
 
@@ -138,7 +138,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           role="banner"
           style={{
             position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-            background: bannerAnn.bg_color, height: 44,
+            background: bannerAnn.bg_color, height: 48,
             display: 'flex', alignItems: 'center',
             padding: '0 clamp(16px,4vw,48px)', gap: 12,
           }}
@@ -149,7 +149,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           {bannerAnn.cta_text && bannerAnn.cta_url && (
             <a
               href={bannerAnn.cta_url}
-              style={{ color: bannerAnn.text_color, fontSize: 13, fontWeight: 800, textDecoration: 'underline', whiteSpace: 'nowrap', flexShrink: 0, opacity: 0.9 }}
+              className="tap-row" style={{ color: bannerAnn.text_color, fontSize: 13, fontWeight: 800, textDecoration: 'underline', whiteSpace: 'nowrap', flexShrink: 0, opacity: 0.9 }}
             >
               {bannerAnn.cta_text} →
             </a>
@@ -157,7 +157,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           <button
             onClick={dismissDbBar}
             aria-label="Dismiss announcement"
-            style={{ background: 'none', border: 'none', color: bannerAnn.text_color, cursor: 'pointer', fontSize: 20, lineHeight: 1, padding: '0 0 0 8px', flexShrink: 0, opacity: 0.5 }}
+            style={{ background: 'none', border: 'none', color: bannerAnn.text_color, cursor: 'pointer', fontSize: 24, lineHeight: 1, width: 48, height: 48, padding: 0, flexShrink: 0, opacity: 0.7 }}
           >
             ×
           </button>
@@ -174,7 +174,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           onBlur={() => setBarPaused(false)}
           style={{
             position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-            background: '#1B130E', height: 44,
+            background: '#1B130E', height: 48,
             display: 'flex', alignItems: 'center',
             padding: '0 clamp(16px,4vw,48px)', gap: 12,
           }}
@@ -186,6 +186,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
             </span>
             <Link
               href={currentBarEvent.href!}
+              className="tap-row"
               style={{ color: '#E8A33D', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}
             >
               Learn more →
@@ -194,7 +195,7 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
           <button
             onClick={dismissBar}
             aria-label="Dismiss announcement"
-            style={{ background: 'none', border: 'none', color: 'rgba(255,247,239,.4)', cursor: 'pointer', fontSize: 20, lineHeight: 1, padding: '0 0 0 8px', flexShrink: 0 }}
+            style={{ background: 'none', border: 'none', color: 'rgba(255,247,239,.7)', cursor: 'pointer', fontSize: 24, lineHeight: 1, width: 48, height: 48, padding: 0, flexShrink: 0 }}
           >
             ×
           </button>

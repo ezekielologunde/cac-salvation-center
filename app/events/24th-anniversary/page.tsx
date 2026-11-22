@@ -107,7 +107,7 @@ export default function AnniversaryPage() {
 
         <div style={{ maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 2 }}>
           <Reveal>
-            <Link href="/events" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none", marginBottom: 30 }}>
+            <Link href="/events" className="tap" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: "rgba(255,247,239,.6)", textDecoration: "none", marginBottom: 10 }}>
               <ArrowLeft size={14} strokeWidth={2.5} aria-hidden /> All events
             </Link>
           </Reveal>

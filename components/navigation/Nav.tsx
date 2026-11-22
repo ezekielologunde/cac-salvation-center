@@ -150,12 +150,12 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
         style={{
           position: 'fixed', top: 'var(--bar-h, 0px)', left: 0, right: 0, zIndex: 100,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '13px clamp(20px,5vw,64px)',
+          padding: '10px clamp(20px,5vw,64px)',
           transition: 'background .4s, box-shadow .4s',
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: barInk, flexShrink: 0, transition: 'color .4s' }}>
+        <Link href="/" className="tap" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: barInk, flexShrink: 0, transition: 'color .4s' }}>
           <Image src="/images/logo.png" alt="CAC Salvation Center" width={42} height={42} style={{ borderRadius: 12, objectFit: 'cover', flexShrink: 0 }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontSize: 10, letterSpacing: '2.5px', textTransform: 'uppercase', color: barAccent, fontWeight: 700, transition: 'color .4s' }}>Christ Apostolic Church</span>
@@ -263,7 +263,7 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
 
         {/* Mobile search icon */}
         <button
-          className="nav-hbg"
+          className="nav-hbg tap"
           onClick={() => { haptic('light'); setSearchOpen(true); }}
           aria-label="Search"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, flexDirection: 'row', gap: 0, alignItems: 'center', justifyContent: 'center', transition: 'color .4s' }}
@@ -273,11 +273,11 @@ export function Nav({ dark = false, heroDark = false }: NavProps) {
 
         {/* Hamburger */}
         <button
-          className="nav-hbg"
+          className="nav-hbg tap"
           onClick={() => { haptic('light'); setOpen(o => !o); }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, gap: 5, alignItems: 'center', transition: 'color .4s' }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: barInk, gap: 5, alignItems: 'center', justifyContent: 'center', transition: 'color .4s' }}
         >
           <span style={{ display: 'block', width: 24, height: 2, background: 'currentColor', borderRadius: 2, transition: 'transform .25s', transform: open ? 'translateY(7px) rotate(45deg)' : 'none' }} />
           <span style={{ display: 'block', width: 24, height: 2, background: 'currentColor', borderRadius: 2, transition: 'opacity .25s', opacity: open ? 0 : 1 }} />
