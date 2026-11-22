@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState, useEffect, useSyncExternalStore } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { Magnetic } from "@/components/ui/Magnetic";
@@ -38,7 +38,7 @@ function AnimLetters({ children, delay = 0 }: { children: string; delay?: number
   const reduce = useReducedMotion();
   const chars = Array.from(children);
   return (
-    <motion.span
+    <m.span
       role="img"
       aria-label={children}
       style={{ display: "inline-block" }}
@@ -51,7 +51,7 @@ function AnimLetters({ children, delay = 0 }: { children: string; delay?: number
     >
       {chars.map((char, i) => (
         <span key={i} aria-hidden style={{ display: "inline-flex", overflow: "hidden", verticalAlign: "top" }}>
-          <motion.span
+          <m.span
             variants={
               reduce
                 ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.3 } } }
@@ -60,10 +60,10 @@ function AnimLetters({ children, delay = 0 }: { children: string; delay?: number
             style={{ display: "inline-block" }}
           >
             {char}
-          </motion.span>
+          </m.span>
         </span>
       ))}
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -166,7 +166,7 @@ export function Hero() {
       />
 
       {/* YouTube background video — muted autoplay, scroll-linked parallax */}
-      <motion.div
+      <m.div
         style={{
           position: "absolute", inset: 0, zIndex: 0, overflow: "hidden",
           scale: reduce ? 1 : videoScale,
@@ -191,7 +191,7 @@ export function Hero() {
             }}
           />
         )}
-      </motion.div>
+      </m.div>
 
       {/* Dark shadow overlay + grain vignette */}
       <div style={{
@@ -211,7 +211,7 @@ export function Hero() {
       {!reduce && (
         <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, overflow: "hidden", pointerEvents: "none" }}>
           {BG_WORDS.map(({ w, l, delay, dur, sz, o }) => (
-            <motion.span
+            <m.span
               key={w}
               initial={{ y: "110vh" }}
               animate={{ y: "-110vh" }}
@@ -230,13 +230,13 @@ export function Hero() {
               }}
             >
               {w}
-            </motion.span>
+            </m.span>
           ))}
         </div>
       )}
 
       {/* Content */}
-      <motion.div
+      <m.div
         style={{
           position: "relative", zIndex: 2,
           maxWidth: 860, margin: "0 auto", width: "100%",
@@ -274,7 +274,7 @@ export function Hero() {
           </span>
         </Reveal>
 
-        <motion.h1
+        <m.h1
           animate={reduce ? {} : { y: [0, -10, 0] }}
           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
           style={{
@@ -302,7 +302,7 @@ export function Hero() {
           >
             {t.line2}
           </RevealText>
-        </motion.h1>
+        </m.h1>
 
         <Reveal delay={300} style={{ marginTop: 18 }}>
           <div role="group" aria-label="Greeting language" style={{ display: "inline-flex", gap: 4, padding: 4, borderRadius: 999, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.18)", backdropFilter: "blur(8px)" }}>
@@ -326,16 +326,16 @@ export function Hero() {
           }}>
             <AnimatePresence mode="wait">
               {lang === "en" ? (
-                <motion.span key="sub-en" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                <m.span key="sub-en" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                   Real worship, real community — preaching the whole Gospel in a clear
                   and undiluted manner. It&apos;s more than a greeting.{" "}
                   <strong style={{ color: "#fff" }}>It&apos;s our lifestyle.</strong>
-                </motion.span>
+                </m.span>
               ) : (
-                <motion.span key="sub-yo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                <m.span key="sub-yo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                   Ìjọsìn tòótọ́, ẹbí tòótọ́. Ó ju ìkíni lọ —{" "}
                   <strong style={{ color: "#fff" }}>ìgbé ayé wa ni.</strong>
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
           </p>
@@ -387,7 +387,7 @@ export function Hero() {
             <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 18, letterSpacing: "-.4px", color: "#FFD9A8" }}>{countdown}</span>
           </div>
         </Reveal>
-      </motion.div>
+      </m.div>
 
       {/* Pause/Play for the looping background video (WCAG 2.2.2). Pausing
        *  removes the player and leaves the still poster. */}
@@ -419,21 +419,21 @@ export function Hero() {
       )}
 
       {/* Scroll cue */}
-      <motion.div
+      <m.div
         aria-hidden
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.8 }}
         style={{ position: "absolute", bottom: 26, left: "50%", x: "-50%", zIndex: 2, opacity: reduce ? 1 : undefined }}
       >
-        <motion.div
+        <m.div
           animate={reduce ? undefined : { y: [0, 9, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           style={{ width: 26, height: 42, borderRadius: 999, border: "2px solid rgba(255,255,255,.35)", display: "flex", justifyContent: "center", paddingTop: 7 }}
         >
           <span style={{ width: 4, height: 8, borderRadius: 999, background: "rgba(255,255,255,.8)" }} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </header>
   );
 }

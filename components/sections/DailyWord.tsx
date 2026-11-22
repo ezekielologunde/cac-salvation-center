@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ILORIN_WORDS } from "@/lib/ilorinWords";
 
 // A different blessing from Pastor R.T. Owoseni each day. Seeded with index 0 for SSR
@@ -39,7 +39,7 @@ export function DailyWord() {
           pointerEvents: "none",
         }}
       />
-      <motion.div
+      <m.div
         initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10% 0px" }}
@@ -71,7 +71,7 @@ export function DailyWord() {
         <div style={{ fontSize: 12.5, color: "rgba(238,245,238,.6)", marginTop: 4 }}>
           District Superintendent · A fresh word of blessing every day
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

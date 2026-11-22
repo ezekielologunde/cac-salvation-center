@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, type CSSProperties } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { haptic } from "@/lib/haptics";
 import { cloudinaryLoader } from "@/lib/cloudinary-loader";
@@ -105,7 +105,7 @@ export function Gallery() {
       {/* Lightbox */}
       <AnimatePresence>
         {open !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
@@ -122,7 +122,7 @@ export function Gallery() {
             <button onClick={(e) => { e.stopPropagation(); go(1); }} aria-label="Next photo" className="press" style={navBtn("right")}>
               <ChevronRight size={26} aria-hidden />
             </button>
-            <motion.div
+            <m.div
               key={open}
               initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -131,11 +131,11 @@ export function Gallery() {
               style={{ position: "relative", width: "min(1100px,92vw)", height: "min(82vh,760px)", borderRadius: 16, overflow: "hidden", boxShadow: "0 40px 90px rgba(0,0,0,.6)" }}
             >
               <Image src={photos[open].src} alt={photos[open].alt} fill loader={cloudinaryLoader} sizes="92vw" style={{ objectFit: "contain" }} />
-            </motion.div>
+            </m.div>
             <div style={{ position: "absolute", bottom: 22, left: 0, right: 0, textAlign: "center", color: "rgba(255,255,255,.8)", fontSize: 14, padding: "0 24px" }}>
               {photos[open].alt} · {open + 1} / {photos.length}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

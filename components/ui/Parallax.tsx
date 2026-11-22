@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type CSSProperties, type ReactNode } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { m, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 interface ParallaxProps {
   children: ReactNode;
@@ -34,8 +34,8 @@ export function Parallax({ children, distance = 60, className, style }: Parallax
   }
 
   return (
-    <motion.div ref={ref} className={className} style={{ ...style, y, willChange: "transform" }}>
+    <m.div ref={ref} className={className} style={{ ...style, y, willChange: "transform" }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }

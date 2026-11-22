@@ -2,7 +2,7 @@
 
 import { useCart } from "@/contexts/CartContext";
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { CreditCard, Minus, Plus, Shield, ShoppingBag, Trash2, X } from "lucide-react";
 import { playRemove, playCheckout, playOpen, haptic } from "@/lib/feedback";
 
@@ -105,7 +105,7 @@ export function CartSidebar() {
               Your cart
             </span>
             {itemCount > 0 && (
-              <motion.span
+              <m.span
                 key={itemCount}
                 initial={{ scale: 1.5 }}
                 animate={{ scale: 1 }}
@@ -117,7 +117,7 @@ export function CartSidebar() {
                 }}
               >
                 {itemCount}
-              </motion.span>
+              </m.span>
             )}
           </div>
           <button
@@ -148,7 +148,7 @@ export function CartSidebar() {
                 {items.map((item) => {
                   const key = item.variant ? `${item.id}::${item.variant}` : item.id;
                   return (
-                    <motion.li
+                    <m.li
                       key={key}
                       layout
                       initial={{ opacity: 0, x: 22 }}
@@ -202,7 +202,7 @@ export function CartSidebar() {
                           </div>
                         </div>
                       </div>
-                    </motion.li>
+                    </m.li>
                   );
                 })}
               </AnimatePresence>

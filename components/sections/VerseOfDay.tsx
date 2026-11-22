@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 const VERSES = [
   { text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "Jeremiah 29:11" },
@@ -26,7 +26,7 @@ export function VerseOfDay() {
   }, []);
 
   return (
-    <motion.div
+    <m.div
       initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
@@ -48,6 +48,6 @@ export function VerseOfDay() {
         </p>
         <div style={{ fontSize: 15, fontWeight: 700, color: "#FFD9A8", letterSpacing: ".5px" }}>{verse.ref}</div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

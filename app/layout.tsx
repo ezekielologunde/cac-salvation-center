@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SITE, SITE_URL, websiteJsonLd } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
@@ -101,9 +102,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           // ever break out of the <script> element (JSON-LD hardening).
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()).replace(/</g, "\\u003c") }}
         />
-        <SiteOverlays bannerAnn={bannerAnn} />
-        <ScrollProgress />
-        <SmoothScroll>{children}</SmoothScroll>
+        <MotionProvider>
+          <SiteOverlays bannerAnn={bannerAnn} />
+          <ScrollProgress />
+          <SmoothScroll>{children}</SmoothScroll>
+        </MotionProvider>
         <Analytics />
         <SpeedInsights />
         <GoogleTags />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Check, Sparkles, Send } from "lucide-react";
 import { submitLead, isValidEmail } from "@/lib/forms";
 import { haptic } from "@/lib/haptics";
@@ -64,21 +64,21 @@ export function TestimonyForm() {
 
   if (done) {
     return (
-      <motion.div
+      <m.div
         initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: EASE }}
         style={{ ...card, textAlign: "center" }}
         role="status"
       >
-        <motion.span
+        <m.span
           initial={reduce ? { opacity: 0 } : { scale: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 240, damping: 16, delay: 0.1 }}
           style={{ display: "grid", placeItems: "center", width: 76, height: 76, borderRadius: "50%", background: "linear-gradient(140deg,var(--flame),var(--red))", margin: "0 auto 24px", boxShadow: "0 14px 34px rgba(214,40,40,.36)" }}
         >
           <Check size={36} strokeWidth={2.5} color="#fff" aria-hidden />
-        </motion.span>
+        </m.span>
         <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3vw,32px)", letterSpacing: "-.6px", color: "var(--ink)", margin: "0 0 12px" }}>
           Praise God — thank you!
         </h3>
@@ -88,7 +88,7 @@ export function TestimonyForm() {
         <p style={{ fontSize: 14, color: "var(--ink-soft)", marginTop: 24, fontStyle: "italic" }}>
           &ldquo;They triumphed over him by the blood of the Lamb and by the word of their testimony.&rdquo; — Revelation 12:11
         </p>
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -125,10 +125,10 @@ export function TestimonyForm() {
 
         {submitError && <p role="alert" style={{ fontSize: 14, fontWeight: 600, color: "var(--red)", margin: 0 }}>{submitError}</p>}
 
-        <motion.button type="submit" disabled={loading} className="btn-sheen press-lg" whileTap={reduce ? undefined : { scale: 0.97 }}
+        <m.button type="submit" disabled={loading} className="btn-sheen press-lg" whileTap={reduce ? undefined : { scale: 0.97 }}
           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, background: "var(--red)", color: "#fff", fontWeight: 800, fontSize: 16, fontFamily: "var(--font-body)", border: "none", padding: "18px 28px", borderRadius: 999, cursor: loading ? "wait" : "pointer", opacity: loading ? 0.7 : 1, boxShadow: "0 16px 34px rgba(214,40,40,.4)", width: "100%" }}>
           {loading ? (<><Spinner /> Sending…</>) : (<><Send size={18} strokeWidth={2} aria-hidden /> Share My Testimony</>)}
-        </motion.button>
+        </m.button>
       </div>
     </form>
   );
@@ -139,7 +139,7 @@ const errStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeig
 
 function Spinner() {
   return (
-    <motion.span animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+    <m.span animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
       style={{ width: 18, height: 18, borderRadius: "50%", border: "2.5px solid rgba(255,255,255,.4)", borderTopColor: "#fff", display: "inline-block" }} aria-hidden />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { type CSSProperties } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 
 interface RevealTextProps {
   children: string;
@@ -35,7 +35,7 @@ export function RevealText({ children, className, style, delay = 0, immediate = 
   const reveal = immediate ? "show" : undefined;
 
   return (
-    <motion.span
+    <m.span
       className={className}
       style={{ display: "inline-block", ...style }}
       variants={container}
@@ -49,11 +49,11 @@ export function RevealText({ children, className, style, delay = 0, immediate = 
           aria-hidden
           style={{ display: "inline-flex", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.08em", marginRight: "0.26em" }}
         >
-          <motion.span variants={word} style={{ display: "inline-block" }}>
+          <m.span variants={word} style={{ display: "inline-block" }}>
             {w}
-          </motion.span>
+          </m.span>
         </span>
       ))}
-    </motion.span>
+    </m.span>
   );
 }

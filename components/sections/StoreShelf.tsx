@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Shirt, BookOpen, Music2, Printer, ShoppingBag,
   Star, ExternalLink, Mail, Plus, Check,
@@ -59,7 +59,7 @@ function ProductCard({ p }: { p: StoreProduct }) {
   return (
     <div style={{ position: "relative", height: "100%" }}>
       {/* Card with green ring pulse on add */}
-      <motion.article
+      <m.article
         className="card-lift"
         animate={{
           boxShadow: added
@@ -210,12 +210,12 @@ function ProductCard({ p }: { p: StoreProduct }) {
             </a>
           )}
         </div>
-      </motion.article>
+      </m.article>
 
       {/* Floating +1 badge — floats up out of the card */}
       <AnimatePresence>
         {added && (
-          <motion.div
+          <m.div
             key="badge"
             initial={{ opacity: 1, y: 0, scale: 0.82 }}
             animate={{ opacity: 0, y: -72, scale: 1.08 }}
@@ -239,7 +239,7 @@ function ProductCard({ p }: { p: StoreProduct }) {
             }}
           >
             +1
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -259,7 +259,7 @@ export function StoreShelf() {
 
       {/* Floating cart button — spring-bounces on every count change */}
       {count > 0 && (
-        <motion.button
+        <m.button
           key={count}
           initial={{ scale: 1.32 }}
           animate={{ scale: 1 }}
@@ -278,7 +278,7 @@ export function StoreShelf() {
         >
           <ShoppingBag size={18} strokeWidth={2} aria-hidden />
           Cart · {count}
-        </motion.button>
+        </m.button>
       )}
 
       {/* Category tabs */}

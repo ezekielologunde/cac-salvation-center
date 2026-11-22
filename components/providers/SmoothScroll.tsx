@@ -8,6 +8,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     // Respect users who prefer reduced motion — fall back to native scroll.
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
+    // Smooth scrolling is a mouse-and-wheel nicety. Phones and tablets already scroll smoothly,
+    // so skip the library there and keep native momentum and its per-frame work off the main thread.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const lenis = new Lenis({
       duration: 1.15,

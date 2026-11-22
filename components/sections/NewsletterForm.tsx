@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Mail, ArrowRight, Check, Loader2 } from "lucide-react";
 import { subscribeAction } from "@/app/newsletter/actions";
 
@@ -33,13 +33,13 @@ function SubmitButton() {
       onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
     >
       {pending ? (
-        <motion.span
+        <m.span
           animate={{ rotate: 360 }}
           transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
           style={{ display: "flex" }}
         >
           <Loader2 size={17} strokeWidth={2.5} aria-hidden />
-        </motion.span>
+        </m.span>
       ) : (
         <ArrowRight size={17} strokeWidth={2.5} aria-hidden />
       )}
@@ -54,7 +54,7 @@ export function NewsletterForm() {
     <div>
       <AnimatePresence mode="wait">
         {state?.ok ? (
-          <motion.div
+          <m.div
             key="success"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,9 +79,9 @@ export function NewsletterForm() {
               <Check size={13} strokeWidth={3} aria-hidden />
             </span>
             {state.message}
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.form
+          <m.form
             key="form"
             action={action}
             initial={{ opacity: 0 }}
@@ -143,7 +143,7 @@ export function NewsletterForm() {
 
             <AnimatePresence>
               {state && !state.ok && (
-                <motion.p
+                <m.p
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
@@ -151,14 +151,14 @@ export function NewsletterForm() {
                   style={{ fontSize: 13, color: "#fca5a5", margin: 0, paddingLeft: 4 }}
                 >
                   {state.message}
-                </motion.p>
+                </m.p>
               )}
             </AnimatePresence>
 
             <p style={{ fontSize: 11.5, color: "rgba(255,247,239,.32)", margin: "2px 0 0 4px" }}>
               No spam, ever. Unsubscribe anytime.
             </p>
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>
