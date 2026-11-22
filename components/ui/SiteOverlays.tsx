@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
+import { Heart, Pause, Play } from 'lucide-react';
 import { specialEvents, splitByDate, type ChurchEvent } from '@/lib/events';
 
 const LIVE_URL = 'https://www.youtube.com/channel/UCoogH4HuVXSn4okSpRlsDQA/live';
@@ -21,6 +21,8 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   const [barEvents, setBarEvents] = useState<ChurchEvent[]>([]);
   const [barIndex, setBarIndex] = useState(0);
   const [barPaused, setBarPaused] = useState(false);
+  // The viewer's own choice, kept until they change it (hover and focus only pause for a moment).
+  const [barHeld, setBarHeld] = useState(false);
   const [toast, setToast] = useState(false);
   const [slide, setSlide] = useState(false);
   const [dbBar, setDbBar] = useState(false);
@@ -100,13 +102,13 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
   // Rotate through the events every 6s — paused on hover/focus, and never
   // auto-advances for visitors who prefer reduced motion.
   useEffect(() => {
-    if (barEvents.length < 2 || barPaused) return;
+    if (barEvents.length < 2 || barPaused || barHeld) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = setInterval(() => {
       setBarIndex((i) => (i + 1) % barEvents.length);
     }, 6000);
     return () => clearInterval(id);
-  }, [barEvents.length, barPaused]);
+  }, [barEvents.length, barPaused, barHeld]);
 
   function dismissBar() {
     setBar(false);
@@ -179,7 +181,18 @@ export function SiteOverlays({ bannerAnn }: { bannerAnn?: BannerAnn | null }) {
             padding: '0 clamp(16px,4vw,48px)', gap: 12,
           }}
         >
-          <div aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: '#E8A33D', flexShrink: 0 }} />
+          {barEvents.length > 1 ? (
+            <button
+              type="button"
+              onClick={() => setBarHeld((h) => !h)}
+              aria-label={barHeld ? 'Resume rotating events' : 'Pause rotating events'}
+              style={{ background: 'none', border: 'none', color: '#E8A33D', cursor: 'pointer', width: 48, height: 48, marginLeft: -14, marginRight: -12, padding: 0, flexShrink: 0, display: 'grid', placeItems: 'center' }}
+            >
+              {barHeld ? <Play size={14} fill="currentColor" aria-hidden /> : <Pause size={14} fill="currentColor" aria-hidden />}
+            </button>
+          ) : (
+            <div aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: '#E8A33D', flexShrink: 0 }} />
+          )}
           <div key={currentBarEvent.id} style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0, animation: 'barFade .5s ease' }}>
             <span style={{ color: 'rgba(255,247,239,.9)', fontSize: 13, fontWeight: 600, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {currentBarEvent.navLabel ?? currentBarEvent.title} · {currentBarEvent.dateLabel}

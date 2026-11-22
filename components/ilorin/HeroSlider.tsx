@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 export interface HeroSlide {
   src: string;
@@ -14,6 +14,8 @@ const AUTOPLAY_MS = 5000;
 export function HeroSlider({ photos }: { photos: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  // The viewer's own choice, kept until they change it (hover and taps only pause for a moment).
+  const [userPaused, setUserPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback((i: number) => {
@@ -21,7 +23,7 @@ export function HeroSlider({ photos }: { photos: HeroSlide[] }) {
   }, [photos.length]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || userPaused) return;
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     timerRef.current = setInterval(() => {
       setIndex((i) => (i + 1) % photos.length);
@@ -29,7 +31,7 @@ export function HeroSlider({ photos }: { photos: HeroSlide[] }) {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [paused, photos.length]);
+  }, [paused, userPaused, photos.length]);
 
   function handleManual(i: number) {
     goTo(i);
@@ -98,6 +100,21 @@ export function HeroSlider({ photos }: { photos: HeroSlide[] }) {
         }}
       >
         <ChevronRight size={20} strokeWidth={2.4} />
+      </button>
+
+      {/* Pause / play (WCAG 2.2.2: moving content that runs over 5 seconds needs a control) */}
+      <button
+        type="button"
+        aria-label={userPaused ? "Play photo slideshow" : "Pause photo slideshow"}
+        onClick={() => setUserPaused((p) => !p)}
+        style={{
+          position: "absolute", bottom: 10, right: "clamp(10px,2vw,28px)",
+          width: 48, height: 48, borderRadius: "50%", border: "1px solid rgba(255,255,255,.3)",
+          background: "rgba(6,49,31,.4)", color: "#fff", display: "grid", placeItems: "center",
+          cursor: "pointer", backdropFilter: "blur(4px)",
+        }}
+      >
+        {userPaused ? <Play size={18} fill="currentColor" aria-hidden /> : <Pause size={18} fill="currentColor" aria-hidden />}
       </button>
 
       {/* Dots */}
