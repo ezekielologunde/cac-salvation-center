@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getSermons, getLiveStream, formatSermonDate } from "@/lib/sermons";
 import { Video } from "lucide-react";
 import { SITE, SITE_URL } from "@/lib/site";
+import { YouTubeFacade } from "@/components/ui/YouTubeFacade";
 
 const ZOOM_URL = "https://us02web.zoom.us/j/84635388414?pwd=UlNHRUU4VWdXNjdEMmhsaHZDUXYzdz09";
 
@@ -111,12 +112,10 @@ export default async function OnlinePage() {
         <Reveal>
           <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: 28, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,.5)" }}>
             <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
-              <iframe
-                src={`https://www.youtube.com/embed/${featured?.id ?? "xIZBd9UYIDw"}`}
+              <YouTubeFacade
+                id={featured?.id ?? "xIZBd9UYIDw"}
                 title={featured?.title ?? "CAC Salvation Center — Latest Service"}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+                live={!!live}
               />
             </div>
             <div style={{ background: "#161B22", padding: "20px 28px", display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
