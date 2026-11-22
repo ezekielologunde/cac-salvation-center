@@ -3,6 +3,7 @@ import { FooterExperience } from "@/components/sections/FooterExperience";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, CalendarDays, Users, Heart, ArrowLeft, Sparkles, Ticket } from "lucide-react";
 import { specialEvents, isEventPast } from "@/lib/events";
 import { SITE, SITE_URL, CACNA_URL, CACNA_2027_URL, CACNA_2027_REGISTER_URL, breadcrumbJsonLd } from "@/lib/site";
@@ -118,6 +119,41 @@ export default function CACNA2027Page() {
           </Reveal>
           )}
         </div>
+      </section>
+
+      {/* Official flyer */}
+      <section style={{ width: "100%", background: "var(--paper)", padding: "clamp(48px,6vw,80px) clamp(20px,5vw,64px) 0" }}>
+        <Reveal>
+          <div style={{ width: "100%", maxWidth: 1040, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))", gap: "clamp(24px,4vw,40px)", alignItems: "start" }}>
+            {[
+              {
+                src: "/images/cacna-2027-flyer-leadership.jpg",
+                alt: "CACNA 2027 Annual Convention flyer with the convention leadership. Theme: Lessons from Israel's History. July 12 to 17, 2027 at CAC Village, 14051 Stahley Road, Blue Ridge Summit, PA 17214.",
+                caption: "The 2027 convention and its leadership.",
+              },
+              {
+                src: "/images/cacna-2027-flyer-programme.jpg",
+                alt: "CACNA 2027 Annual Convention programme and registration flyer. Adults, young adults and children registration rates, the daily programme from Monday July 12 to Saturday July 17, 2027, and contacts for further information.",
+                caption: "Programme, registration rates and contacts.",
+              },
+            ].map((f, i) => (
+              <figure key={f.src} style={{ margin: 0 }}>
+                <a href={CACNA_2027_URL} target="_blank" rel="noopener noreferrer" style={{ display: "block", borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 60px rgba(27,19,14,.22)" }}>
+                  <Image
+                    src={f.src}
+                    alt={f.alt}
+                    width={1122}
+                    height={1402}
+                    sizes="(max-width: 780px) 92vw, 500px"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    priority={i === 0}
+                  />
+                </a>
+                <figcaption style={{ marginTop: 14, textAlign: "center", fontSize: 13, color: "var(--ink-soft)" }}>{f.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       {/* About */}
