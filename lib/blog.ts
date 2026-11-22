@@ -1172,6 +1172,52 @@ export const POSTS: BlogPost[] = [
       "A prayer to carry through the week: _Lord, help me to appreciate Your goodness and provision in my life. Father, I trust in Your sovereignty and goodness even when I do not understand Your ways. Guide me in leadership and help me to empower others, fostering unity. Protect me from the consequences of my own complaining and grumbling, and help me trust in You instead. And help me grow spiritually and live a life that reflects Your love and character._ **Even in challenging times, God will provide — so give Him thanks before you give Him your complaint.**",
     ],
   },
+  {
+    slug: "israels-fear-and-rebellion",
+    title: "Israel's Fear and Rebellion",
+    excerpt:
+      "Study 36 of the CAC Unified Bible Study Manual, on Numbers 14 — how fear turned into rebellion at the edge of the Promised Land, and what Caleb's different spirit teaches us.",
+    date: "November 1, 2026",
+    dateIso: "2026-11-01",
+    category: "Reflection",
+    categoryColor: "#9E1B1B",
+    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
+    readTime: "4 min read",
+    body: [
+      '_"The fear of man bringeth a snare: but whoso putteth his trust in the LORD shall be safe."_ — Proverbs 29:25',
+      "Numbers 14 is a key moment in Israel's journey. The people had a choice between faith and fear, and after seeing God's power, they gave in to fear. Study 36 of the Unified Bible Study Manual points out that their reaction was not just emotion. **It showed that they were resisting God deep down.** The chapter also shows the value of courage and full trust in God, like Caleb had (Numbers 14:24).",
+      "**The key events.** The people reacted with mourning and murmuring, and wanted to return to Egypt (vv. 1–4). Caleb and Joshua answered with bold trust in God's promise (vv. 6–9). The crowd rejected their faith-filled leadership and nearly turned to violence (v. 10). God judged the people's lack of trust and withheld the promise from that generation (vv. 22–23), while Caleb was honoured for his distinctive and devoted faith (v. 24). Then Israel acted presumptuously, going ahead without God's presence, and was defeated (vv. 44–45).",
+      "**Fear and its result.** The people let fear take over and completely forgot how God had helped them before. Despite all the miracles they had seen (v. 1; Psalm 106:7–13), they started complaining, wishing for the old life in Egypt, even though that life was full of pain (vv. 3–4; Exodus 16:2–3). They lost confidence in their leaders and ignored the direction God had clearly given through Moses (v. 4). Fear did not just make them anxious. It pushed them toward bad decisions and rebellion. Proverbs 29:25 reminds us that fear of people traps us, but trusting God keeps us secure. Israel learnt this the hard way.",
+      "**Rebellion and its consequences.** Their fear did not stay quiet. It turned into rebellion. God saw their refusal to trust Him as a serious offence (v. 11). Because of their unbelief, that whole generation was told they would not enter the promised land. They missed out on what could have been theirs (Hebrews 3:18–19).",
+      "**Caleb was different.** He trusted God fully and did not let fear stop him. Because of that, God promised him a special inheritance (v. 24). Later the people tried to go ahead without God's instruction. It looked like obedience, but it was too late, and they were defeated (vv. 44–45). The Bible shows that rebellion is serious. It is compared to witchcraft, and stubbornness to idolatry. It is not just bad behaviour. It is a heart problem (1 Samuel 15:23).",
+      "**Questions for reflection.** What fears are keeping you from full obedience today? Are you relying on God's past faithfulness or focusing on present challenges? Do your words feed courage or encourage doubt in those around you? What is your response when God says \"wait\" or redirects you? What does cultivating a \"different spirit\" look like in your personal walk?",
+      "**Application.** We need faith that stands strong even when others panic or choose fear. Caleb and Joshua held on to what God said, not what the crowd felt (vv. 6–9; 2 Timothy 1:7). Real obedience means following God when He leads: not just doing the right thing, but doing it at the right time and in the right way (Proverbs 3:5–6). Caleb's \"different spirit\" reminds us not to settle or follow the crowd. Trusting God completely means walking a different path from those who complain and hold back (v. 24). What we say matters. The ten spies discouraged the whole nation, while Joshua and Caleb tried to lift their hearts. Our words can either build trust in God or stir up fear (Proverbs 18:21).",
+      "A prayer to carry through the week: _Lord, help me to trust You more deeply when fear clouds my judgement. Give me a heart like Caleb, willing to stand strong when others shrink back, O Lord. O Lord, teach me to follow Your lead with patience, wisdom, and unwavering faith._",
+    ],
+  },
+  {
+    slug: "offerings-ordinance-and-korahs-rebellion",
+    title: "Offerings' Ordinance in Canaan and Korah's Rebellion",
+    excerpt:
+      "Study 37 of the CAC Unified Bible Study Manual, on Numbers 15–16 — what God asked of Israel's worship in Canaan, and why Korah's challenge to Moses and Aaron ended in judgement.",
+    date: "November 1, 2026",
+    dateIso: "2026-11-01",
+    category: "Reflection",
+    categoryColor: "#9E1B1B",
+    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
+    readTime: "5 min read",
+    body: [
+      '_"Rebellion is as the sin of witchcraft, and stubbornness is as iniquity and idolatry."_ — 1 Samuel 15:23',
+      "Numbers 15 reaffirms the offerings' ordinance that God prescribed for the Israelites when they would enter the land of Canaan. Numbers 16 records Korah's rebellion, where he, a Levite, challenged the authority of Moses and Aaron. Study 37 of the Unified Bible Study Manual notes that the rebellion led to severe consequences, **not only for Korah and his followers but also for the entire Israelite community.** We explore what Korah's rebellion teaches us today and how we can apply its lessons to our lives.",
+      "**Clarifications.** The Ordinance of Offerings: when the Israelites entered Canaan, God specified the offerings they must present to Him, including how and when they should be offered. Korah's Rebellion: Korah, along with Dathan, Abiram, and 250 prominent men, opposed the leadership of Moses and Aaron, accusing them of taking too much power. Rebellion is an act of defiance against authority, rules, or expectations. It often arises from a desire for change, autonomy, or recognition (1 Samuel 15:23). The consequences: Korah, Dathan, Abiram, and their families were swallowed by the earth, and fire consumed the 250 men (Numbers 16:23–35).",
+      "**The ordinance of offerings in Canaan.** Burnt offerings and freewill offerings are to be presented as a pleasing aroma to God. The grain offering is a tenth of an ephah of fine flour mixed with olive oil (15:4), and the drink offering is a third of a hin of wine (15:7). Special vow offerings, such as a young bullock for a burnt or fellowship offering, must be accompanied by a grain offering (15:8). Native-born Israelites and foreigners must offer the same (15:14–16). A heave offering is a portion of the first ground meal from the threshing floor (15:18–21). There is atonement for unintentional sin (15:22–29), but wilful sin, such as deliberately breaking the Sabbath, was punished (15:30–36). Tassels on garments were a reminder to keep God's commandments (15:37–41).",
+      "**Korah's rebellion.** Korah, Dathan, Abiram, and 250 prominent Israelites accused Moses and Aaron of overstepping their authority and not recognising the holiness of the entire congregation (16:1–3). Moses, in humility, called for God's judgement on their rebellion (16:4–19). The rebellion was likely driven by Korah's desire for power and recognition (16:1–3). The consequences were severe. The earth swallowed the leaders and their families, and fire consumed the 250 men (16:23–35).",
+      "**Questions for reflection.** How can you show gratitude to God for His blessings, including daily provisions and Jesus' sacrifice? What does the New Testament teach us about worship and sacrifice, now that we do not follow Old Testament rituals? How can you offer yourself as a living sacrifice, holy and pleasing to God (Romans 12:1–2)? How can you guard against desires for power, like Korah's rebellion, to avoid conflict with leaders or authority? What should your attitude be when working under a leader you feel is ungodly, and how can you support godly leaders instead of criticising them?",
+      "**Application.** Give thanks to God for His provision, trust in His guidance, and commit to following His will (1 Thessalonians 5:18). Obey God's commands, respecting the authority He has placed over you and staying humble before Him (Hebrews 13:17; James 4:10). Guard against selfish ambition and focus on God's instructions for a life of obedience (Proverbs 3:5–6; Philippians 2:3–4). The offerings in Numbers 15 remind us of the importance of worship, honour, and trusting in God's provision. Jesus' sacrifice is symbolised in the drink and burnt offerings (Matthew 26:28), while the peace offering shows the intimacy God desires with His people (Leviticus 7:11–15). Christ is the atonement for all sin, and the Sabbath remains a holy day of rest and worship (Matthew 12:8; Hebrews 4:9–10). Rebellion is not tolerated by God, and its consequences are severe (Numbers 16:31–33). Leadership is ordained by God, and we must show respect, love, and obedience to those in authority (Romans 13:1–2).",
+      "**In conclusion,** Numbers 15–16 highlight the importance of gratitude, sacrifice, humility, and obedience. We must trust in God's provision, submit to His authority, and recognise His sovereignty in every part of our lives (Colossians 3:17).",
+      "A prayer to carry through the week: _Lord, help me to stay humble and recognise the authority You have placed in my life. Protect me, Lord, from selfish ambitions and help me to focus on Your will. O Lord, give me the strength and courage to follow Your guidance, even when it is tough. Lord, help me to remain faithful and loyal to You, and respect the leaders You have set before me._",
+    ],
+  },
 ];
 
 export function getPost(slug: string): BlogPost | undefined {
