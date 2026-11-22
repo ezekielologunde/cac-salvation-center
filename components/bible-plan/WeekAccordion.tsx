@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { BibleReadingWeek } from "@/lib/biblePlan";
 
@@ -89,18 +89,18 @@ export function WeekAccordion({ weeks, fridayReflection }: WeekAccordionProps) {
               >
                 {w.theme}
               </span>
-              <motion.span
+              <m.span
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.25 }}
                 style={{ flexShrink: 0, color: "var(--ink-soft)", display: "flex" }}
               >
                 <ChevronDown size={18} />
-              </motion.span>
+              </m.span>
             </button>
 
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
@@ -133,7 +133,7 @@ export function WeekAccordion({ weeks, fridayReflection }: WeekAccordionProps) {
                       <span style={{ fontSize: 13.5, color: "var(--ink-soft)", lineHeight: 1.6, fontStyle: "italic" }}>{fridayReflection}</span>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </article>

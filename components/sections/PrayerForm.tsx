@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Check, Lock, PhoneCall, Send } from "lucide-react";
 import { submitLead, isValidEmail } from "@/lib/forms";
 import { haptic } from "@/lib/haptics";
@@ -66,21 +66,21 @@ export function PrayerForm() {
 
   if (done) {
     return (
-      <motion.div
+      <m.div
         initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: EASE }}
         style={{ ...cardStyle, textAlign: "center" }}
         role="status"
       >
-        <motion.span
+        <m.span
           initial={reduce ? { opacity: 0 } : { scale: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 240, damping: 16, delay: 0.1 }}
           style={{ display: "grid", placeItems: "center", width: 76, height: 76, borderRadius: "50%", background: "linear-gradient(140deg,var(--flame),var(--red))", margin: "0 auto 24px", boxShadow: "0 14px 34px rgba(214,40,40,.36)" }}
         >
           <Check size={36} strokeWidth={2.5} color="#fff" aria-hidden />
-        </motion.span>
+        </m.span>
         <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3vw,32px)", letterSpacing: "-.6px", color: "var(--ink)", margin: "0 0 12px" }}>
           We&apos;re praying with you.
         </h3>
@@ -91,7 +91,7 @@ export function PrayerForm() {
         <p style={{ fontSize: 14, color: "var(--ink-soft)", marginTop: 24, fontStyle: "italic" }}>
           &ldquo;Cast all your anxiety on Him because He cares for you.&rdquo; — 1 Peter 5:7
         </p>
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -140,7 +140,7 @@ export function PrayerForm() {
         {submitError && <p role="alert" style={{ fontSize: 14, fontWeight: 600, color: "var(--red)", margin: 0 }}>{submitError}</p>}
 
         {/* Submit */}
-        <motion.button
+        <m.button
           type="submit" disabled={loading}
           className="btn-sheen press-lg"
           whileTap={reduce ? undefined : { scale: 0.97 }}
@@ -161,7 +161,7 @@ export function PrayerForm() {
               <Send size={18} strokeWidth={2} aria-hidden /> Send Prayer Request
             </>
           )}
-        </motion.button>
+        </m.button>
         <p style={{ fontSize: 12.5, color: "var(--ink-soft)", textAlign: "center", margin: 0 }}>
           Held in confidence by our pastoral team. We&apos;ll only reach out if you ask us to.
         </p>
@@ -215,7 +215,7 @@ function Toggle({ active, onToggle, icon, children }: { active: boolean; onToggl
 
 function Spinner() {
   return (
-    <motion.span
+    <m.span
       animate={{ rotate: 360 }}
       transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
       style={{ width: 18, height: 18, borderRadius: "50%", border: "2.5px solid rgba(255,255,255,.4)", borderTopColor: "#fff", display: "inline-block" }}

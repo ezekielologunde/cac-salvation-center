@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, type CSSProperties } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 type Direction = "up" | "down" | "left" | "right" | "scale";
 
@@ -34,7 +34,7 @@ export function Reveal({ children, delay = 0, from = "up", className, style, imm
   const shown = { opacity: 1, x: 0, y: 0, scale: 1 };
 
   return (
-    <motion.div
+    <m.div
       className={className}
       style={style}
       initial={hidden}
@@ -48,6 +48,6 @@ export function Reveal({ children, delay = 0, from = "up", className, style, imm
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

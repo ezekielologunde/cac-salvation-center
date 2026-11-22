@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 interface MagneticProps {
   children: ReactNode;
@@ -38,7 +38,7 @@ export function Magnetic({ children, strength = 0.3, className, style }: Magneti
   }
 
   return (
-    <motion.span
+    <m.span
       ref={ref}
       className={className}
       style={{ display: "inline-flex", ...style }}
@@ -48,6 +48,6 @@ export function Magnetic({ children, strength = 0.3, className, style }: Magneti
       onMouseLeave={() => setPos({ x: 0, y: 0 })}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }

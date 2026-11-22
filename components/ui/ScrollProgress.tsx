@@ -1,13 +1,13 @@
 "use client";
 
-import { useScroll, useSpring, motion } from "framer-motion";
+import { useScroll, useSpring, m } from "framer-motion";
 
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 220, damping: 32, restDelta: 0.001 });
 
   return (
-    <motion.div
+    <m.div
       aria-hidden
       style={{
         scaleX,
