@@ -182,6 +182,34 @@ export default async function OnlinePage() {
         </div>
       </section>
 
+      {/* Messages from Ilorin — Pastor R.T. Owoseni's Spotify show (newest episodes first) */}
+      <section id="ilorin-messages" style={{ padding: "20px clamp(20px,5vw,64px) 60px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal style={{ textAlign: "center", marginBottom: 28 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "var(--gold)" }}>From our Ilorin headquarters</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-1px", color: "#fff", margin: "12px 0 0" }}>Messages from Ilorin.</h2>
+            <p style={{ fontSize: 16, color: "rgba(255,255,255,.6)", maxWidth: 520, margin: "14px auto 0", lineHeight: 1.6 }}>
+              Sermons and Bible teaching from Pastor R.T. Owoseni at CAC Salvation Centre, Ilorin, Nigeria.
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <iframe
+              style={{ borderRadius: 14, border: "none", display: "block" }}
+              src="https://open.spotify.com/embed/show/2VBBGHUo6nMITGmGGrEUoM"
+              width="100%" height="352"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Pastor R.T. Owoseni's sermons on Spotify"
+            />
+          </Reveal>
+          <Reveal style={{ textAlign: "center", marginTop: 20 }}>
+            <Link href="/ilorin#podcast" style={{ display: "inline-flex", alignItems: "center", minHeight: 48, fontSize: 14, fontWeight: 700, color: "var(--gold)", textDecoration: "none" }}>
+              Start with a series on the Ilorin page →
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Platforms */}
       <section style={{ padding: "20px clamp(20px,5vw,64px) 60px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>

@@ -17,6 +17,25 @@ export interface BlogPost {
 
 export const POSTS: BlogPost[] = [
   {
+    slug: "messages-from-ilorin-on-spotify",
+    title: "Messages from Ilorin Are Now on Spotify",
+    excerpt:
+      "Pastor R.T. Owoseni's sermons and Bible teaching from CAC Salvation Centre, Ilorin are free to stream on Spotify. Press play on our Watch Online page and listen wherever you are.",
+    date: "November 25, 2026",
+    dateIso: "2026-11-25",
+    category: "Ministry Update",
+    categoryColor: "#D62828",
+    accent: "linear-gradient(135deg,#9E1B1B,#D62828)",
+    readTime: "1 min read",
+    featured: true,
+    href: "/online#ilorin-messages",
+    body: [
+      "Our family in Ilorin, Nigeria has a podcast. **Sermons and Bible Teaching** carries the messages of Pastor R.T. Owoseni from the Christ Apostolic Church Salvation Centre, the District Headquarters in Ilorin. There are well over a hundred episodes, and new ones appear as they are published.",
+      "You can listen right on our Watch Online page, where the player always shows the newest messages first. If you are not sure where to begin, start with the series on God's favor, on God as our Defender, or on His mercy. Each one opens at its first episode.",
+      "Pastor Owoseni's podcast is a different show from our own Hope for Today. Both are free, so subscribe to both and keep God's Word with you through the week.",
+    ],
+  },
+  {
     slug: "good-women-anniversary-2026",
     title: '2026 Good Women Anniversary — "Who Are You?"',
     excerpt:
