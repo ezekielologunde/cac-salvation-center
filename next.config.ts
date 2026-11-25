@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
       "img-src 'self' data: blob: https://img.youtube.com https://res.cloudinary.com https://*.cdninstagram.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://unpkg.com https://tile.openstreetmap.org",
       "font-src 'self' https://unpkg.com",
       "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://www.google.com https://vitals.vercel-insights.com https://tile.openstreetmap.org",
-      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://maps.google.com https://www.google.com",
+      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://maps.google.com https://www.google.com https://open.spotify.com",
       "object-src 'none'",
       "base-uri 'self'",
     ].join("; ");

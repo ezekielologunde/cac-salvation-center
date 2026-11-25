@@ -6,6 +6,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import { YoutubeIcon, FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/SocialIcons";
 import { DailyWord } from "@/components/sections/DailyWord";
 import { HeroSlider } from "@/components/ilorin/HeroSlider";
+import { PodcastSection } from "@/components/ilorin/PodcastSection";
 import { IlorinHeader, IlorinFooter } from "@/components/ilorin/IlorinChrome";
 import { MapPin, Mail, Navigation, Podcast, ArrowUpRight, Music, Clock, BookOpen, Headphones } from "lucide-react";
 import { ILORIN_URL } from "@/lib/site";
@@ -328,6 +329,9 @@ export default function IlorinPage() {
           </div>
         </section>
       </div>
+
+      {/* Podcast — Spotify player (always the newest episodes) + hand-picked series */}
+      <PodcastSection />
 
       {/* Life at the Centre */}
       <section style={{ background: c.cream2, padding: "clamp(56px,7vw,100px) clamp(20px,5vw,64px)" }}>
